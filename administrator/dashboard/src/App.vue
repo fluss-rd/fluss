@@ -11,8 +11,8 @@
 
 html,
 body {
-  font-size: 16px; // Value used to calculate rem unit
-  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  font-family: "Nunito", sans-serif;
 }
 
 #app {
