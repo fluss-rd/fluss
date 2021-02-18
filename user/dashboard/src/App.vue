@@ -1,7 +1,9 @@
 <template>
   <v-app>
     <div id="app">
-      <router-view />
+      <Layout>
+        <router-view />
+      </Layout>
     </div>
   </v-app>
 </template>
@@ -17,3 +19,12 @@ body {
   font-family: "Nunito", sans-serif;
 }
 </style>
+
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+import Layout from "./components/Layout/Layout.vue";
+
+@Component({ components: { Layout } })
+export default class App extends Vue {
+}
+</script>

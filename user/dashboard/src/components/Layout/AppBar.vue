@@ -9,14 +9,13 @@
         scroll-target="#scrolling-techniques-7"
         class=""
       >
-      <div class="logo">
-        <v-avatar :tile="true" size="35" class="avatar">
-          <img :src="require('../assets/images/logo.png')" alt="logo" />
-        </v-avatar>
+        <div class="logo">
+          <v-avatar :tile="true" size="35" class="avatar">
+            <img :src="require('../../assets/images/logo.png')" alt="logo" />
+          </v-avatar>
 
-        <v-toolbar-title class="primary--text text-h5">fluss</v-toolbar-title>
-      </div>
-
+          <v-toolbar-title class="primary--text text-h5">fluss</v-toolbar-title>
+        </div>
 
         <v-btn elevation="0" outlined color="secondary" class="app-btn">
           Datos y reportes
@@ -37,16 +36,16 @@
 .avatar {
   margin-right: 1em;
 }
- .v-btn{
-    border-radius:10px!important;
- }
- .app-btn {
-    margin-left: 1em;
- }
- .logo {
-   display: flex;
-   flex-direction: row;
-   align-items: center;
-   cursor: pointer;
- }
+.v-btn {
+  border-radius: 10px !important;
+}
+.app-btn {
+  margin-left: 1em;
+}
+.logo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+}
 </style>
