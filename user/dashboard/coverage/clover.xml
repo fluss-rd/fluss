@@ -1,10 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1613485726058" clover="3.2.0">
-  <project timestamp="1613485726058" name="All files">
-    <metrics statements="16" coveredstatements="16" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1" elements="17" coveredelements="17" complexity="0" loc="16" ncloc="16" packages="3" files="3" classes="3"/>
-    <package name="router">
+<coverage generated="1613685158105" clover="3.2.0">
+  <project timestamp="1613685158106" name="All files">
+    <metrics statements="21" coveredstatements="21" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1" elements="22" coveredelements="22" complexity="0" loc="21" ncloc="21" packages="4" files="4" classes="4"/>
+    <package name="src">
+      <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="App.vue" path="/home/mikhael1729/Documents/code/web/fluss/user/dashboard/src/App.vue">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components.Layout">
+      <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="Layout.vue" path="/home/mikhael1729/Documents/code/web/fluss/user/dashboard/src/components/Layout/Layout.vue">
+        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.router">
       <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="index.ts" path="/home/maria/repository/fluss/user/dashboard/src/router/index.ts">
+      <file name="index.ts" path="/home/mikhael1729/Documents/code/web/fluss/user/dashboard/src/router/index.ts">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -15,9 +34,9 @@
         <line num="21" count="1" type="stmt"/>
       </file>
     </package>
-    <package name="store">
+    <package name="src.store">
       <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-      <file name="index.ts" path="/home/maria/repository/fluss/user/dashboard/src/store/index.ts">
+      <file name="index.ts" path="/home/mikhael1729/Documents/code/web/fluss/user/dashboard/src/store/index.ts">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -26,14 +45,6 @@
         <line num="9" count="1" type="stmt"/>
         <line num="10" count="1" type="stmt"/>
         <line num="12" count="1" type="stmt"/>
-      </file>
-    </package>
-    <package name="views">
-      <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="Home.vue" path="/home/maria/repository/fluss/user/dashboard/src/views/Home.vue">
-        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="8" count="2" type="stmt"/>
-        <line num="12" count="4" type="stmt"/>
       </file>
     </package>
   </project>
