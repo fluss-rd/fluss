@@ -1,13 +1,8 @@
 import React, { FC } from "react";
-import router from "next/router";
+import { Typography } from "@material-ui/core";
 
 const Another: FC = () => {
-  return (
-    <>
-      <h1>Another</h1>
-      <button onClick={() => router.push("/")}>To Home</button>
-    </>
-  );
+  return <Typography variant="h4">Another</Typography>;
 };
 
 export default Another;
