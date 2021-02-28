@@ -11,4 +11,3 @@ const Another: FC = () => {
 };
 
 export default Another;
-
