@@ -8,9 +8,8 @@ export default function Home() {
         <title>Home</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h1>Hello, world!</h1>
+      <h1>Hello, world : D!</h1>
       <button onClick={() => router.push("/another")}>Click me</button>
     </div>
   );
 }
-
