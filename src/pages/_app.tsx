@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import Layout from "../layouts";
+import { initialState, StateContext } from "../store/state";
 
 function MyApp({ Component, pageProps }) {
   useEffect(removeServerSideInjectedCss, []);
@@ -11,9 +12,11 @@ function MyApp({ Component, pageProps }) {
     }
   }
   return (
-    <Layout>
-      <Component {...pageProps} />;
-    </Layout>
+    <StateContext.Provider value={initialState}>
+      <Layout>
+        <Component {...pageProps} />;
+      </Layout>
+    </StateContext.Provider>
   );
 }
 
