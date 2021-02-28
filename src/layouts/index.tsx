@@ -1,14 +1,14 @@
-import React, { FC, useState } from "react";
+import { Container, CssBaseline } from "@material-ui/core";
+import { ThemeProvider } from "@material-ui/styles";
+import React, { FC } from "react";
+import theme from "../styles/theme";
 
 const Layout: FC = ({ children }) => {
-  const [count, setCount] = useState(0);
-
   return (
-    <div>
-      <h1>Layout: {count}</h1>
-      <button onClick={() => setCount(count + 1)}>Increment</button>
-      <div>{children}</div>
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Container maxWidth="lg">{children}</Container>
+    </ThemeProvider>
   );
 };
 
