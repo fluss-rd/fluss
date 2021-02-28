@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import Layout from "../layouts";
 import { initialState, StateContext } from "../store/state";
+import "@fontsource/nunito";
 
 function MyApp({ Component, pageProps }) {
   useEffect(removeServerSideInjectedCss, []);
