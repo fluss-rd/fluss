@@ -1,11 +1,15 @@
 import { FC } from "react";
 import { connect, StoreProps } from "../store";
+import { Button, Typography } from "@material-ui/core";
 
 const Home: FC<StoreProps> = ({ store }) => {
   return (
     <>
-      <h1>Hello, world : D!</h1>
-      <button onClick={() => store.counter++}>{store.counter}</button>
+      <Typography variant="h4">Hello, world : D!</Typography>
+      <br />
+      <Button variant="outlined" color="secondary" onClick={() => store.counter++}>
+        {store.counter}
+      </Button>
     </>
   );
 };

@@ -15,7 +15,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <StateContext.Provider value={initialState}>
       <Layout>
-        <Component {...pageProps} />;
+        <Component {...pageProps} />
       </Layout>
     </StateContext.Provider>
   );
