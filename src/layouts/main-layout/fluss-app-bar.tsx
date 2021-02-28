@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import { AppBar as Navbar, Toolbar, Typography, Button, Divider } from "@material-ui/core";
 import router from "next/router";
+import Image from "next/image";
 
 interface FlussAppBarProps {}
 
@@ -13,7 +14,9 @@ const FlussAppBar: FC<FlussAppBarProps> = () => {
     <Navbar position="fixed" color="transparent" elevation={0}>
       <Toolbar>
         <Button className={classes.brand} onClick={push("/")}>
-          <img src="/images/logo.png" alt="Logo" className={classes.logo} />
+          <div className={classes.logo}>
+            <Image src="/images/logo.png" alt="Logo" width={35} height={35} />
+          </div>
           <Typography className={classes.title} variant="h6" noWrap>
             fluss
           </Typography>
@@ -53,7 +56,8 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: 0,
     },
     logo: {
-      width: 35,
+      display: "flex",
+      alignItems: "center",
       marginRight: theme.spacing(2),
     },
     title: {
