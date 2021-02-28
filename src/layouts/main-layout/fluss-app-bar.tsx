@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
-import { AppBar as Navbar, Toolbar, IconButton, Typography, Button } from "@material-ui/core";
-import MenuIcon from "@material-ui/icons/Menu";
+import { AppBar as Navbar, Toolbar, Typography, Button, Divider } from "@material-ui/core";
 
 interface FlussAppBarProps {}
 
@@ -11,37 +10,57 @@ const FlussAppBar: FC<FlussAppBarProps> = () => {
   return (
     <Navbar position="fixed" color="transparent" elevation={0}>
       <Toolbar>
-        <IconButton
-          edge="start"
-          className={classes.menuButton}
-          color="inherit"
-          aria-label="open drawer"
-        >
-          <MenuIcon />
-        </IconButton>
-        <Typography className={classes.title} variant="h6" noWrap>
-          Aplicación
-        </Typography>
+        <div className={classes.brand}>
+          <img src="/images/logo.png" alt="Logo" className={classes.logo} />
+          <Typography className={classes.title} variant="h6" noWrap>
+            fluss
+          </Typography>
+        </div>
+        <div className={classes.startButtons}>
+          <Button color="primary" variant="outlined" className={classes.reportsButton}>
+            Datos y reportes
+          </Button>
+        </div>
         <div className={classes.endButtons}>
-          <Button color="inherit">Página 1</Button>
+          <Button color="inherit">Inicio</Button>
+          <Button color="inherit">Reportes recientes</Button>
+          <Button color="inherit">¿Quiénes somos?</Button>
         </div>
       </Toolbar>
+      <Divider />
     </Navbar>
   );
 };
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    menuButton: {
+    brand: {
+      display: "flex",
+      alignItems: "center",
+      cursor: "pointer",
+      marginRight: theme.spacing(3),
+    },
+    logo: {
+      width: 35,
       marginRight: theme.spacing(2),
     },
     title: {
       flexGrow: 1,
       display: "none",
+      fontSize: theme.typography.h5.fontSize,
+      color: theme.palette.primary.main,
       cursor: "pointer",
       [theme.breakpoints.up("sm")]: {
         display: "block",
       },
+    },
+    startButtons: {
+      flexGrow: 1,
+      display: "flex",
+      alignItems: "center",
+    },
+    reportsButton: {
+      borderRadius: 10,
     },
     endButtons: {
       display: "flex",
