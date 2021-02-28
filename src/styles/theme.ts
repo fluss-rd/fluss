@@ -7,7 +7,7 @@ const theme = createMuiTheme({
     background: { default: "#ffffff" },
   },
   typography: {
-    fontFamily: ["nunito"].join(","),
+    fontFamily: ["Nunito", "Calibri", "Arial"].join(","),
   },
 });
 
