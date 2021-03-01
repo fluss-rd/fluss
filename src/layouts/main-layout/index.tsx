@@ -1,13 +1,11 @@
-import React, { FC, useState } from "react";
 import { Container, CssBaseline, Toolbar } from "@material-ui/core";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
+import React, { FC } from "react";
 import theme from "../../styles/theme";
 import FlussAppBar from "./fluss-app-bar";
-import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 
-interface MainLayoutProps {}
-
-const MainLayout: FC<MainLayoutProps> = ({ children }) => {
+const MainLayout: FC = ({ children }) => {
   const classes = useStyles();
 
   return (

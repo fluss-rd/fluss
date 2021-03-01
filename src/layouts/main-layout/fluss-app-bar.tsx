@@ -1,12 +1,10 @@
-import React, { FC } from "react";
-import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
-import { AppBar as Navbar, Toolbar, Typography, Button, Divider } from "@material-ui/core";
-import router from "next/router";
+import { AppBar as Navbar, Button, Divider, Toolbar, Typography } from "@material-ui/core";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Image from "next/image";
+import router from "next/router";
+import React, { FC } from "react";
 
-interface FlussAppBarProps {}
-
-const FlussAppBar: FC<FlussAppBarProps> = () => {
+const FlussAppBar: FC = () => {
   const classes = useStyles();
   const push = (path: string) => () => router.push(path);
 
