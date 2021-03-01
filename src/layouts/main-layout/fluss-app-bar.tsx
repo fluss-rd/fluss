@@ -1,5 +1,5 @@
-import { AppBar as Navbar, Button, Divider, Toolbar, Typography } from "@material-ui/core";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { Button, Divider, AppBar as Navbar, Toolbar, Typography } from "@material-ui/core";
+import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 import Image from "next/image";
 import router from "next/router";
 import React, { FC } from "react";
