@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+
 import MainLayout from "./main-layout";
 
 const Layout: FC = ({ children }) => {

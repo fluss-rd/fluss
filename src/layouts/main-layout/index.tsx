@@ -1,7 +1,8 @@
 import { Container, CssBaseline, Toolbar } from "@material-ui/core";
-import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import React, { FC } from "react";
+
 import theme from "../../styles/theme";
 import FlussAppBar from "./fluss-app-bar";
 
