@@ -1,6 +1,6 @@
-import React from "react";
 import { observer } from "mobx-react";
-import { StateContext, State } from "./state";
+import React from "react";
+import { State, StateContext } from "./state";
 
 export const useStore = () => React.useContext(StateContext);
 

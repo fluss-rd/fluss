@@ -1,6 +1,6 @@
+import { Button, Typography } from "@material-ui/core";
 import { FC } from "react";
 import { connect, StoreProps } from "../store";
-import { Button, Typography } from "@material-ui/core";
 
 const Home: FC<StoreProps> = ({ store }) => {
   return (
