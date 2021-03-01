@@ -1,7 +1,8 @@
 import { Typography } from "@material-ui/core";
-import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import React, { FC } from "react";
-import { StoreProps, connect } from "../store";
+
+import { connect, StoreProps } from "../store";
 
 const DataAndReports: FC<StoreProps> = ({ store }) => {
   const classes = useStyles();

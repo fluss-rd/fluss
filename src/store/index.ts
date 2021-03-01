@@ -1,5 +1,5 @@
 import { connect, mapStore } from "./connect";
 import { State, StoreProps } from "./state";
 
-export { State, connect, mapStore };
+export { connect, mapStore, State };
 export type { StoreProps };
