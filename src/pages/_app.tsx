@@ -3,6 +3,7 @@ import "@fontsource/nunito";
 import React, { useEffect } from "react";
 
 import Layout from "../layouts";
+import { ServiceProvider } from "../services/service";
 import { initialState, StateContext } from "../store/state";
 
 function MyApp({ Component, pageProps }) {
@@ -14,11 +15,14 @@ function MyApp({ Component, pageProps }) {
       jssStyles.parentElement.removeChild(jssStyles);
     }
   }
+
   return (
     <StateContext.Provider value={initialState}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <ServiceProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </ServiceProvider>
     </StateContext.Provider>
   );
 }
