@@ -1,14 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
-export type UseMergeState<T> = [T, (newState: Partial<T>) => void];
-
-function useMergeState<T>(initialState: T): UseMergeState<T> {
-  const [state, setState] = useState(initialState);
-  const setMergedState = (newState: T) =>
-    setState((prevState) => Object.assign({}, prevState, newState));
-
-  return [state, setMergedState];
-}
+import useMergeState, { UseMergeState } from "./use-merge-state";
 
 interface ResponseFetching<T> {
   loading: boolean;

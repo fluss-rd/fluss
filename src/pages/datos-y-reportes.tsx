@@ -2,7 +2,7 @@ import { Typography } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import React, { FC } from "react";
 
-import useFetch from "../hooks/useFetch";
+import useFetch from "../hooks/use-fetch";
 import { PlaceholderResponse, useService } from "../services/service";
 import { connect, StoreProps } from "../store";
 
