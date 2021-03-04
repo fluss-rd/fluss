@@ -28,4 +28,4 @@ jobs:
         with:
           node-version: 12
       - name: Build the project
-        run: npm ci && npm run build
+        run: cd user && npm ci && npm run build
