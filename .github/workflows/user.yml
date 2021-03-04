@@ -3,7 +3,7 @@
 name: User CI
 
 on:
-  pull_request:
+  push:
     branches: [ main ]
     paths:
       - 'user/**'
@@ -23,7 +23,6 @@ jobs:
           node-version: 12
       - name: Build the project
         run: |-
-          pwd
           cd user
           npm ci
           npm run build
