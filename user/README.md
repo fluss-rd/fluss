@@ -2,7 +2,7 @@
 
 It's the web app for the final users of Fluss platform.
 
-## Gettings Started
+## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
