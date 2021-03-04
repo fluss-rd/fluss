@@ -1,4 +1,4 @@
-# Fluss user
+# Fluss admin
 
 It's the web app for the administrator users of the Fluss platform.
 
