@@ -1,15 +1,8 @@
-# FLuss
+# Fluss
 
-It's a web platform to access to the tracked data of rivers in República Dominicana, download them and see interactive reports.
+A web platform to download data, see interactive reports, and more about the tracked data of the rivers and other watersheds of the Dominican Republic (aka República Dominicana).
 
-## Install dependencies
+## Folder structure
 
-```bash
-// TODO:
-```
-
-## Run the project
-
-```bash
-// TODO:
-```
+- `users/`: It's the web app for the final users.
+- `admin/`: Web app for administrators of Fluss platform.
