@@ -23,6 +23,7 @@ jobs:
           node-version: 12
       - name: Build the project
         run: |-
+          dir
           cd user
           npm ci
           npm run build
