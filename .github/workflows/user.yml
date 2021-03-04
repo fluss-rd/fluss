@@ -3,6 +3,11 @@
 name: User CI
 
 on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'user/**'
+      - '.github/workflows/user.yml'
   push:
     branches: [ main ]
     paths:
@@ -61,20 +66,4 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }} #Optional 
           vercel-args: '--prod'
           vercel-org-id: ${{ secrets.ORG_ID}}  #Required
-          vercel-project-id: ${{ secrets.PROJECT_ID}} #Required 
-      
-      
-      
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+          vercel-project-id: ${{ secrets.PROJECT_ID}} #Required
