@@ -24,8 +24,8 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Setup Node.js environment
-      - uses: actions/setup-node@v2.1.5
+        uses: actions/setup-node@v2.1.5
         with:
-          node-version: 14.15.1
-      - run: npm ci
-      - run: npm run build
+          node-version: 12
+      - name: Build the project
+        run: npm ci && npm run build
