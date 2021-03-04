@@ -4,7 +4,7 @@ import type { Config } from "@jest/types";
 // Sync object
 const config: Config.InitialOptions = {
   verbose: true,
-  testMatch: ["**/tests/*.(ts|tsx)"],
+  testMatch: ["**/tests/**/*.(ts|tsx)"],
   testPathIgnorePatterns: ["<rootDir>/.next/", "<rootDir>/node_modules/"],
   transform: {
     "^.+\\.(js|jsx|ts|tsx)$": "<rootDir>/node_modules/babel-jest",
