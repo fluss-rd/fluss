@@ -52,7 +52,9 @@ jobs:
         with:
           node-version: 12
       - uses: actions/checkout@v2
-      - name: Build the project
+      - name: Enter to user directory
+        run: cd user
+      - name: Deploy to Vercel
         uses: amondnet/vercel-action@v19
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
@@ -60,7 +62,6 @@ jobs:
           vercel-args: '--prod'
           vercel-org-id: ${{ secrets.ORG_ID}}  #Required
           vercel-project-id: ${{ secrets.PROJECT_ID}} #Required 
-          working-directory: ./user
       
       
       
