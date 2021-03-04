@@ -1,34 +1,64 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Fluss user
 
-## Getting Started
+It's the web app for the administrator users of the Fluss platform.
 
-First, run the development server:
+## Gettings Started
 
-```bash
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+
+### Installation
+
+To install the dependencies for the project, run the following command:
+
+```
+npm install
+```
+
+### Execute the project
+
+To execute the project, execute the following command:
+
+```
 npm run dev
-# or
-yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Usage
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+To add a new page in the project create a new component inside `src/pages/`. For example:
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+`src/pages/new-page.tsx`:
+```tsx
+export default function NewPage() {
+  return <h1>This is my new page</h1>
+}
+```
 
-## Learn More
+Then, run the project and go to [http://localhost:3000/new-page](http://localhost:3000/new-page) to see the results.
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Running tests
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+To run the project tests, execute the following command:
 
-## Deploy on Vercel
+```
+npm run test
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Code linting
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+The project has linting rules for writing code. To verify you have no broken any rule execute this command:
+
+```
+npm run lint
+```
+
+The command will show you the broken rules in the case of a file with bad code.
+
+To fix the rules problems you can do it manually or by executing this command:
+
+```
+npm run lint:fix
+```
+
