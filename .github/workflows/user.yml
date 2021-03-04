@@ -24,7 +24,39 @@ jobs:
       - uses: actions/checkout@v2
       - name: Build the project
         run: |-
-          dir
           cd user
           npm ci
           npm run build
+          
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.1.5
+        with:
+          node-version: 12
+      - uses: actions/checkout@v2
+      - name: Build the project
+        run: |-
+          cd user
+          npm ci
+          npm run test
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
