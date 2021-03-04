@@ -6,5 +6,5 @@ import Home from "../../src/pages";
 
 test("Check for Getting Started Text", () => {
   const { getByText } = render(<Home />);
-  expect(getByText("Hello, world :D!")).toBeInTheDocument();
+  expect(getByText("Hello, world :D!<->")).toBeInTheDocument();
 });
