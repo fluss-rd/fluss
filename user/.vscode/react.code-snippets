@@ -1,0 +1,103 @@
+{
+  "React TS Constant Component": {
+    "prefix": "rtc",
+    "body": [
+      "import React, { FC } from \"react\";",
+      "",
+      "const $1: FC = () => {",
+      "  return (",
+      "    <>",
+      "      $2",
+      "    </>",
+      "  );",
+      "};",
+      "",
+      "export default ${1};",
+      ""
+    ],
+    "description": "Create a React TS component using const"
+  },
+  "React TS Constant Component With Styles": {
+    "prefix": "rtcs",
+    "body": [
+      "import { createStyles, makeStyles, Theme } from \"@material-ui/core/styles\";",
+      "import React, { FC } from \"react\";",
+      "",
+      "const $1: FC = () => {",
+      "  const classes = useStyles();",
+      "",
+      "  return (",
+      "    <div>",
+      "      $2",
+      "    </div>",
+      "  );",
+      "};",
+      "",
+      "const useStyles = makeStyles((theme: Theme) => createStyles({}));",
+      "",
+      "export default $1;",
+      ""
+    ],
+    "description": "Create a React TS component with MUI styles"
+  },
+  "React TS Function Component": {
+    "prefix": "rtf",
+    "body": [
+      "export default function $1() {",
+      "  return (",
+      "    <>",
+      "      $2",
+      "    </>",
+      "  );",
+      "};",
+      "",
+    ],
+    "description": "Create a React TS component using function"
+  },
+  "React TS Constant Component With Props": {
+    "prefix": "rtcp",
+    "body": [
+      "import React, { FC } from \"react\";",
+      "",
+      "interface $1Props {}",
+      "",
+      "const $1: FC<$1Props> = () => {",
+      "  const classes = useStyles();",
+      "",
+      "  return (",
+      "    <>",
+      "      $2",
+      "    </>",
+      "  );",
+      "};",
+      "",
+      "export default ${1};",
+      ""
+    ],
+    "description": "Create a React TS component using const"
+  },
+  "React TS Constant Component with Styles and Props": {
+    "prefix": "rtcsp",
+    "body": [
+      "import { createStyles, makeStyles, Theme } from \"@material-ui/core/styles\";",
+      "import React, { FC } from \"react\";",
+      "",
+      "",
+      "interface $1Props {}",
+      "",
+      "const $1: FC<$1Props> = () => {",
+      "  return (",
+      "    <>",
+      "      $2",
+      "    </>",
+      "  );",
+      "};",
+      "",
+      "const useStyles = makeStyles((theme: Theme) => createStyles({}));",
+      "",
+      "export default ${1};",
+      ""
+    ],
+    "description": "Create a React TS component using const"
+  },
+}
