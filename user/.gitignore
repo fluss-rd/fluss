@@ -32,3 +32,7 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# styles
+src/styles/**/*.module.scss.d.ts
+src/styles/**/*.module.css.d.ts
