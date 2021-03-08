@@ -48,22 +48,23 @@ jobs:
           npm ci
           npm run test
           
-  deploy:
-    runs-on: ubuntu-latest
+#   deploy:
+#     needs: test
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v2.1.5
-        with:
-          node-version: 12
-      - uses: actions/checkout@v2
-      - name: Enter to user directory
-        run: cd user
-      - name: Deploy to Vercel
-        uses: amondnet/vercel-action@v19
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
-          github-token: ${{ secrets.GITHUB_TOKEN }} #Optional 
-          vercel-args: '--prod'
-          vercel-org-id: ${{ secrets.ORG_ID}}  #Required
-          vercel-project-id: ${{ secrets.PROJECT_ID}} #Required
+#     steps:
+#       - name: Setup Node.js environment
+#         uses: actions/setup-node@v2.1.5
+#         with:
+#           node-version: 12
+#       - uses: actions/checkout@v2
+#       - name: Enter to user directory
+#         run: cd user
+#       - name: Deploy to Vercel
+#         uses: amondnet/vercel-action@v19
+#         with:
+#           vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
+#           github-token: ${{ secrets.GITHUB_TOKEN }} #Optional 
+#           vercel-args: '--prod'
+#           vercel-org-id: ${{ secrets.ORG_ID}}  #Required
+#           vercel-project-id: ${{ secrets.PROJECT_ID}} #Required
