@@ -62,3 +62,43 @@ To fix the rules problems you can do it manually or by executing this command:
 npm run lint:fix
 ```
 
+## Use SASS modules for styling
+
+The project has installed SASS and you can use it to style your componentes. Now, if you want to use SASS modules you need to provide types definitions for each one of them. Follow this tutorial to know how to add them automatically:
+
+1. Create a SASS module inside `src/pages/component/`. Example:
+
+    `src/pages/my-page/my-page.module.scss`
+    ```scss
+    text {
+      color: red;
+    }
+    ```
+
+1. Generate the types definition for the file:
+
+    ```
+    npm run sass-types
+    ```
+
+    This will generate a file called `my-page.module.scss.d.ts` which holds the types definition for each selector in your SASS code.
+
+    Optionally you can run the following command to generate subsecuent types definitions for SASS modules automatically:
+
+    ```
+    npm run sass-types:watch
+    ```
+
+    This one watch for files that get added or are changed and generate the corresponding type definitions.
+
+1. Import the styles in your component like any TS file. Example:
+
+    `src/pages/my-page/index.tsx`
+    ```tsx
+    import styles from "./my-page.module.scss";
+
+    export default function MyPage() {
+      return <span style={styles.text}>Page</span>
+    }
+    ```
+
