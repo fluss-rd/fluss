@@ -1,16 +1,17 @@
-import { Divider, Drawer, Hidden, List, ListItem, ListItemText } from "@material-ui/core";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
+import { Drawer, Hidden } from "@material-ui/core";
 import { createStyles, makeStyles, Theme, useTheme } from "@material-ui/core/styles";
-import MailIcon from "@material-ui/icons/Mail";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
+
+import DrawerItems from "./fluss-drawer-items";
+import { MainLayoutContext } from "./index";
 
 interface FlussDrawerProps {
   window?: () => Window;
 }
 
 const FlussDrawer: FC<FlussDrawerProps> = ({ window }) => {
-  const classes = useStyles();
+  const { drawerWidth } = useContext(MainLayoutContext);
+  const classes = useStyles({ drawerWidth });
   const container = window !== undefined ? () => window().document.body : undefined;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const theme = useTheme();
@@ -21,7 +22,6 @@ const FlussDrawer: FC<FlussDrawerProps> = ({ window }) => {
 
   return (
     <nav className={classes.drawer} aria-label="mailbox folders">
-      {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
       <Hidden smUp implementation="css">
         <Drawer
           container={container}
@@ -54,48 +54,22 @@ const FlussDrawer: FC<FlussDrawerProps> = ({ window }) => {
   );
 };
 
-const DrawerItems: FC = () => {
-  const classes = useStyles();
-  return (
-    <div>
-      <div className={classes.toolbar} />
-      <Divider />
-      <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-    </div>
-  );
-};
+interface StyleProps {
+  drawerWidth: number;
+}
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles<Theme, StyleProps>((theme: Theme) =>
   createStyles({
-    toolbar: theme.mixins.toolbar,
     drawer: {
       [theme.breakpoints.up("sm")]: {
-        width: drawerWidth,
+        width: ({ drawerWidth }) => drawerWidth,
         flexShrink: 0,
       },
     },
     drawerPaper: {
-      width: drawerWidth,
+      width: ({ drawerWidth }) => drawerWidth,
     },
   })
 );
-
-const drawerWidth = 240;
 
 export default FlussDrawer;

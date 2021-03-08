@@ -12,11 +12,13 @@ const MainLayout: FC = ({ children }) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <div className={classes.root}>
-        <CssBaseline />
-        <FlussDrawer />
-        <FlussContainer>{children}</FlussContainer>
-      </div>
+      <MainLayoutContext.Provider value={initValue}>
+        <div className={classes.root}>
+          <CssBaseline />
+          <FlussDrawer />
+          <FlussContainer>{children}</FlussContainer>
+        </div>
+      </MainLayoutContext.Provider>
     </ThemeProvider>
   );
 };
@@ -28,5 +30,11 @@ const useStyles = makeStyles(() =>
     },
   })
 );
+
+const initValue = {
+  drawerWidth: 240,
+};
+
+export const MainLayoutContext = React.createContext(initValue);
 
 export default MainLayout;
