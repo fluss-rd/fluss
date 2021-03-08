@@ -10,7 +10,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 To install the dependencies for the project, run the following command:
 
-```
+```bash
 npm install
 ```
 
@@ -18,7 +18,7 @@ npm install
 
 To execute the project, execute the following command:
 
-```
+```bash
 npm run dev
 ```
 
@@ -62,3 +62,55 @@ To fix the rules problems you can do it manually or by executing this command:
 npm run lint:fix
 ```
 
+## Use CSS and SASS in the project
+
+In the project, you can add styles via CSS or SASS modules. CSS/SASS modules are the way to create styles (id or classes) that only exists on the component you use and don't take effect in sub-components.
+
+Follow this tutorial of how to create a SASS module and use it in a component (replace `.css` by `.scss` if what you want is to create a CSS module):
+
+1. Create a SASS/ module inside `src/styles/pages/my-page/`. Example:
+
+    `src/styles/pages/my-page/my.scss`
+    ```scss
+    text {
+      color: red;
+    }
+    ```
+
+2. Import the styles into your component just like any TS file. Example:
+
+    `src/pages/my-page.tsx`
+    ```tsx
+    import styles from "./my-page.module.scss";
+
+    export default function MyPage() {
+      return <span style={styles.text}>Page</span>
+    }
+    ```
+
+3. Now, add type definitions to enable TS auto-completion features to your SASS/CSS modules. You can do it manually or using one of the following commands:
+
+    - For SASS modules
+
+        ```bash
+        npm run sass-types
+        ```
+
+        or
+
+        ```bash
+        npm run sass-types:watch
+        ```
+
+
+    - For CSS modules
+
+        ```bash
+        npm run css-types
+        ```
+
+        or
+
+        ```bash
+        npm run css-types:watch
+        ```
