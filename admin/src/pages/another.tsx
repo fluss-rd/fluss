@@ -1,4 +1,4 @@
-import MyFragment from "../fragments/another/my-gragment";
+import MyFragment from "../fragments/another/my-fragment";
 import styles from "../styles/pages/another.module.scss";
 
 export default function Another() {
