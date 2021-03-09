@@ -6,6 +6,12 @@ It's the web app for the administrator users of the Fluss platform.
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
+### Prerequisites
+
+You need to install these programs on your computer:
+
+- [NodeJS (v14.16.0) and npm (6.14.11)](https://nodejs.org/en/download/)
+
 ### Installation
 
 To install the dependencies for the project, run the following command:
@@ -66,25 +72,23 @@ npm run lint:fix
 
 In the project, you can add styles via CSS or SASS modules. CSS/SASS modules are the way to create styles (id or classes) that only exists on the component you use and don't take effect in sub-components.
 
-Follow this tutorial of how to create a SASS module and use it in a component (replace `.css` by `.scss` if what you want is to create a CSS module):
+Follow this tutorial of how to create a SASS module and use it in a component (replace `.scss` by `.css` if what you want is to create a CSS module):
 
-1. Create a SASS/ module inside `src/styles/pages/my-page/`. Example:
+1. Create a SASS module called `src/styles/pages/my-page/my-style.scss`. Example:
 
-    `src/styles/pages/my-page/my.scss`
     ```scss
-    text {
+    .text {
       color: red;
     }
     ```
 
-2. Import the styles into your component just like any TS file. Example:
+2. Create a component (or use one already created) in `src/pages/my-page.tsx` and import the styles into your component just like any TS file. Example:
 
-    `src/pages/my-page.tsx`
     ```tsx
-    import styles from "./my-page.module.scss";
+    import styles from "../styles/pages/my-page/my-style.module.scss";
 
     export default function MyPage() {
-      return <span style={styles.text}>Page</span>
+      return <span className={styles.text}>Page</span>
     }
     ```
 
