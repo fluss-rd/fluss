@@ -74,7 +74,7 @@ In the project, you can add styles via CSS or SASS modules. CSS/SASS modules are
 
 Follow this tutorial of how to create a SASS module and use it in a component (replace `.scss` by `.css` if what you want is to create a CSS module):
 
-1. Create a SASS module called `src/styles/pages/my-page/my-style.scss`. Example:
+1. Create a SASS module called `src/styles/pages/my-page.module.scss`. Example:
 
     ```scss
     .text {
@@ -85,7 +85,7 @@ Follow this tutorial of how to create a SASS module and use it in a component (r
 2. Create a component (or use one already created) in `src/pages/my-page.tsx` and import the styles into your component just like any TS file. Example:
 
     ```tsx
-    import styles from "../styles/pages/my-page/my-style.module.scss";
+    import styles from "../styles/pages/my-page.module.scss";
 
     export default function MyPage() {
       return <span className={styles.text}>Page</span>
