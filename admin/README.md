@@ -78,7 +78,7 @@ Follow this tutorial of how to create a SASS module and use it in a component (r
 
     ```scss
     .text {
-      color: red;
+      background-color: pink;
     }
     ```
 
