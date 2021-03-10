@@ -7,7 +7,7 @@ const FlussContainer: FC = ({ children }) => {
 
   return (
     <main className={classes.content}>
-      <Container maxWidth="lg" className={classes.container}>
+      <Container maxWidth="xl" className={classes.container}>
         {children}
       </Container>
     </main>
@@ -17,7 +17,7 @@ const FlussContainer: FC = ({ children }) => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
-      paddingTop: theme.spacing(4),
+      paddingTop: theme.spacing(3),
     },
     content: {
       flexGrow: 1,

@@ -1,6 +1,5 @@
 import { CssBaseline } from "@material-ui/core";
-import { createStyles, makeStyles } from "@material-ui/core/styles";
-import { ThemeProvider } from "@material-ui/styles";
+import { makeStyles, ThemeProvider } from "@material-ui/core/styles";
 import React, { FC } from "react";
 
 import theme from "../../styles/theme";
@@ -23,13 +22,11 @@ const MainLayout: FC = ({ children }) => {
   );
 };
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    root: {
-      display: "flex",
-    },
-  })
-);
+const useStyles = makeStyles({
+  root: {
+    display: "flex",
+  },
+});
 
 const initValue = {
   drawerWidth: 240,
