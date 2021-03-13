@@ -3,6 +3,7 @@ import { makeStyles, ThemeProvider } from "@material-ui/core/styles";
 import React, { FC } from "react";
 
 import theme from "../../styles/theme";
+import FlussAppBar from "./fluss-app-bar";
 import FlussContainer from "./fluss-container";
 import FlussDrawer from "./fluss-drawer";
 

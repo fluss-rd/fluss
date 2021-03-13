@@ -1,24 +1,16 @@
-import { AppBar as Navbar, Button, Divider, Toolbar, Typography } from "@material-ui/core";
+import { AppBar as Navbar, Divider, Toolbar } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import Image from "next/image";
-import router from "next/router";
 import React, { FC } from "react";
+
+import FlussLogo from "../fluss-logo";
 
 const FlussAppBar: FC = () => {
   const classes = useStyles();
-  const push = (path: string) => () => router.push(path);
 
   return (
     <Navbar position="fixed" color="transparent" elevation={0}>
       <Toolbar>
-        <Button className={classes.brand} onClick={push("/")}>
-          <div className={classes.logo}>
-            <Image src="/images/logo.png" alt="Logo" width={35} height={35} />
-          </div>
-          <Typography className={classes.title} variant="h6" noWrap>
-            fluss
-          </Typography>
-        </Button>
+        <FlussLogo />
         <div className={classes.endButtons}>{/*TODO:*/}</div>
       </Toolbar>
       <Divider />

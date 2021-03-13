@@ -1,29 +1,16 @@
 import { Button, Divider, Typography } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
-import Image from "next/image";
 import React, { FC } from "react";
 
 import { push } from "../../../helpers";
+import FlussLogo from "../fluss-logo";
 
-interface FlussLogoProps {}
-
-const FlussLogo: FC<FlussLogoProps> = () => {
+const DrawerHeader: FC = () => {
   const classes = useStyles();
 
   return (
     <>
-      <div className={classes.container}>
-        <div>
-          <Button className={classes.brand} onClick={push("/")}>
-            <div className={classes.logo}>
-              <Image src="/images/logo.png" alt="Logo" width={20} height={20} />
-            </div>
-            <Typography className={classes.title} noWrap>
-              fluss
-            </Typography>
-          </Button>
-        </div>
-      </div>
+      <FlussLogo />
       <Divider />
     </>
   );
@@ -36,6 +23,7 @@ const useStyles = makeStyles((theme: Theme) => {
       paddingLeft: theme.spacing(2),
       paddingBottom: theme.spacing(1),
       display: "flex",
+      ...theme.mixins.toolbar,
     },
     brand: {
       display: "flex",

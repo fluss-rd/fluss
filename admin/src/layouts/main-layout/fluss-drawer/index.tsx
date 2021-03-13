@@ -1,4 +1,4 @@
-import { Drawer } from "@material-ui/core";
+import { Divider, Drawer } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import React, { FC, useContext } from "react";
 
@@ -19,7 +19,10 @@ const FlussDrawer: FC = () => {
     <nav className={classes.drawer} aria-label="mailbox folders">
       <Drawer classes={{ paper: classes.drawerPaper }} variant="permanent" open>
         <div className={classes.container}>
-          <FlussLogo />
+          <div className={classes.logo}>
+            <FlussLogo />
+            <Divider />
+          </div>
           <DrawerItems />
           <DrawerFoot />
         </div>
@@ -28,7 +31,7 @@ const FlussDrawer: FC = () => {
   );
 };
 
-const useStyles = makeStyles<Theme, StyleProps>(({ palette }: Theme) => ({
+const useStyles = makeStyles<Theme, StyleProps>(({ palette, spacing }: Theme) => ({
   container: {
     display: "flex",
     flexDirection: "column",
@@ -47,6 +50,7 @@ const useStyles = makeStyles<Theme, StyleProps>(({ palette }: Theme) => ({
     backgroundColor: `${palette.background.default}CC`,
     backdropFilter: `blur(3px)`,
   },
+  logo: {},
 }));
 
 export default FlussDrawer;
