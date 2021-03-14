@@ -1,4 +1,5 @@
 // .babelrc
 {
-  "presets": ["next/babel"]
+  "presets": ["next/babel"],
+  "plugins": ["jsx-control-statements"]
 }

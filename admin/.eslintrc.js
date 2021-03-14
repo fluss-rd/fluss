@@ -5,10 +5,13 @@ module.exports = {
     node: true,
     es6: true,
   },
-  plugins: ["simple-import-sort"],
+  plugins: ["simple-import-sort", "jsx-control-statements"],
   parserOptions: { ecmaVersion: 8 }, // to enable features such as async/await
   ignorePatterns: ["node_modules/*", ".next/*", ".out/*", "!.prettierrc.js"], // We don't want to lint generated files nor node_modules, but we want to lint .prettierrc.js (ignored by default by eslint)
-  extends: ["eslint:recommended"],
+  extends: ["eslint:recommended", "plugin:jsx-control-statements/recommended"],
+  ecmaFeatures: {
+    "jsx": true
+  },
   overrides: [
     // This configuration will apply only to TypeScript files
     {
@@ -27,6 +30,7 @@ module.exports = {
         "plugin:react-hooks/recommended", // React hooks rules
         "plugin:jsx-a11y/recommended", // Accessibility rules
         "plugin:prettier/recommended", // Prettier plugin
+        "plugin:jsx-control-statements/recommended",
       ],
       rules: {
         // Include .prettierrc.js rules
@@ -52,6 +56,8 @@ module.exports = {
         "prettier/prettier": ["error", {}, { usePrettierrc: true }],
         "simple-import-sort/imports": "error",
         "simple-import-sort/exports": "error",
+        "react/jsx-no-undef": [2, { "allowGlobals": true }],
+        "jsx-control-statements/jsx-jcs-no-undef": "off"
       },
     },
   ],
