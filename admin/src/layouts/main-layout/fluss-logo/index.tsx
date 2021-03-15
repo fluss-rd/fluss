@@ -1,49 +1,40 @@
 import { Button, Typography } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import Image from "next/image";
+import { useContext } from "react";
 
 import { push } from "../../../helpers";
+import { DrawerValues, DrawerValuesContext } from "../index";
 
 export default function FlussLogo() {
-  const classes = useStyles();
+  const context = useContext(DrawerValuesContext);
+  const classes = useStyles(context);
 
   return (
     <Button className={classes.brand} onClick={push("/")}>
       <div className={classes.logo}>
         <Image src="/images/logo.png" alt="Logo" width={35} height={35} />
       </div>
-      <Typography className={classes.title} variant="h6" noWrap>
+      <Typography variant="h5" color="primary" noWrap>
         fluss
       </Typography>
     </Button>
   );
 }
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles<Theme, DrawerValues>((theme: Theme) => ({
   brand: {
     display: "flex",
     alignItems: "center",
+    justifyContent: "flex-start",
     cursor: "pointer",
-    marginRight: theme.spacing(3),
-    paddingLeft: theme.spacing(2),
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
-    width: "fit-content",
+    textTransform: "none",
+    padding: 0,
+    flexGrow: 1,
   },
   logo: {
     display: "flex",
     alignItems: "center",
     marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-    display: "none",
-    fontSize: theme.typography.h5.fontSize,
-    color: theme.palette.primary.main,
-    cursor: "pointer",
-    textTransform: "none",
-    [theme.breakpoints.up("sm")]: {
-      display: "block",
-    },
   },
 }));

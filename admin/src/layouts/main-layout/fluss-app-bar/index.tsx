@@ -1,58 +1,75 @@
-import { AppBar as Navbar, Divider, Toolbar } from "@material-ui/core";
+import { AppBar as Navbar, Divider, IconButton, Toolbar } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import React, { FC } from "react";
+import { Menu } from "@material-ui/icons";
+import React, { FC, useContext } from "react";
 
+import { DrawerValues, DrawerValuesContext } from "..";
 import FlussLogo from "../fluss-logo";
 
 const FlussAppBar: FC = () => {
-  const classes = useStyles();
+  const context = useContext(DrawerValuesContext);
+  const classes = useStyles(context);
 
   return (
-    <Navbar position="fixed" color="transparent" elevation={0}>
-      <Toolbar>
+    <>
+      <div className={classes.brand}>
+        <If condition={!context.mdUp}>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            className={classes.openIcon}
+            onClick={context.toggleMobileSidebar}
+          >
+            <Menu />
+          </IconButton>
+        </If>
+
         <FlussLogo />
-        <div className={classes.endButtons}>{/*TODO:*/}</div>
-      </Toolbar>
-      <Divider />
-    </Navbar>
+      </div>
+      <Navbar position="fixed" color="transparent" elevation={0} className={classes.appBar}>
+        <If condition={!context.mdUp}>
+          <Toolbar className={classes.endButtons}></Toolbar>
+          <Divider />
+        </If>
+      </Navbar>
+    </>
   );
 };
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles<Theme, DrawerValues>((theme: Theme) =>
   createStyles({
     brand: {
+      position: "fixed",
       display: "flex",
       alignItems: "center",
       cursor: "pointer",
-      marginRight: theme.spacing(3),
       padding: 0,
-      flexGrow: 1,
       textAlign: "left",
+      paddingLeft: theme.spacing(2),
+      width: ({ drawerWidth }) => drawerWidth,
+      zIndex: theme.zIndex.modal + 1,
+      ...theme.mixins.toolbar,
     },
-    logo: {
+    appBar: ({ mdUp }) => ({
+      backgroundColor: !mdUp && `${theme.palette.background.default}CC`,
+      backdropFilter: !mdUp && `blur(3px)`,
       display: "flex",
-      alignItems: "center",
-      marginRight: theme.spacing(2),
-    },
-    title: {
-      flexGrow: 1,
-      display: "none",
-      fontSize: theme.typography.h5.fontSize,
-      color: theme.palette.primary.main,
-      cursor: "pointer",
-      textTransform: "none",
-      [theme.breakpoints.up("sm")]: {
-        display: "block",
-      },
-    },
+    }),
     endButtons: {
       display: "flex",
-      flexDirection: "row",
+      flexDirection: "row-reverse",
       alignItems: "center",
+      flexGrow: 1,
       "& > *:not(:last-child)": {
         marginRight: theme.spacing(3),
       },
+      height: "100%",
     },
+    toggleIcon: {
+      marginRight: theme.spacing(1),
+    },
+    toolbar: theme.mixins.toolbar,
   })
 );
 

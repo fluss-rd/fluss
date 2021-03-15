@@ -1,38 +1,58 @@
-import { CssBaseline } from "@material-ui/core";
-import { makeStyles, ThemeProvider } from "@material-ui/core/styles";
-import React, { FC } from "react";
+import { CssBaseline, useMediaQuery, useTheme } from "@material-ui/core";
+import { makeStyles, Theme, ThemeProvider } from "@material-ui/core/styles";
+import React, { FC, useMemo, useState } from "react";
 
-import theme from "../../styles/theme";
 import FlussAppBar from "./fluss-app-bar";
 import FlussContainer from "./fluss-container";
 import FlussDrawer from "./fluss-drawer";
 
 const MainLayout: FC = ({ children }) => {
   const classes = useStyles();
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up("md"));
+  const Children = useMemo(() => () => <>{children}</>, [children]);
+  const [sidebarInMobileIsOpen, setSidebarInMobileIsOpen] = useState(false);
 
   return (
     <ThemeProvider theme={theme}>
-      <MainLayoutContext.Provider value={initValue}>
+      <DrawerValuesContext.Provider
+        value={{
+          drawerWidth: initValue.drawerWidth,
+          mdUp: matches,
+          sidebarInMobileIsOpen,
+          closeSidebarInMobile: () => setSidebarInMobileIsOpen(false),
+          toggleMobileSidebar: () => setSidebarInMobileIsOpen((prev) => !prev),
+        }}
+      >
         <div className={classes.root}>
           <CssBaseline />
+          <FlussAppBar />
           <FlussDrawer />
-          <FlussContainer>{children}</FlussContainer>
+          <FlussContainer>
+            <Children />
+          </FlussContainer>
         </div>
-      </MainLayoutContext.Provider>
+      </DrawerValuesContext.Provider>
     </ThemeProvider>
   );
 };
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: Theme) => ({
   root: {
     display: "flex",
   },
-});
+  toolbar: theme.mixins.toolbar,
+}));
 
 const initValue = {
   drawerWidth: 240,
+  mdUp: false,
+  sidebarInMobileIsOpen: false,
+  closeSidebarInMobile: () => {},
+  toggleMobileSidebar: () => {},
 };
 
-export const MainLayoutContext = React.createContext(initValue);
+export type DrawerValues = typeof initValue;
+export const DrawerValuesContext = React.createContext(initValue);
 
-export default MainLayout;
+export default React.memo(MainLayout);

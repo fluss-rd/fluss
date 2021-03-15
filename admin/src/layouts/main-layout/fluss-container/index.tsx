@@ -1,27 +1,29 @@
-import { Container } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
+
+import { DrawerValues, DrawerValuesContext } from "../index";
 
 const FlussContainer: FC = ({ children }) => {
-  const classes = useStyles();
+  const context = useContext(DrawerValuesContext);
+  const classes = useStyles(context);
 
   return (
     <main className={classes.content}>
-      <Container maxWidth="xl" className={classes.container}>
-        {children}
-      </Container>
+      {!context.mdUp && <div className={classes.toolbar} />}
+      <div className={classes.container}>{children}</div>
     </main>
   );
 };
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles<Theme, DrawerValues>((theme: Theme) =>
   createStyles({
     container: {
-      paddingTop: theme.spacing(3),
+      padding: theme.spacing(3),
     },
     content: {
       flexGrow: 1,
     },
+    toolbar: theme.mixins.toolbar,
   })
 );
 
