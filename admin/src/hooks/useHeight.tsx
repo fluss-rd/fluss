@@ -7,6 +7,7 @@ export default function useHeight(): [MutableRefObject<any>, number] {
   useLayoutEffect(() => {
     const newHeight = ref.current ? ref.current.clientHeight : 0;
     if (ref.current && ref.current.clientHeight) setHeight(newHeight);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ref.current, ref.current ? ref.current.clientHeight : 0]);
 
   return [ref, height];
