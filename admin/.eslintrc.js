@@ -53,6 +53,7 @@ module.exports = {
           },
         ],
         "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-empty-function": "off",
         "prettier/prettier": ["error", {}, { usePrettierrc: true }],
         "simple-import-sort/imports": "error",
         "simple-import-sort/exports": "error",
