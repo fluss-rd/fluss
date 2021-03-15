@@ -13,7 +13,7 @@ const FlussAppBar: FC = () => {
   return (
     <>
       <div className={classes.brand}>
-        <If condition={!context.mdUp}>
+        {!context.mdUp && (
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -23,15 +23,17 @@ const FlussAppBar: FC = () => {
           >
             <Menu />
           </IconButton>
-        </If>
+        )}
 
         <FlussLogo />
       </div>
       <Navbar position="fixed" color="transparent" elevation={0} className={classes.appBar}>
-        <If condition={!context.mdUp}>
-          <Toolbar className={classes.endButtons}></Toolbar>
-          <Divider />
-        </If>
+        {!context.mdUp && (
+          <>
+            <Toolbar className={classes.endButtons}></Toolbar>
+            <Divider />
+          </>
+        )}
       </Navbar>
     </>
   );
