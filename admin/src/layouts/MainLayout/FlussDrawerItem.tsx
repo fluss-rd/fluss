@@ -1,5 +1,5 @@
 import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, Theme } from "@material-ui/core/styles";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import router from "next/router";
 import React, { FC } from "react";
@@ -13,7 +13,8 @@ interface DrawerItemProps {
   nested?: boolean;
 }
 
-const DrawerItem: FC<DrawerItemProps> = ({ icon: Icon, title, to, expanded, onClick, nested }) => {
+const FlussDrawreItem: FC<DrawerItemProps> = (props) => {
+  const { icon: Icon, title, to, expanded, onClick, nested } = props;
   const classes = useStyles({ nested });
 
   function handleClick() {
@@ -23,21 +24,20 @@ const DrawerItem: FC<DrawerItemProps> = ({ icon: Icon, title, to, expanded, onCl
 
   return (
     <ListItem onClick={handleClick} button={true} className={classes.nested}>
-      {Icon ? <ListItemIcon>{<Icon />}</ListItemIcon> : null}
+      {Icon && <ListItemIcon>{<Icon />}</ListItemIcon>}
       <ListItemText primary={title} />
-      {expanded === undefined ? null : expanded ? <ExpandLess /> : <ExpandMore />}
+      {() => {
+        if (expanded === undefined) return null;
+        return expanded ? <ExpandLess /> : <ExpandMore />;
+      }}
     </ListItem>
   );
 };
 
-interface StylesProps {
-  nested?: boolean;
-}
-
-const useStyles = makeStyles<Theme, StylesProps>((theme: Theme) => ({
+const useStyles = makeStyles<Theme, { nested: boolean }>((theme: Theme) => ({
   nested: {
     paddingLeft: ({ nested }) => (nested ? theme.spacing(4) : undefined),
   },
 }));
 
-export default DrawerItem;
+export default FlussDrawreItem;

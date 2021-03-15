@@ -2,12 +2,12 @@ import { Divider, Drawer, Hidden, useTheme } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import React, { FC, useContext } from "react";
 
-import { DrawerValues, DrawerValuesContext } from "../index";
-import DrawerFoot from "./drawer-foot";
-import DrawerItems from "./fluss-drawer-items";
+import FlussDrawerFoot from "./FlussDrawerFoot";
+import DrawerItems from "./FlussDrawerItems";
+import { MainLayoutContext, MainLayoutValues } from "./index";
 
 const FlussDrawer: FC = () => {
-  const context = useContext(DrawerValuesContext);
+  const context = useContext(MainLayoutContext);
   const classes = useStyles(context);
   const theme = useTheme();
 
@@ -16,7 +16,7 @@ const FlussDrawer: FC = () => {
       <div className={classes.toolbar} />
       <Divider />
       <DrawerItems />
-      <DrawerFoot />
+      <FlussDrawerFoot />
     </div>
   );
 
@@ -43,19 +43,19 @@ const FlussDrawer: FC = () => {
   );
 };
 
-const useStyles = makeStyles<Theme, DrawerValues>((theme: Theme) => ({
+const useStyles = makeStyles<Theme, MainLayoutValues>((theme: Theme) => ({
   drawer: ({ mdUp, drawerWidth }) => ({
     width: mdUp && drawerWidth,
     flexShrink: mdUp && 0,
     backgroundColor: "transparent",
   }),
-  container: () => ({
+  container: {
     display: "flex",
     flexDirection: "column",
     height: `100vh`,
     backgroundColor: `${theme.palette.background.default}CC`,
     backdropFilter: `blur(3px)`,
-  }),
+  },
   toolbar: theme.mixins.toolbar,
   drawerPaper: ({ drawerWidth }) => ({
     width: drawerWidth,
@@ -63,11 +63,6 @@ const useStyles = makeStyles<Theme, DrawerValues>((theme: Theme) => ({
     backgroundPosition: "center center",
     backgroundSize: "cover",
   }),
-  logo: {
-    ...theme.mixins.toolbar,
-    display: "flex",
-    alignItems: "center",
-  },
 }));
 
 export default FlussDrawer;

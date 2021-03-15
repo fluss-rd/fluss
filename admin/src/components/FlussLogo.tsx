@@ -3,11 +3,11 @@ import { makeStyles, Theme } from "@material-ui/core/styles";
 import Image from "next/image";
 import { useContext } from "react";
 
-import { push } from "../../../helpers";
-import { DrawerValues, DrawerValuesContext } from "../index";
+import { push } from "../helpers";
+import { MainLayoutContext, MainLayoutValues } from "../layouts/MainLayout/index";
 
 export default function FlussLogo() {
-  const context = useContext(DrawerValuesContext);
+  const context = useContext(MainLayoutContext);
   const classes = useStyles(context);
 
   return (
@@ -22,7 +22,7 @@ export default function FlussLogo() {
   );
 }
 
-const useStyles = makeStyles<Theme, DrawerValues>((theme: Theme) => ({
+const useStyles = makeStyles<Theme, MainLayoutValues>((theme: Theme) => ({
   brand: {
     display: "flex",
     alignItems: "center",

@@ -2,9 +2,9 @@ import { CssBaseline, useMediaQuery, useTheme } from "@material-ui/core";
 import { makeStyles, Theme, ThemeProvider } from "@material-ui/core/styles";
 import React, { FC, useMemo, useState } from "react";
 
-import FlussAppBar from "./fluss-app-bar";
-import FlussContainer from "./fluss-container";
-import FlussDrawer from "./fluss-drawer";
+import FlussAppBar from "./FlussAppBar";
+import FlussContainer from "./FlussContainer";
+import FlussDrawer from "./FlussDrawer";
 
 const MainLayout: FC = ({ children }) => {
   const classes = useStyles();
@@ -15,7 +15,7 @@ const MainLayout: FC = ({ children }) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <DrawerValuesContext.Provider
+      <MainLayoutContext.Provider
         value={{
           drawerWidth: initValue.drawerWidth,
           mdUp: matches,
@@ -32,7 +32,7 @@ const MainLayout: FC = ({ children }) => {
             <Children />
           </FlussContainer>
         </div>
-      </DrawerValuesContext.Provider>
+      </MainLayoutContext.Provider>
     </ThemeProvider>
   );
 };
@@ -52,7 +52,7 @@ const initValue = {
   toggleMobileSidebar: () => {},
 };
 
-export type DrawerValues = typeof initValue;
-export const DrawerValuesContext = React.createContext(initValue);
+export type MainLayoutValues = typeof initValue;
+export const MainLayoutContext = React.createContext(initValue);
 
 export default React.memo(MainLayout);

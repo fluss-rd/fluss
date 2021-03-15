@@ -1,10 +1,10 @@
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import React, { FC, useContext } from "react";
 
-import { DrawerValues, DrawerValuesContext } from "../index";
+import { MainLayoutContext, MainLayoutValues } from "./index";
 
 const FlussContainer: FC = ({ children }) => {
-  const context = useContext(DrawerValuesContext);
+  const context = useContext(MainLayoutContext);
   const classes = useStyles(context);
 
   return (
@@ -15,7 +15,7 @@ const FlussContainer: FC = ({ children }) => {
   );
 };
 
-const useStyles = makeStyles<Theme, DrawerValues>((theme: Theme) =>
+const useStyles = makeStyles<Theme, MainLayoutValues>((theme: Theme) =>
   createStyles({
     container: {
       padding: theme.spacing(3),

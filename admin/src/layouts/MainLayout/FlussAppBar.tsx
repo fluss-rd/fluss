@@ -3,11 +3,11 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { Menu } from "@material-ui/icons";
 import React, { FC, useContext } from "react";
 
-import { DrawerValues, DrawerValuesContext } from "..";
-import FlussLogo from "../fluss-logo";
+import FlussLogo from "../../components/FlussLogo";
+import { MainLayoutContext, MainLayoutValues } from ".";
 
 const FlussAppBar: FC = () => {
-  const context = useContext(DrawerValuesContext);
+  const context = useContext(MainLayoutContext);
   const classes = useStyles(context);
 
   return (
@@ -37,7 +37,7 @@ const FlussAppBar: FC = () => {
   );
 };
 
-const useStyles = makeStyles<Theme, DrawerValues>((theme: Theme) =>
+const useStyles = makeStyles<Theme, MainLayoutValues>((theme: Theme) =>
   createStyles({
     brand: {
       position: "fixed",
