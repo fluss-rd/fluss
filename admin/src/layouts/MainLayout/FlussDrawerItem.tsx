@@ -22,14 +22,16 @@ const FlussDrawreItem: FC<DrawerItemProps> = (props) => {
     if (to) router.push(to);
   }
 
+  function renderExpandIcon() {
+    if (expanded === undefined) return null;
+    else expanded ? <ExpandLess /> : <ExpandMore />;
+  }
+
   return (
     <ListItem onClick={handleClick} button={true} className={classes.nested}>
       {Icon && <ListItemIcon>{<Icon />}</ListItemIcon>}
       <ListItemText primary={title} />
-      {() => {
-        if (expanded === undefined) return null;
-        return expanded ? <ExpandLess /> : <ExpandMore />;
-      }}
+      {renderExpandIcon()}
     </ListItem>
   );
 };
