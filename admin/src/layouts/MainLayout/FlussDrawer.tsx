@@ -57,12 +57,12 @@ const useStyles = makeStyles<Theme, MainLayoutValues>((theme: Theme) => ({
     backdropFilter: `blur(3px)`,
   },
   toolbar: theme.mixins.toolbar,
-  drawerPaper: ({ drawerWidth }) => ({
-    width: drawerWidth,
+  drawerPaper: {
+    width: ({ drawerWidth }) => drawerWidth,
     backgroundImage: `linear-gradient(#FFFFFF, #B7E8FF, #FFBE7D)`,
     backgroundPosition: "center center",
     backgroundSize: "cover",
-  }),
+  },
 }));
 
 export default FlussDrawer;
