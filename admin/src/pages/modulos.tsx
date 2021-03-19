@@ -2,7 +2,7 @@
 import { Typography } from "@material-ui/core";
 import { useMemo } from "react";
 
-import DataTableColumn from "../components/DataTable/DataTableColumn";
+import { DataTableColumn } from "../components/DataTable";
 import EnhancedDataTable from "../components/EnhancedDataTable";
 import InfoIconButton from "../fragments/modulos/InfoIconButton";
 import formatDate from "../helpers/formatDate";
