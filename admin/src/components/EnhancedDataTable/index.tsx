@@ -2,11 +2,14 @@
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import React, { useRef, useState } from "react";
 
-import DataTable, { DataGridProps } from "../DataTable";
+import DataTable, { DataTableProps } from "../DataTable/DataTable";
 import { SearchBarRef } from "../SearchBar";
-import EnhancedDataTableToolbar, { DataGridToolbarProps } from "./EnhancedDataTableToolbar";
+import EnhancedDataTableToolbar, {
+  EnhancedDataTableToolbarProps,
+} from "./EnhancedDataTableToolbar";
 
-type EnhancedDataTableProps<T extends object> = DataGridProps<T> & DataGridToolbarProps<T>;
+type EnhancedDataTableProps<T extends object> = DataTableProps<T> &
+  EnhancedDataTableToolbarProps<T>;
 
 export default function EnhancedDataTable<T extends object>(props: EnhancedDataTableProps<T>) {
   const classes = useStyles();

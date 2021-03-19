@@ -5,14 +5,14 @@ import { Ref } from "react";
 
 import SearchBar, { SearchBarRef } from "../../components/SearchBar";
 
-export interface DataGridToolbarProps<T> {
+export interface EnhancedDataTableToolbarProps<T> {
   data?: T[];
   placeholder?: string;
   setData?: (data: T[]) => void;
-  SearchBarRef: Ref<SearchBarRef>;
+  SearchBarRef?: Ref<SearchBarRef>;
 }
 
-export default function EnhancedDataTableToolbar<T>(props: DataGridToolbarProps<T>) {
+export default function EnhancedDataTableToolbar<T>(props: EnhancedDataTableToolbarProps<T>) {
   const classes = useStyles();
 
   return (

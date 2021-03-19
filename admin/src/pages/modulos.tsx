@@ -1,8 +1,8 @@
 /* eslint-disable react/jsx-key */
 import { Typography } from "@material-ui/core";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 
-import DataGrid, { DataGridColumn } from "../components/DataGrid";
+import DataTableColumn from "../components/DataTable/DataTableColumn";
 import EnhancedDataTable from "../components/EnhancedDataTable";
 import InfoIconButton from "../fragments/modulos/InfoIconButton";
 import formatDate from "../helpers/formatDate";
@@ -21,7 +21,7 @@ export default function Modulos() {
   );
 }
 
-const columns: DataGridColumn<Module>[] = [
+const columns: DataTableColumn<Module>[] = [
   { Header: "ID", accessor: "id", width: 200, columnWidth: "10%" },
   { Header: "Número SIM", accessor: "simNumber", columnWidth: "15%" },
   { Header: "Nombre", accessor: "name" },
