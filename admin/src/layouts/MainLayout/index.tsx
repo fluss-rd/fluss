@@ -1,5 +1,5 @@
 import { CssBaseline, useMediaQuery, useTheme } from "@material-ui/core";
-import { makeStyles, Theme, ThemeProvider } from "@material-ui/core/styles";
+import { makeStyles, Theme } from "@material-ui/core/styles";
 import React, { FC, useMemo, useState } from "react";
 
 import FlussAppBar from "./FlussAppBar";
@@ -53,4 +53,4 @@ const initValue = {
 export type MainLayoutValues = typeof initValue;
 export const MainLayoutContext = React.createContext(initValue);
 
-export default React.memo(MainLayout);
+export default MainLayout;
