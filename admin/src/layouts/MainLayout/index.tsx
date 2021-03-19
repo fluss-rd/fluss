@@ -14,26 +14,24 @@ const MainLayout: FC = ({ children }) => {
   const [sidebarInMobileIsOpen, setSidebarInMobileIsOpen] = useState(false);
 
   return (
-    <ThemeProvider theme={theme}>
-      <MainLayoutContext.Provider
-        value={{
-          drawerWidth: initValue.drawerWidth,
-          mdUp: matches,
-          sidebarInMobileIsOpen,
-          closeSidebarInMobile: () => setSidebarInMobileIsOpen(false),
-          toggleMobileSidebar: () => setSidebarInMobileIsOpen((prev) => !prev),
-        }}
-      >
-        <div className={classes.root}>
-          <CssBaseline />
-          <FlussAppBar />
-          <FlussDrawer />
-          <FlussContainer>
-            <Children />
-          </FlussContainer>
-        </div>
-      </MainLayoutContext.Provider>
-    </ThemeProvider>
+    <MainLayoutContext.Provider
+      value={{
+        drawerWidth: initValue.drawerWidth,
+        mdUp: matches,
+        sidebarInMobileIsOpen,
+        closeSidebarInMobile: () => setSidebarInMobileIsOpen(false),
+        toggleMobileSidebar: () => setSidebarInMobileIsOpen((prev) => !prev),
+      }}
+    >
+      <div className={classes.root}>
+        <CssBaseline />
+        <FlussAppBar />
+        <FlussDrawer />
+        <FlussContainer>
+          <Children />
+        </FlussContainer>
+      </div>
+    </MainLayoutContext.Provider>
   );
 };
 
