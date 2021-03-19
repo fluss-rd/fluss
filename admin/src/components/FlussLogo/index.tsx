@@ -3,8 +3,8 @@ import { makeStyles, Theme } from "@material-ui/core/styles";
 import Image from "next/image";
 import { useContext } from "react";
 
-import { push } from "../helpers";
-import { MainLayoutContext, MainLayoutValues } from "../layouts/MainLayout/index";
+import { push } from "../../helpers";
+import { MainLayoutContext, MainLayoutValues } from "../../layouts/MainLayout/index";
 
 export default function FlussLogo() {
   const context = useContext(MainLayoutContext);
