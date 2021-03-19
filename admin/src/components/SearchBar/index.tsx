@@ -1,7 +1,7 @@
 import { Card, CircularProgress, fade, InputBase, Paper } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
-import { ChangeEvent, FC, useEffect } from "react";
+import { ChangeEvent, FC, forwardRef, useEffect, useImperativeHandle } from "react";
 
 import useMergeState from "../../hooks/useMergeState";
 import usePrevious from "../../hooks/usePrevious";
@@ -15,7 +15,17 @@ interface SearchBarProps<T> {
   delay?: number;
 }
 
-const SearchBar: FC<SearchBarPropsType> = (props) => {
+interface SearchBarState {
+  keyword: string;
+  timeout: any;
+  isLoading: boolean;
+}
+
+export interface SearchBarRef {
+  state: SearchBarState;
+}
+
+const SearchBar = forwardRef<SearchBarRef, SearchBarPropsType>((props, ref) => {
   const classes = useStyles();
   const [current, setCurrent] = useMergeState({
     keyword: "",
@@ -25,6 +35,8 @@ const SearchBar: FC<SearchBarPropsType> = (props) => {
   const prevKeyword = usePrevious(current.keyword);
 
   useEffect(searchKeyword, [current.keyword]);
+
+  useImperativeHandle(ref, () => ({ state: current }), [current]);
 
   function searchKeyword() {
     if (current.keyword === prevKeyword || !props.data || !props.setData) return;
@@ -38,9 +50,9 @@ const SearchBar: FC<SearchBarPropsType> = (props) => {
     setCurrent({ isLoading: true });
     const delay = setTimeout(() => {
       const matches = search(props.data, current.keyword);
-      console.log(matches);
 
       setCurrent({ isLoading: false });
+
       props.setData(matches);
     }, props.delay!);
 
@@ -49,7 +61,8 @@ const SearchBar: FC<SearchBarPropsType> = (props) => {
 
   function handleChange(e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) {
     if (current.timeout) clearTimeout(current.timeout);
-    setCurrent({ keyword: e.target.value });
+    const newKeyword = e.target.value;
+    setCurrent({ keyword: newKeyword });
   }
 
   return (
@@ -75,7 +88,7 @@ const SearchBar: FC<SearchBarPropsType> = (props) => {
       </div>
     </Paper>
   );
-};
+});
 
 SearchBar.defaultProps = {
   placeholder: "Buscar...",

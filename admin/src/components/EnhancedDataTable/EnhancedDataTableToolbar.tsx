@@ -1,13 +1,15 @@
 import { IconButton } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import { FilterList, GetApp } from "@material-ui/icons";
+import { Ref } from "react";
 
-import SearchBar from "../../components/SearchBar";
+import SearchBar, { SearchBarRef } from "../../components/SearchBar";
 
 export interface DataGridToolbarProps<T> {
   data?: T[];
   placeholder?: string;
   setData?: (data: T[]) => void;
+  SearchBarRef: Ref<SearchBarRef>;
 }
 
 export default function EnhancedDataTableToolbar<T>(props: DataGridToolbarProps<T>) {
@@ -16,7 +18,12 @@ export default function EnhancedDataTableToolbar<T>(props: DataGridToolbarProps<
   return (
     <div className={classes.container}>
       <div className={classes.searchBar}>
-        <SearchBar data={props.data} setData={props.setData} placeholder={props.placeholder} />
+        <SearchBar
+          data={props.data}
+          setData={props.setData}
+          placeholder={props.placeholder}
+          ref={props.SearchBarRef}
+        />
       </div>
 
       <div className={classes.actions}>
