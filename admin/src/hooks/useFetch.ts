@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-import useMergeState, { UseMergeState } from "./use-merge-state";
+import useMergeState, { UseMergeState } from "./useMergeState";
 
 interface ResponseFetching<T> {
   loading: boolean;
@@ -18,6 +18,7 @@ export default function useFetch<T>(
 
   useEffect(() => {
     callback();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return [response, setResponse];
