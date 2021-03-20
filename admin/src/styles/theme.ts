@@ -9,7 +9,7 @@ const theme = createMuiTheme({
     fontFamily: ["Roboto", "Nunito", "Calibri", "Arial"].join(","),
   },
   shape: {
-    borderRadius: 20,
+    borderRadius: 10,
   },
 });
 
