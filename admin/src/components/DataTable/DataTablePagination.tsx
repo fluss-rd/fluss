@@ -1,9 +1,14 @@
 import { TablePagination } from "@material-ui/core";
 import { ChangeEvent, MouseEvent, useContext } from "react";
+import { FC } from "react";
 
 import DataTableContext from "./DataTableContext";
 
-export default function DataTablePagination() {
+export interface DataTablePaginatioProps {
+  label?: string;
+}
+
+const DataTablePagination: FC<DataTablePaginatioProps> = (props) => {
   const { table } = useContext(DataTableContext);
 
   function handleChangePage(event: MouseEvent<HTMLButtonElement> | null, newPage: number) {
@@ -18,6 +23,7 @@ export default function DataTablePagination() {
   return (
     <TablePagination
       rowsPerPageOptions={[5, 10, 25]}
+      labelRowsPerPage={props.label}
       component="div"
       count={table.rows.length}
       rowsPerPage={table.state.pageSize}
@@ -26,4 +32,10 @@ export default function DataTablePagination() {
       onChangeRowsPerPage={handleChangeRowsPerPage}
     />
   );
-}
+};
+
+DataTablePagination.defaultProps = {
+  label: "Filas por página",
+};
+
+export default DataTablePagination;
