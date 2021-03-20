@@ -4,6 +4,7 @@ import { useMemo } from "react";
 
 import { DataTableColumn } from "../components/DataTable";
 import EnhancedDataTable from "../components/EnhancedDataTable";
+import SelectColumnFilter from "../components/EnhancedDataTable/SelectColumnFilter";
 import InfoIconButton from "../fragments/modulos/InfoIconButton";
 import formatDate from "../helpers/formatDate";
 import Module from "../models/Module";
@@ -23,7 +24,13 @@ export default function Modulos() {
 
 const columns: DataTableColumn<Module>[] = [
   { Header: "ID", accessor: "id", width: 200, columnWidth: "10%" },
-  { Header: "Número SIM", accessor: "simNumber", columnWidth: "15%" },
+  {
+    Header: "Número SIM",
+    accessor: "simNumber",
+    columnWidth: "15%",
+    filter: "includes",
+    Filter: SelectColumnFilter,
+  },
   { Header: "Nombre", accessor: "name" },
   { Header: "Descripción", accessor: "description", columnWidth: "30%" },
   {

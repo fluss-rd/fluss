@@ -46,7 +46,7 @@ const PopoverIcon: FC<PopoverIconProps> = (props) => {
           <Typography variant="body1" className={classes.title}>
             {props.title}
           </Typography>
-          {props.children}
+          <div style={{ width: "100%" }}>{props.children}</div>
         </div>
       </Popover>
     </>
@@ -58,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     margin: theme.spacing(2),
+    width: "300px",
   },
   title: {
     fontWeight: "bold",

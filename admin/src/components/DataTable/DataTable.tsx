@@ -6,6 +6,7 @@ import {
   HeaderGroup,
   TableInstance,
   TableOptions,
+  useFilters,
   usePagination,
   useSortBy,
   useTable,
@@ -34,7 +35,7 @@ export interface DataTableRef<T extends object> {
 
 const DataTable = forwardRef<DataTableRef<Generic>, DataTableProps<Generic>>((props, ref) => {
   const classes = useStyles(props);
-  const table = useTable<Generic>(applyInitialState(props), useSortBy, usePagination);
+  const table = useTable<Generic>(applyInitialState(props), useFilters, useSortBy, usePagination);
   const sortingColumnId = table.state.sortBy.length > 0 ? table.state.sortBy[0].id : "";
   const headerGroups = table.headerGroups as HeaderGroup<Generic>[];
 

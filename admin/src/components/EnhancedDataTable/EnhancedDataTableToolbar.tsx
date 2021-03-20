@@ -33,7 +33,7 @@ export default function EnhancedDataTableToolbar<T>(props: EnhancedDataTableTool
         <IconButton>
           <GetApp />
         </IconButton>
-        <FilterRows />
+        <FilterRows dataTableRef={props.DataTableRef} />
         <ShowColumns DataTableRef={props.DataTableRef} />
       </div>
     </div>
