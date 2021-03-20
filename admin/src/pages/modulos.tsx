@@ -27,13 +27,15 @@ const columns: DataTableColumn<Module>[] = [
   { Header: "Nombre", accessor: "name" },
   { Header: "Descripción", accessor: "description", columnWidth: "30%" },
   {
+    id: "updatedAt",
     Header: "Última actualización",
     columnWidth: "15%",
     accessor: (data) => formatDate(data.updatedAt),
   },
-  { Header: "Fecha de registro", accessor: (data) => formatDate(data.createdAt) },
+  { id: "createdAt", Header: "Fecha de registro", accessor: (data) => formatDate(data.createdAt) },
   {
-    Header: " ",
+    id: "info",
+    Header: "Detalle",
     accessor: (data: Module, i: number) => <InfoIconButton index={i} />,
   },
 ];
