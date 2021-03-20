@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { makeStyles, Theme } from "@material-ui/core/styles";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-import DataTable, { DataTableProps } from "../DataTable/DataTable";
+import DataTable, { DataTableColumn, DataTableProps, DataTableRef } from "../DataTable";
 import { SearchBarRef } from "../SearchBar";
 import EnhancedDataTableToolbar, {
   EnhancedDataTableToolbarProps,
@@ -15,6 +15,7 @@ export default function EnhancedDataTable<T extends object>(props: EnhancedDataT
   const classes = useStyles();
   const [filtered, setFiltered] = useState(props.data);
   const searchBarRef = useRef<SearchBarRef | null>(null);
+  const dataTableRef = useRef<DataTableRef<T> | null>(null);
 
   function handleMatches(matches: T[]) {
     setFiltered(matches);
@@ -31,6 +32,7 @@ export default function EnhancedDataTable<T extends object>(props: EnhancedDataT
     <div className={classes.root}>
       <EnhancedDataTableToolbar
         SearchBarRef={searchBarRef}
+        DataTableRef={dataTableRef}
         data={props.data}
         setData={handleMatches}
       />
@@ -39,10 +41,11 @@ export default function EnhancedDataTable<T extends object>(props: EnhancedDataT
 
       <DataTable
         densed={true}
-        columns={props.columns}
+        columns={props.columns as DataTableColumn<any>[]}
         data={computeData()}
         sortBy={props.sortBy}
         sortDirection={props.sortDirection}
+        ref={dataTableRef}
       />
     </div>
   );

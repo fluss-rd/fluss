@@ -1,15 +1,17 @@
 import { IconButton } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import { FilterList, GetApp } from "@material-ui/icons";
-import { Ref } from "react";
+import { Ref, useEffect, useRef } from "react";
 
 import SearchBar, { SearchBarRef } from "../../components/SearchBar";
+import ShowColumns from "./ShowColumns";
 
 export interface EnhancedDataTableToolbarProps<T> {
   data?: T[];
   placeholder?: string;
   setData?: (data: T[]) => void;
   SearchBarRef?: Ref<SearchBarRef>;
+  DataTableRef?: any;
 }
 
 export default function EnhancedDataTableToolbar<T>(props: EnhancedDataTableToolbarProps<T>) {
@@ -33,6 +35,7 @@ export default function EnhancedDataTableToolbar<T>(props: EnhancedDataTableTool
         <IconButton>
           <FilterList />
         </IconButton>
+        <ShowColumns DataTableRef={props.DataTableRef} />
       </div>
     </div>
   );

@@ -1,8 +1,15 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable react/jsx-key */
 import { makeStyles, Paper, Table, TableContainer, Theme } from "@material-ui/core";
-import React, { FC } from "react";
-import { HeaderGroup, TableOptions, usePagination, useSortBy, useTable } from "react-table";
+import React, { FC, forwardRef, useEffect, useImperativeHandle } from "react";
+import {
+  HeaderGroup,
+  TableInstance,
+  TableOptions,
+  usePagination,
+  useSortBy,
+  useTable,
+} from "react-table";
 
 import DataTableBody from "./DataTableBody";
 import DataTableColumn from "./DataTableColumn";
@@ -10,6 +17,7 @@ import DataTableContext from "./DataTableContext";
 import DataTableHead from "./DataTableHead";
 import DataTablePagination from "./DataTablePagination";
 
+type Generic<T = any> = T;
 export interface DataTableProps<T extends object> {
   columns: DataTableColumn<T>[];
   data: T[];
@@ -20,11 +28,17 @@ export interface DataTableProps<T extends object> {
   minWidth?: string;
 }
 
-function DataTable<T extends object>(props: DataTableProps<T>) {
+export interface DataTableRef<T extends object> {
+  context: TableInstance<T>;
+}
+
+const DataTable = forwardRef<DataTableRef<Generic>, DataTableProps<Generic>>((props, ref) => {
   const classes = useStyles(props);
-  const table = useTable<T>(applyInitialState(props), useSortBy, usePagination);
+  const table = useTable<Generic>(applyInitialState(props), useSortBy, usePagination);
   const sortingColumnId = table.state.sortBy.length > 0 ? table.state.sortBy[0].id : "";
-  const headerGroups = table.headerGroups as HeaderGroup<T>[];
+  const headerGroups = table.headerGroups as HeaderGroup<Generic>[];
+
+  useImperativeHandle(ref, () => ({ context: table }), [table]);
 
   return (
     <DataTableContext.Provider value={{ headerGroups, sortingColumnId, table }}>
@@ -45,7 +59,7 @@ function DataTable<T extends object>(props: DataTableProps<T>) {
       </div>
     </DataTableContext.Provider>
   );
-}
+});
 
 function applyInitialState<T extends object>(props: DataTableProps<T>): TableOptions<T> {
   return {
