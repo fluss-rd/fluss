@@ -4,6 +4,7 @@ import { FilterList, GetApp } from "@material-ui/icons";
 import { Ref, useEffect, useRef } from "react";
 
 import SearchBar, { SearchBarRef } from "../../components/SearchBar";
+import FilterRows from "./FilterRows";
 import ShowColumns from "./ShowColumns";
 
 export interface EnhancedDataTableToolbarProps<T> {
@@ -32,9 +33,7 @@ export default function EnhancedDataTableToolbar<T>(props: EnhancedDataTableTool
         <IconButton>
           <GetApp />
         </IconButton>
-        <IconButton>
-          <FilterList />
-        </IconButton>
+        <FilterRows />
         <ShowColumns DataTableRef={props.DataTableRef} />
       </div>
     </div>

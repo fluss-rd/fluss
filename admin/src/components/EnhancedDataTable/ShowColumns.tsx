@@ -1,21 +1,9 @@
-import {
-  Checkbox,
-  FormControl,
-  FormControlLabel,
-  FormGroup,
-  IconButton,
-  Popover,
-  Typography,
-} from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { Checkbox, FormControl, FormControlLabel, FormGroup } from "@material-ui/core";
 import { ViewColumn } from "@material-ui/icons";
-import React, { FC, MouseEvent, MutableRefObject, useContext, useEffect, useState } from "react";
+import React, { MutableRefObject, useEffect } from "react";
 
 import { DataTableRef } from "../DataTable";
-
-interface ShowColumnsProps<T extends object> {
-  DataTableRef: MutableRefObject<DataTableRef<T>>;
-}
+import PopoverIcon from "../PopoverIcon";
 
 interface CheckboxColumn {
   checked: boolean;
@@ -23,11 +11,11 @@ interface CheckboxColumn {
   toggleHidden: () => void;
 }
 
+export interface ShowColumnsProps<T extends object> {
+  DataTableRef: MutableRefObject<DataTableRef<T>>;
+}
+
 function ShowColumns<T extends object>(props: ShowColumnsProps<T>) {
-  const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
-  const open = Boolean(anchorEl);
-  const id = open ? "show-columns" : undefined;
   const [state, setState] = React.useState({} as Record<keyof T, CheckboxColumn>);
 
   useEffect(fillStateWithColumn, []);
@@ -56,74 +44,26 @@ function ShowColumns<T extends object>(props: ShowColumnsProps<T>) {
     setState({ ...state, [id]: modified });
   }
 
-  function handleClick(event: MouseEvent<HTMLButtonElement>) {
-    setAnchorEl(event.currentTarget);
-  }
-
-  function handleClose(event: MouseEvent<HTMLButtonElement>) {
-    setAnchorEl(null);
-  }
-
   return (
-    <>
-      <IconButton aria-describedby={id} onClick={handleClick}>
-        <ViewColumn />
-      </IconButton>
-      <Popover
-        id={id}
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: "center",
-          horizontal: "center",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
-      >
-        <div className={classes.root}>
-          <FormControl component="fieldset" className={classes.formControl}>
-            <Typography variant="body1" className={classes.title}>
-              Columnas
-            </Typography>
-            <FormGroup>
-              {Object.keys(state).map((column) => {
-                const tableColumn: CheckboxColumn = state[column];
-                return (
-                  <FormControlLabel
-                    key={column}
-                    control={
-                      <Checkbox
-                        checked={tableColumn.checked}
-                        name={column}
-                        onChange={handleChange}
-                      />
-                    }
-                    label={tableColumn.label}
-                  />
-                );
-              })}
-            </FormGroup>
-          </FormControl>
-        </div>
-      </Popover>
-    </>
+    <PopoverIcon title="Columnas" icon={ViewColumn}>
+      <FormControl component="fieldset">
+        <FormGroup>
+          {Object.keys(state).map((column) => {
+            const tableColumn: CheckboxColumn = state[column];
+            return (
+              <FormControlLabel
+                key={column}
+                control={
+                  <Checkbox checked={tableColumn.checked} name={column} onChange={handleChange} />
+                }
+                label={tableColumn.label}
+              />
+            );
+          })}
+        </FormGroup>
+      </FormControl>
+    </PopoverIcon>
   );
 }
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-  },
-  formControl: {
-    margin: theme.spacing(2),
-  },
-  title: {
-    fontWeight: "bold",
-    marginBottom: theme.spacing(1),
-  },
-}));
 
 export default ShowColumns;
