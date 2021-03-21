@@ -3,8 +3,8 @@ import { ViewColumn } from "@material-ui/icons";
 import { ChangeEvent, CSSProperties } from "react";
 import { ColumnInstance } from "react-table";
 
-import { DataTableColumn } from "../DataTable";
-import PopoverIcon from "../PopoverIcon";
+import { DataTableColumn } from "../../DataTable";
+import PopoverIcon from "../../PopoverIcon";
 
 export interface ShowColumnsProps<T extends object> {
   columns: DataTableColumn<T>[];
@@ -22,8 +22,8 @@ function ShowColumns<T extends object>({ columns }: ShowColumnsProps<T>) {
     <PopoverIcon title="Columnas" icon={ViewColumn}>
       <FormControl component="fieldset">
         <FormGroup>
-          {columns.map((column: ColumnInstance<T>) => {
-            const hiddenProps: HiddenProps = column.getToggleHiddenProps();
+          {columns.map((column: DataTableColumn<T>) => {
+            const hiddenProps: HiddenProps = (column as ColumnInstance<T>).getToggleHiddenProps();
             return (
               <FormControlLabel
                 key={column.id}

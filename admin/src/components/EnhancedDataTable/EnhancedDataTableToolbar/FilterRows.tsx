@@ -3,7 +3,7 @@ import { FilterList } from "@material-ui/icons";
 import React from "react";
 import { ColumnInstance, TableInstance } from "react-table";
 
-import PopoverIcon from "../PopoverIcon";
+import PopoverIcon from "../../PopoverIcon";
 
 interface FilterRowsProps<T extends object> {
   table: TableInstance<T>;
@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: 400,
     display: "flex",
     flexDirection: "column",
+    marginTop: theme.spacing(1),
     "& > *:not(:last-child)": {
       marginBottom: theme.spacing(2),
     },

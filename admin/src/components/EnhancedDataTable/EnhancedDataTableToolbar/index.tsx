@@ -3,8 +3,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import { GetApp } from "@material-ui/icons";
 import { Ref } from "react";
 
-import SearchBar, { SearchBarRef } from "../../components/SearchBar";
-import { useDataTable } from "../DataTable";
+import { useDataTable } from "../../DataTable";
+import SearchBar, { SearchBarRef } from "../../SearchBar";
 import FilterRows from "./FilterRows";
 import ShowColumns from "./ShowColumns";
 
