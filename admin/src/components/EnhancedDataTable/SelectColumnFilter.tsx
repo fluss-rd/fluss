@@ -1,4 +1,11 @@
-import { FormControl, InputLabel, MenuItem, Select } from "@material-ui/core";
+import {
+  FormControl,
+  InputLabel,
+  makeStyles,
+  MenuItem,
+  OutlinedInput,
+  Select,
+} from "@material-ui/core";
 import React, { useEffect, useMemo, useState } from "react";
 import { ColumnInstance, Row } from "react-table";
 
@@ -10,6 +17,7 @@ interface SelectColumnFilterProps<T extends object> {
 
 function SelectColumnFilter<T extends object>(props: SelectColumnFilterProps<T>) {
   const { filterValue, setFilter, preFilteredRows, id, Header } = props.column;
+  const classes = useStyles();
   const selectId = generateId("select");
   const [value, setValue] = useState("");
   const options = useMemo(() => {
@@ -26,28 +34,39 @@ function SelectColumnFilter<T extends object>(props: SelectColumnFilterProps<T>)
   }
 
   return (
-    <FormControl variant="outlined" fullWidth={true}>
-      <InputLabel id="demo-simple-select-outlined-label">{Header}</InputLabel>
-      <Select
-        labelId={`${selectId}-label`}
-        id={selectId}
-        value={value}
-        onChange={handleChange}
-        label={Header}
-      >
-        <MenuItem value="">
-          <em>Todos</em>
-        </MenuItem>
-        {options.map((option: string, i: number) => {
-          return (
-            <MenuItem key={i} value={option}>
-              {option}
-            </MenuItem>
-          );
-        })}
-      </Select>
-    </FormControl>
+    <div style={{ width: "100%" }}>
+      <FormControl variant="outlined" fullWidth={true}>
+        <InputLabel id={`${selectId}-label`} shrink>
+          {Header}
+        </InputLabel>
+        <Select
+          displayEmpty
+          labelId={`${selectId}-label`}
+          id={selectId}
+          value={value}
+          onChange={handleChange}
+          input={<OutlinedInput notched label={Header} />}
+        >
+          <MenuItem value="">
+            <span className={classes.none}>Todos</span>
+          </MenuItem>
+          {options.map((option: string, i: number) => {
+            return (
+              <MenuItem key={i} value={option}>
+                {option}
+              </MenuItem>
+            );
+          })}
+        </Select>
+      </FormControl>
+    </div>
   );
 }
+
+const useStyles = makeStyles((theme) => ({
+  none: {
+    color: theme.palette.grey[500],
+  },
+}));
 
 export default SelectColumnFilter;

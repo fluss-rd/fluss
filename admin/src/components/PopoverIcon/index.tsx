@@ -1,9 +1,18 @@
 import { IconButton, Popover, PopoverOrigin, SvgIconTypeMap, Typography } from "@material-ui/core";
 import { OverridableComponent } from "@material-ui/core/OverridableComponent";
 import { makeStyles } from "@material-ui/core/styles";
-import React, { FC, MouseEvent, ReactNode, useState } from "react";
+import React, {
+  FC,
+  MouseEvent,
+  ReactNode,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 
 import generateId from "../../helpers/generateId";
+import useSize from "../../hooks/useHeight";
 
 interface PopoverIconProps {
   title: string;
@@ -20,6 +29,7 @@ const PopoverIcon: FC<PopoverIconProps> = (props) => {
   const open = Boolean(anchorEl);
   const id = open ? key : undefined;
   const Icon = props.icon;
+  const popoverRef = useRef(null);
 
   function handleClick(event: MouseEvent<HTMLButtonElement>) {
     setAnchorEl(event.currentTarget);
@@ -41,30 +51,42 @@ const PopoverIcon: FC<PopoverIconProps> = (props) => {
         onClose={handleClose}
         anchorOrigin={props.anchorOrigin}
         transformOrigin={props.transformOrigin}
+        className={classes.popover}
+        ref={popoverRef}
       >
         <div className={classes.root}>
           <Typography variant="body1" className={classes.title}>
             {props.title}
           </Typography>
-          <div style={{ width: "100%" }}>{props.children}</div>
+          <div className={classes.content}>{props.children}</div>
         </div>
       </Popover>
     </>
   );
 };
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    flexDirection: "column",
-    margin: theme.spacing(2),
-    width: "300px",
-  },
-  title: {
-    fontWeight: "bold",
-    marginBottom: theme.spacing(1),
-  },
-}));
+const useStyles = makeStyles((theme) => {
+  const spacing = theme.spacing(2);
+  return {
+    popover: {},
+    root: {
+      width: "100%",
+      display: "flex",
+      flexDirection: "column",
+    },
+    title: {
+      fontWeight: "bold",
+      padding: `${spacing}px ${spacing}px 0px ${spacing}px`,
+      marginBottom: theme.spacing(1),
+    },
+    content: {
+      width: "100%",
+      display: "flex",
+      flexDirection: "column",
+      padding: `0px ${spacing}px ${spacing}px ${spacing}px`,
+    },
+  };
+});
 
 PopoverIcon.defaultProps = {
   anchorOrigin: {

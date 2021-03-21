@@ -45,7 +45,7 @@ function ShowColumns<T extends object>(props: ShowColumnsProps<T>) {
   }
 
   return (
-    <PopoverIcon title="Columnas" icon={ViewColumn}>
+    <PopoverIcon title="COLUMNAS" icon={ViewColumn}>
       <FormControl component="fieldset">
         <FormGroup>
           {Object.keys(state).map((column) => {
