@@ -1,11 +1,15 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable react/jsx-key */
 import { makeStyles, Paper, Table, TableContainer, Theme } from "@material-ui/core";
+import {
+  DataTableBody,
+  DataTableColumn,
+  DataTableHead,
+  DataTablePagination,
+  useDataTable,
+} from "components/DataTable";
 import React, { FC, forwardRef, useImperativeHandle } from "react";
 import { TableInstance } from "react-table";
-
-import { DataTableBody, DataTableColumn, DataTableHead, DataTablePagination } from "../DataTable";
-import { useDataTable } from "./DataTableContext";
 
 type Generic<T = any> = T;
 export interface DataTableProps<T extends object> {

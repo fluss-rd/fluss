@@ -9,11 +9,10 @@ import {
   Typography,
 } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
+import { Options } from "components/DataFilters";
+import generateId from "helpers/generateId";
 import React, { ChangeEvent, useCallback, useMemo, useState } from "react";
 import { ColumnInstance } from "react-table";
-
-import generateId from "../../helpers/generateId";
-import { Options } from "../DataFilters/filters";
 
 interface NumberRangeColumnFilterProps<T extends object> {
   column: ColumnInstance<T>;

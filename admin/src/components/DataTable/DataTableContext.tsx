@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/ban-types */
-import { createContext, FC, ReactNode, useContext } from "react";
+import { DataTableColumn } from "components/DataTable";
+import { createContext, ReactNode, useContext } from "react";
 import {
   HeaderGroup,
   TableInstance,
@@ -9,8 +9,6 @@ import {
   useSortBy,
   useTable,
 } from "react-table";
-
-import { DataTableColumn, DataTableProps } from "../DataTable";
 
 export function useDataTable() {
   return useContext(DataTableContext);

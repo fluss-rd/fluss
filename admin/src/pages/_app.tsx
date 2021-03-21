@@ -1,12 +1,11 @@
 import "@fontsource/nunito";
 
-import { makeStyles, Theme, ThemeProvider } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/core/styles";
+import Layout from "layouts";
 import React, { useEffect } from "react";
-
-import Layout from "../layouts";
-import { ServiceProvider } from "../services/service";
-import { initialState, StateContext } from "../store/state";
-import theme from "../styles/theme";
+import { ServiceProvider } from "services/service";
+import { initialState, StateContext } from "store/state";
+import theme from "styles/theme";
 
 function MyApp({ Component, pageProps }) {
   useEffect(removeServerSideInjectedCss, []);

@@ -1,9 +1,8 @@
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import { FilterList } from "@material-ui/icons";
+import PopoverIcon from "components/PopoverIcon";
 import React from "react";
 import { ColumnInstance, TableInstance } from "react-table";
-
-import PopoverIcon from "../../PopoverIcon";
 
 interface FilterRowsProps<T extends object> {
   table: TableInstance<T>;

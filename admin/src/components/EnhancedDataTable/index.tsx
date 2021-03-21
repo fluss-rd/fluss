@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { makeStyles, Theme } from "@material-ui/core/styles";
-import React, { useEffect, useRef, useState } from "react";
-
 import DataTable, {
   DataTableColumn,
   DataTableProps,
   DataTableProvider,
   DataTableRef,
-} from "../DataTable";
-import { SearchBarRef } from "../SearchBar";
+} from "components/DataTable";
+import { SearchBarRef } from "components/SearchBar";
+import React, { useEffect, useRef, useState } from "react";
+
 import EnhancedDataTableToolbar, {
   EnhancedDataTableToolbarProps,
 } from "./EnhancedDataTableToolbar";

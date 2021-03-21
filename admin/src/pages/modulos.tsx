@@ -1,17 +1,12 @@
 /* eslint-disable react/jsx-key */
 import { Typography } from "@material-ui/core";
+import { SelectColumnFilter } from "components/DataFilters";
+import { DataTableColumn } from "components/DataTable";
+import EnhancedDataTable from "components/EnhancedDataTable";
+import InfoIconButton from "fragments/modulos/InfoIconButton";
+import formatDate from "helpers/formatDate";
+import Module from "models/Module";
 import { useMemo } from "react";
-
-import {
-  filterNumberWithConditions,
-  NumberRangeColumnFilter,
-  SelectColumnFilter,
-} from "../components/DataFilters";
-import { DataTableColumn } from "../components/DataTable";
-import EnhancedDataTable from "../components/EnhancedDataTable";
-import InfoIconButton from "../fragments/modulos/InfoIconButton";
-import formatDate from "../helpers/formatDate";
-import Module from "../models/Module";
 
 export default function Modulos() {
   const data = useMemo(() => Module.mockData(), []);

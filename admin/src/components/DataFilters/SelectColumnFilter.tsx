@@ -6,10 +6,9 @@ import {
   OutlinedInput,
   Select,
 } from "@material-ui/core";
+import generateId from "helpers/generateId";
 import React, { useMemo } from "react";
 import { ColumnInstance, Row } from "react-table";
-
-import generateId from "../../helpers/generateId";
 
 interface SelectColumnFilterProps<T extends object> {
   column: ColumnInstance<T>;

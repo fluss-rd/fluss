@@ -1,10 +1,10 @@
-import { Card, CircularProgress, fade, InputBase, Paper } from "@material-ui/core";
+import { CircularProgress, InputBase, Paper } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
-import { ChangeEvent, FC, forwardRef, useEffect, useImperativeHandle } from "react";
+import useMergeState from "hooks/useMergeState";
+import usePrevious from "hooks/usePrevious";
+import { ChangeEvent, forwardRef, useEffect, useImperativeHandle } from "react";
 
-import useMergeState from "../../hooks/useMergeState";
-import usePrevious from "../../hooks/usePrevious";
 import search from "./search";
 
 type SearchBarPropsType<T = any> = SearchBarProps<T>;
