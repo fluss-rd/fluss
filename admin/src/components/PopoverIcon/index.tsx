@@ -1,4 +1,11 @@
-import { IconButton, Popover, PopoverOrigin, SvgIconTypeMap, Typography } from "@material-ui/core";
+import {
+  IconButton,
+  Popover,
+  PopoverOrigin,
+  SvgIconTypeMap,
+  Tooltip,
+  Typography,
+} from "@material-ui/core";
 import { OverridableComponent } from "@material-ui/core/OverridableComponent";
 import { makeStyles } from "@material-ui/core/styles";
 import React, {
@@ -41,9 +48,11 @@ const PopoverIcon: FC<PopoverIconProps> = (props) => {
 
   return (
     <>
-      <IconButton aria-describedby={id} onClick={handleClick}>
-        <Icon />
-      </IconButton>
+      <Tooltip title={props.title}>
+        <IconButton aria-describedby={id} onClick={handleClick}>
+          <Icon />
+        </IconButton>
+      </Tooltip>
       <Popover
         id={id}
         open={open}
@@ -56,7 +65,7 @@ const PopoverIcon: FC<PopoverIconProps> = (props) => {
       >
         <div className={classes.root}>
           <Typography variant="body1" className={classes.title}>
-            {props.title}
+            {props.title.toUpperCase()}
           </Typography>
           <div className={classes.content}>{props.children}</div>
         </div>

@@ -22,7 +22,7 @@ function FilterRows<T extends object>(props: FilterRowsProps<T>) {
   }
 
   return (
-    <PopoverIcon title="FILTROS" icon={FilterList}>
+    <PopoverIcon title="Filtros" icon={FilterList}>
       <div className={classes.container}>
         {columns.map((column: ColumnInstance<T>) =>
           column.canFilter && column.Filter ? (
