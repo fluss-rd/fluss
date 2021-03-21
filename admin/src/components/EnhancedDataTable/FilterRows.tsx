@@ -1,37 +1,30 @@
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, Theme } from "@material-ui/core/styles";
 import { FilterList } from "@material-ui/icons";
-import React, { FC, MutableRefObject, useEffect, useState } from "react";
-import { ColumnInstance } from "react-table";
+import React from "react";
+import { ColumnInstance, TableInstance } from "react-table";
 
-import { DataTableRef } from "../DataTable";
 import PopoverIcon from "../PopoverIcon";
 
 interface FilterRowsProps<T extends object> {
-  dataTableRef: MutableRefObject<DataTableRef<T>>;
+  table: TableInstance<T>;
 }
 
-function FilterRows<T extends object>(props: FilterRowsProps<T>) {
+function FilterRows<T extends object>({ table }: FilterRowsProps<T>) {
   const classes = useStyles();
-  const [columns, setColumns] = useState<ColumnInstance<T>[]>([]);
 
-  useEffect(addFilters, []);
+  function renderFilter(column: ColumnInstance<T>) {
+    if (!(column.canFilter && column.Filter)) return null;
 
-  function addFilters() {
-    const tableColumns = props.dataTableRef.current.context.allColumns;
-    setColumns(tableColumns);
+    return (
+      <div key={column.id} className={classes.item}>
+        {column.render("Filter")}
+      </div>
+    );
   }
 
   return (
     <PopoverIcon title="Filtros" icon={FilterList}>
-      <div className={classes.container}>
-        {columns.map((column: ColumnInstance<T>) =>
-          column.canFilter && column.Filter ? (
-            <div key={column.id} className={classes.item}>
-              {column.render("Filter")}
-            </div>
-          ) : null
-        )}
-      </div>
+      <div className={classes.container}>{table.allColumns.map(renderFilter)}</div>
     </PopoverIcon>
   );
 }

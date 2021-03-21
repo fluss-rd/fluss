@@ -1,5 +1,6 @@
 import {
   FormControl,
+  FormHelperText,
   InputLabel,
   MenuItem,
   OutlinedInput,
@@ -8,7 +9,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import React, { ChangeEvent, FC, useEffect, useState } from "react";
+import React, { ChangeEvent, useCallback, useEffect, useMemo, useState } from "react";
 import { ColumnInstance } from "react-table";
 
 import generateId from "../../helpers/generateId";
@@ -18,15 +19,11 @@ interface NumberRangeColumnFilterProps<T extends object> {
 }
 
 function NumberRangeColumnFilter<T extends object>(props: NumberRangeColumnFilterProps<T>) {
-  const { filterValue = [], preFilteredRows, setFilter, id, Header } = props.column;
   const classes = useStyles();
-  const selectId = generateId("select");
-
-  const [value, setValue] = useState("");
-  const [digit, setDigit] = useState("");
-  const [secondDigit, setSecondDigit] = useState("");
-
-  const [min, max] = React.useMemo(() => {
+  const selectId = React.useMemo(() => generateId("select"), []);
+  const { Header, filterValue, setFilter, preFilteredRows, id } = props.column;
+  const operator = filterValue === undefined ? "" : filterValue[2];
+  const [min, max] = useMemo(() => {
     let min = preFilteredRows.length ? preFilteredRows[0].values[id] : 0;
     let max = preFilteredRows.length ? preFilteredRows[0].values[id] : 0;
     preFilteredRows.forEach((row) => {
@@ -36,32 +33,25 @@ function NumberRangeColumnFilter<T extends object>(props: NumberRangeColumnFilte
     return [min, max];
   }, [id, preFilteredRows]);
 
-  useEffect(() => {
-    const newDigit1 = parseInt(digit, 10);
-    if (isNaN(newDigit1)) return;
+  const handleOperatatorChange = useCallback((e: ChangeEvent<{ value: string; name?: string }>) => {
+    setFilter((old = []) => [old[0], old[1], e.target.value]);
+  }, []);
 
-    setFilter((old = []) => [newDigit1, old[1]]);
-  }, [digit]);
+  const handleDigit1 = useCallback(
+    (e: ChangeEvent<{ value: string }>) => {
+      const value = parseInt(e.target.value, 10);
+      setFilter((old = []) => [!isNaN(value) ? value : undefined, old[1], old[2]]);
+    },
+    [setFilter]
+  );
 
-  useEffect(() => {
-    const newSecondDigit = parseInt(secondDigit, 10);
-    if (isNaN(newSecondDigit)) return;
-
-    setFilter((old = []) => [old[0], newSecondDigit]);
-  }, [secondDigit]);
-
-  function handleChange(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) {
-    const value = event.target.value;
-    setValue(value);
-  }
-
-  function onChangeSecondDigit(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) {
-    setSecondDigit(event.target.value);
-  }
-
-  function onChangeFirstDigit(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) {
-    setDigit(event.target.value);
-  }
+  const handleDigit2 = useCallback(
+    (e: ChangeEvent<{ value: string }>) => {
+      const value = parseInt(e.target.value, 10);
+      setFilter((old = []) => [old[0], !isNaN(value) ? value : undefined, old[2]]);
+    },
+    [setFilter]
+  );
 
   return (
     <div className={classes.container}>
@@ -73,8 +63,8 @@ function NumberRangeColumnFilter<T extends object>(props: NumberRangeColumnFilte
           displayEmpty
           labelId={`${selectId}-label`}
           id={selectId}
-          value={value}
-          onChange={handleChange}
+          value={operator}
+          onChange={handleOperatatorChange}
           input={<OutlinedInput notched label={Header} />}
         >
           <MenuItem value="">
@@ -89,24 +79,33 @@ function NumberRangeColumnFilter<T extends object>(props: NumberRangeColumnFilte
             );
           })}
         </Select>
+        <FormHelperText>
+          Min: {min}, Max: {max}
+        </FormHelperText>
       </FormControl>
 
-      {value && (
+      {operator && (
         <div className={classes.digits}>
           <TextField
-            fullWidth={true}
+            fullWidth
+            value={filterValue ? filterValue[0] || "" : ""}
             variant="outlined"
             type="number"
-            onChange={onChangeFirstDigit}
+            placeholder={`Máx: ${max}`}
+            onChange={handleDigit1}
+            helperText=" "
           />
-          {value === Options.Between && (
+          {operator === Options.Between && (
             <>
               <Typography variant="body1">y</Typography>
               <TextField
-                fullWidth={true}
+                fullWidth
                 variant="outlined"
                 type="number"
-                onChange={onChangeSecondDigit}
+                placeholder={`Mín: ${min}`}
+                value={filterValue ? filterValue[1] || "" : ""}
+                onChange={handleDigit2}
+                helperText=" "
               />
             </>
           )}
@@ -117,10 +116,9 @@ function NumberRangeColumnFilter<T extends object>(props: NumberRangeColumnFilte
 }
 
 enum Options {
+  EqualTo = "Igual que",
   LesThan = "Menor que",
   GreaterThan = "Mayor que",
-  LesThanOrEqualTo = "Menor o igual que",
-  GreaterThanOrEqualTo = "Mayor o igual que",
   Between = "Entre",
 }
 
@@ -135,6 +133,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
   digits: {
+    height: "100%",
     alignItems: "center",
     display: "flex",
     "& > *:not(:last-child)": {
@@ -147,3 +146,47 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export default NumberRangeColumnFilter;
+
+export function filterNumberWithCondtions<T extends object>(
+  rows: Array<{ values: T }>,
+  id: keyof T,
+  filterValue: [number | undefined, number | undefined, string]
+): Array<{ values: T }> {
+  return rows.filter((row) => {
+    const rowValue = (row.values[id] as unknown) as number;
+    const operator = filterValue[2] as Options;
+    const firstNumber = filterValue[0];
+
+    const filterValueIsNotComputable = !filterValue || (filterValue && filterValue.length < 3);
+    const thereIsNoNumberForEvaluation = operator !== Options.Between && firstNumber === undefined;
+
+    if (filterValueIsNotComputable || (!filterValueIsNotComputable && thereIsNoNumberForEvaluation))
+      return true;
+
+    const secondNumber = filterValue[1];
+
+    switch (operator) {
+      case Options.EqualTo:
+        return rowValue === firstNumber;
+      case Options.LesThan:
+        return rowValue < firstNumber;
+      case Options.GreaterThan:
+        return rowValue > firstNumber;
+      case Options.Between:
+        if (firstNumber === undefined && secondNumber === undefined) return true;
+        return valueIsBetween(rowValue, firstNumber, secondNumber);
+      default:
+        return true;
+    }
+  });
+}
+
+function valueIsBetween(value: number, firstNumber = 0, secondNumber = 0) {
+  if (
+    (value <= firstNumber && value >= secondNumber) ||
+    (value >= firstNumber && value <= secondNumber)
+  )
+    return true;
+
+  return false;
+}

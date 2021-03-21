@@ -6,7 +6,7 @@ import {
   OutlinedInput,
   Select,
 } from "@material-ui/core";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import { ColumnInstance, Row } from "react-table";
 
 import generateId from "../../helpers/generateId";
@@ -18,8 +18,7 @@ interface SelectColumnFilterProps<T extends object> {
 function SelectColumnFilter<T extends object>(props: SelectColumnFilterProps<T>) {
   const { filterValue, setFilter, preFilteredRows, id, Header } = props.column;
   const classes = useStyles();
-  const selectId = generateId("select");
-  const [value, setValue] = useState("");
+  const selectId = useMemo(() => generateId("select"), []);
   const options = useMemo(() => {
     const options = new Set();
     preFilteredRows.forEach((row: Row<T>) => options.add(row.values[id]));
@@ -29,21 +28,20 @@ function SelectColumnFilter<T extends object>(props: SelectColumnFilterProps<T>)
 
   function handleChange(event: React.ChangeEvent<{ value: unknown }>) {
     const value = event.target.value as string;
-    setValue(value);
     setFilter(value || undefined);
   }
 
   return (
     <div style={{ width: "100%" }}>
-      <FormControl variant="outlined" fullWidth={true}>
-        <InputLabel id={`${selectId}-label`} shrink>
+      <FormControl fullWidth variant="outlined">
+        <InputLabel shrink id={`${selectId}-label`}>
           {Header}
         </InputLabel>
         <Select
           displayEmpty
           labelId={`${selectId}-label`}
           id={selectId}
-          value={value}
+          value={filterValue || ""}
           onChange={handleChange}
           input={<OutlinedInput notched label={Header} />}
         >

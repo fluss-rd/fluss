@@ -2,7 +2,12 @@
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import React, { useEffect, useRef, useState } from "react";
 
-import DataTable, { DataTableColumn, DataTableProps, DataTableRef } from "../DataTable";
+import DataTable, {
+  DataTableColumn,
+  DataTableProps,
+  DataTableProvider,
+  DataTableRef,
+} from "../DataTable";
 import { SearchBarRef } from "../SearchBar";
 import EnhancedDataTableToolbar, {
   EnhancedDataTableToolbarProps,
@@ -29,25 +34,27 @@ export default function EnhancedDataTable<T extends object>(props: EnhancedDataT
   }
 
   return (
-    <div className={classes.root}>
-      <EnhancedDataTableToolbar
-        SearchBarRef={searchBarRef}
-        DataTableRef={dataTableRef}
-        data={props.data}
-        setData={handleMatches}
-      />
+    <DataTableProvider columns={props.columns} data={props.data}>
+      <div className={classes.root}>
+        <EnhancedDataTableToolbar
+          SearchBarRef={searchBarRef}
+          DataTableRef={dataTableRef}
+          data={props.data}
+          setData={handleMatches}
+        />
 
-      <br />
+        <br />
 
-      <DataTable
-        densed={true}
-        columns={props.columns as DataTableColumn<any>[]}
-        data={computeData()}
-        sortBy={props.sortBy}
-        sortDirection={props.sortDirection}
-        ref={dataTableRef}
-      />
-    </div>
+        <DataTable
+          densed={true}
+          columns={props.columns as DataTableColumn<any>[]}
+          data={computeData()}
+          sortBy={props.sortBy}
+          sortDirection={props.sortDirection}
+          ref={dataTableRef}
+        />
+      </div>
+    </DataTableProvider>
   );
 }
 
