@@ -1,15 +1,16 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable react/jsx-key */
-import { makeStyles, Paper, Table, TableContainer, Theme } from "@material-ui/core";
+import { LinearProgress, makeStyles, Paper, Table, TableContainer, Theme } from "@material-ui/core";
+import React, { FC, forwardRef, useImperativeHandle } from "react";
+import { TableInstance } from "react-table";
+
 import {
   DataTableBody,
   DataTableColumn,
   DataTableHead,
   DataTablePagination,
   useDataTable,
-} from "components/DataTable";
-import React, { FC, forwardRef, useImperativeHandle } from "react";
-import { TableInstance } from "react-table";
+} from ".";
 
 type Generic<T = any> = T;
 export interface DataTableProps<T extends object> {
@@ -37,6 +38,7 @@ const DataTable = forwardRef<DataTableRef<Generic>, DataTableProps<Generic>>((pr
     <div className={classes.root}>
       <Paper className={classes.paper}>
         <TableContainer>
+          <LinearProgress color="secondary" />
           <Table
             {...table.getTableProps()}
             size={props.densed ? "small" : "medium"}

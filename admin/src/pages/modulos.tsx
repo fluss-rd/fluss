@@ -1,8 +1,6 @@
 /* eslint-disable react/jsx-key */
 import { Typography } from "@material-ui/core";
-import { SelectColumnFilter } from "components/DataFilters";
-import { DataTableColumn } from "components/DataTable";
-import EnhancedDataTable from "components/EnhancedDataTable";
+import { DataTableColumn, EnhancedDataTable, SelectColumnFilter } from "components/Tables";
 import InfoIconButton from "fragments/modulos/InfoIconButton";
 import formatDate from "helpers/formatDate";
 import Module from "models/Module";

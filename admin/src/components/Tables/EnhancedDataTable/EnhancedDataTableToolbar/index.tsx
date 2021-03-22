@@ -1,8 +1,8 @@
 import { IconButton } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { GetApp } from "@material-ui/icons";
-import { useDataTable } from "components/DataTable";
 import SearchBar, { SearchBarRef } from "components/SearchBar";
+import { useDataTable } from "components/Tables/DataTable";
 import { Ref } from "react";
 
 import FilterRows from "./FilterRows";

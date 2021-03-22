@@ -1,6 +1,7 @@
 import { DataTableColumn } from "components/DataTable";
 import { createContext, ReactNode, useContext } from "react";
 import {
+  Column,
   HeaderGroup,
   TableInstance,
   TableOptions,
@@ -36,7 +37,7 @@ export function DataTableProvider<T extends object>(props: DataTableProviderProp
 
 function applyInitialState<T extends object>(props: DataTableProviderProps<T>): TableOptions<T> {
   return {
-    columns: props.columns,
+    columns: props.columns as Column<T>[],
     data: props.data,
     initialState: {
       sortBy: [{ id: props.sortBy as string, desc: props.sortDirection === "desc" ? true : false }],

@@ -1,7 +1,7 @@
 import { Checkbox, FormControl, FormControlLabel, FormGroup } from "@material-ui/core";
 import { ViewColumn } from "@material-ui/icons";
-import { DataTableColumn } from "components/DataTable";
 import PopoverIcon from "components/PopoverIcon";
+import { DataTableColumn } from "components/Tables/DataTable";
 import { ChangeEvent, CSSProperties } from "react";
 import { ColumnInstance } from "react-table";
 
