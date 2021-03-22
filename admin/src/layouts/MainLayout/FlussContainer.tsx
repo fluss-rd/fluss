@@ -15,16 +15,16 @@ const FlussContainer: FC = ({ children }) => {
   );
 };
 
-const useStyles = makeStyles<Theme, MainLayoutValues>((theme: Theme) =>
-  createStyles({
-    container: {
-      padding: theme.spacing(3),
-    },
-    content: {
-      flexGrow: 1,
-    },
-    toolbar: theme.mixins.toolbar,
-  })
-);
+const useStyles = makeStyles<Theme, MainLayoutValues>((theme: Theme) => ({
+  content: {
+    flexGrow: 1,
+    minHeight: "100vh",
+  },
+  container: {
+    padding: theme.spacing(3),
+    height: "100%",
+  },
+  toolbar: theme.mixins.toolbar,
+}));
 
 export default FlussContainer;

@@ -1,45 +1,40 @@
-/* eslint-disable react/jsx-key */
-import { Typography } from "@material-ui/core";
-import { DataTableColumn, EnhancedDataTable, SelectColumnFilter } from "components/Tables";
-import InfoIconButton from "fragments/modulos/InfoIconButton";
-import formatDate from "helpers/formatDate";
+import { Fab, makeStyles, Typography } from "@material-ui/core";
+import { Add } from "@material-ui/icons";
+import { EnhancedDataTable } from "components/Tables";
+import columns from "fragments/modulos/columns";
 import Module from "models/Module";
 import { useMemo } from "react";
 
 export default function Modulos() {
   const data = useMemo(() => Module.mockData(), []);
+  const classes = useStyles();
+
   return (
-    <div>
+    <div className={classes.root}>
       <Typography variant="h4">Módulos</Typography>
 
       <br />
 
       <EnhancedDataTable data={data} columns={columns} />
+      <Fab variant="extended" color="primary" className={classes.fab}>
+        <Add className={classes.extendedIcon} />
+        Registrar módulo
+      </Fab>
     </div>
   );
 }
 
-const columns: DataTableColumn<Module>[] = [
-  { Header: "ID", accessor: "id", width: 200, columnWidth: "10%" },
-  {
-    Header: "Número SIM",
-    accessor: "simNumber",
-    columnWidth: "15%",
-    filter: "includes",
-    Filter: SelectColumnFilter,
+const useStyles = makeStyles((theme) => ({
+  root: {
+    position: "relative",
+    height: "100%",
   },
-  { Header: "Nombre", accessor: "name" },
-  { Header: "Descripción", accessor: "description", columnWidth: "30%" },
-  {
-    id: "updatedAt",
-    Header: "Última actualización",
-    columnWidth: "15%",
-    accessor: (data) => formatDate(data.updatedAt),
+  fab: {
+    position: "fixed",
+    bottom: theme.spacing(4),
+    right: theme.spacing(4),
   },
-  { id: "createdAt", Header: "Fecha de registro", accessor: (data) => formatDate(data.createdAt) },
-  {
-    id: "info",
-    Header: "Detalle",
-    accessor: (data: Module, i: number) => <InfoIconButton index={i} />,
+  extendedIcon: {
+    marginRight: theme.spacing(1),
   },
-];
+}));
