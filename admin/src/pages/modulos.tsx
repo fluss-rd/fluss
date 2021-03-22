@@ -2,6 +2,7 @@ import { Fab, makeStyles, Typography } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
 import { EnhancedDataTable } from "components/Tables";
 import columns from "fragments/modulos/columns";
+import OpenFormButton from "fragments/modulos/OpenFormButton";
 import Module from "models/Module";
 import { useMemo } from "react";
 
@@ -16,10 +17,7 @@ export default function Modulos() {
       <br />
 
       <EnhancedDataTable data={data} columns={columns} />
-      <Fab variant="extended" color="primary" className={classes.fab}>
-        <Add className={classes.extendedIcon} />
-        Registrar módulo
-      </Fab>
+      <OpenFormButton />
     </div>
   );
 }
@@ -28,13 +26,5 @@ const useStyles = makeStyles((theme) => ({
   root: {
     position: "relative",
     height: "100%",
-  },
-  fab: {
-    position: "fixed",
-    bottom: theme.spacing(4),
-    right: theme.spacing(4),
-  },
-  extendedIcon: {
-    marginRight: theme.spacing(1),
   },
 }));
