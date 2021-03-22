@@ -22,14 +22,12 @@ function GeneralFilter<T extends object>(props: GeneralFilterProps<T>) {
   const [current, setCurrent] = useMergeState({
     keyword: props.globalFilter || "",
     loading: false,
-    timeout: null,
   });
   const prevKeyword = usePrevious(current.keyword);
 
   useEffect(searchKeyword, [current.keyword]);
 
   function handleChange(e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) {
-    if (current.timeout) clearTimeout(current.timeout);
     const newKeyword = e.target.value;
     setCurrent({ keyword: newKeyword });
   }
@@ -38,7 +36,7 @@ function GeneralFilter<T extends object>(props: GeneralFilterProps<T>) {
     if (current.keyword === prevKeyword || count === 0) return;
 
     if (current.keyword.length === 0) {
-      props.setGlobalFilter(""); // Like the setData
+      props.setGlobalFilter("");
       if (current.loading) {
         setCurrent({ loading: false });
         if (props.startLoading) props.stopLoading();

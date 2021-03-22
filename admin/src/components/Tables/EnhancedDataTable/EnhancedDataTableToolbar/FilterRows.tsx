@@ -2,13 +2,15 @@ import { makeStyles, Theme } from "@material-ui/core/styles";
 import { FilterList } from "@material-ui/icons";
 import PopoverIcon from "components/PopoverIcon";
 import React from "react";
-import { ColumnInstance, TableInstance } from "react-table";
+import { ColumnInstance } from "react-table";
 
 interface FilterRowsProps<T extends object> {
-  table: TableInstance<T>;
+  columns: ColumnInstance<T>[];
+  startLoading?: () => void;
+  stopLoading?: () => void;
 }
 
-function FilterRows<T extends object>({ table }: FilterRowsProps<T>) {
+function FilterRows<T extends object>({ columns, startLoading, stopLoading }: FilterRowsProps<T>) {
   const classes = useStyles();
 
   function renderFilter(column: ColumnInstance<T>) {
@@ -16,14 +18,14 @@ function FilterRows<T extends object>({ table }: FilterRowsProps<T>) {
 
     return (
       <div key={column.id} className={classes.item}>
-        {column.render("Filter")}
+        {column.render("Filter", { startLoading, stopLoading })}
       </div>
     );
   }
 
   return (
     <PopoverIcon title="Filtros" icon={FilterList}>
-      <div className={classes.container}>{table.allColumns.map(renderFilter)}</div>
+      <div className={classes.container}>{columns.map(renderFilter)}</div>
     </PopoverIcon>
   );
 }

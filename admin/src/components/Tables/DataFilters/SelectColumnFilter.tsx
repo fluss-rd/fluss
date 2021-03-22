@@ -7,17 +7,25 @@ import {
   Select,
 } from "@material-ui/core";
 import generateId from "helpers/generateId";
-import React, { useMemo } from "react";
+import useMergeState from "hooks/useMergeState";
+import usePrevious from "hooks/usePrevious";
+import React, { memo, useEffect, useMemo, useState } from "react";
 import { ColumnInstance, Row } from "react-table";
 
 interface SelectColumnFilterProps<T extends object> {
   column: ColumnInstance<T>;
+  startLoading?: () => void;
+  stopLoading?: () => void;
 }
 
 function SelectColumnFilter<T extends object>(props: SelectColumnFilterProps<T>) {
   const { filterValue, setFilter, preFilteredRows, id, Header } = props.column;
+  const [current, setCurrent] = useState(filterValue || "");
+  const prevValue = usePrevious(current);
   const classes = useStyles();
   const selectId = useMemo(() => generateId("select"), []);
+  console.log("rendered (select column filter)");
+
   const options = useMemo(() => {
     const options = new Set();
     preFilteredRows.forEach((row: Row<T>) => options.add(row.values[id]));
@@ -25,9 +33,23 @@ function SelectColumnFilter<T extends object>(props: SelectColumnFilterProps<T>)
     return [...options.values()];
   }, [id, preFilteredRows]);
 
+  useEffect(() => {
+    if (current === prevValue) return;
+    else if (current === "" && filterValue === undefined) return;
+
+    if (props.startLoading) props.startLoading();
+
+    const delay = setTimeout(() => {
+      setFilter(current || undefined);
+      if (props.stopLoading) props.stopLoading();
+    }, 400);
+
+    return () => clearTimeout(delay);
+  }, [current]);
+
   function handleChange(event: React.ChangeEvent<{ value: unknown }>) {
-    const value = event.target.value as string;
-    setFilter(value || undefined);
+    const newValue = event.target.value as string;
+    setCurrent(newValue);
   }
 
   return (
@@ -40,7 +62,7 @@ function SelectColumnFilter<T extends object>(props: SelectColumnFilterProps<T>)
           displayEmpty
           labelId={`${selectId}-label`}
           id={selectId}
-          value={filterValue || ""}
+          value={current}
           onChange={handleChange}
           input={<OutlinedInput notched label={Header} />}
         >
@@ -66,4 +88,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default SelectColumnFilter;
+export default memo(SelectColumnFilter);

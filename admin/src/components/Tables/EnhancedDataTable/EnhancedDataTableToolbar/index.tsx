@@ -40,8 +40,13 @@ export default function EnhancedDataTableToolbar<T extends object>(
         <IconButton>
           <GetApp />
         </IconButton>
-        <FilterRows table={table} />
-        <ShowColumns columns={table.allColumns as DataTableColumn<T>[]} />
+        <FilterRows
+          key={1729}
+          columns={table.allColumns}
+          stopLoading={stopLoading}
+          startLoading={startLoading}
+        />
+        <ShowColumns columns={table.allColumns as DataTableColumn<T>[]} key={0} />
       </div>
     </div>
   );
