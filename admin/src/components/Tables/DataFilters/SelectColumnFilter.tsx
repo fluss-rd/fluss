@@ -24,7 +24,6 @@ function SelectColumnFilter<T extends object>(props: SelectColumnFilterProps<T>)
   const prevValue = usePrevious(current);
   const classes = useStyles();
   const selectId = useMemo(() => generateId("select"), []);
-  console.log("rendered (select column filter)");
 
   const options = useMemo(() => {
     const options = new Set();

@@ -6,19 +6,25 @@ import { ColumnInstance } from "react-table";
 import DataTableColumn from "./DataTableColumn";
 import DataTableContext from "./DataTableContext";
 
-export default function DataTableHead<T extends object>() {
+interface DataTableHeadProps {
+  useColGroup?: boolean;
+}
+
+export default function DataTableHead<T extends object>(props: DataTableHeadProps) {
   const classes = useStyles();
   const { headerGroups, sortingColumnId } = useContext(DataTableContext);
 
   return (
     <>
-      <colgroup>
-        {headerGroups.map((headerGroup) =>
-          headerGroup.headers.map((column: ColumnInstance<T>) => (
-            <col style={{ width: (column as DataTableColumn<T>).columnWidth }} key={column.id} />
-          ))
-        )}
-      </colgroup>
+      {props.useColGroup && (
+        <colgroup>
+          {headerGroups.map((headerGroup) =>
+            headerGroup.headers.map((column: ColumnInstance<T>) => (
+              <col style={{ width: (column as DataTableColumn<T>).columnWidth }} key={column.id} />
+            ))
+          )}
+        </colgroup>
+      )}
 
       <TableHead>
         {headerGroups.map((headerGroup) => (

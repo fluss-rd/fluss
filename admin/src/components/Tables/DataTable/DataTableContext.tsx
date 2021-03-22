@@ -54,7 +54,7 @@ export function DataTableProvider<T extends object>(props: DataTableProviderProp
 function applyInitialState<T extends object>(props: DataTableProviderProps<T>): TableOptions<T> {
   return {
     columns: props.columns as Column<T>[],
-    data: props.data,
+    data: props.data === undefined ? [] : props.data,
     initialState: {
       sortBy: [{ id: props.sortBy as string, desc: props.sortDirection === "desc" ? true : false }],
       pageIndex: 0,
