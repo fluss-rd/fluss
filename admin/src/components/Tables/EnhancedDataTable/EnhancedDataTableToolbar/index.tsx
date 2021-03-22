@@ -2,7 +2,8 @@ import { IconButton } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { GetApp } from "@material-ui/icons";
 import SearchBar, { SearchBarRef } from "components/SearchBar";
-import { useDataTable } from "components/Tables/DataTable";
+import { GeneralFilter } from "components/Tables";
+import { DataTableColumn, useDataTable } from "components/Tables/DataTable";
 import { Ref } from "react";
 
 import FilterRows from "./FilterRows";
@@ -16,18 +17,22 @@ export interface EnhancedDataTableToolbarProps<T> {
   DataTableRef?: any;
 }
 
-export default function EnhancedDataTableToolbar<T>(props: EnhancedDataTableToolbarProps<T>) {
+export default function EnhancedDataTableToolbar<T extends object>(
+  props: EnhancedDataTableToolbarProps<T>
+) {
   const classes = useStyles();
-  const table = useDataTable().table;
+  const { table, startLoading, stopLoading } = useDataTable();
 
   return (
     <div className={classes.container}>
       <div className={classes.searchBar}>
-        <SearchBar
-          data={props.data}
-          setData={props.setData}
-          placeholder={props.placeholder}
-          ref={props.SearchBarRef}
+        <GeneralFilter
+          globalFilter={table.state.globalFilter}
+          setGlobalFilter={table.setGlobalFilter}
+          preGlobalFilteredRows={table.preGlobalFilteredRows}
+          placeholder="Buscar..."
+          startLoading={startLoading}
+          stopLoading={stopLoading}
         />
       </div>
 
@@ -36,7 +41,7 @@ export default function EnhancedDataTableToolbar<T>(props: EnhancedDataTableTool
           <GetApp />
         </IconButton>
         <FilterRows table={table} />
-        <ShowColumns columns={table.allColumns} />
+        <ShowColumns columns={table.allColumns as DataTableColumn<T>[]} />
       </div>
     </div>
   );

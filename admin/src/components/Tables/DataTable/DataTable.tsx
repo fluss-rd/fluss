@@ -29,7 +29,7 @@ export interface DataTableRef<T extends object> {
 
 const DataTable = forwardRef<DataTableRef<Generic>, DataTableProps<Generic>>((props, ref) => {
   const classes = useStyles(props);
-  const { table } = useDataTable();
+  const { table, loading } = useDataTable();
 
   // The returned object will be used by another component that uses a reference of the table.
   useImperativeHandle(ref, () => ({ context: table }), [table]);
@@ -38,7 +38,7 @@ const DataTable = forwardRef<DataTableRef<Generic>, DataTableProps<Generic>>((pr
     <div className={classes.root}>
       <Paper className={classes.paper}>
         <TableContainer>
-          <LinearProgress color="secondary" />
+          {(loading || props.data === undefined) && <LinearProgress color="secondary" />}
           <Table
             {...table.getTableProps()}
             size={props.densed ? "small" : "medium"}

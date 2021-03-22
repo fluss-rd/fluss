@@ -28,7 +28,10 @@ export default function EnhancedDataTable<T extends object>(props: EnhancedDataT
 
   function computeData() {
     const current = searchBarRef.current;
-    if (current && current.state.keyword.length) return filtered;
+    if (current && current.state.keyword.length) {
+      console.log();
+      return filtered;
+    }
 
     return props.data;
   }
