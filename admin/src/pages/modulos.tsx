@@ -1,5 +1,9 @@
 import { makeStyles, Typography } from "@material-ui/core";
-import { EnhancedDataTable } from "components/Tables";
+import {
+  EnhancedDataTable,
+  filterNumberWithConditions,
+  NumberRangeColumnFilter,
+} from "components/Tables";
 import { DataTableColumn, SelectColumnFilter } from "components/Tables";
 import InfoIconButton from "fragments/modulos/InfoIconButton";
 import RegisterModule from "fragments/modulos/RegisterModule";
@@ -21,6 +25,8 @@ export default function Modulos() {
     [setCurrent, data]
   );
   const dataColumns = useMemo(() => columns(handleModuleClicked), [handleModuleClicked]);
+
+  console.log("hey");
 
   return (
     <div className={classes.root}>
@@ -72,6 +78,13 @@ const columns = (handleModuleClicked: (index: number) => void): DataTableColumn<
     Header: "Fecha de registro",
     accessor: (data) => formatDate(data.createdAt),
   },
+  //{
+  //id: "hmm",
+  //Header: "Prueba",
+  //accessor: "hmm",
+  //filter: filterNumberWithConditions,
+  //Filter: NumberRangeColumnFilter,
+  //},
   {
     id: "info",
     Header: "Detalle",

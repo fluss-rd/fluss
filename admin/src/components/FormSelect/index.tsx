@@ -18,6 +18,8 @@ const FormSelect: FC<FormSelectProps> = (props) => {
   const classes = useStyles();
   const selectId = useMemo(() => generateId("select"), []);
   const { noneText } = props;
+  const propsCopy = { ...props };
+  delete propsCopy.noneText;
 
   return (
     <FormControl fullWidth variant="outlined">
@@ -31,7 +33,7 @@ const FormSelect: FC<FormSelectProps> = (props) => {
         value={props.value}
         onChange={props.onChange}
         input={<OutlinedInput notched label={props.label} />}
-        {...props}
+        {...propsCopy}
       >
         <MenuItem value="">
           <span className={classes.none}>{noneText}</span>
