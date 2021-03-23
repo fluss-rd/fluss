@@ -1,24 +1,30 @@
 /* eslint-disable react/jsx-key */
-/* eslint-disable @typescript-eslint/ban-types */
 import { makeStyles, TableCell, TableHead, TableRow, TableSortLabel } from "@material-ui/core";
 import { useContext } from "react";
+import { ColumnInstance } from "react-table";
 
 import DataTableColumn from "./DataTableColumn";
 import DataTableContext from "./DataTableContext";
 
-export default function DataTableHead<T extends object>() {
+interface DataTableHeadProps {
+  useColGroup?: boolean;
+}
+
+export default function DataTableHead<T extends object>(props: DataTableHeadProps) {
   const classes = useStyles();
   const { headerGroups, sortingColumnId } = useContext(DataTableContext);
 
   return (
     <>
-      <colgroup>
-        {headerGroups.map((headerGroup) =>
-          headerGroup.headers.map((column: DataTableColumn<T>) => (
-            <col style={{ width: column.columnWidth }} key={column.id} />
-          ))
-        )}
-      </colgroup>
+      {props.useColGroup && (
+        <colgroup>
+          {headerGroups.map((headerGroup) =>
+            headerGroup.headers.map((column: ColumnInstance<T>) => (
+              <col style={{ width: (column as DataTableColumn<T>).columnWidth }} key={column.id} />
+            ))
+          )}
+        </colgroup>
+      )}
 
       <TableHead>
         {headerGroups.map((headerGroup) => (

@@ -3,74 +3,63 @@ import { makeStyles, Theme } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
 import useMergeState from "hooks/useMergeState";
 import usePrevious from "hooks/usePrevious";
-import { ChangeEvent, forwardRef, useEffect, useImperativeHandle } from "react";
+import React, { ChangeEvent, FC, useEffect } from "react";
+import { Row } from "react-table";
 
-import search from "./search";
-
-type SearchBarPropsType<T = any> = SearchBarProps<T>;
-
-interface SearchBarProps<T> {
+interface GeneralFilterProps<T extends object> {
+  preGlobalFilteredRows: Row<T>[];
+  globalFilter: any;
+  setGlobalFilter: (value: any) => void;
   placeholder?: string;
-  data?: T[];
-  setData?: (data: T[]) => void; // Will be executed on searching.
   delay?: number;
+  startLoading?: () => void;
+  stopLoading?: () => void;
 }
 
-interface SearchBarState {
-  keyword: string;
-  timeout: any;
-  isLoading: boolean;
-}
-
-export interface SearchBarRef {
-  state: SearchBarState;
-}
-
-const SearchBar = forwardRef<SearchBarRef, SearchBarPropsType>((props, ref) => {
+function GeneralFilter<T extends object>(props: GeneralFilterProps<T>) {
   const classes = useStyles();
+  const count = props.preGlobalFilteredRows.length;
   const [current, setCurrent] = useMergeState({
-    keyword: "",
-    timeout: null,
-    isLoading: false,
+    keyword: props.globalFilter || "",
+    loading: false,
   });
   const prevKeyword = usePrevious(current.keyword);
 
   useEffect(searchKeyword, [current.keyword]);
 
-  useImperativeHandle(ref, () => ({ state: current }), [current]);
+  function handleChange(e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) {
+    const newKeyword = e.target.value;
+    setCurrent({ keyword: newKeyword });
+  }
 
   function searchKeyword() {
-    if (current.keyword === prevKeyword || !props.data || !props.setData) return;
+    if (current.keyword === prevKeyword || count === 0) return;
 
     if (current.keyword.length === 0) {
-      props.setData([]);
-      if (current.isLoading) setCurrent({ isLoading: false });
+      props.setGlobalFilter("");
+      if (current.loading) {
+        setCurrent({ loading: false });
+        if (props.startLoading) props.stopLoading();
+      }
       return;
     }
 
-    setCurrent({ isLoading: true });
+    if (props.startLoading) props.startLoading();
+    setCurrent({ loading: true });
     const delay = setTimeout(() => {
-      const matches = search(props.data, current.keyword);
-
-      setCurrent({ isLoading: false });
-
-      props.setData(matches);
+      props.setGlobalFilter(current.keyword); // search
+      setCurrent({ loading: false });
+      if (props.startLoading) props.stopLoading();
     }, props.delay!);
 
     return () => clearTimeout(delay);
-  }
-
-  function handleChange(e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) {
-    if (current.timeout) clearTimeout(current.timeout);
-    const newKeyword = e.target.value;
-    setCurrent({ keyword: newKeyword });
   }
 
   return (
     <Paper className={classes.card}>
       <div className={classes.search}>
         <div className={classes.searchIcon}>
-          {current.isLoading ? (
+          {current.loading ? (
             <CircularProgress color="secondary" size={16} />
           ) : (
             <SearchIcon color="action" />
@@ -89,12 +78,7 @@ const SearchBar = forwardRef<SearchBarRef, SearchBarPropsType>((props, ref) => {
       </div>
     </Paper>
   );
-});
-
-SearchBar.defaultProps = {
-  placeholder: "Buscar...",
-  delay: 1000,
-};
+}
 
 const useStyles = makeStyles((theme: Theme) => ({
   card: {
@@ -130,4 +114,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default SearchBar;
+GeneralFilter.defaultProps = {
+  delay: 500,
+};
+
+export default GeneralFilter;

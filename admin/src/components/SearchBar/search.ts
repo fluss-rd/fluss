@@ -1,7 +1,20 @@
+import { Row } from "react-table";
+
 export default function search<T>(data: T[], keyword: string): T[] {
   const matches = data.filter((element: T) => {
     const normalizedKeyword: string = normalizeText(keyword);
     const normalizedContent: string = normalizeText(objToString(element));
+    const thereIsAMatch = normalizedContent.includes(normalizedKeyword);
+    return thereIsAMatch;
+  });
+
+  return matches;
+}
+
+export function searchRows<T extends object>(data: Row<T>[], keyword: string): Row<T>[] {
+  const matches = data.filter((element: Row<T>) => {
+    const normalizedKeyword: string = normalizeText(keyword);
+    const normalizedContent: string = normalizeText(objToString(element.original));
     const thereIsAMatch = normalizedContent.includes(normalizedKeyword);
     return thereIsAMatch;
   });

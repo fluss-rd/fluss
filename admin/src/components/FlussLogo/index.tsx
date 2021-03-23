@@ -1,10 +1,9 @@
 import { Button, Typography } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
+import { push } from "helpers";
+import { MainLayoutContext, MainLayoutValues } from "layouts/MainLayout/index";
 import Image from "next/image";
 import { useContext } from "react";
-
-import { push } from "../../helpers";
-import { MainLayoutContext, MainLayoutValues } from "../../layouts/MainLayout/index";
 
 export default function FlussLogo() {
   const context = useContext(MainLayoutContext);

@@ -6,6 +6,7 @@ export default class Module {
   location: string;
   updatedAt: Date;
   createdAt: Date;
+  hmm: number;
 
   constructor(module: Partial<Module>) {
     this.id = module.id;
@@ -15,6 +16,7 @@ export default class Module {
     this.location = module.location;
     this.updatedAt = module.updatedAt;
     this.createdAt = module.createdAt;
+    this.hmm = module.hmm;
   }
 
   static mockData(): Module[] {
@@ -30,6 +32,7 @@ export default class Module {
           description: "Permite obtener la información de los sensores y enviarlas",
           location: "34:349,24029:002",
           name: `Módulo ${i}`,
+          hmm: i,
         })
       );
     }

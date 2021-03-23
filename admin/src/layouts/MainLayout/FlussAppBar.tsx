@@ -1,9 +1,9 @@
 import { AppBar as Navbar, Divider, IconButton, Toolbar } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { Menu } from "@material-ui/icons";
+import FlussLogo from "components/FlussLogo";
 import React, { FC, useContext } from "react";
 
-import FlussLogo from "../../components/FlussLogo";
 import { MainLayoutContext, MainLayoutValues } from ".";
 
 const FlussAppBar: FC = () => {
@@ -50,7 +50,8 @@ const useStyles = makeStyles<Theme, MainLayoutValues>((theme: Theme) =>
       textAlign: "left",
       paddingLeft: theme.spacing(2),
       width: ({ drawerWidth }) => drawerWidth,
-      zIndex: theme.zIndex.modal + 1,
+      zIndex: ({ sidebarInMobileIsOpen }) =>
+        sidebarInMobileIsOpen ? theme.zIndex.modal + 1 : theme.zIndex.drawer + 1,
       ...theme.mixins.toolbar,
     },
     appBar: ({ mdUp }) => ({
