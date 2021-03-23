@@ -18,7 +18,7 @@ import FormIconTitle from "components/FormIconTitle";
 import FormSelect from "components/FormSelect";
 import useMergeState from "hooks/useMergeState";
 import Module from "models/Module";
-import React, { FC, useMemo, useState } from "react";
+import React, { FC, useEffect, useMemo, useState } from "react";
 
 import ModuleLocation from "./ModuleLocation";
 
@@ -31,9 +31,11 @@ interface ViewModuleProps {
 const ViewModule: FC<ViewModuleProps> = (props) => {
   const classes = useStyles();
   const locations = useMemo(() => ["Yaque del Norte", "Yaque del Sur"], []);
-  const [module, setModule] = useMergeState(props.module !== null ? { ...props.module } : {});
+  const [module, setModule] = useMergeState({} as Module);
 
-  console.log(module);
+  useEffect(() => {
+    if (props.module) setModule(new Module(props.module));
+  }, [props.module]);
 
   return (
     <Dialog
@@ -51,7 +53,13 @@ const ViewModule: FC<ViewModuleProps> = (props) => {
             <Typography variant="h6" className={classes.title}>
               Información de módulo
             </Typography>
-            <Button color="inherit" onClick={props.close}>
+            <Button
+              color="inherit"
+              onClick={() => {
+                props.onSave(module);
+                props.close();
+              }}
+            >
               Guardar cambios
             </Button>
           </Toolbar>

@@ -29,8 +29,6 @@ const FlussDrawreItem: FC<DrawerItemProps> = (props) => {
     else expanded ? <ExpandLess /> : <ExpandMore />;
   }
 
-  console.log(props.to, router.pathname);
-
   return (
     <ListItem onClick={handleClick} button={true} className={classes.nested} selected={isSelected}>
       {Icon && <ListItemIcon>{<Icon />}</ListItemIcon>}

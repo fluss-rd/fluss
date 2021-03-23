@@ -5,19 +5,22 @@ import InfoIconButton from "fragments/modulos/InfoIconButton";
 import RegisterModule from "fragments/modulos/RegisterModule";
 import ViewModule from "fragments/modulos/ViewModule";
 import formatDate from "helpers/formatDate";
+import useMergeState from "hooks/useMergeState";
 import Module from "models/Module";
 import { useCallback, useMemo, useState } from "react";
 
 export default function Modulos() {
-  const [current, setCurrent] = useState<Module | null>(null);
   const classes = useStyles();
-  const data = useMemo(() => Module.mockData(), []);
-  const handleModuleClicked = useCallback((index: number) => setCurrent({ ...data[index] }), [
-    setCurrent,
-  ]);
+  const [data, setData] = useState(Module.mockData());
+  const [current, setCurrent] = useMergeState<{ index: number; module: Module }>({
+    index: 0,
+    module: null,
+  });
+  const handleModuleClicked = useCallback(
+    (index: number) => setCurrent({ module: { ...data[index] }, index }),
+    [setCurrent, data]
+  );
   const dataColumns = useMemo(() => columns(handleModuleClicked), [handleModuleClicked]);
-
-  console.log(current);
 
   return (
     <div className={classes.root}>
@@ -27,7 +30,15 @@ export default function Modulos() {
 
       <EnhancedDataTable data={data} columns={dataColumns} />
       <RegisterModule />
-      <ViewModule module={current} close={() => setCurrent(null)} />
+      <ViewModule
+        module={current.module}
+        close={() => setCurrent({ index: 0, module: null })}
+        onSave={(module) => {
+          const modified = [...data];
+          modified[current.index] = { ...module };
+          setData(modified);
+        }}
+      />
     </div>
   );
 }
