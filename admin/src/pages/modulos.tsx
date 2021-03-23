@@ -1,8 +1,7 @@
-import { Fab, makeStyles, Typography } from "@material-ui/core";
-import { Add } from "@material-ui/icons";
+import { makeStyles, Typography } from "@material-ui/core";
 import { EnhancedDataTable } from "components/Tables";
 import columns from "fragments/modulos/columns";
-import OpenFormButton from "fragments/modulos/OpenFormButton";
+import RegisterModule from "fragments/modulos/RegisterModule";
 import Module from "models/Module";
 import { useMemo } from "react";
 
@@ -17,14 +16,14 @@ export default function Modulos() {
       <br />
 
       <EnhancedDataTable data={data} columns={columns} />
-      <OpenFormButton />
+      <RegisterModule />
     </div>
   );
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   root: {
     position: "relative",
     height: "100%",
   },
-}));
+});
