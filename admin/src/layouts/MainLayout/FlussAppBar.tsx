@@ -50,7 +50,8 @@ const useStyles = makeStyles<Theme, MainLayoutValues>((theme: Theme) =>
       textAlign: "left",
       paddingLeft: theme.spacing(2),
       width: ({ drawerWidth }) => drawerWidth,
-      zIndex: theme.zIndex.modal + 1,
+      zIndex: ({ sidebarInMobileIsOpen }) =>
+        sidebarInMobileIsOpen ? theme.zIndex.modal + 1 : theme.zIndex.drawer + 1,
       ...theme.mixins.toolbar,
     },
     appBar: ({ mdUp }) => ({
