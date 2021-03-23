@@ -31,12 +31,16 @@ const OpenFormButton: FC<OpenFormButtonProps> = (props) => {
       <Dialog
         fullWidth
         open={isOpen}
-        maxWidth="lg"
+        maxWidth="md"
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">Registrar módulo</DialogTitle>
         <DialogContent>
+          <DialogContentText>
+            Llene el siguiente formulario pare efectuar el registro. Asegúrese de colocar los datos
+            correctos del dispositivo para que la conexión pueda establecerse con éxito.
+          </DialogContentText>
           <RegisterModule />
         </DialogContent>
         <DialogActions>

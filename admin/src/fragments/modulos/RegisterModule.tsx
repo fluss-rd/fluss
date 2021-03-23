@@ -1,7 +1,9 @@
 import { Grid, TextField, Typography } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { EditLocationOutlined, InfoOutlined } from "@material-ui/icons";
-import React, { FC } from "react";
+import React, { FC, useCallback, useState } from "react";
+
+import ModuleLocation from "./ModuleLocation";
 
 interface RegisterModuleProps {
   open?: boolean;
@@ -9,12 +11,21 @@ interface RegisterModuleProps {
 
 const RegisterModule: FC<RegisterModuleProps> = (props) => {
   const classes = useStyles();
+  const [location, setLocation] = useState({ latitude: 0, longitude: 0 });
+
+  const handleLocationChange = useCallback((latitude: number, longitude: number) => {
+    console.log("HHHHH");
+    console.log(latitude, longitude);
+    setLocation({ latitude, longitude });
+  }, []);
 
   return (
     <form className={classes.root}>
       <div className={classes.sectionTitle}>
-        <InfoOutlined />
-        <Typography variant="caption">DATOS</Typography>
+        <InfoOutlined color="action" />
+        <Typography variant="caption" color="textSecondary">
+          DATOS
+        </Typography>
       </div>
       <Grid container spacing={3} className={classes.formSection}>
         <Grid item xs={12} md={6}>
@@ -39,8 +50,10 @@ const RegisterModule: FC<RegisterModuleProps> = (props) => {
       <br />
       <br />
       <div className={classes.sectionTitle}>
-        <EditLocationOutlined />
-        <Typography variant="caption">Ubicación</Typography>
+        <EditLocationOutlined color="action" />
+        <Typography variant="caption" color="textSecondary">
+          Ubicación
+        </Typography>
       </div>
       <Grid container spacing={3} className={classes.formSection}>
         <Grid item xs={12} md={6}>
@@ -48,6 +61,7 @@ const RegisterModule: FC<RegisterModuleProps> = (props) => {
             fullWidth
             variant="outlined"
             label="Latitud"
+            value={location.latitude}
             InputLabelProps={{ shrink: true }}
             InputProps={{ notched: true }}
           />
@@ -57,12 +71,18 @@ const RegisterModule: FC<RegisterModuleProps> = (props) => {
             fullWidth
             variant="outlined"
             label="Longitud"
+            value={location.longitude}
             InputLabelProps={{ shrink: true }}
             InputProps={{ notched: true }}
           />
+          <br />
+          <br />
+          <Typography variant="caption" color="textSecondary">
+            Haba click en el mapa para cambiar la ubicación de registro
+          </Typography>
         </Grid>
         <Grid item xs={12} md={6}>
-          Mapa
+          <ModuleLocation onNewMarker={handleLocationChange} />
         </Grid>
       </Grid>
     </form>
