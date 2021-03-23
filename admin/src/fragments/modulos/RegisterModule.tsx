@@ -1,7 +1,8 @@
 import { Grid, TextField, Typography } from "@material-ui/core";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, Theme } from "@material-ui/core/styles";
 import { EditLocationOutlined, InfoOutlined } from "@material-ui/icons";
 import React, { FC, useCallback, useState } from "react";
+import InputMask from "react-input-mask";
 
 import ModuleLocation from "./ModuleLocation";
 
@@ -14,8 +15,6 @@ const RegisterModule: FC<RegisterModuleProps> = (props) => {
   const [location, setLocation] = useState({ latitude: 0, longitude: 0 });
 
   const handleLocationChange = useCallback((latitude: number, longitude: number) => {
-    console.log("HHHHH");
-    console.log(latitude, longitude);
     setLocation({ latitude, longitude });
   }, []);
 
@@ -29,13 +28,18 @@ const RegisterModule: FC<RegisterModuleProps> = (props) => {
       </div>
       <Grid container spacing={3} className={classes.formSection}>
         <Grid item xs={12} md={6}>
-          <TextField
-            fullWidth
-            variant="outlined"
-            label="NúmeroSIM"
-            InputLabelProps={{ shrink: true }}
-            InputProps={{ notched: true }}
-          />
+          <InputMask mask="(999) 999-9999" maskChar=" ">
+            {() => (
+              <TextField
+                fullWidth
+                placeholder="(###) ###-###"
+                variant="outlined"
+                label="NúmeroSIM"
+                InputLabelProps={{ shrink: true }}
+                InputProps={{ notched: true }}
+              />
+            )}
+          </InputMask>
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField
