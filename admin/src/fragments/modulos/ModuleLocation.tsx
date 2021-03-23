@@ -6,16 +6,20 @@ import ReactMapGL, { InteractiveMap, Marker } from "react-map-gl";
 interface ModuleLocationProps {
   isMarkerShown?: boolean;
   onNewMarker: (latitude: number, longitude: number) => void;
+  height?: number | string;
+  width?: number | string;
+  latitude?: number;
+  longitude?: number;
 }
 
 const ModuleLocation: FC<ModuleLocationProps> = (props) => {
   const classes = useStyles();
   const [markers, setMarkers] = useState([]);
   const [viewport, setViewport] = useState({
-    width: "100%",
-    height: 300,
-    latitude: 19.85,
-    longitude: -71.6833333,
+    width: props.width,
+    height: props.height,
+    latitude: props.latitude,
+    longitude: props.longitude,
     zoom: 10,
   });
 
@@ -53,4 +57,12 @@ const ModuleLocation: FC<ModuleLocationProps> = (props) => {
 
 const useStyles = makeStyles(() => ({}));
 
-export default memo(ModuleLocation);
+const Memoized: FC<ModuleLocationProps> = memo(ModuleLocation);
+(Memoized as any).defaultProps = {
+  width: "100%",
+  height: 300,
+  latitude: 19.85,
+  longitude: -71.68333,
+};
+
+export default Memoized;

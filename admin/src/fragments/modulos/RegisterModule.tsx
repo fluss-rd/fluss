@@ -63,7 +63,7 @@ const RegisterModule: FC<OpenFormButtonProps> = (props) => {
               </Typography>
             </div>
             <div>
-              <Grid container xs={12} spacing={3} className={classes.formSection}>
+              <Grid container spacing={3} className={classes.formSection}>
                 <Grid item xs={12} md={6}>
                   <ReactInputMask mask="(999) 999-9999" maskChar=" ">
                     {() => (
