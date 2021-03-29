@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core";
 import PanoramaHorizontalIcon from "@material-ui/icons/PanoramaHorizontal";
 import usePrevious from "hooks/usePrevious";
-import React, { FC, forwardRef, useImperativeHandle } from "react";
+import React, { forwardRef, useImperativeHandle } from "react";
 import { TableInstance } from "react-table";
 
 import {
@@ -45,9 +45,9 @@ const DataTable = forwardRef<DataTableRef<Generic>, DataTableProps<Generic>>((pr
   useImperativeHandle(ref, () => ({ context: table }), [table]);
 
   const dataIsLoading = props.data === undefined;
-  const thereIsNoResults = prevLoading !== loading && table.page.length === 0;
+  const noSearchResults = prevLoading !== loading && table.page.length === 0;
   const thereIsNoData = table.page.length === 0;
-  const showRows = !dataIsLoading && !thereIsNoResults && !thereIsNoData;
+  const showRows = !dataIsLoading && !noSearchResults && !thereIsNoData;
 
   return (
     <div className={classes.root}>
@@ -67,7 +67,7 @@ const DataTable = forwardRef<DataTableRef<Generic>, DataTableProps<Generic>>((pr
           <div className={classes.emptyTable}>
             <PanoramaHorizontalIcon fontSize="large" color="disabled" />
             <Typography variant="caption">
-              {thereIsNoResults ? "No se encontraron resultados" : "Tabla vacía"}
+              {noSearchResults ? "No se encontraron resultados" : "Tabla vacía"}
             </Typography>
           </div>
         )}
@@ -100,7 +100,7 @@ const useStyles = makeStyles<Theme, DataTableProps<any>>((theme) => ({
   },
 }));
 
-(DataTable as FC<DataTableProps<any>>).defaultProps = {
+DataTable.defaultProps = {
   sortDirection: "asc",
   minWidth: "720px",
 };

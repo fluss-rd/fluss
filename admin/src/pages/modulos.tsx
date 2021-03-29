@@ -26,8 +26,6 @@ export default function Modulos() {
   );
   const dataColumns = useMemo(() => columns(handleModuleClicked), [handleModuleClicked]);
 
-  console.log("hey");
-
   return (
     <div className={classes.root}>
       <Typography variant="h4">Módulos</Typography>
@@ -78,13 +76,7 @@ const columns = (handleModuleClicked: (index: number) => void): DataTableColumn<
     Header: "Fecha de registro",
     accessor: (data) => formatDate(data.createdAt),
   },
-  //{
-  //id: "hmm",
-  //Header: "Prueba",
-  //accessor: "hmm",
-  //filter: filterNumberWithConditions,
-  //Filter: NumberRangeColumnFilter,
-  //},
+  { accessor: "river", Header: "Cuerpo hídrico" },
   {
     id: "info",
     Header: "Detalle",
