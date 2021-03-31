@@ -29,15 +29,20 @@ export default function DataTableHead<T extends object>(props: DataTableHeadProp
       <TableHead>
         {headerGroups.map((headerGroup) => (
           <TableRow {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map((column) => {
+            {headerGroup.headers.map((column: DataTableColumn<T>) => {
               return (
-                <TableCell {...column.getHeaderProps(column.getSortByToggleProps())}>
+                <TableCell
+                  {...column.getHeaderProps(column.getSortByToggleProps())}
+                  className={classes.cell}
+                >
                   <TableSortLabel
                     direction={column.isSortedDesc ? "desc" : "asc"}
                     active={sortingColumnId === column.id}
                     className={classes.header}
                   >
-                    <div>{column.render("Header")}</div>
+                    <div className={classes.render} style={column.columnTitleStyles}>
+                      {column.render("Header")}
+                    </div>
                   </TableSortLabel>
                 </TableCell>
               );
@@ -50,7 +55,12 @@ export default function DataTableHead<T extends object>(props: DataTableHeadProp
 }
 
 const useStyles = makeStyles({
+  cell: {},
   header: {
     fontWeight: "bold",
+    width: "100%",
+  },
+  render: {
+    width: "100%",
   },
 });
