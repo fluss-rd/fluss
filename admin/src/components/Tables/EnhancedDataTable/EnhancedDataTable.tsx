@@ -13,7 +13,14 @@ export default function EnhancedDataTable<T extends object>(props: EnhancedDataT
   const classes = useStyles();
 
   return (
-    <DataTableProvider columns={props.columns} data={props.data}>
+    <DataTableProvider
+      columns={props.columns}
+      data={props.data}
+      paginated={props.paginated}
+      pageSize={props.pageSize}
+      sortBy={props.sortBy as string}
+      sortDirection={props.sortDirection}
+    >
       <div className={classes.root}>
         <EnhancedDataTableToolbar {...props} />
 

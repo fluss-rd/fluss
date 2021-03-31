@@ -29,6 +29,7 @@ export interface DataTableProps<T extends object> {
   sortBy?: keyof T;
   sortDirection?: "asc" | "desc";
   paginated?: boolean;
+  pageSize?: number;
   minWidth?: string;
 }
 
@@ -44,9 +45,10 @@ const DataTable = forwardRef<DataTableRef<Generic>, DataTableProps<Generic>>((pr
   // The returned object will be used by another component that uses a reference of the table.
   useImperativeHandle(ref, () => ({ context: table }), [table]);
 
+  const thereAreElements = props.paginated ? table.page.lenght === 0 : table.rows.length === 0;
   const dataIsLoading = props.data === undefined;
-  const noSearchResults = prevLoading !== loading && table.page.length === 0;
-  const thereIsNoData = table.page.length === 0;
+  const noSearchResults = prevLoading !== loading && thereAreElements;
+  const thereIsNoData = thereAreElements;
   const showRows = !dataIsLoading && !noSearchResults && !thereIsNoData;
 
   return (
@@ -60,7 +62,7 @@ const DataTable = forwardRef<DataTableRef<Generic>, DataTableProps<Generic>>((pr
             className={classes.table}
           >
             <DataTableHead useColGroup />
-            {showRows && <DataTableBody />}
+            {showRows && <DataTableBody paginated={props.paginated} />}
           </Table>
         </TableContainer>
         {!showRows && (
@@ -71,7 +73,7 @@ const DataTable = forwardRef<DataTableRef<Generic>, DataTableProps<Generic>>((pr
             </Typography>
           </div>
         )}
-        <DataTablePagination />
+        {props.paginated && <DataTablePagination />}
       </Paper>
     </div>
   );
@@ -103,6 +105,7 @@ const useStyles = makeStyles<Theme, DataTableProps<any>>((theme) => ({
 DataTable.defaultProps = {
   sortDirection: "asc",
   minWidth: "720px",
+  paginated: true,
 };
 
 export default DataTable;

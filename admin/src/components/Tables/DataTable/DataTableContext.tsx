@@ -25,6 +25,8 @@ export interface DataTableProviderProps<T extends object> {
   data?: T[];
   sortBy?: string;
   sortDirection?: "asc" | "desc";
+  paginated?: boolean;
+  pageSize?: number;
 }
 
 export function DataTableProvider<T extends object>(props: DataTableProviderProps<T>) {
@@ -44,12 +46,24 @@ export function DataTableProvider<T extends object>(props: DataTableProviderProp
 
   return (
     <DataTableContext.Provider
-      value={{ headerGroups, sortingColumnId, table, loading, startLoading, stopLoading }}
+      value={{
+        headerGroups,
+        sortingColumnId,
+        table,
+        loading,
+        startLoading,
+        stopLoading,
+      }}
     >
       {props.children}
     </DataTableContext.Provider>
   );
 }
+
+DataTableProvider.defaultProps = {
+  pageSize: 5,
+  paginated: true,
+};
 
 function applyInitialState<T extends object>(props: DataTableProviderProps<T>): TableOptions<T> {
   return {
@@ -58,7 +72,7 @@ function applyInitialState<T extends object>(props: DataTableProviderProps<T>): 
     initialState: {
       sortBy: [{ id: props.sortBy as string, desc: props.sortDirection === "desc" ? true : false }],
       pageIndex: 0,
-      pageSize: 5,
+      pageSize: props.paginated ? props.pageSize : props.data ? props.data.length : 0,
       globalFilter: "",
     },
     globalFilter: customFilter,
