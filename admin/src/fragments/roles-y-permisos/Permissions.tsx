@@ -4,7 +4,7 @@ import PermissionGroup from "models/PermissionGroup";
 import Rol from "models/Rol";
 import { useMemo } from "react";
 
-import Actions, { ActionsEvent } from "./Permission";
+import Actions, { ActionsEvent } from "./Action";
 
 export default function Permissions() {
   const [data, columns] = useMemo(() => generateDateAndColumns(handleChange), []);
