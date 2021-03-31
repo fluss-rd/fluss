@@ -4,32 +4,24 @@ export default class Rol {
   id: string;
   name: string;
   description: string;
-  creationDate: Date;
-  lastUpdate: Date;
   permissions: Permission[];
 
-  constructor(rol: Rol) {
-    Object.assign(this, rol);
-  }
-
   static mockData(): Rol[] {
-    return [
+    const roles: Array<Rol> = [
       {
         id: "r1",
         name: "Administrador",
-        description: "Tiene acceso a la parte de manejo de módulos y reportes del sistema",
-        creationDate: new Date(Date.now()),
-        lastUpdate: new Date(Date.now()),
+        description: "",
         permissions: [],
       },
       {
-        id: "r1",
-        name: "Cliente",
-        description: "Tiene acceso a la parte de manejo de módulos y reportes del sistema",
-        creationDate: new Date(Date.now()),
-        lastUpdate: new Date(Date.now()),
+        id: "r2",
+        name: "Monitor",
+        description: "",
         permissions: [],
       },
     ];
+
+    return roles;
   }
 }

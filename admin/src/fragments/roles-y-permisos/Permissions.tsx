@@ -1,31 +1,57 @@
 import { DataTableColumn, EnhancedDataTable } from "components/Tables";
-import PermissionModel, { Actions } from "models/Permission";
-import { rolesPermissions } from "models/RolePermission";
+import useMergeState from "hooks/useMergeState";
+import PermissionGroup from "models/PermissionGroup";
+import Rol from "models/Rol";
+import { useMemo } from "react";
 
-import Permission from "./Permission";
+import Actions, { ActionsEvent } from "./Permission";
 
 export default function Permissions() {
-  const [data, columns] = generateDateAndColumns();
+  const [data, columns] = useMemo(() => generateDateAndColumns(handleChange), []);
+  const [state, setState] = useMergeState({ data });
 
-  return <EnhancedDataTable data={data} columns={columns} />;
+  function handleChange({ groupIndex, actionIndex, actionType, checked }: ActionsEvent) {
+    setState((prev) => {
+      const modified = [...prev.data];
+      modified[groupIndex].actions[actionIndex][actionType] = checked;
+
+      return { data: modified };
+    });
+  }
+
+  return <EnhancedDataTable data={state.data} columns={columns} />;
 }
 
-function generateDateAndColumns(): [PermissionModel[], DataTableColumn<PermissionModel>[]] {
-  const [roles, permissions] = rolesPermissions;
-  const columns: DataTableColumn<PermissionModel>[] = [
-    { Header: "Recurso", accessor: "resourceName" },
-  ];
+function generateDateAndColumns(handleChange: (event: ActionsEvent) => void): DataAndColumns {
+  const roles: Rol[] = Rol.mockData();
+  const data: PermissionGroup[] = PermissionGroup.mockData();
+  const columns: DataTableColumn<PermissionGroup>[] = [];
 
-  for (const rol of roles)
+  // Add columns.
+  columns.push({ Header: "Recurso", accessor: "name" });
+
+  for (const rol of roles) {
     columns.push({
       Header: rol.name,
-      accessor: (permission: PermissionModel) => {
-        const roleHasPermission = permission.roles.indexOf(rol) !== -1;
-        const actions = roleHasPermission ? [...permission.actions] : [false, false, false];
+      accessor: (group: PermissionGroup, i: number) => {
+        const index = group.actions.findIndex((a) => a.rol.id === rol.id);
+        const action = group.actions[index];
 
-        return <Permission actions={actions as Actions} />;
+        if (!action) return null;
+
+        return (
+          <Actions
+            actions={action}
+            groupIndex={i}
+            actionIndex={index}
+            handleChange={handleChange}
+          />
+        );
       },
     });
+  }
 
-  return [permissions, columns];
+  return [data, columns];
 }
+
+type DataAndColumns = [PermissionGroup[], DataTableColumn<PermissionGroup>[]];

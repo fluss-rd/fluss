@@ -1,45 +1,26 @@
 import Rol from "./Rol";
 
-// Read, Write, Delete.
-export type Actions = [boolean, boolean, boolean];
-
 export default class Permission {
   id: string;
-  resourceName: string;
-  actions: Actions;
+  name: string;
+  description: string;
   roles: Rol[];
 
-  constructor(permission: Permission) {
-    Object.assign(this, permission);
-  }
-
-  static actionName(index: number) {
-    switch (index) {
-      case 0:
-        return "Leer";
-      case 1:
-        return "Escribir";
-      case 2:
-        return "Eliminar";
-      default:
-        return "";
-    }
-  }
-
   static mockData(): Permission[] {
-    return [
+    const permissions: Array<Permission> = [
       {
         id: "p1",
-        resourceName: "Módulos",
+        name: "Módulos",
+        description: "",
         roles: [],
-        actions: [true, true, true],
       },
       {
         id: "p2",
-        resourceName: "Usuarios",
+        name: "Usuarios",
+        description: "",
         roles: [],
-        actions: [true, true, true],
       },
     ];
+    return permissions;
   }
 }

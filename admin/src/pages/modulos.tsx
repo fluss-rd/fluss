@@ -1,9 +1,5 @@
 import { makeStyles, Typography } from "@material-ui/core";
-import {
-  EnhancedDataTable,
-  filterNumberWithConditions,
-  NumberRangeColumnFilter,
-} from "components/Tables";
+import { EnhancedDataTable } from "components/Tables";
 import { DataTableColumn, SelectColumnFilter } from "components/Tables";
 import InfoIconButton from "fragments/modulos/InfoIconButton";
 import RegisterModule from "fragments/modulos/RegisterModule";
@@ -32,7 +28,7 @@ export default function Modulos() {
 
       <br />
 
-      <EnhancedDataTable data={data} columns={dataColumns} />
+      <EnhancedDataTable withFilters withColumnsSelection data={data} columns={dataColumns} />
       <RegisterModule />
       <ViewModule
         module={current.module}
@@ -59,16 +55,15 @@ const columns = (handleModuleClicked: (index: number) => void): DataTableColumn<
   {
     Header: "Número SIM",
     accessor: "simNumber",
-    columnWidth: "15%",
+    columnWidth: "12%",
     filter: "includes",
     Filter: SelectColumnFilter,
   },
-  { Header: "Nombre", accessor: "name" },
-  { Header: "Descripción", accessor: "description", columnWidth: "30%" },
+  { Header: "Nombre", accessor: "name", columnWidth: "8%" },
+  { Header: "Descripción", accessor: "description", columnWidth: "25%" },
   {
     id: "updatedAt",
     Header: "Última actualización",
-    columnWidth: "15%",
     accessor: (data) => formatDate(data.updatedAt),
   },
   {
