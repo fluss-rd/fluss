@@ -12,6 +12,7 @@ import React, { FC, useMemo } from "react";
 
 interface FormSelectProps extends SelectProps {
   noneText?: string;
+  noneValue?: any;
 }
 
 const FormSelect: FC<FormSelectProps> = (props) => {
@@ -35,7 +36,7 @@ const FormSelect: FC<FormSelectProps> = (props) => {
         input={<OutlinedInput notched label={props.label} />}
         {...propsCopy}
       >
-        <MenuItem value="">
+        <MenuItem value={props.noneValue ? props.noneValue : ""}>
           <span className={classes.none}>{noneText}</span>
         </MenuItem>
         {props.children}

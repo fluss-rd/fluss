@@ -25,7 +25,7 @@ export default function Actions(props: {
   }
 
   return (
-    <div style={{ display: "flex" }}>
+    <div style={{ display: "flex", justifyContent: "space-evenly" }}>
       <Action checked={props.actions.read} type="read" onChange={handleChange} />
       <Action checked={props.actions.write} type="write" onChange={handleChange} />
       <Action checked={props.actions.delete} type="delete" onChange={handleChange} />
@@ -66,9 +66,6 @@ export function Action(props: {
 
 const useActionStyles = makeStyles({
   margin: {
-    "&:first-of-type": {
-      marginLeft: 0,
-      paddingLeft: 0,
-    },
+    width: "100%",
   },
 });
