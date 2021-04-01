@@ -10,9 +10,7 @@ import css from "styles/pages/another2.module.css";
 export default function Another() {
   return (
     <div className={css["hey-another"]}>
-      <div className={styles.myStyle}>
-        Hola
-      </div>
+      <div className={styles.myStyle}>Hola</div>
       <MyFragment />
     </div>
   );
