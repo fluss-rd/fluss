@@ -11,13 +11,14 @@ export default class Permission {
       {
         id: "p1",
         name: "Módulos",
-        description: "",
+        description: "Permite el acceso al manejo de módulos del sistema",
         roles: [],
       },
       {
         id: "p2",
         name: "Usuarios",
-        description: "",
+        description:
+          "Permite manejar los usuarios dentro de la aplicación. Solo existe un superadmin",
         roles: [],
       },
     ];

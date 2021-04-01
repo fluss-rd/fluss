@@ -1,34 +1,93 @@
 import {
   Button,
-  Chip,
   Dialog,
   DialogActions,
   DialogContentText,
   DialogTitle,
+  Divider,
   Fab,
-  MenuItem,
+  List,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Add, AssignmentIndOutlined, InfoOutlined } from "@material-ui/icons";
 import FormField from "components/FormField";
 import FormIconTitle from "components/FormIconTitle";
-import FormSelect from "components/FormSelect";
 import ModalContent from "components/ModalContent";
+import useMergeState from "hooks/useMergeState";
+import ActionsModel from "models/Actions";
+import Permission from "models/Permission";
 import Rol from "models/Rol";
-import React, { FC, useMemo, useState } from "react";
+import React, { FC, Fragment, useMemo, useState } from "react";
+
+import AssignRoles from "./AssignRoles";
+import RolPermission from "./RolPermission";
 
 interface AddPermissionProps {}
 
 const AddPermission: FC<AddPermissionProps> = (props) => {
+  // State.
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState<string[]>([]);
+  const [added, setAdded] = useState<ActionsModel[]>([]);
+  const [permissionForm, setPermissionForm] = useMergeState({
+    id: "new",
+    name: "",
+    description: "",
+    roles: [],
+  });
+
+  // Computed
   const classes = useStyles();
   const handleClickOpen = () => setIsOpen(true);
   const handleClose = () => setIsOpen(false);
   const roles = useMemo(() => Rol.mockData(), []);
 
-  function handleChange(e: React.ChangeEvent<{ name: string; value: string[] }>) {
-    setSelected(e.target.value);
+  // Methods.
+  function handleRoles(roles: Rol[]) {
+    const permission = { ...permissionForm } as Permission;
+    const actions = roles.map(
+      (rol: Rol, i: number) =>
+        ({
+          rol: rol,
+          id: `a${i}`,
+          read: true,
+          write: true,
+          delete: true,
+          permission,
+        } as ActionsModel)
+    );
+
+    setAdded(actions);
+  }
+
+  function handleActions(actions: ActionsModel, index: number): void {
+    setAdded((prev) => {
+      const modified = [...prev];
+      modified[index] = actions;
+      return modified;
+    });
+  }
+
+  function deleteActions(actions: ActionsModel, index: number): void {
+    setAdded((prev) => {
+      const modified = [...prev];
+      modified.splice(index, 1);
+      return modified;
+    });
+  }
+
+  function getAddedRoles(): Record<string, boolean> {
+    const addedRoles = {};
+    for (let i = 0; i < roles.length; i++) {
+      const rol = roles[i];
+      const isAdded = added.find((actions) => actions.rol.id === rol.id);
+
+      if (isAdded) {
+        const index = i.toString();
+        addedRoles[index] = true;
+      }
+    }
+
+    return addedRoles;
   }
 
   return (
@@ -57,26 +116,22 @@ const AddPermission: FC<AddPermissionProps> = (props) => {
 
           <FormIconTitle title="Asignar a roles" Icon={AssignmentIndOutlined} />
 
-          <FormSelect
-            multiple
-            noneText="Ninguno seleccionado"
-            label="Roles"
-            value={selected}
-            onChange={handleChange}
-            renderValue={(selected: string[]) => (
-              <div className={classes.chips}>
-                {(selected as string[]).map((value) => (
-                  <Chip key={value} label={value} className={classes.chip} color="secondary" />
-                ))}
-              </div>
-            )}
-          >
-            {roles.map((rol: Rol) => (
-              <MenuItem key={rol.id} value={rol.name}>
-                {rol.name}
-              </MenuItem>
+          <AssignRoles onSave={handleRoles} selected={getAddedRoles()} />
+
+          <List>
+            {added.map((action: ActionsModel, i: number) => (
+              <Fragment key={action.id}>
+                <RolPermission
+                  key={action.id}
+                  actions={action}
+                  index={i}
+                  handleActionsChange={handleActions}
+                  remove={deleteActions}
+                />
+                <Divider />
+              </Fragment>
             ))}
-          </FormSelect>
+          </List>
         </ModalContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">

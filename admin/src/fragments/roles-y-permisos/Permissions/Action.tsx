@@ -55,6 +55,7 @@ export function Action(props: {
           checked={props.checked}
           className={classes.margin}
           onChange={handleChange}
+          size="small"
         />
       }
       label={label}

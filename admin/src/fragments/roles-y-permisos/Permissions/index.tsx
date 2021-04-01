@@ -37,7 +37,16 @@ function generateDateAndColumns(handleChange: (event: ActionsEvent) => void): Da
   const columns: DataTableColumn<PermissionGroup>[] = [];
 
   // Add columns.
-  columns.push({ Header: "Recurso", accessor: "name" });
+  columns.push({
+    Header: "Recurso",
+    accessor: (group: PermissionGroup) => group.permission.name,
+    columnWidth: "10%",
+  });
+  columns.push({
+    Header: "Descripción",
+    accessor: (group: PermissionGroup) => group.permission.description,
+    columnWidth: "30%",
+  });
 
   for (const rol of roles) {
     columns.push({

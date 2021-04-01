@@ -1,8 +1,9 @@
 import Actions from "./Actions";
+import Permission from "./Permission";
 
 export default class PermissionGroup {
   id: string;
-  name: string;
+  permission: Permission;
   actions: Actions[];
 
   static mockData(): PermissionGroup[] {
@@ -15,9 +16,9 @@ export default class PermissionGroup {
       const index = memo.indexOf(action.permission.name);
 
       if (index === -1) {
-        const name = action.permission.name;
-        groups.push({ id: `g${i}`, name, actions: [action] });
-        memo.push(name);
+        const permission = action.permission;
+        groups.push({ id: `g${i}`, permission, actions: [action] });
+        memo.push(permission.name);
       } else {
         groups[index].actions.push(action);
       }
