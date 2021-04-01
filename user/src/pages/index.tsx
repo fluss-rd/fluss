@@ -1,5 +1,3 @@
-import "fontsource-roboto";
-
 import { Button, Typography } from "@material-ui/core";
 
 import styles from "../styles/pages/index.module.scss";
