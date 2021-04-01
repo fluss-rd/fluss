@@ -62,8 +62,6 @@
       "interface $1Props {}",
       "",
       "const $1: FC<$1Props> = () => {",
-      "  const classes = useStyles();",
-      "",
       "  return (",
       "    <div>",
       "      $2",
