@@ -1,4 +1,4 @@
-import MyFragment from "fragments/another/my-gragment";
+import MyFragment from "fragments/Another/MyFragment";
 import styles from "styles/pages/another.module.scss";
 import css from "styles/pages/another2.module.css";
 

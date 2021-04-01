@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-import useMergeState, { UseMergeState } from "./use-merge-state";
+import useMergeState, { UseMergeState } from "./useMergeState";
 
 interface ResponseFetching<T> {
   loading: boolean;
@@ -22,3 +22,4 @@ export default function useFetch<T>(
 
   return [response, setResponse];
 }
+

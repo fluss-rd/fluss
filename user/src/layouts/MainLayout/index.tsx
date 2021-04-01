@@ -1,10 +1,10 @@
 import { Container, CssBaseline, Toolbar } from "@material-ui/core";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, Theme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import React, { FC } from "react";
 
-import theme from "../../styles/theme";
-import FlussAppBar from "./fluss-app-bar";
+import theme from "styles/theme";
+import FlussAppBar from "./FlussAppBar";
 
 const MainLayout: FC = ({ children }) => {
   const classes = useStyles();
@@ -27,12 +27,11 @@ const MainLayout: FC = ({ children }) => {
   );
 };
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    container: {
-      paddingTop: theme.spacing(4),
-    },
-  })
-);
+const useStyles = makeStyles((theme: Theme) => ({
+  container: {
+    paddingTop: theme.spacing(4),
+  },
+}));
 
 export default MainLayout;
+
