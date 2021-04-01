@@ -18,13 +18,13 @@ export default function FlussDrawerItems() {
     <div className={classes.menuButtons}>
       <List component="nav">
         <FlussDrawreItem title="Inicio" icon={Home} />
-        <FlussDrawreItem title="Módulos" icon={ViewModule} />
-        <FlussDrawreItem title="Cuerpos hídricos" icon={TrackChanges} />
-        <FlussDrawreItem title="Roles y permisos" icon={VpnKey} />
-        <FlussDrawreItem title="Usuarios" icon={People} />
+        <FlussDrawreItem title="Módulos" icon={ViewModule} to="/modulos" />
+        <FlussDrawreItem title="Cuerpos hídricos" icon={TrackChanges} to="/cuerpos-hidricos" />
+        <FlussDrawreItem title="Roles y permisos" icon={VpnKey} to="/roles-y-permisos" />
+        <FlussDrawreItem title="Usuarios" icon={People} to="/usuarios" />
         <Divider />
-        <FlussDrawreItem title="Notificaciones" icon={Notifications} />
-        <FlussDrawreItem title="Ajustes" icon={Settings} />
+        <FlussDrawreItem title="Notificaciones" icon={Notifications} to="/notificaciones" />
+        <FlussDrawreItem title="Ajustes" icon={Settings} to="/ajustes" />
       </List>
     </div>
   );

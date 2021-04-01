@@ -5,7 +5,11 @@ import { useContext } from "react";
 
 import DataTableContext from "./DataTableContext";
 
-export default function DataTableBody() {
+interface DataTableBodyProps {
+  paginated: boolean;
+}
+
+export default function DataTableBody(props: DataTableBodyProps) {
   const { table } = useContext(DataTableContext);
 
   return (

@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core";
 import PanoramaHorizontalIcon from "@material-ui/icons/PanoramaHorizontal";
 import usePrevious from "hooks/usePrevious";
-import React, { FC, forwardRef, useImperativeHandle } from "react";
+import React, { forwardRef, useImperativeHandle } from "react";
 import { TableInstance } from "react-table";
 
 import {
@@ -29,6 +29,7 @@ export interface DataTableProps<T extends object> {
   sortBy?: keyof T;
   sortDirection?: "asc" | "desc";
   paginated?: boolean;
+  pageSize?: number;
   minWidth?: string;
 }
 
@@ -44,10 +45,11 @@ const DataTable = forwardRef<DataTableRef<Generic>, DataTableProps<Generic>>((pr
   // The returned object will be used by another component that uses a reference of the table.
   useImperativeHandle(ref, () => ({ context: table }), [table]);
 
+  const thereAreElements = props.paginated ? table.page.lenght === 0 : table.rows.length === 0;
   const dataIsLoading = props.data === undefined;
-  const thereIsNoResults = prevLoading !== loading && table.page.length === 0;
-  const thereIsNoData = table.page.length === 0;
-  const showRows = !dataIsLoading && !thereIsNoResults && !thereIsNoData;
+  const noSearchResults = prevLoading !== loading && thereAreElements;
+  const thereIsNoData = thereAreElements;
+  const showRows = !dataIsLoading && !noSearchResults && !thereIsNoData;
 
   return (
     <div className={classes.root}>
@@ -60,18 +62,18 @@ const DataTable = forwardRef<DataTableRef<Generic>, DataTableProps<Generic>>((pr
             className={classes.table}
           >
             <DataTableHead useColGroup />
-            {showRows && <DataTableBody />}
+            {showRows && <DataTableBody paginated={props.paginated} />}
           </Table>
         </TableContainer>
         {!showRows && (
           <div className={classes.emptyTable}>
             <PanoramaHorizontalIcon fontSize="large" color="disabled" />
             <Typography variant="caption">
-              {thereIsNoResults ? "No se encontraron resultados" : "Tabla vacía"}
+              {noSearchResults ? "No se encontraron resultados" : "Tabla vacía"}
             </Typography>
           </div>
         )}
-        <DataTablePagination />
+        {props.paginated && <DataTablePagination />}
       </Paper>
     </div>
   );
@@ -100,9 +102,10 @@ const useStyles = makeStyles<Theme, DataTableProps<any>>((theme) => ({
   },
 }));
 
-(DataTable as FC<DataTableProps<any>>).defaultProps = {
+DataTable.defaultProps = {
   sortDirection: "asc",
   minWidth: "720px",
+  paginated: true,
 };
 
 export default DataTable;

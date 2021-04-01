@@ -1,3 +1,4 @@
+import { CSSProperties } from "react";
 import { Column } from "react-table";
 
 type Modify<T, R> = Omit<T, keyof R> & R;
@@ -5,6 +6,7 @@ type Modify<T, R> = Omit<T, keyof R> & R;
 type DataTableColumn<T extends object> = Modify<
   Column<T>,
   {
+    columnTitleStyles?: CSSProperties;
     columnWidth?: string;
     filter?:
       | "equals"

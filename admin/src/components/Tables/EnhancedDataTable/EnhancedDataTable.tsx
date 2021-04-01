@@ -1,10 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { makeStyles, Theme } from "@material-ui/core/styles";
-import DataTable, {
-  DataTableColumn,
-  DataTableProps,
-  DataTableProvider,
-} from "components/Tables/DataTable";
+import DataTable, { DataTableProps, DataTableProvider } from "components/Tables/DataTable";
 
 import EnhancedDataTableToolbar, {
   EnhancedDataTableToolbarProps,
@@ -17,19 +13,20 @@ export default function EnhancedDataTable<T extends object>(props: EnhancedDataT
   const classes = useStyles();
 
   return (
-    <DataTableProvider columns={props.columns} data={props.data}>
+    <DataTableProvider
+      columns={props.columns}
+      data={props.data}
+      paginated={props.paginated}
+      pageSize={props.pageSize}
+      sortBy={props.sortBy as string}
+      sortDirection={props.sortDirection}
+    >
       <div className={classes.root}>
-        <EnhancedDataTableToolbar data={props.data} />
+        <EnhancedDataTableToolbar {...props} />
 
         <br />
 
-        <DataTable
-          densed={true}
-          columns={props.columns as DataTableColumn<any>[]}
-          data={props.data}
-          sortBy={props.sortBy}
-          sortDirection={props.sortDirection}
-        />
+        <DataTable {...props} />
       </div>
     </DataTableProvider>
   );

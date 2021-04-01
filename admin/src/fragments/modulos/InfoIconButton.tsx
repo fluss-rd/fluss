@@ -5,13 +5,14 @@ import { FC } from "react";
 
 interface InfoIconButtonProps {
   index: number;
+  handleClick: (index: number) => void;
 }
 
 const InfoIconButton: FC<InfoIconButtonProps> = (props) => {
   const classes = useStyles();
 
   function onClick() {
-    console.log(props.index);
+    props.handleClick(props.index);
   }
 
   return (

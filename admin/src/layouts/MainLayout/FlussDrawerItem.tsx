@@ -1,7 +1,7 @@
 import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
-import router from "next/router";
+import { useRouter } from "next/router";
 import React, { FC } from "react";
 
 interface DrawerItemProps {
@@ -14,6 +14,8 @@ interface DrawerItemProps {
 }
 
 const FlussDrawreItem: FC<DrawerItemProps> = (props) => {
+  const router = useRouter();
+  const isSelected = router.pathname === props.to;
   const { icon: Icon, title, to, expanded, onClick, nested } = props;
   const classes = useStyles({ nested });
 
@@ -28,7 +30,7 @@ const FlussDrawreItem: FC<DrawerItemProps> = (props) => {
   }
 
   return (
-    <ListItem onClick={handleClick} button={true} className={classes.nested}>
+    <ListItem onClick={handleClick} button={true} className={classes.nested} selected={isSelected}>
       {Icon && <ListItemIcon>{<Icon />}</ListItemIcon>}
       <ListItemText primary={title} />
       {renderExpandIcon()}
