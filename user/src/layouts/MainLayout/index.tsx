@@ -1,16 +1,14 @@
 import { Container, CssBaseline, Toolbar } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
-import { ThemeProvider } from "@material-ui/styles";
 import React, { FC } from "react";
 
-import theme from "styles/theme";
 import FlussAppBar from "./FlussAppBar";
 
 const MainLayout: FC = ({ children }) => {
   const classes = useStyles();
 
   return (
-    <ThemeProvider theme={theme}>
+    <>
       <CssBaseline />
       <FlussAppBar />
       {children ? (
@@ -23,7 +21,7 @@ const MainLayout: FC = ({ children }) => {
       ) : (
         children
       )}
-    </ThemeProvider>
+    </>
   );
 };
 
