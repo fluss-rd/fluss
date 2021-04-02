@@ -39,14 +39,7 @@ const RolPermission: FC<RolPermissionProps> = ({ actions, index, handleActionsCh
           <AssignmentIndOutlined />
         </Avatar>
       </ListItemAvatar>
-      <ListItemText
-        primary={actions.rol.name}
-        secondary={
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <span>{actions.rol.description}</span>
-          </div>
-        }
-      />
+      <ListItemText primary={actions.rol.name} secondary={actions.rol.description} />
       <ListItemSecondaryAction>
         <div className={classes.buttons}>
           <div className={classes.actions}>

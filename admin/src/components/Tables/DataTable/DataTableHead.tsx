@@ -29,7 +29,7 @@ export default function DataTableHead<T extends object>(props: DataTableHeadProp
       <TableHead>
         {headerGroups.map((headerGroup) => (
           <TableRow {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map((column: DataTableColumn<T>) => {
+            {headerGroup.headers.map((column) => {
               return (
                 <TableCell
                   {...column.getHeaderProps(column.getSortByToggleProps())}
@@ -40,7 +40,10 @@ export default function DataTableHead<T extends object>(props: DataTableHeadProp
                     active={sortingColumnId === column.id}
                     className={classes.header}
                   >
-                    <div className={classes.render} style={column.columnTitleStyles}>
+                    <div
+                      className={classes.render}
+                      style={(column as DataTableColumn<T>).columnTitleStyles}
+                    >
                       {column.render("Header")}
                     </div>
                   </TableSortLabel>

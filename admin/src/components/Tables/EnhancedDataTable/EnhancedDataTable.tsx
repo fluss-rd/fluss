@@ -1,6 +1,10 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { makeStyles, Theme } from "@material-ui/core/styles";
-import DataTable, { DataTableProps, DataTableProvider } from "components/Tables/DataTable";
+import DataTable, {
+  DataTableColumn,
+  DataTableProps,
+  DataTableProvider,
+} from "components/Tables/DataTable";
 
 import EnhancedDataTableToolbar, {
   EnhancedDataTableToolbarProps,

@@ -5,6 +5,8 @@ export default class Rol {
   name: string;
   description: string;
   permissions: Permission[];
+  creationDate: Date;
+  lastUpdate: Date;
 
   static mockData(): Rol[] {
     const roles: Array<Rol> = [
@@ -13,12 +15,16 @@ export default class Rol {
         name: "Administrador",
         description: "",
         permissions: [],
+        creationDate: new Date(Date.now()),
+        lastUpdate: new Date(Date.now()),
       },
       {
         id: "r2",
         name: "Monitor",
         description: "",
         permissions: [],
+        creationDate: new Date(Date.now()),
+        lastUpdate: new Date(Date.now()),
       },
     ];
 
