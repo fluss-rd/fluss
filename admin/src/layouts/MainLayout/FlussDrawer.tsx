@@ -1,12 +1,14 @@
 import { Divider, Drawer, Hidden, useTheme } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import React, { FC, useContext } from "react";
+import { connect } from "store";
+import { StoreProps } from "store";
 
 import FlussDrawerFoot from "./FlussDrawerFoot";
 import DrawerItems from "./FlussDrawerItems";
 import { MainLayoutContext, MainLayoutValues } from "./index";
 
-const FlussDrawer: FC = () => {
+const FlussDrawer: FC<StoreProps> = ({ store }) => {
   const context = useContext(MainLayoutContext);
   const classes = useStyles(context);
   const theme = useTheme();
@@ -16,7 +18,7 @@ const FlussDrawer: FC = () => {
       <div className={classes.toolbar} />
       <Divider />
       <DrawerItems />
-      <FlussDrawerFoot />
+      <FlussDrawerFoot logout={store.logout} />
     </div>
   );
 
@@ -65,4 +67,4 @@ const useStyles = makeStyles<Theme, MainLayoutValues>((theme: Theme) => ({
   },
 }));
 
-export default FlussDrawer;
+export default connect(FlussDrawer);

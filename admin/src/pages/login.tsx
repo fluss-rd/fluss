@@ -12,8 +12,9 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import clsx from "clsx";
 import React, { FC } from "react";
+import { connect, StoreProps } from "store";
 
-const Login: FC = () => {
+const Login: FC<StoreProps> = ({ store }) => {
   const classes = useStyles();
 
   const emailRegex = new RegExp(
@@ -122,8 +123,9 @@ const Login: FC = () => {
             className={clsx(classes.margin, classes.button)}
             variant="contained"
             color="primary"
+            onClick={store.logIn}
           >
-            Primary
+            Iniciar sesión
           </Button>
         </div>
       </form>
@@ -149,4 +151,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default Login;
+export default connect(Login);
