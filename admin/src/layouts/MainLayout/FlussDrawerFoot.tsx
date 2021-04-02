@@ -1,30 +1,27 @@
-import { Button, Typography } from "@material-ui/core";
-import { makeStyles, Theme } from "@material-ui/core/styles";
-import { ExpandMore, PowerSettingsNew } from "@material-ui/icons";
+import {
+  IconButton,
+  List,
+  ListItem,
+  ListItemSecondaryAction,
+  ListItemText,
+} from "@material-ui/core";
+import { PowerSettingsNew } from "@material-ui/icons";
 
-export default function FlussDrawerFoot() {
-  const classes = useStyles();
-
-  return (
-    <Button
-      variant="text"
-      className={classes.button}
-      startIcon={<ExpandMore />}
-      endIcon={<PowerSettingsNew />}
-    >
-      <Typography className={classes.name}>Angélica Peña</Typography>
-    </Button>
-  );
+interface FlussDrawerProps {
+  logout: () => void;
 }
 
-const useStyles = makeStyles((theme: Theme) => ({
-  button: {
-    justifyContent: "flex-start",
-    padding: theme.spacing(2),
-    textTransform: "none",
-    textAlign: "left",
-  },
-  name: {
-    flexGrow: 1,
-  },
-}));
+export default function FlussDrawerFoot(props: FlussDrawerProps) {
+  return (
+    <List>
+      <ListItem>
+        <ListItemText primary="Angélica Peña" />
+        <ListItemSecondaryAction>
+          <IconButton onClick={props.logout}>
+            <PowerSettingsNew />
+          </IconButton>
+        </ListItemSecondaryAction>
+      </ListItem>
+    </List>
+  );
+}

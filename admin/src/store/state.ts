@@ -5,14 +5,17 @@ import { createContext } from "react";
 export class State {
   counter = 0;
   modules = Module.mockData();
+  loggedIn = true;
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  increment = () => {
-    this.counter += 1;
-  };
+  increment = () => (this.counter += 1);
+
+  logout = () => (this.loggedIn = false);
+
+  logIn = () => (this.loggedIn = true);
 }
 
 export const initialState = new State();
