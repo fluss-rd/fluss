@@ -10,5 +10,5 @@ const columns: DataTableColumn<Rol>[] = [
   { Header: "Nombre", accessor: "name" },
   { Header: "Descripción", accessor: "description" },
   { Header: "Fecha de creación", accessor: (rol) => formatDate(rol.creationDate) },
-  { Header: "Última actualización", accessor: (rol) => formatDate(rol.creationDate) },
+  { Header: "Última actualización", accessor: (rol) => formatDate(rol.lastUpdate) },
 ];

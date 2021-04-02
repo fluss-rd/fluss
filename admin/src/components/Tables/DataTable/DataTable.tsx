@@ -10,7 +10,13 @@ import {
 } from "@material-ui/core";
 import PanoramaHorizontalIcon from "@material-ui/icons/PanoramaHorizontal";
 import usePrevious from "hooks/usePrevious";
-import React, { forwardRef, useImperativeHandle } from "react";
+import React, {
+  ForwardedRef,
+  forwardRef,
+  MutableRefObject,
+  ReactElement,
+  useImperativeHandle,
+} from "react";
 import { TableInstance } from "react-table";
 
 import {
@@ -21,7 +27,6 @@ import {
   useDataTable,
 } from ".";
 
-type Generic<T = any> = T;
 export interface DataTableProps<T extends object> {
   columns: DataTableColumn<T>[];
   data?: T[];
@@ -37,7 +42,7 @@ export interface DataTableRef<T extends object> {
   context: TableInstance<T>;
 }
 
-const DataTable = forwardRef<DataTableRef<Generic>, DataTableProps<Generic>>((props, ref) => {
+function DataTable<T extends object>(props: DataTableProps<T>, ref: ForwardedRef<DataTableRef<T>>) {
   const classes = useStyles(props);
   const { table, loading } = useDataTable();
   const prevLoading = usePrevious(loading);
@@ -45,11 +50,10 @@ const DataTable = forwardRef<DataTableRef<Generic>, DataTableProps<Generic>>((pr
   // The returned object will be used by another component that uses a reference of the table.
   useImperativeHandle(ref, () => ({ context: table }), [table]);
 
-  const thereAreElements = props.paginated ? table.page.lenght === 0 : table.rows.length === 0;
+  const thereAreElements = props.paginated ? table.page.length === 0 : table.rows.length === 0;
   const dataIsLoading = props.data === undefined;
   const noSearchResults = prevLoading !== loading && thereAreElements;
-  const thereIsNoData = thereAreElements;
-  const showRows = !dataIsLoading && !noSearchResults && !thereIsNoData;
+  const showRows = !dataIsLoading && !noSearchResults && !thereAreElements;
 
   return (
     <div className={classes.root}>
@@ -77,7 +81,7 @@ const DataTable = forwardRef<DataTableRef<Generic>, DataTableProps<Generic>>((pr
       </Paper>
     </div>
   );
-});
+}
 
 const useStyles = makeStyles<Theme, DataTableProps<any>>((theme) => ({
   cell: {
@@ -102,10 +106,14 @@ const useStyles = makeStyles<Theme, DataTableProps<any>>((theme) => ({
   },
 }));
 
-DataTable.defaultProps = {
+const ForwardedDataTable = forwardRef(DataTable);
+
+ForwardedDataTable.defaultProps = {
   sortDirection: "asc",
   minWidth: "720px",
   paginated: true,
 };
 
-export default DataTable;
+export default (ForwardedDataTable as unknown) as <T extends object>(
+  props: DataTableProps<T> & { ref?: MutableRefObject<DataTableRef<T>> }
+) => ReactElement;
