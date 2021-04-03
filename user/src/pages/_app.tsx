@@ -5,7 +5,7 @@ import React, { useEffect } from "react";
 import Layout from "layouts";
 import { ServiceProvider } from "services/service";
 import { initialState, StateContext } from "store/state";
-import theme from "styles/theme";
+import theme, { GlobalCss } from "styles/theme";
 import { ThemeProvider } from "@material-ui/styles";
 
 function MyApp({ Component, pageProps }) {
@@ -21,6 +21,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <StateContext.Provider value={initialState}>
       <ThemeProvider theme={theme}>
+        <GlobalCss />
         <ServiceProvider>
           <Layout>
             <Component {...pageProps} />
