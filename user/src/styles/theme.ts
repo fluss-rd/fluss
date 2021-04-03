@@ -1,4 +1,4 @@
-import { createMuiTheme } from "@material-ui/core/styles";
+import { createMuiTheme, withStyles } from "@material-ui/core/styles";
 
 const theme = createMuiTheme({
   palette: {
@@ -7,8 +7,19 @@ const theme = createMuiTheme({
     background: { default: "#ffffff" },
   },
   typography: {
-    fontFamily: ["Roboto", "Nunito", "Calibri", "Arial"].join(","),
+    fontFamily: ["Nunito", "Roboto", "Calibri", "Arial"].join(","),
   },
 });
 
+export const GlobalCss = withStyles((theme) => ({
+  "@global": {
+    ":root": {
+      "--color-primary": theme.palette.primary.main,
+      "--color-secondary": theme.palette.secondary.main,
+      "--color-background": theme.palette.background.default,
+    },
+  },
+}))(() => null);
+
 export default theme;
+

@@ -5,6 +5,8 @@ import React, { useEffect } from "react";
 import Layout from "layouts";
 import { ServiceProvider } from "services/service";
 import { initialState, StateContext } from "store/state";
+import theme, { GlobalCss } from "styles/theme";
+import { ThemeProvider } from "@material-ui/styles";
 
 function MyApp({ Component, pageProps }) {
   useEffect(removeServerSideInjectedCss, []);
@@ -18,13 +20,17 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <StateContext.Provider value={initialState}>
-      <ServiceProvider>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </ServiceProvider>
+      <ThemeProvider theme={theme}>
+        <GlobalCss />
+        <ServiceProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </ServiceProvider>
+      </ThemeProvider>
     </StateContext.Provider>
   );
 }
 
 export default MyApp;
+
