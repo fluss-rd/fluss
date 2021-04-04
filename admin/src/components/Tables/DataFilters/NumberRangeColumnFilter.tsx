@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import generateId from "helpers/generateId";
-import React, { ChangeEvent, useCallback, useMemo, useState } from "react";
+import React, { ChangeEvent, useCallback, useMemo } from "react";
 import { ColumnInstance } from "react-table";
 
 import { Options } from ".";
