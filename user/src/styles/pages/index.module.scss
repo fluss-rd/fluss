@@ -5,6 +5,7 @@
   flex-direction: row;
   align-items: center;
   padding-left: 200px;
+  padding-right: 200px;
   justify-content: center;
   left: 302px;
   
@@ -20,6 +21,7 @@
   color:rgba(79, 79, 79, 1);
   font-weight: 2000;
 }
+
 .button{
   color:rgba(31, 100, 133, 1);
   border-radius: 8px;
@@ -27,6 +29,6 @@
 }
 
 .header-item{
-  width:508px;
+  max-width:508px;
   
 }

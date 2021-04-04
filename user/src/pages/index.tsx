@@ -4,12 +4,12 @@ import styles from "../styles/pages/index.module.scss";
 
 export default function Home() {
   return (
-    <div className={styles["structure"]}>
+    <div className={styles.structure}>
       <div className={styles["header-item"]}>
-        <Typography variant="caption" className={styles["content"]}>
+        <Typography variant="caption" className={styles.content}>
           Fluss
         </Typography>
-        <Typography variant="h5" className={styles["bolds"]}>
+        <Typography variant="h5" className={styles.bolds}>
           Bienvenido a la pagina de datos de Rios en la Republica Dominicana
         </Typography>
         <br></br>
@@ -20,7 +20,7 @@ export default function Home() {
           fisicoquímicos del agua de los ríos de la República Dominicana
         </Typography>
         <br></br>
-        <Button color="primary" variant="outlined" className={styles["button"]}>
+        <Button color="primary" variant="outlined" className={styles.button}>
           Datos y reportes
         </Button>
       </div>
