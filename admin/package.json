@@ -74,5 +74,31 @@
     "*.{ts,tsx}": [
       "npm run lint:fix"
     ]
+  },
+  "bit": {
+    "env": {
+      "compiler": "bit.envs/compilers/react-typescript@4.0.0"
+    },
+    "componentsDefaultDirectory": "components/{name}",
+    "packageManager": "npm",
+    "resolveModules": {
+      "modulesDirectories": [
+        "src"
+      ]
+    },
+    "overrides": {
+      "*": {
+        "devDependencies": {
+          "@types/node": "^14.14.31",
+          "@types/react-table": "^7.0.29",
+          "@types/react": "^17.0.2"
+        },
+        "dependencies": {
+          "react-table": "^7.6.3",
+          "react": "17.0.1"
+        }
+      }
+    }
   }
 }
+
