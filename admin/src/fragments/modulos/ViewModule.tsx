@@ -11,14 +11,14 @@ import {
   Typography,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { TransitionProps } from "@material-ui/core/transitions/transition";
 import { Close, EditLocationOutlined, InfoOutlined } from "@material-ui/icons";
 import FormField from "components/FormField";
 import FormIconTitle from "components/FormIconTitle";
 import FormSelect from "components/FormSelect";
+import Transition from "components/Transition";
 import useMergeState from "hooks/useMergeState";
 import Module from "models/Module";
-import React, { FC, useEffect, useMemo, useState } from "react";
+import React, { FC, useEffect, useMemo } from "react";
 
 import ModuleLocation from "./ModuleLocation";
 
@@ -178,11 +178,4 @@ const useStyles = makeStyles((theme) => {
       flex: 1,
     },
   };
-});
-
-const Transition = React.forwardRef(function Transition(
-  props: TransitionProps & { children?: React.ReactElement },
-  ref: React.Ref<unknown>
-) {
-  return <Slide direction="up" ref={ref} {...props} />;
 });
