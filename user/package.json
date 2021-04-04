@@ -15,6 +15,10 @@
     "css-types:watch": "./node_modules/.bin/tcm src -w"
   },
   "dependencies": {
+    "@bit/mikhael1729.fluss.components.form-field": "^0.1.1",
+    "@bit/mikhael1729.fluss.components.form-select": "^0.1.1",
+    "@bit/mikhael1729.fluss.components.transition": "^0.1.1",
+    "@bit/mikhael1729.fluss.hooks.use-merge-state": "^0.1.1",
     "@fontsource/nunito": "^4.2.1",
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
