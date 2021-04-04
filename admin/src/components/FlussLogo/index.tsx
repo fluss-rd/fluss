@@ -1,16 +1,12 @@
 import { Button, Typography } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
-import { push } from "helpers";
-import { MainLayoutContext, MainLayoutValues } from "layouts/MainLayout/index";
 import Image from "next/image";
-import { useContext } from "react";
 
-export default function FlussLogo() {
-  const context = useContext(MainLayoutContext);
-  const classes = useStyles(context);
+export default function FlussLogo(props: { onClick: () => void }) {
+  const classes = useStyles();
 
   return (
-    <Button className={classes.brand} onClick={push("/")}>
+    <Button className={classes.brand} onClick={props.onClick}>
       <div className={classes.logo}>
         <Image src="/images/logo.png" alt="Logo" width={35} height={35} />
       </div>
@@ -21,7 +17,7 @@ export default function FlussLogo() {
   );
 }
 
-const useStyles = makeStyles<Theme, MainLayoutValues>((theme: Theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   brand: {
     display: "flex",
     alignItems: "center",
