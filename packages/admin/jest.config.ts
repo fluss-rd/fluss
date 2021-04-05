@@ -2,7 +2,7 @@
 import type { Config } from "@jest/types";
 
 // Sync object
-const config: Config.InitialOptions = {
+const config: Partial<Config.InitialOptions> = {
   verbose: true,
   testMatch: ["**/tests/**/*.(ts|tsx)"],
   testPathIgnorePatterns: ["<rootDir>/.next/", "<rootDir>/node_modules/"],

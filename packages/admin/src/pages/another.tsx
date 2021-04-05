@@ -8,6 +8,7 @@ export default function Another() {
       <div className={styles.myStyle}>Hola</div>
       <MyFragment />
       <Otra onClick={() => console.log(":O")} />
+      :O
     </div>
   );
 }
