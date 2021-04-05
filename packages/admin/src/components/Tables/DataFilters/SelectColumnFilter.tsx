@@ -7,8 +7,7 @@ import {
   Select,
 } from "@material-ui/core";
 import generateId from "helpers/generateId";
-import useMergeState from "hooks/useMergeState";
-import usePrevious from "hooks/usePrevious";
+import { usePrevious } from "shared/hooks";
 import React, { memo, useEffect, useMemo, useState } from "react";
 import { ColumnInstance, Row } from "react-table";
 
@@ -18,7 +17,9 @@ interface SelectColumnFilterProps<T extends object> {
   stopLoading?: () => void;
 }
 
-function SelectColumnFilter<T extends object>(props: SelectColumnFilterProps<T>) {
+function SelectColumnFilter<T extends object>(
+  props: SelectColumnFilterProps<T>
+) {
   const { filterValue, setFilter, preFilteredRows, id, Header } = props.column;
   const [current, setCurrent] = useState(filterValue || "");
   const prevValue = usePrevious(current);
@@ -88,3 +89,4 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default memo(SelectColumnFilter);
+

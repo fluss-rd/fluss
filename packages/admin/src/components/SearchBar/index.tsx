@@ -1,8 +1,7 @@
 import { CircularProgress, InputBase, Paper } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
-import useMergeState from "hooks/useMergeState";
-import usePrevious from "hooks/usePrevious";
+import { useMergeState, usePrevious } from "shared/hooks";
 import { ChangeEvent, forwardRef, useEffect, useImperativeHandle } from "react";
 
 import search from "./search";
@@ -40,7 +39,8 @@ const SearchBar = forwardRef<SearchBarRef, SearchBarPropsType>((props, ref) => {
   useImperativeHandle(ref, () => ({ state: current }), [current]);
 
   function searchKeyword() {
-    if (current.keyword === prevKeyword || !props.data || !props.setData) return;
+    if (current.keyword === prevKeyword || !props.data || !props.setData)
+      return;
 
     if (current.keyword.length === 0) {
       props.setData([]);
@@ -60,7 +60,9 @@ const SearchBar = forwardRef<SearchBarRef, SearchBarPropsType>((props, ref) => {
     return () => clearTimeout(delay);
   }
 
-  function handleChange(e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) {
+  function handleChange(
+    e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) {
     if (current.timeout) clearTimeout(current.timeout);
     const newKeyword = e.target.value;
     setCurrent({ keyword: newKeyword });
@@ -131,3 +133,4 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export default SearchBar;
+

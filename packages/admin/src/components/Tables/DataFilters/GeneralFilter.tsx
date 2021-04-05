@@ -1,9 +1,8 @@
 import { CircularProgress, InputBase, Paper } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
-import useMergeState from "hooks/useMergeState";
-import usePrevious from "hooks/usePrevious";
-import React, { ChangeEvent, FC, useEffect } from "react";
+import { useMergeState, usePrevious } from "shared/hooks";
+import React, { ChangeEvent, useEffect } from "react";
 import { Row } from "react-table";
 
 interface GeneralFilterProps<T extends object> {
@@ -27,7 +26,9 @@ function GeneralFilter<T extends object>(props: GeneralFilterProps<T>) {
 
   useEffect(searchKeyword, [current.keyword]);
 
-  function handleChange(e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) {
+  function handleChange(
+    e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) {
     const newKeyword = e.target.value;
     setCurrent({ keyword: newKeyword });
   }
@@ -119,3 +120,4 @@ GeneralFilter.defaultProps = {
 };
 
 export default GeneralFilter;
+

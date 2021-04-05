@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import PanoramaHorizontalIcon from "@material-ui/icons/PanoramaHorizontal";
-import usePrevious from "hooks/usePrevious";
+import usePrevious from "shared/hooks/usePrevious";
 import React, {
   ForwardedRef,
   forwardRef,

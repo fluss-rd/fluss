@@ -1,6 +1,6 @@
 import { Fab, makeStyles } from "@material-ui/core";
 import { DataTableColumn, EnhancedDataTable } from "components/Tables";
-import useMergeState from "hooks/useMergeState";
+import { useMergeState } from "shared/hooks";
 import PermissionGroup from "models/PermissionGroup";
 import Rol from "models/Rol";
 import { useMemo } from "react";
@@ -11,10 +11,18 @@ import NullActions from "./NullActions";
 
 export default function Permissions() {
   const classes = useStyles();
-  const [data, columns] = useMemo(() => generateDateAndColumns(handleChange), []);
+  const [data, columns] = useMemo(
+    () => generateDateAndColumns(handleChange),
+    []
+  );
   const [state, setState] = useMergeState({ data });
 
-  function handleChange({ groupIndex, actionIndex, actionType, checked }: ActionsEvent) {
+  function handleChange({
+    groupIndex,
+    actionIndex,
+    actionType,
+    checked,
+  }: ActionsEvent) {
     setState((prev) => {
       const modified = [...prev.data];
       modified[groupIndex].actions[actionIndex][actionType] = checked;
@@ -31,7 +39,9 @@ export default function Permissions() {
   );
 }
 
-function generateDateAndColumns(handleChange: (event: ActionsEvent) => void): DataAndColumns {
+function generateDateAndColumns(
+  handleChange: (event: ActionsEvent) => void
+): DataAndColumns {
   const roles: Rol[] = Rol.mockData();
   const data: PermissionGroup[] = PermissionGroup.mockData();
   const columns: DataTableColumn<PermissionGroup>[] = [];
@@ -58,7 +68,10 @@ function generateDateAndColumns(handleChange: (event: ActionsEvent) => void): Da
 
         if (!action)
           return (
-            <NullActions rolName={rol.name} permissionName={group.actions[0].permission.name} />
+            <NullActions
+              rolName={rol.name}
+              permissionName={group.actions[0].permission.name}
+            />
           );
 
         return (
@@ -79,3 +92,4 @@ function generateDateAndColumns(handleChange: (event: ActionsEvent) => void): Da
 type DataAndColumns = [PermissionGroup[], DataTableColumn<PermissionGroup>[]];
 
 const useStyles = makeStyles((theme) => ({}));
+

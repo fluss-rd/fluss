@@ -16,7 +16,7 @@ import FormField from "components/FormField";
 import FormIconTitle from "components/FormIconTitle";
 import FormSelect from "components/FormSelect";
 import Transition from "components/Transition";
-import useMergeState from "hooks/useMergeState";
+import useMergeState from "shared/hooks/useMergeState";
 import Module from "models/Module";
 import React, { FC, useEffect, useMemo } from "react";
 
