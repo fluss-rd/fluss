@@ -1,0 +1,25 @@
+{
+  "name": "fluss",
+  "private": true,
+  "workspaces": [
+    "admin",
+    "shared"
+  ],
+  "version": "1.0.0",
+  "description": "Contains the code for the admin and user apps of Fluss platform",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Bioteam",
+  "license": "ISC",
+  "dependencies": {
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  },
+  "devDependencies": {
+    "next-transpile-modules": "^6.4.0"
+  }
+}
