@@ -1,6 +1,6 @@
 import MyFragment from "fragments/another/MyFragment";
-import styles from "styles/pages/another.module.scss";
 import Otra from "shared/components/Another";
+import styles from "styles/pages/another.module.scss";
 
 export default function Another() {
   return (
@@ -11,4 +11,3 @@ export default function Another() {
     </div>
   );
 }
-

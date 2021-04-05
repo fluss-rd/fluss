@@ -18,14 +18,12 @@
   "dependencies": {
     "@fontsource/nunito": "^4.2.1",
     "axios": "^0.21.1",
-    "clsx": "^1.1.1",
     "mobx": "^6.1.7",
     "mobx-react": "^7.1.0",
     "next": "10.0.7",
     "react-hook-form": "^6.15.5",
     "react-input-mask": "^2.0.4",
     "react-map-gl": "^6.1.10",
-    "react-table": "^7.6.3",
     "sass": "^1.32.8",
     "shared": "file:../shared"
   },
@@ -35,9 +33,7 @@
     "@testing-library/react": "^11.2.5",
     "@types/jest": "^26.0.20",
     "@types/node": "^14.14.31",
-    "@types/react": "^17.0.2",
     "@types/react-input-mask": "^3.0.0",
-    "@types/react-table": "^7.0.29",
     "@types/react-test-renderer": "^17.0.1",
     "@typescript-eslint/eslint-plugin": "^4.15.2",
     "@typescript-eslint/parser": "^4.15.2",
@@ -59,8 +55,7 @@
     "react-test-renderer": "^17.0.1",
     "ts-node": "^9.1.1",
     "typed-css-modules": "^0.6.5",
-    "typed-scss-modules": "^4.1.0",
-    "typescript": "^4.2.2"
+    "typed-scss-modules": "^4.1.0"
   },
   "husky": {
     "hooks": {

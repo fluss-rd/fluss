@@ -6,8 +6,8 @@ import {
   OutlinedInput,
   Select,
 } from "@material-ui/core";
-import generateId from "helpers/generateId";
-import { usePrevious } from "shared/hooks";
+import generateId from "../../../helpers/generateId";
+import { usePrevious } from "../../../hooks";
 import React, { memo, useEffect, useMemo, useState } from "react";
 import { ColumnInstance, Row } from "react-table";
 

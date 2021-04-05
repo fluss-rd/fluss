@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
-import generateId from "helpers/generateId";
+import generateId from "../../../helpers/generateId";
 import React, { ChangeEvent, useCallback, useMemo } from "react";
 import { ColumnInstance } from "react-table";
 

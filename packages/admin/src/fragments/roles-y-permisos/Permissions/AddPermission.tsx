@@ -10,14 +10,14 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Add, AssignmentIndOutlined, InfoOutlined } from "@material-ui/icons";
-import FormField from "components/FormField";
-import FormIconTitle from "components/FormIconTitle";
-import ModalContent from "components/ModalContent";
-import { useMergeState } from "shared/hooks";
 import ActionsModel from "models/Actions";
 import Permission from "models/Permission";
 import Rol from "models/Rol";
 import React, { FC, Fragment, useMemo, useState } from "react";
+import FormField from "shared/components/FormField";
+import FormIconTitle from "shared/components/FormIconTitle";
+import ModalContent from "shared/components/ModalContent";
+import { useMergeState } from "shared/hooks";
 
 import AssignRoles from "./AssignRoles";
 import RolPermission from "./RolPermission";
@@ -92,12 +92,7 @@ const AddPermission: FC<AddPermissionProps> = (props) => {
 
   return (
     <>
-      <Fab
-        variant="extended"
-        color="primary"
-        className={classes.fab}
-        onClick={handleClickOpen}
-      >
+      <Fab variant="extended" color="primary" className={classes.fab} onClick={handleClickOpen}>
         <Add className={classes.extendedIcon} />
         Agregar permiso
       </Fab>
@@ -111,8 +106,7 @@ const AddPermission: FC<AddPermissionProps> = (props) => {
         <DialogTitle id="form-dialog-title">Agregar permiso</DialogTitle>
         <ModalContent className={classes.content}>
           <DialogContentText>
-            Indique el nombre y descripción del nuevo permiso. La asignación de
-            roles es opcional
+            Indique el nombre y descripción del nuevo permiso. La asignación de roles es opcional
           </DialogContentText>
           <FormIconTitle title="Datos del nuevo permiso" Icon={InfoOutlined} />
           <FormField name="name" label="Nombre" />
@@ -176,4 +170,3 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default AddPermission;
-

@@ -8,7 +8,7 @@ import {
 } from "@material-ui/core";
 import { OverridableComponent } from "@material-ui/core/OverridableComponent";
 import { makeStyles } from "@material-ui/core/styles";
-import generateId from "helpers/generateId";
+import generateId from "../../helpers/generateId";
 import React, { FC, MouseEvent, ReactNode, useRef, useState } from "react";
 
 interface PopoverIconProps {

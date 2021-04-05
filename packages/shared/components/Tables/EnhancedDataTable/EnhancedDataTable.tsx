@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import DataTable, {
-  DataTableColumn,
   DataTableProps,
   DataTableProvider,
-} from "components/Tables/DataTable";
+} from "../DataTable";
 
 import EnhancedDataTableToolbar, {
   EnhancedDataTableToolbarProps,
@@ -13,7 +12,9 @@ import EnhancedDataTableToolbar, {
 type EnhancedDataTableProps<T extends object> = DataTableProps<T> &
   EnhancedDataTableToolbarProps<T>;
 
-export default function EnhancedDataTable<T extends object>(props: EnhancedDataTableProps<T>) {
+export default function EnhancedDataTable<T extends object>(
+  props: EnhancedDataTableProps<T>
+) {
   const classes = useStyles();
 
   return (
@@ -36,6 +37,7 @@ export default function EnhancedDataTable<T extends object>(props: EnhancedDataT
   );
 }
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles(() => ({
   root: {},
 }));
+

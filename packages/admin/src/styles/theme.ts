@@ -1,16 +1,4 @@
-import { createMuiTheme } from "@material-ui/core/styles";
+import sharedTheme, { GlobalCss } from "shared/styles/theme";
 
-const theme = createMuiTheme({
-  palette: {
-    primary: { main: "#1f6485" },
-    secondary: { main: "#7db6d1" },
-  },
-  typography: {
-    fontFamily: ["Roboto", "Nunito", "Calibri", "Arial"].join(","),
-  },
-  shape: {
-    borderRadius: 10,
-  },
-});
-
-export default theme;
+export default sharedTheme;
+export { GlobalCss };

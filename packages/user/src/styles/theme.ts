@@ -1,24 +1,8 @@
-import { createMuiTheme, withStyles } from "@material-ui/core/styles";
+import { Theme } from "@material-ui/core/styles";
+import theme, { GlobalCss } from "shared/styles/theme";
 
-const theme = createMuiTheme({
-  palette: {
-    primary: { main: "#1f6485" },
-    secondary: { main: "#7db6d1" },
-    background: { default: "#ffffff" },
-  },
-  typography: {
-    fontFamily: ["Nunito", "Roboto", "Calibri", "Arial"].join(","),
-  },
-});
-
-export const GlobalCss = withStyles((theme) => ({
-  "@global": {
-    ":root": {
-      "--color-primary": theme.palette.primary.main,
-      "--color-secondary": theme.palette.secondary.main,
-      "--color-background": theme.palette.background.default,
-    },
-  },
-}))(() => null);
+const customTheme: Theme = { ...theme };
+customTheme.palette.background.default = "#ffffff";
 
 export default theme;
+export { GlobalCss };

@@ -12,13 +12,13 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Close, EditLocationOutlined, InfoOutlined } from "@material-ui/icons";
-import FormField from "components/FormField";
-import FormIconTitle from "components/FormIconTitle";
-import FormSelect from "components/FormSelect";
-import Transition from "components/Transition";
-import useMergeState from "shared/hooks/useMergeState";
 import Module from "models/Module";
 import React, { FC, useEffect, useMemo } from "react";
+import FormField from "shared/components/FormField";
+import FormIconTitle from "shared/components/FormIconTitle";
+import FormSelect from "shared/components/FormSelect";
+import Transition from "shared/components/Transition";
+import useMergeState from "shared/hooks/useMergeState";
 
 import ModuleLocation from "./ModuleLocation";
 

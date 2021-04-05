@@ -1,9 +1,9 @@
 import { AppBar as Navbar, Divider, IconButton, Toolbar } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { Menu } from "@material-ui/icons";
-import FlussLogo from "components/FlussLogo";
-import { push } from "helpers";
 import React, { FC, useContext } from "react";
+import FlussLogo from "shared/components/FlussLogo";
+import { push } from "shared/helpers";
 
 import { MainLayoutContext, MainLayoutValues } from ".";
 

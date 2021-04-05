@@ -2,13 +2,18 @@ import { Button, Typography } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import Image from "next/image";
 
-export default function FlussLogo(props: { onClick: () => void }) {
+interface FlussLogoProps {
+  imagePath?: string;
+  onClick?: () => void;
+}
+
+export default function FlussLogo(props: FlussLogoProps) {
   const classes = useStyles();
 
   return (
     <Button className={classes.brand} onClick={props.onClick}>
       <div className={classes.logo}>
-        <Image src="/images/logo.png" alt="Logo" width={35} height={35} />
+        <Image src={props.imagePath} alt="Logo" width={35} height={35} />
       </div>
       <Typography variant="h5" color="primary" noWrap>
         fluss
@@ -16,6 +21,10 @@ export default function FlussLogo(props: { onClick: () => void }) {
     </Button>
   );
 }
+
+FlussLogo.defaultProps = {
+  imagePath: "/images/logo.png",
+};
 
 const useStyles = makeStyles((theme: Theme) => ({
   brand: {
@@ -33,3 +42,4 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginRight: theme.spacing(2),
   },
 }));
+

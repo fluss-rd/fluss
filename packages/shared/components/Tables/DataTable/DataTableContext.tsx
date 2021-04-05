@@ -1,5 +1,5 @@
-import { searchRows } from "components/SearchBar/search";
-import { DataTableColumn } from "components/Tables";
+import { searchRows } from "../../SearchBar/search";
+import { DataTableColumn } from "..";
 import { createContext, ReactNode, useContext, useState } from "react";
 import {
   Column,
@@ -29,7 +29,9 @@ export interface DataTableProviderProps<T extends object> {
   pageSize?: number;
 }
 
-export function DataTableProvider<T extends object>(props: DataTableProviderProps<T>) {
+export function DataTableProvider<T extends object>(
+  props: DataTableProviderProps<T>
+) {
   const table = useTable<T>(
     applyInitialState(props),
     useFilters,
@@ -37,9 +39,12 @@ export function DataTableProvider<T extends object>(props: DataTableProviderProp
     useSortBy,
     usePagination
   );
-  const sortingColumnId = table.state.sortBy.length > 0 ? table.state.sortBy[0].id : "";
+  const sortingColumnId =
+    table.state.sortBy.length > 0 ? table.state.sortBy[0].id : "";
   const headerGroups = table.headerGroups as HeaderGroup<T>[];
-  const [loading, setLoading] = useState(props.data === undefined ? true : false);
+  const [loading, setLoading] = useState(
+    props.data === undefined ? true : false
+  );
 
   const startLoading = () => setLoading(true);
   const stopLoading = () => setLoading(false);
@@ -65,14 +70,25 @@ DataTableProvider.defaultProps = {
   paginated: true,
 };
 
-function applyInitialState<T extends object>(props: DataTableProviderProps<T>): TableOptions<T> {
+function applyInitialState<T extends object>(
+  props: DataTableProviderProps<T>
+): TableOptions<T> {
   return {
     columns: props.columns as Column<T>[],
     data: props.data === undefined ? [] : props.data,
     initialState: {
-      sortBy: [{ id: props.sortBy as string, desc: props.sortDirection === "desc" ? true : false }],
+      sortBy: [
+        {
+          id: props.sortBy as string,
+          desc: props.sortDirection === "desc" ? true : false,
+        },
+      ],
       pageIndex: 0,
-      pageSize: props.paginated ? props.pageSize : props.data ? props.data.length : 0,
+      pageSize: props.paginated
+        ? props.pageSize
+        : props.data
+        ? props.data.length
+        : 0,
       globalFilter: "",
     },
     globalFilter: customFilter,
@@ -106,3 +122,4 @@ const DataTableContext = createContext<DataTableContextValue<any>>({
 });
 
 export default DataTableContext;
+

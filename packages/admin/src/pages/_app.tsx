@@ -5,7 +5,7 @@ import Layout from "layouts";
 import React, { useEffect } from "react";
 import { ServiceProvider } from "services/service";
 import { initialState, StateContext } from "store/state";
-import theme from "styles/theme";
+import theme, { GlobalCss } from "styles/theme";
 
 function MyApp({ Component, pageProps }) {
   useEffect(removeServerSideInjectedCss, []);
@@ -20,6 +20,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <StateContext.Provider value={initialState}>
       <ThemeProvider theme={theme}>
+        <GlobalCss />
         <ServiceProvider>
           <Layout>
             <Component {...pageProps} />

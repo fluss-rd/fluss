@@ -1,7 +1,7 @@
 import { CircularProgress, InputBase, Paper } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
-import { useMergeState, usePrevious } from "shared/hooks";
+import { useMergeState, usePrevious } from "../../../hooks";
 import React, { ChangeEvent, useEffect } from "react";
 import { Row } from "react-table";
 

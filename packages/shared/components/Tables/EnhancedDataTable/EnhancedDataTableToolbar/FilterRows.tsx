@@ -1,6 +1,6 @@
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import { FilterList } from "@material-ui/icons";
-import PopoverIcon from "components/PopoverIcon";
+import PopoverIcon from "../../../PopoverIcon";
 import React from "react";
 import { ColumnInstance } from "react-table";
 
@@ -10,7 +10,11 @@ interface FilterRowsProps<T extends object> {
   stopLoading?: () => void;
 }
 
-function FilterRows<T extends object>({ columns, startLoading, stopLoading }: FilterRowsProps<T>) {
+function FilterRows<T extends object>({
+  columns,
+  startLoading,
+  stopLoading,
+}: FilterRowsProps<T>) {
   const classes = useStyles();
 
   function renderFilter(column: ColumnInstance<T>) {
@@ -46,3 +50,4 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export default FilterRows;
+

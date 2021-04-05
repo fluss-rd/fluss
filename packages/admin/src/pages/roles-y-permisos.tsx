@@ -1,8 +1,8 @@
 import { Typography } from "@material-ui/core";
-import TabPanel, { AntTab, AntTabs } from "components/TabPanel";
 import Permissions from "fragments/roles-y-permisos/Permissions";
 import Roles from "fragments/roles-y-permisos/Roles";
 import React, { ChangeEvent, useCallback, useState } from "react";
+import TabPanel, { AntTab, AntTabs } from "shared/components/TabPanel";
 
 export default function RolesAndPermissions() {
   const [value, setValue] = useState(0);

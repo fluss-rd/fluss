@@ -1,13 +1,13 @@
 import { makeStyles, Typography } from "@material-ui/core";
-import { EnhancedDataTable } from "components/Tables";
-import { DataTableColumn, SelectColumnFilter } from "components/Tables";
 import InfoIconButton from "fragments/modulos/InfoIconButton";
 import RegisterModule from "fragments/modulos/RegisterModule";
 import ViewModule from "fragments/modulos/ViewModule";
-import formatDate from "helpers/formatDate";
-import useMergeState from "shared/hooks/useMergeState";
 import Module from "models/Module";
 import { useCallback, useMemo, useState } from "react";
+import { EnhancedDataTable } from "shared/components/Tables";
+import { DataTableColumn, SelectColumnFilter } from "shared/components/Tables";
+import formatDate from "shared/helpers/formatDate";
+import useMergeState from "shared/hooks/useMergeState";
 
 export default function Modulos() {
   const classes = useStyles();
@@ -23,9 +23,7 @@ export default function Modulos() {
     (index: number) => setCurrent({ module: { ...data[index] }, index }),
     [setCurrent, data]
   );
-  const dataColumns = useMemo(() => columns(handleModuleClicked), [
-    handleModuleClicked,
-  ]);
+  const dataColumns = useMemo(() => columns(handleModuleClicked), [handleModuleClicked]);
 
   return (
     <div className={classes.root}>
@@ -33,12 +31,7 @@ export default function Modulos() {
 
       <br />
 
-      <EnhancedDataTable
-        withFilters
-        withColumnsSelection
-        data={data}
-        columns={dataColumns}
-      />
+      <EnhancedDataTable withFilters withColumnsSelection data={data} columns={dataColumns} />
       <RegisterModule />
       <ViewModule
         module={current.module}
@@ -60,9 +53,7 @@ const useStyles = makeStyles({
   },
 });
 
-const columns = (
-  handleModuleClicked: (index: number) => void
-): DataTableColumn<Module>[] => [
+const columns = (handleModuleClicked: (index: number) => void): DataTableColumn<Module>[] => [
   { Header: "ID", accessor: "id", width: 200, columnWidth: "10%" },
   {
     Header: "Número SIM",
@@ -92,4 +83,3 @@ const columns = (
     ),
   },
 ];
-
