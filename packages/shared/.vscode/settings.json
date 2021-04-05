@@ -1,0 +1,22 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  },
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  "files.exclude": {
+    ".next/": true,
+    ".vercel/": true,
+    ".editorconfig": true,
+    ".babelrc": true,
+    ".prettierrc.js": true,
+    ".eslintrc.js": true,
+    "package-lock.json": true,
+    "src/styles/**/*.module.css.d.ts": true,
+    "src/styles/**/*.module.scss.d.ts": true,
+    ".bit/": true,
+    "dist/": true
+  }
+}
+
