@@ -6,7 +6,6 @@
   "editor.insertSpaces": true,
   "editor.detectIndentation": false,
   "files.exclude": {
-    "node_modules/": true,
     ".next/": true,
     ".vercel/": true,
     ".editorconfig": true,
@@ -16,5 +15,8 @@
     "package-lock.json": true,
     "src/styles/**/*.module.css.d.ts": true,
     "src/styles/**/*.module.scss.d.ts": true,
+    ".bit/": true,
+    "dist/": true
   }
 }
+

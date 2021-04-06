@@ -10,14 +10,14 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Add, AssignmentIndOutlined, InfoOutlined } from "@material-ui/icons";
-import FormField from "components/FormField";
-import FormIconTitle from "components/FormIconTitle";
-import ModalContent from "components/ModalContent";
-import useMergeState from "hooks/useMergeState";
 import ActionsModel from "models/Actions";
 import Permission from "models/Permission";
 import Rol from "models/Rol";
 import React, { FC, Fragment, useMemo, useState } from "react";
+import FormField from "shared/components/FormField";
+import FormIconTitle from "shared/components/FormIconTitle";
+import ModalContent from "shared/components/ModalContent";
+import { useMergeState } from "shared/hooks";
 
 import AssignRoles from "./AssignRoles";
 import RolPermission from "./RolPermission";

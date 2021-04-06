@@ -1,6 +1,6 @@
-import { DataTableColumn, EnhancedDataTable } from "components/Tables";
-import formatDate from "helpers/formatDate";
 import Rol from "models/Rol";
+import { DataTableColumn, EnhancedDataTable } from "shared/components/Tables";
+import formatDate from "shared/helpers/formatDate";
 
 export default function Roles() {
   return <EnhancedDataTable data={Rol.mockData()} columns={columns} />;

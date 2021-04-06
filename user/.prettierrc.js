@@ -1,7 +1,5 @@
-// .prettierrc.js
+// https://prettier.io/docs/en/options.html
 module.exports = {
-  // Change your rules accordingly to your coding style preferences.
-  // https://prettier.io/docs/en/options.html
   semi: true,
   trailingComma: "es5",
   singleQuote: false,
@@ -10,4 +8,3 @@ module.exports = {
   useTabs: false,
   endOfLine: "auto",
 };
-

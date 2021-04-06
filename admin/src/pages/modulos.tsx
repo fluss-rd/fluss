@@ -1,18 +1,21 @@
 import { makeStyles, Typography } from "@material-ui/core";
-import { EnhancedDataTable } from "components/Tables";
-import { DataTableColumn, SelectColumnFilter } from "components/Tables";
 import InfoIconButton from "fragments/modulos/InfoIconButton";
 import RegisterModule from "fragments/modulos/RegisterModule";
 import ViewModule from "fragments/modulos/ViewModule";
-import formatDate from "helpers/formatDate";
-import useMergeState from "hooks/useMergeState";
 import Module from "models/Module";
 import { useCallback, useMemo, useState } from "react";
+import { EnhancedDataTable } from "shared/components/Tables";
+import { DataTableColumn, SelectColumnFilter } from "shared/components/Tables";
+import formatDate from "shared/helpers/formatDate";
+import useMergeState from "shared/hooks/useMergeState";
 
 export default function Modulos() {
   const classes = useStyles();
   const [data, setData] = useState(Module.mockData());
-  const [current, setCurrent] = useMergeState<{ index: number; module: Module }>({
+  const [current, setCurrent] = useMergeState<{
+    index: number;
+    module: Module;
+  }>({
     index: 0,
     module: null,
   });
