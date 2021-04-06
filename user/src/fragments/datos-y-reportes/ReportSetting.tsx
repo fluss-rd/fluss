@@ -1,31 +1,40 @@
 import { MenuItem, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import React, { FC, ReactNode } from "react";
+import React, { ChangeEvent, FC, ReactNode } from "react";
+import FormSelect from "shared/components/FormSelect";
 
 interface ReportSettingProps {
   title: string;
   settings: string[];
   value: string;
+  onSelect?: (selected: string) => void;
 }
 
-const ReportSetting: FC<ReportSettingProps> = ({ title, settings, value }) => {
+const ReportSetting: FC<ReportSettingProps> = ({ title, settings, value, onSelect }) => {
   const classes = useStyles();
 
+  function onChange(e: ChangeEvent<{ name?: string; value: string }>) {
+    onSelect(e.target.value);
+  }
+
   return (
-    <div className={classes.handler}>
-      <Typography variant="caption">{title}</Typography>
-    </div>
+    <FormSelect
+      noneText="Seleccionar"
+      label={title}
+      value={value}
+      onChange={onChange}
+      className={classes.select}
+    >
+      {settings.map((setting) => (
+        <MenuItem key={setting} value={setting}>
+          {setting}
+        </MenuItem>
+      ))}
+    </FormSelect>
   );
 };
 
 const useStyles = makeStyles((theme) => ({
-  handler: {
-    display: "flex",
-    alignItems: "center",
-    "& > *:not(:last-child)": {
-      marginRight: theme.spacing(theme.spacing(0.5)),
-    },
-  },
   select: {
     height: `calc(${theme.mixins.toolbar.minHeight}px - 20px)`,
   },
