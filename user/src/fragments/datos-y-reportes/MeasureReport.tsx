@@ -15,13 +15,13 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import { TransitionProps } from "@material-ui/core/transitions/transition";
 import { Close, GetApp } from "@material-ui/icons";
-import ModuleMeasure from "models/ModuleMeasure";
 import React, { FC, useMemo } from "react";
-import DataTable, { DataTableColumn, DataTableProvider } from "shared/components/Tables/DataTable";
 import { useMergeState } from "shared/hooks";
-
-import BarsChartSection from "./BarsChartSection";
+import ModuleMeasure from "models/ModuleMeasure";
+import DataTable, { DataTableProvider, DataTableColumn } from "shared/components/Tables/DataTable";
 import MeasuresReportToolbar from "./MeasuresReportToolbar";
+import BarsChartSection from "./BarsChartSection";
+import { filterNumberWithConditions, NumberRangeColumnFilter } from "shared/components/Tables";
 
 interface MeasureReportProps {}
 
@@ -34,12 +34,40 @@ const MeasureReport: FC<MeasureReportProps> = (props) => {
   const columns = useMemo(
     () =>
       [
-        { Header: "Momento", accessor: "moment" },
-        { Header: "Oxígeneo", accessor: "oxygen" },
-        { Header: "pH", accessor: "pH" },
-        { Header: "Temperatura", accessor: "temperature" },
-        { Header: "Turbidez", accessor: "turbidity" },
-        { Header: "Sólidos disueltos", accessor: "dissolvedSolids" },
+        {
+          Header: "Momento",
+          accessor: "moment",
+        },
+        {
+          Header: "Oxígeneo",
+          accessor: "oxygen",
+          filter: filterNumberWithConditions,
+          Filter: NumberRangeColumnFilter,
+        },
+        {
+          Header: "pH",
+          accessor: "pH",
+          filter: filterNumberWithConditions,
+          Filter: NumberRangeColumnFilter,
+        },
+        {
+          Header: "Temperatura",
+          accessor: "temperature",
+          filter: filterNumberWithConditions,
+          Filter: NumberRangeColumnFilter,
+        },
+        {
+          Header: "Turbidez",
+          accessor: "turbidity",
+          filter: filterNumberWithConditions,
+          Filter: NumberRangeColumnFilter,
+        },
+        {
+          Header: "Sólidos disueltos",
+          accessor: "dissolvedSolids",
+          filter: filterNumberWithConditions,
+          Filter: NumberRangeColumnFilter,
+        },
       ] as DataTableColumn<ModuleMeasure>[],
     []
   );
@@ -54,8 +82,8 @@ const MeasureReport: FC<MeasureReportProps> = (props) => {
 
   return (
     <>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Reporte de parámetros
+      <Button variant="text" color="primary" onClick={handleClickOpen}>
+        Ver reporte
       </Button>
       <DataTableProvider data={data} columns={columns} sortBy="moment" paginated={false}>
         <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
@@ -79,6 +107,7 @@ const MeasureReport: FC<MeasureReportProps> = (props) => {
             <br />
 
             <Typography variant="h5">Tabla de datos</Typography>
+            <br />
 
             <DataTable densed columns={columns} data={data} paginated={false} elevation={0} />
           </div>
@@ -130,3 +159,4 @@ const Transition = React.forwardRef(function Transition(
 });
 
 export default MeasureReport;
+

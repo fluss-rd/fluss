@@ -1,9 +1,7 @@
 import { Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
 import ModuleMeasure from "models/ModuleMeasure";
 import React, { FC, useMemo } from "react";
 import { DataTableColumn, useDataTable } from "shared/components/Tables";
-
 import BarChart from "./BarChart";
 
 interface BarsChartSectionProps {
@@ -11,13 +9,12 @@ interface BarsChartSectionProps {
 }
 
 const BarsChartSection: FC<BarsChartSectionProps> = (props) => {
-  const classes = useStyles();
   const context = useDataTable();
   const groups = (context.table.headerGroups as unknown) as Array<{
     headers: DataTableColumn<ModuleMeasure>[];
   }>;
   const columnIds = groups[0].headers ? groups[0].headers.map((group) => group.id) : [];
-  console.log(props.ignored);
+  console.log(props.ignored)
   const valid = columnIds.filter((id: keyof ModuleMeasure) => props.ignored!.indexOf(id) === -1);
 
   return (
@@ -25,7 +22,7 @@ const BarsChartSection: FC<BarsChartSectionProps> = (props) => {
       <Typography variant="h5">Gráfico de barras</Typography>
       <div style={{ height: 300 }}>
         <BarChart
-          data={context.table.data || []}
+          data={context.table.data}
           columns={valid}
           indexBy="moment"
           axisBottomTitle={"hmmm"}
@@ -40,6 +37,5 @@ BarsChartSection.defaultProps = {
   ignored: ["moment"],
 };
 
-const useStyles = makeStyles({});
-
 export default BarsChartSection;
+
