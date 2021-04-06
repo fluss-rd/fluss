@@ -82,8 +82,8 @@ const MeasureReport: FC<MeasureReportProps> = (props) => {
 
   return (
     <>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Reporte de parámetros
+      <Button variant="text" color="primary" onClick={handleClickOpen}>
+        Ver reporte
       </Button>
       <DataTableProvider data={data} columns={columns} sortBy="moment" paginated={false}>
         <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
