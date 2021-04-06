@@ -6,14 +6,24 @@ module.exports = withTM({
     mapboxToken:
       "pk.eyJ1IjoibWlraGFlbDE3MjkiLCJhIjoiY2ttbGN2Y2M1MTl3YjJ1bjAyZmg0MmU1NCJ9.WiU0fisWQSYwcEs-Ay6ONw",
   },
-  webpack(config, options) {
-    const { dev, isServer } = options;
-
-    // Do not run type checking twice:
-    if (dev && isServer) {
-      config.plugins.push(new ForkTsCheckerWebpackPlugin());
-    }
-
-    return config;
+  context: __dirname, // to automatically find tsconfig.json
+  entry: "./src/pages/index.tsx",
+  resolve: {
+    extensions: [".ts", ".tsx", ".js"],
   },
-})
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        loader: "ts-loader",
+        exclude: /node_modules/,
+        options: {
+          // disable type checker - we will use it in fork plugin
+          transpileOnly: true,
+        },
+      },
+    ],
+  },
+  plugins: [new ForkTsCheckerWebpackPlugin()],
+});
+

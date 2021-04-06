@@ -31,6 +31,7 @@ export interface DataTableProps<T extends object> {
   columns: DataTableColumn<T>[];
   data?: T[];
   densed?: boolean;
+  elevation?: number;
   sortBy?: keyof T;
   sortDirection?: "asc" | "desc";
   paginated?: boolean;
@@ -57,7 +58,7 @@ function DataTable<T extends object>(props: DataTableProps<T>, ref: ForwardedRef
 
   return (
     <div className={classes.root}>
-      <Paper className={classes.paper}>
+      <Paper className={classes.paper} elevation={props.elevation}>
         <TableContainer>
           {(loading || props.data === undefined) && <LinearProgress color="secondary" />}
           <Table

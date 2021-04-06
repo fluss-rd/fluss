@@ -1,5 +1,6 @@
 import {
   IconButton,
+  Button,
   Popover,
   PopoverOrigin,
   SvgIconTypeMap,
@@ -7,13 +8,14 @@ import {
   Typography,
 } from "@material-ui/core";
 import { OverridableComponent } from "@material-ui/core/OverridableComponent";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import generateId from "../../helpers/generateId";
 import React, { FC, MouseEvent, ReactNode, useRef, useState } from "react";
 
 interface PopoverIconProps {
   title: string;
   icon: OverridableComponent<SvgIconTypeMap<{}, "svg">>;
+  labeled?: boolean;
   children?: ReactNode;
   anchorOrigin?: PopoverOrigin;
   transformOrigin?: PopoverOrigin;
@@ -27,6 +29,7 @@ const PopoverIcon: FC<PopoverIconProps> = (props) => {
   const id = open ? key : undefined;
   const Icon = props.icon;
   const popoverRef = useRef(null);
+  const theme = useTheme();
 
   function handleClick(event: MouseEvent<HTMLButtonElement>) {
     setAnchorEl(event.currentTarget);
@@ -37,11 +40,24 @@ const PopoverIcon: FC<PopoverIconProps> = (props) => {
   }
 
   return (
-    <>
+    <div>
       <Tooltip title={props.title}>
-        <IconButton aria-describedby={id} onClick={handleClick}>
-          <Icon />
-        </IconButton>
+        {props.labeled ? (
+          <Button
+            aria-describedby={id}
+            startIcon={<Icon />}
+            onClick={handleClick}
+            className={classes.labeled}
+          >
+            <Typography variant="body1" style={{ marginLeft: theme.spacing(1) }}>
+              {props.title}
+            </Typography>
+          </Button>
+        ) : (
+          <IconButton aria-describedby={id} onClick={handleClick}>
+            <Icon />
+          </IconButton>
+        )}
       </Tooltip>
       <Popover
         id={id}
@@ -60,7 +76,7 @@ const PopoverIcon: FC<PopoverIconProps> = (props) => {
           <div className={classes.content}>{props.children}</div>
         </div>
       </Popover>
-    </>
+    </div>
   );
 };
 
@@ -84,10 +100,14 @@ const useStyles = makeStyles((theme) => {
       flexDirection: "column",
       padding: `0px ${spacing}px ${spacing}px ${spacing}px`,
     },
+    labeled: {
+      textTransform: "none",
+    },
   };
 });
 
 PopoverIcon.defaultProps = {
+  labeled: false,
   anchorOrigin: {
     vertical: "center",
     horizontal: "center",
@@ -99,3 +119,4 @@ PopoverIcon.defaultProps = {
 };
 
 export default PopoverIcon;
+
