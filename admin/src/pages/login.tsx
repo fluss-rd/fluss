@@ -91,7 +91,7 @@ const Login: FC<StoreProps> = ({ store }) => {
         <img src="/images/river-login.jpg" className={classes.wallpaper} alt="river"></img>
       </div>
 
-      <Typography className={clsx(classes.text)}>Inicio de sesion </Typography>
+      <Typography className={clsx(classes.text)}>Inicio de sesion</Typography>
 
       <form noValidate autoComplete="off">
         <div className={clsx(classes.container)}>
