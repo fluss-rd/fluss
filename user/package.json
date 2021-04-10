@@ -22,6 +22,7 @@
     "mobx": "^6.1.7",
     "mobx-react": "^7.1.0",
     "next": "10.0.7",
+    "next-compose-plugins": "^2.2.1",
     "next-transpile-modules": "^6.4.0",
     "sass": "^1.32.8",
     "shared": "file:../shared"

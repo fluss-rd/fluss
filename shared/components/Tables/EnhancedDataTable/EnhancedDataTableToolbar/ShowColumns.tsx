@@ -1,12 +1,11 @@
 import { Checkbox, FormControl, FormControlLabel, FormGroup } from "@material-ui/core";
 import { ViewColumn } from "@material-ui/icons";
 import PopoverIcon from "../../../PopoverIcon";
-import { DataTableColumn } from "../../DataTable";
 import { ChangeEvent, CSSProperties, FC } from "react";
 import { ColumnInstance } from "react-table";
 
 export interface ShowColumnsProps<T extends object> {
-  columns: DataTableColumn<T>[];
+  columns: ColumnInstance<T>[];
   title?: string;
   labeled?: boolean;
 }
@@ -23,8 +22,8 @@ function ShowColumns<T extends object>({ columns, title, labeled }: ShowColumnsP
     <PopoverIcon title={title} icon={ViewColumn} labeled={labeled}>
       <FormControl component="fieldset">
         <FormGroup>
-          {columns.map((column: DataTableColumn<T>) => {
-            const hiddenProps: HiddenProps = (column as ColumnInstance<T>).getToggleHiddenProps();
+          {columns.map((column: ColumnInstance<T>) => {
+            const hiddenProps: HiddenProps = column.getToggleHiddenProps();
             return (
               <FormControlLabel
                 key={column.id}

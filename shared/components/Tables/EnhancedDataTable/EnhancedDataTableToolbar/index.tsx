@@ -50,7 +50,7 @@ function EnhancedDataTableToolbar<T extends object>(
         )}
         {props.withColumnsSelection && (
           <ShowColumns
-            columns={table.allColumns as DataTableColumn<T>[]}
+            columns={table.allColumns}
             key={0}
           />
         )}
