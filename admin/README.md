@@ -2,8 +2,6 @@
 
 It's the web app for the administrator users of the Fluss platform.
 
-Hola
-
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.

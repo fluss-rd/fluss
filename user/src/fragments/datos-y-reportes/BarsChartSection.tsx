@@ -2,6 +2,7 @@ import { Typography } from "@material-ui/core";
 import ModuleMeasure from "models/ModuleMeasure";
 import React, { FC, useMemo } from "react";
 import { DataTableColumn, useDataTable } from "shared/components/Tables";
+
 import BarChart from "./BarChart";
 
 interface BarsChartSectionProps {
@@ -14,7 +15,7 @@ const BarsChartSection: FC<BarsChartSectionProps> = (props) => {
     headers: DataTableColumn<ModuleMeasure>[];
   }>;
   const columnIds = groups[0].headers ? groups[0].headers.map((group) => group.id) : [];
-  console.log(props.ignored)
+  console.log(props.ignored);
   const valid = columnIds.filter((id: keyof ModuleMeasure) => props.ignored!.indexOf(id) === -1);
 
   return (
@@ -38,4 +39,3 @@ BarsChartSection.defaultProps = {
 };
 
 export default BarsChartSection;
-

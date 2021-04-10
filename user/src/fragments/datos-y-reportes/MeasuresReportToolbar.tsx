@@ -7,17 +7,13 @@ import { useMergeState } from "shared/hooks";
 
 import ReportSetting from "./ReportSetting";
 
-interface MeasuresReportToolbarProps {}
-
-const MeasuresReportToolbar: FC<MeasuresReportToolbarProps> = (props) => {
-  // Computed.
+const MeasuresReportToolbar: FC = () => {
   const classes = useStyles();
   const context = useDataTable();
   const allColumns = context.table.allColumns;
   const granularityList = useMemo(() => ["Semanal", "Mensual", "Anual"], []);
   const rivers = useMemo(() => ["Yaque del Norte", "Yaque del Sur"], []);
 
-  // state.
   const [state, setState] = useMergeState({ granularity: granularityList[0], river: rivers[0] });
 
   return (
