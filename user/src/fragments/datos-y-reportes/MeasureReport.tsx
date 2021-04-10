@@ -15,13 +15,14 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import { TransitionProps } from "@material-ui/core/transitions/transition";
 import { Close, GetApp } from "@material-ui/icons";
-import React, { FC, useMemo } from "react";
-import { useMergeState } from "shared/hooks";
 import ModuleMeasure from "models/ModuleMeasure";
-import DataTable, { DataTableProvider, DataTableColumn } from "shared/components/Tables/DataTable";
-import MeasuresReportToolbar from "./MeasuresReportToolbar";
-import BarsChartSection from "./BarsChartSection";
+import React, { FC, useMemo } from "react";
 import { filterNumberWithConditions, NumberRangeColumnFilter } from "shared/components/Tables";
+import DataTable, { DataTableColumn, DataTableProvider } from "shared/components/Tables/DataTable";
+import { useMergeState } from "shared/hooks";
+
+import BarsChartSection from "./BarsChartSection";
+import MeasuresReportToolbar from "./MeasuresReportToolbar";
 
 interface MeasureReportProps {}
 
@@ -159,4 +160,3 @@ const Transition = React.forwardRef(function Transition(
 });
 
 export default MeasureReport;
-

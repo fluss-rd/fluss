@@ -1,14 +1,14 @@
 import {
+  Avatar,
   Card,
-  Typography,
+  CardActions,
   CardContent,
   ListItem,
   ListItemText,
-  CardActions,
-  Avatar,
+  Typography,
 } from "@material-ui/core";
-import FolderIcon from "@material-ui/icons/Folder";
 import { makeStyles } from "@material-ui/core/styles";
+import FolderIcon from "@material-ui/icons/Folder";
 import MeasureReport from "fragments/datos-y-reportes/MeasureReport";
 import React, { FC } from "react";
 
@@ -71,4 +71,3 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default DataAndReports;
-
