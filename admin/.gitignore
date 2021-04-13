@@ -36,3 +36,7 @@ yarn-error.log*
 # styles
 src/styles/**/*.module.scss.d.ts
 src/styles/**/*.module.css.d.ts
+
+# bit.dev
+.bit
+dist

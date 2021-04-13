@@ -1,9 +1,9 @@
 import { Fab, makeStyles } from "@material-ui/core";
-import { DataTableColumn, EnhancedDataTable } from "components/Tables";
-import useMergeState from "hooks/useMergeState";
 import PermissionGroup from "models/PermissionGroup";
 import Rol from "models/Rol";
 import { useMemo } from "react";
+import { DataTableColumn, EnhancedDataTable } from "shared/components/Tables";
+import { useMergeState } from "shared/hooks";
 
 import Actions, { ActionsEvent } from "./Action";
 import AddPermission from "./AddPermission";

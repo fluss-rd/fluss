@@ -21,7 +21,7 @@ const useStyles = makeStyles<Theme, MainLayoutValues>((theme: Theme) => ({
     minHeight: "100vh",
   },
   container: {
-    padding: theme.spacing(0),
+    padding: theme.spacing(3),
     height: "100%",
   },
   toolbar: theme.mixins.toolbar,

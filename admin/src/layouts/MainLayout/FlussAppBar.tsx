@@ -1,8 +1,9 @@
 import { AppBar as Navbar, Divider, IconButton, Toolbar } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { Menu } from "@material-ui/icons";
-import FlussLogo from "components/FlussLogo";
 import React, { FC, useContext } from "react";
+import FlussLogo from "shared/components/FlussLogo";
+import { push } from "shared/helpers";
 
 import { MainLayoutContext, MainLayoutValues } from ".";
 
@@ -25,7 +26,7 @@ const FlussAppBar: FC = () => {
           </IconButton>
         )}
 
-        <FlussLogo />
+        <FlussLogo onClick={push("/")} />
       </div>
       <Navbar position="fixed" color="transparent" elevation={0} className={classes.appBar}>
         {!context.mdUp && (

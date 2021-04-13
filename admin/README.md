@@ -2,8 +2,6 @@
 
 It's the web app for the administrator users of the Fluss platform.
 
-Hola
-
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
@@ -12,7 +10,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 You need to install these programs on your computer:
 
-- [NodeJS (v14.16.0) and npm (6.14.11)](https://nodejs.org/en/download/)
+- [NodeJS (v14.16.0) and npm (7.6.3)](https://nodejs.org/en/download/)
 
 ### Installation
 

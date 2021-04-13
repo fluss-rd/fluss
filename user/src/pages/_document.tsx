@@ -1,7 +1,6 @@
 import { ServerStyleSheets } from "@material-ui/core/styles";
 import Document, { Head, Html, Main, NextScript } from "next/document";
 import React from "react";
-
 import theme from "styles/theme";
 
 class FlussDocument extends Document {
@@ -64,4 +63,3 @@ FlussDocument.getInitialProps = async (ctx) => {
 };
 
 export default FlussDocument;
-
