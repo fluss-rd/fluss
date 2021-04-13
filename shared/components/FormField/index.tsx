@@ -1,7 +1,7 @@
 import { TextField, TextFieldProps } from "@material-ui/core";
-import React, { FC } from "react";
+import React, { forwardRef, ForwardedRef } from "react";
 
-const FormField: FC<TextFieldProps> = (props) => {
+const FormField = (props: TextFieldProps, ref: ForwardedRef<any>) => {
   const { fullWidth, variant, InputLabelProps, InputProps } = props;
   return (
     <TextField
@@ -9,12 +9,15 @@ const FormField: FC<TextFieldProps> = (props) => {
       variant={variant}
       InputLabelProps={InputLabelProps}
       InputProps={InputProps}
+      ref={ref}
       {...props}
     />
   );
 };
 
-FormField.defaultProps = {
+const ForwardedFormField = forwardRef(FormField);
+
+ForwardedFormField.defaultProps = {
   fullWidth: true,
   variant: "outlined",
   name: "latitude",
@@ -22,4 +25,5 @@ FormField.defaultProps = {
   InputProps: { notched: true },
 };
 
-export default FormField;
+export default ForwardedFormField;
+
