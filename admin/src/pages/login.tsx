@@ -1,88 +1,26 @@
-import {
-  Button,
-  CssBaseline,
-  FormControl,
-  Grid,
-  IconButton,
-  InputAdornment,
-  InputLabel,
-  Link,
-  OutlinedInput,
-  TextField,
-  Typography,
-} from "@material-ui/core";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { Button, Grid, IconButton, InputAdornment, Link, Typography } from "@material-ui/core";
+import { makeStyles, Theme } from "@material-ui/core/styles";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
-import clsx from "clsx";
 import Image from "next/image";
 import router from "next/router";
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import FormField from "shared/components/FormField";
 import { connect, StoreProps } from "store";
 
+type LoginForm = {
+  email: string;
+  password: string;
+};
+
 const Login: FC<StoreProps> = ({ store }) => {
+  const [showPassword, setShowPassword] = useState(false);
+  const { handleSubmit, control, errors, formState } = useForm<LoginForm>({ mode: "onBlur" });
+  const { isValid, isDirty, touched } = formState;
+
   const classes = useStyles();
   const push = (path: string) => () => router.push(path);
-  const emailRegex = new RegExp(
-    '^(([^<>()[\\]\\.,;:\\s@\\"]+(\\.[^<>()[\\]\\.,;:\\s@\\"]+)*)|(\\".+\\"))@(([^<>()[\\]\\.,;:\\s@\\"]+\\.)+[^<>()[\\]\\.,;:\\s@\\"]{2,})$'
-  );
-
-  const [values, setValues] = React.useState({
-    amount: "",
-    email: "",
-    password: "",
-    weight: "",
-    weightRange: "",
-    showPassword: false,
-    errorTextField: false,
-    helperTextField: "",
-  });
-
-  const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
-  };
-
-  const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
-    // TODO: add function validate() to call here.
-  };
-
-  const handleEmailInputChange = (e) => {
-    if (e.target.value === "") {
-      setValues({
-        ...values,
-        email: e.target.value,
-        helperTextField: "Este campo no puede estar vacío",
-        errorTextField: true,
-      });
-
-      return;
-    }
-
-    if (!emailRegex.test(e.target.value)) {
-      setValues({
-        ...values,
-        email: e.target.value,
-        helperTextField: "Por favor, introducir un email válido",
-        errorTextField: true,
-      });
-
-      return;
-    }
-
-    setValues({
-      ...values,
-      email: e.target.value,
-      helperTextField: "",
-      errorTextField: false,
-    });
-  };
-
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
-
-  const preventDefault = (event) => event.preventDefault();
+  const onSubmit = (data: LoginForm) => (isValid ? store.logIn() : null);
 
   return (
     <Grid container>
@@ -99,41 +37,72 @@ const Login: FC<StoreProps> = ({ store }) => {
           Inicio de sesion
         </Typography>
 
-        <form noValidate autoComplete="off" className={classes.form}>
-          <FormField
-            value={values.email}
-            error={values.errorTextField}
-            onChange={handleEmailInputChange}
-            label="Email"
-            placeholder="user@email.com"
+        <form
+          noValidate
+          autoComplete="off"
+          className={classes.form}
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <Controller
+            name="email"
+            control={control}
+            defaultValue=""
+            as={
+              <FormField
+                label="Email"
+                placeholder="user@email.com"
+                helperText={errors.email ? errors.email.message : null}
+                error={errors.email ? true : false}
+              />
+            }
+            rules={{
+              required: true,
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                message: "Dirección de email inválida",
+              },
+            }}
           />
-          <FormField
-            value={values.password}
-            error={values.errorTextField}
-            onChange={handleChange("password")}
-            type={values.showPassword ? "text" : "password"}
-            label="Email"
-            placeholder="******"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                  </IconButton>
-                </InputAdornment>
-              ),
+          <Controller
+            name="password"
+            control={control}
+            defaultValue=""
+            as={
+              <FormField
+                label="Contraseña"
+                type={showPassword ? "text" : "password"}
+                placeholder="******"
+                helperText={errors.password ? errors.password.message : null}
+                error={errors.password ? true : false}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={() => setShowPassword(!showPassword)}
+                        edge="end"
+                      >
+                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            }
+            rules={{
+              required: true,
+              minLength: { value: 6, message: "La contraseña debe tener como mínimo 6 caracteres" },
+              maxLength: {
+                value: 100,
+                message: "La contraseña debe tener como máximo 20 caracteres",
+              },
             }}
           />
           <Link href="/recoverPassword" onClick={push("/recoverPassword")}>
             ¿Olvidó su contraseña?
           </Link>
           <br />
-          <Button variant="contained" color="primary" onClick={store.logIn}>
+          <Button variant="contained" color="primary" size="large" type="submit">
             Iniciar sesión
           </Button>
         </form>
