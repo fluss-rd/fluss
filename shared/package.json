@@ -16,9 +16,10 @@
     "css-types:watch": "./node_modules/.bin/tcm styles -w"
   },
   "dependencies": {
+    "@date-io/date-fns": "^1.3.13",
+    "@material-ui/pickers": "^3.3.10",
     "next": "10.1.3"
   },
-  "devDependencies": {},
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",

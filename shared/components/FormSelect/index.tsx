@@ -1,5 +1,6 @@
 import {
   FormControl,
+  FormControlProps,
   InputLabel,
   MenuItem,
   OutlinedInput,
@@ -13,6 +14,7 @@ import React, { FC, useMemo } from "react";
 interface FormSelectProps extends SelectProps {
   noneText?: string;
   noneValue?: any;
+  FormControlProps?: Partial<FormControlProps>;
 }
 
 const FormSelect: FC<FormSelectProps> = (props) => {
@@ -23,7 +25,7 @@ const FormSelect: FC<FormSelectProps> = (props) => {
   delete propsCopy.noneText;
 
   return (
-    <FormControl fullWidth variant="outlined">
+    <FormControl fullWidth variant="outlined" {...props.FormControlProps}>
       <InputLabel shrink id={`${selectId}-label`}>
         {props.label}
       </InputLabel>
@@ -48,6 +50,7 @@ const FormSelect: FC<FormSelectProps> = (props) => {
 FormSelect.defaultProps = {
   noneText: "Todos",
   value: "",
+  FormControlProps: {},
 };
 
 const useStyles = makeStyles((theme) => ({

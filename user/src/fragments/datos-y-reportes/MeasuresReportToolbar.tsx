@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import React, { FC, useMemo } from "react";
 import { useDataTable } from "shared/components/Tables";
 import { FilterRows, ShowColumns } from "shared/components/Tables";
+import { DateTimeRange } from "shared/components/Tables";
 import { useMergeState } from "shared/hooks";
 
 import ReportSetting from "./ReportSetting";
@@ -21,21 +22,22 @@ const MeasuresReportToolbar: FC = () => {
       <Toolbar className={classes.toolbar}>
         <div className={classes.settings}>
           <ReportSetting
+            title="Cuerpo hídrico"
+            value={state.river}
+            settings={rivers}
+            onSelect={(river) => setState({ river })}
+          />
+          <ReportSetting
             title="Granularidad"
             value={state.granularity}
             settings={granularityList}
             onSelect={(granularity) => setState({ granularity })}
           />
-          <ReportSetting
-            title="Cuerpos hídricos"
-            value={state.river}
-            settings={rivers}
-            onSelect={(river) => setState({ river })}
-          />
         </div>
         <div className={classes.columnsAndFilters}>
           <FilterRows columns={allColumns} labeled />
           <ShowColumns columns={allColumns} labeled />
+          <DateTimeRange labeled />
         </div>
       </Toolbar>
     </AppBar>
@@ -56,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   settings: {
-    width: "50%",
+    minWidth: 500,
     display: "flex",
     alignItems: "center",
     "& > *:not(:last-child)": {
@@ -69,10 +71,6 @@ const useStyles = makeStyles((theme) => ({
     "& > *:not(:last-child)": {
       marginRight: theme.spacing(2),
     },
-  },
-  content: {
-    padding: theme.spacing(2),
-    height: 300,
   },
 }));
 

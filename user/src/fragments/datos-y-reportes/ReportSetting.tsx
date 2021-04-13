@@ -24,6 +24,7 @@ const ReportSetting: FC<ReportSettingProps> = ({ title, settings, value, onSelec
       value={value}
       onChange={onChange}
       className={classes.select}
+      FormControlProps={{ size: "small" }}
     >
       {settings.map((setting) => (
         <MenuItem key={setting} value={setting}>
@@ -36,7 +37,7 @@ const ReportSetting: FC<ReportSettingProps> = ({ title, settings, value, onSelec
 
 const useStyles = makeStyles((theme) => ({
   select: {
-    height: `calc(${theme.mixins.toolbar.minHeight}px - 20px)`,
+    minWidth: 120,
   },
 }));
 
