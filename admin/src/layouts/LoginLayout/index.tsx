@@ -11,4 +11,3 @@ const LoginLayout: FC = ({ children }) => {
 };
 
 export default LoginLayout;
-

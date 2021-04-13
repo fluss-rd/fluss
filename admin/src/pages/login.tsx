@@ -1,6 +1,8 @@
 import {
   Button,
+  CssBaseline,
   FormControl,
+  Grid,
   IconButton,
   InputAdornment,
   InputLabel,
@@ -8,8 +10,6 @@ import {
   OutlinedInput,
   TextField,
   Typography,
-  Grid,
-  CssBaseline,
 } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
@@ -17,6 +17,7 @@ import clsx from "clsx";
 import Image from "next/image";
 import router from "next/router";
 import React, { FC } from "react";
+import FormField from "shared/components/FormField";
 import { connect, StoreProps } from "store";
 
 const Login: FC<StoreProps> = ({ store }) => {
@@ -99,25 +100,22 @@ const Login: FC<StoreProps> = ({ store }) => {
         </Typography>
 
         <form noValidate autoComplete="off" className={classes.form}>
-          <TextField
+          <FormField
+            value={values.email}
             error={values.errorTextField}
             onChange={handleEmailInputChange}
-            id="outlined-error-helper-text"
             label="Email"
-            placeholder="p. ej. micaela@email.com"
-            helperText={values.helperTextField}
-            variant="outlined"
+            placeholder="user@email.com"
           />
-
-          <FormControl variant="outlined">
-            <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-            <OutlinedInput
-              id="outlined-adornment-password"
-              type={values.showPassword ? "text" : "password"}
-              value={values.password}
-              placeholder="password"
-              onChange={handleChange("password")}
-              endAdornment={
+          <FormField
+            value={values.password}
+            error={values.errorTextField}
+            onChange={handleChange("password")}
+            type={values.showPassword ? "text" : "password"}
+            label="Email"
+            placeholder="******"
+            InputProps={{
+              endAdornment: (
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="toggle password visibility"
@@ -128,10 +126,9 @@ const Login: FC<StoreProps> = ({ store }) => {
                     {values.showPassword ? <Visibility /> : <VisibilityOff />}
                   </IconButton>
                 </InputAdornment>
-              }
-              labelWidth={20}
-            />
-          </FormControl>
+              ),
+            }}
+          />
           <Link href="/recoverPassword" onClick={push("/recoverPassword")}>
             ¿Olvidó su contraseña?
           </Link>
@@ -182,4 +179,3 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export default connect(Login);
-
