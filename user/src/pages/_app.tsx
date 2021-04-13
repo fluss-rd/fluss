@@ -1,5 +1,7 @@
 import "@fontsource/nunito";
 
+import DateFnsUtils from "@date-io/date-fns";
+import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { ThemeProvider } from "@material-ui/styles";
 import Layout from "layouts";
 import React, { useEffect } from "react";
@@ -19,14 +21,16 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <StateContext.Provider value={initialState}>
-      <ThemeProvider theme={theme}>
-        <GlobalCss />
-        <ServiceProvider>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </ServiceProvider>
-      </ThemeProvider>
+      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <ThemeProvider theme={theme}>
+          <GlobalCss />
+          <ServiceProvider>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </ServiceProvider>
+        </ThemeProvider>
+      </MuiPickersUtilsProvider>
     </StateContext.Provider>
   );
 }
