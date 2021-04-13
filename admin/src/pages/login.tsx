@@ -8,6 +8,8 @@ import {
   OutlinedInput,
   TextField,
   Typography,
+  Grid,
+  CssBaseline,
 } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
@@ -82,21 +84,22 @@ const Login: FC<StoreProps> = ({ store }) => {
   const preventDefault = (event) => event.preventDefault();
 
   return (
-    <div>
-      <div className={classes.logo}>
-        <Image src="/images/logo-login.png" width={250} height={270}></Image>
-      </div>
+    <Grid container>
+      <Grid item xs={12} md={6}>
+        <div className={classes.backgroundContainer}>
+          <div className={classes.logoSection}>
+            <Image src="/images/logo-login.png" width={250} height={270} />
+          </div>
+          <img src="/images/river-login.jpg" alt="river" style={{ opacity: 0.8 }} />
+        </div>
+      </Grid>
+      <Grid item xs={12} md={6} className={classes.formSection}>
+        <Typography variant="h4" style={{ textAlign: "center" }}>
+          Inicio de sesion
+        </Typography>
 
-      <div>
-        <img src="/images/river-login.jpg" className={classes.wallpaper} alt="river"></img>
-      </div>
-
-      <Typography className={clsx(classes.text)}>Inicio de sesion</Typography>
-
-      <form noValidate autoComplete="off">
-        <div className={clsx(classes.container)}>
+        <form noValidate autoComplete="off" className={classes.form}>
           <TextField
-            className={clsx(classes.margin, classes.textField)}
             error={values.errorTextField}
             onChange={handleEmailInputChange}
             id="outlined-error-helper-text"
@@ -106,7 +109,7 @@ const Login: FC<StoreProps> = ({ store }) => {
             variant="outlined"
           />
 
-          <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
+          <FormControl variant="outlined">
             <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
             <OutlinedInput
               id="outlined-adornment-password"
@@ -129,68 +132,54 @@ const Login: FC<StoreProps> = ({ store }) => {
               labelWidth={20}
             />
           </FormControl>
-          <Link
-            className={clsx(classes.margin)}
-            href="/recoverPassword"
-            onClick={push("/recoverPassword")}
-          >
+          <Link href="/recoverPassword" onClick={push("/recoverPassword")}>
             ¿Olvidó su contraseña?
           </Link>
-          <Button
-            className={clsx(classes.margin, classes.button)}
-            variant="contained"
-            color="primary"
-            onClick={store.logIn}
-          >
+          <br />
+          <Button variant="contained" color="primary" onClick={store.logIn}>
             Iniciar sesión
           </Button>
-        </div>
-      </form>
-    </div>
+        </form>
+      </Grid>
+    </Grid>
   );
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
-  container: {
+  background: {
+    height: "100%",
+  },
+  backgroundContainer: {
+    position: "relative",
+    display: "flex",
+    justifyContent: "center",
+    width: "100%",
+    height: "100vh",
+    overflow: "hidden",
+  },
+  logoSection: {
+    position: "absolute",
+    top: "calc(50% - 135px)",
+    left: "calc(50% - 125px)",
+    zIndex: 1,
+  },
+  formSection: {
     display: "flex",
     flexDirection: "column",
-    alignItems: "flex-start",
-    position: "absolute",
-    marginTop: "12rem",
+    padding: theme.spacing(8),
+    alignItems: "center",
+    justifyContent: "center",
   },
-  margin: {
-    marginTop: "1rem",
-    marginLeft: "48rem",
-  },
-  textField: {
-    width: "30rem",
-  },
-  button: {
-    width: "30rem",
-    marginTop: "3rem",
-  },
-
-  logo: {
-    position: "absolute",
-    marginTop: "10rem",
-    marginLeft: "12rem",
-  },
-
-  wallpaper: {
-    position: "absolute",
-    opacity: "50%",
-    width: "50vw",
-    height: "103.6vh",
-    marginTop: "-2rem",
-    zIndex: -1,
-  },
-
-  text: {
-    fontSize: "35px",
-    position: "absolute",
-    marginLeft: "55rem",
-    marginTop: "8rem",
+  form: {
+    display: "flex",
+    width: "100%",
+    marginTop: theme.spacing(4),
+    flexDirection: "column",
+    "& > *:not(:last-child)": {
+      marginBottom: theme.spacing(2),
+    },
   },
 }));
 
 export default connect(Login);
+
