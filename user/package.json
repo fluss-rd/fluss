@@ -23,6 +23,7 @@
     "mobx-react": "^7.1.0",
     "next": "10.0.7",
     "next-transpile-modules": "^6.4.0",
+    "react-simple-image-slider": "^2.1.0",
     "sass": "^1.32.8",
     "shared": "file:../shared"
   },
