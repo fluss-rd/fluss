@@ -3,10 +3,13 @@ import { makeStyles, Theme } from "@material-ui/core/styles";
 import Image from "next/image";
 import router from "next/router";
 import React, { FC } from "react";
+import { scroller } from "react-scroll";
 
 const FlussAppBar: FC = () => {
   const classes = useStyles();
   const push = (path: string) => () => router.push(path);
+  const scroll = (path: string) => () =>
+    scroller.scrollTo(path, { duration: 800, delay: 0, smooth: "easeInOutQuart" });
 
   return (
     <Navbar position="fixed" color="transparent" elevation={0}>
@@ -30,13 +33,13 @@ const FlussAppBar: FC = () => {
           </Button>
         </div>
         <div className={classes.endButtons}>
-          <Button color="inherit" onClick={push("/")}>
+          <Button color="inherit" onClick={scroll("red")}>
             Inicio
           </Button>
-          <Button color="inherit" onClick={push("/another")}>
+          <Button color="inherit" onClick={scroll("blue")}>
             Reportes recientes
           </Button>
-          <Button color="inherit">¿Quiénes somos?</Button>
+          <Button color="inherit" onClick={scroll("yellow")}>¿Quiénes somos?</Button>
         </div>
       </Toolbar>
       <Divider />
@@ -87,3 +90,4 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export default FlussAppBar;
+
