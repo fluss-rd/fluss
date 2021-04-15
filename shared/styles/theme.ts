@@ -19,6 +19,7 @@ export const GlobalCss = withStyles((theme) => ({
       "--color-primary": theme.palette.primary.main,
       "--color-secondary": theme.palette.secondary.main,
       "--color-background": theme.palette.background.default,
+      "--color-text-hint": theme.palette.text.hint,
     },
   },
 }))(() => null);
