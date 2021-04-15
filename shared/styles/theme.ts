@@ -24,3 +24,4 @@ export const GlobalCss = withStyles((theme) => ({
 }))(() => null);
 
 export default theme;
+

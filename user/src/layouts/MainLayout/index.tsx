@@ -1,11 +1,14 @@
 import { Container, CssBaseline, Toolbar } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
+import { useRouter } from "next/router";
 import React, { FC } from "react";
 
 import FlussAppBar from "./FlussAppBar";
 
 const MainLayout: FC = ({ children }) => {
   const classes = useStyles();
+  const router = useRouter();
+  const isInHome = router.pathname === "/home-test";
 
   return (
     <>
@@ -14,9 +17,13 @@ const MainLayout: FC = ({ children }) => {
       {children ? (
         <>
           <Toolbar />
-          <Container maxWidth="lg" className={classes.container}>
-            {children}
-          </Container>
+          {!isInHome ? (
+            <Container maxWidth="lg" className={classes.container}>
+              {children}
+            </Container>
+          ) : (
+            children
+          )}
         </>
       ) : (
         children

@@ -27,7 +27,6 @@
     "next": "10.0.7",
     "next-compose-plugins": "^2.2.1",
     "next-transpile-modules": "^6.4.0",
-    "react-scroll": "^1.8.2",
     "sass": "^1.32.8",
     "shared": "file:../shared"
   },
@@ -37,7 +36,6 @@
     "@testing-library/react": "^11.2.5",
     "@types/jest": "^26.0.20",
     "@types/node": "^14.14.31",
-    "@types/react-scroll": "^1.8.2",
     "@types/react-test-renderer": "^17.0.1",
     "babel-jest": "^26.6.3",
     "husky": "^4.3.8",

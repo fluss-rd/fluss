@@ -1,24 +1,24 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { NextPage } from "next";
 import clsx from "clsx";
+import AboutUs from "fragments/home/AboutUs";
+import Contact from "fragments/home/Contact";
+import Welcome from "fragments/home/Welcome";
+import { NextPage } from "next";
 import { Element } from "react-scroll";
 
 const HomePageTest: NextPage = () => {
-  const { section, red, blue, green, yellow } = useStyles();
+  const { section, welcome, aboutUs, contact } = useStyles();
 
   return (
     <div>
-      <Element name="red" className={clsx(section, red)}>
-        Section 1
+      <Element name="red" className={clsx(section, welcome)}>
+        <Welcome />
       </Element>
-      <Element name="blue" className={clsx(section, blue)}>
-        Section 2
+      <Element name="red" className={clsx(section, aboutUs)}>
+        <AboutUs />
       </Element>
-      <Element name="green" className={clsx(section, green)}>
-        Section 3
-      </Element>
-      <Element name="yellow" className={clsx(section, yellow)}>
-        Section 4
+      <Element name="red" className={clsx(section, contact)}>
+        <Contact />
       </Element>
     </div>
   );
@@ -26,14 +26,19 @@ const HomePageTest: NextPage = () => {
 
 const useStyles = makeStyles((theme) => ({
   section: {
-    height: 500,
+    minHeight: "calc(100vh / 1.5)",
     width: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
-  red: { background: "red" },
-  blue: { background: "blue" },
-  green: { background: "green" },
-  yellow: { background: "yellow" },
+  welcome: {},
+  aboutUs: {
+    backgroundImage: "linear-gradient(rgba(233, 250, 254, 1), rgba(255, 255, 255, 0))",
+  },
+  contact: {
+    minHeight: "calc(100vh / 1.2)",
+  },
 }));
 
 export default HomePageTest;
-

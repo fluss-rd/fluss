@@ -1,18 +1,14 @@
 import { AppBar as Navbar, Button, Divider, Toolbar, Typography } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import Image from "next/image";
-import router from "next/router";
 import React, { FC } from "react";
-import { scroller } from "react-scroll";
+import { push, scroll } from "shared/helpers";
 
 const FlussAppBar: FC = () => {
   const classes = useStyles();
-  const push = (path: string) => () => router.push(path);
-  const scroll = (path: string) => () =>
-    scroller.scrollTo(path, { duration: 800, delay: 0, smooth: "easeInOutQuart" });
 
   return (
-    <Navbar position="fixed" color="transparent" elevation={0}>
+    <Navbar position="fixed" color="transparent" elevation={0} className={classes.navbar}>
       <Toolbar>
         <Button className={classes.brand} onClick={push("/")}>
           <div className={classes.logo}>
@@ -33,13 +29,15 @@ const FlussAppBar: FC = () => {
           </Button>
         </div>
         <div className={classes.endButtons}>
-          <Button color="inherit" onClick={scroll("red")}>
+          <Button color="inherit" onClick={push("/")}>
             Inicio
           </Button>
           <Button color="inherit" onClick={scroll("blue")}>
             Reportes recientes
           </Button>
-          <Button color="inherit" onClick={scroll("yellow")}>¿Quiénes somos?</Button>
+          <Button color="inherit" onClick={scroll("yellow")}>
+            ¿Quiénes somos?
+          </Button>
         </div>
       </Toolbar>
       <Divider />
@@ -87,7 +85,10 @@ const useStyles = makeStyles((theme: Theme) => ({
       marginRight: theme.spacing(3),
     },
   },
+  navbar: {
+    backgroundColor: `${theme.palette.background.default}CC`,
+    backdropFilter: `blur(4px)`,
+  },
 }));
 
 export default FlussAppBar;
-
