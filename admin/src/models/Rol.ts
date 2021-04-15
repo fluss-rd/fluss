@@ -13,7 +13,7 @@ export default class Rol {
       {
         id: "r1",
         name: "Administrador",
-        description: "",
+        description: "Tiene acceso a todos los módulos del sistema",
         permissions: [],
         creationDate: new Date(Date.now()),
         lastUpdate: new Date(Date.now()),
@@ -21,7 +21,7 @@ export default class Rol {
       {
         id: "r2",
         name: "Monitor",
-        description: "",
+        description: "Encargado del manejo de los módulos",
         permissions: [],
         creationDate: new Date(Date.now()),
         lastUpdate: new Date(Date.now()),
