@@ -23,7 +23,7 @@ const Contact: FC<ContactProps> = () => {
           </Typography>
 
           <Typography variant="h5" style={{ lineHeight: theme.spacing(0.18) }}>
-            Si tienes <span style={{ fontWeight: "bold" }}>preguntas</span> o simplemente deseas
+            Si tienes <span style={{ fontWeight: "bold" }}>preguntas</span> o simplemente deseas{" "}
             <span style={{ fontWeight: "bold" }}>ponerte en contacto</span>, utiliza el formulario a
             continuación.{" "}
             <span style={{ fontWeight: "bold" }}>Esperamos con interés escuchar de ti</span>
