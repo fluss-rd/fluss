@@ -7,7 +7,8 @@ import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useMemo } from "react";
 import { Element } from "react-scroll";
-import { appBarHeight, scroll } from "shared/helpers";
+import { scroll } from "shared/helpers";
+import appBarHeight from "shared/helpers/appBarHeight";
 
 const Home: NextPage = () => {
   const { section, welcome, aboutUs, contact } = useStyles();

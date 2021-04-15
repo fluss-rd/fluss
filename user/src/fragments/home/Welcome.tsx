@@ -14,7 +14,7 @@ const Welcome: FC = () => {
         <Grid item md={6} className={classes.startSide}>
           <Typography variant="h4" style={{ fontWeight: "bold", lineHeight: theme.spacing(0.18) }}>
             Te damos la bienvenida a la aplicación de{" "}
-            <span style={{ color: primary }}>monitoreo de ríos</span>de la Republica Dominicana
+            <span style={{ color: primary }}>monitoreo de ríos</span> de la Republica Dominicana
           </Typography>
 
           <Typography variant="h5" style={{ lineHeight: theme.spacing(0.18) }}>

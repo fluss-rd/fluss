@@ -6,7 +6,7 @@ import FormField from "shared/components/FormField";
 
 interface ContactProps {}
 
-const Contact: FC<ContactProps> = (props) => {
+const Contact: FC<ContactProps> = () => {
   const classes = useStyles();
   const theme = useTheme();
 
@@ -70,7 +70,11 @@ export const useStyles = makeStyles((theme) => {
       justifyContent: "center",
       padding: theme.spacing(2),
       backgroundColor: lighten(theme.palette.secondary.main, 0.8),
+      width: "100%",
       borderRadius: `0px ${radius} ${radius} 0px`,
+      [theme.breakpoints.down("sm")]: {
+        borderRadius: `0px 0px ${radius} ${radius}`,
+      },
     },
     imageBox: {
       position: "relative",
