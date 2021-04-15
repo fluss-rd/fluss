@@ -8,7 +8,7 @@ import FlussAppBar from "./FlussAppBar";
 const MainLayout: FC = ({ children }) => {
   const classes = useStyles();
   const router = useRouter();
-  const isInHome = router.pathname === "/home-test";
+  const isInHome = router.pathname === "/";
 
   return (
     <>

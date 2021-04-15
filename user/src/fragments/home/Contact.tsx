@@ -1,5 +1,5 @@
 import { Button, Container, Grid, Typography } from "@material-ui/core";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { lighten, makeStyles, useTheme } from "@material-ui/core/styles";
 import Image from "next/image";
 import React, { FC } from "react";
 import FormField from "shared/components/FormField";
@@ -23,8 +23,10 @@ const Contact: FC<ContactProps> = (props) => {
           </Typography>
 
           <Typography variant="h5" style={{ lineHeight: theme.spacing(0.18) }}>
-            Si tienes preguntas o simplemente deseas ponerte en contacto, utiliza el formulario a
-            continuación. Esperamos con interés escuchar de ti.
+            Si tienes <span style={{ fontWeight: "bold" }}>preguntas</span> o simplemente deseas
+            <span style={{ fontWeight: "bold" }}>ponerte en contacto</span>, utiliza el formulario a
+            continuación.{" "}
+            <span style={{ fontWeight: "bold" }}>Esperamos con interés escuchar de ti</span>
           </Typography>
         </Grid>
         <Grid item md={7} className={classes.endSide}>
@@ -33,7 +35,7 @@ const Contact: FC<ContactProps> = (props) => {
             <FormField label="Nombre" name="name" />
             <FormField multiline label="Comentario" name="comment" rows={10} />
             <br />
-            <Button fullWidth variant="contained" color="primary" size="medium">
+            <Button fullWidth variant="contained" color="primary" size="large">
               Enviar
             </Button>
           </form>
@@ -43,47 +45,50 @@ const Contact: FC<ContactProps> = (props) => {
   );
 };
 
-export const useStyles = makeStyles((theme) => ({
-  container: {
-    textAlign: "center",
-    padding: theme.spacing(4),
-  },
-  startSide: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: theme.spacing(10),
-    backgroundColor: theme.palette.secondary.light,
-    "& > *:not(:last-child)": {
-      marginBottom: theme.spacing(3),
+export const useStyles = makeStyles((theme) => {
+  const radius = `${theme.shape.borderRadius}px`;
+  return {
+    container: {
+      textAlign: "center",
+      padding: theme.spacing(4),
     },
-  },
-  endSide: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: theme.spacing(2),
-    background: theme.palette.grey[50],
-    borderRadius: theme.shape.borderRadius,
-  },
-  imageBox: {
-    position: "relative",
-    width: "100%",
-    height: 200,
-    "& > div > div:first-child": {
-      borderRadius: 30,
+    startSide: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      padding: theme.spacing(10),
+      background: theme.palette.grey[50],
+      "& > *:not(:last-child)": {
+        marginBottom: theme.spacing(3),
+      },
     },
-  },
-  form: {
-    display: "flex",
-    flexDirection: "column",
-    width: "100%",
-    "& > *:not(:last-child)": {
-      marginBottom: theme.spacing(2),
+    endSide: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      padding: theme.spacing(2),
+      backgroundColor: lighten(theme.palette.secondary.main, 0.8),
+      borderRadius: `0px ${radius} ${radius} 0px`,
     },
-  },
-}));
+    imageBox: {
+      position: "relative",
+      width: "100%",
+      height: 200,
+      "& > div > div:first-child": {
+        borderRadius: 30,
+      },
+    },
+    form: {
+      display: "flex",
+      flexDirection: "column",
+      width: "100%",
+      "& > *:not(:last-child)": {
+        marginBottom: theme.spacing(2),
+      },
+    },
+  };
+});
 
 export default Contact;
