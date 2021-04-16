@@ -54,12 +54,39 @@ const AboutUs: FC = () => {
               <Typography variant="h5" style={{ lineHeight: theme.spacing(0.18) }}>
                 Hecho por un pequeño pero diverso equipo de personas que con sus especialidades
                 particulares y gran trabajo en equipo creamos esta plataforma libre y gratuita para
-                sus necesidades de investigacion, estudiantil o simplemente curiosidad.
+                sus necesidades de investigacion, estudiantiles o simplemente curiosidad.
               </Typography>
             </Grid>
             <Grid item md={7} className={classes.endSide}>
               <div className={classes.imageBox}>
                 <Image src="/images/team.png" alt="Gráficos" layout="fill" objectFit="contain" />
+              </div>
+            </Grid>
+          </Grid>
+        </div>
+        <div style={{ padding: theme.spacing(4) }}>
+          <Grid container style={{ padding: theme.spacing(4) }}>
+            <Grid item md={5} className={classes.startSide}>
+              <Typography
+                variant="h4"
+                style={{ fontWeight: "bold", lineHeight: theme.spacing(0.18) }}
+              >
+                Nuestros patricinadores
+              </Typography>
+
+              <Typography variant="h5" style={{ lineHeight: theme.spacing(0.18) }}>
+                Gracias a nuestros patricanodores por el apoyo a nuestor proyecto INTEC(Instituto
+                Tecnologico de Santo Domingo) ACAP(Asociacion del Cibao de Ahorros y Prestamos)
+              </Typography>
+            </Grid>
+            <Grid item md={7} className={classes.endSide}>
+              <div className={classes.imageBox}>
+                <Image
+                  src="/images/sponsors.png"
+                  alt="Gráficos"
+                  layout="fill"
+                  objectFit="contain"
+                />
               </div>
             </Grid>
           </Grid>

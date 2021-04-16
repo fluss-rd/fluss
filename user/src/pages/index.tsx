@@ -2,6 +2,7 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import clsx from "clsx";
 import AboutUs from "fragments/home/AboutUs";
 import Contact from "fragments/home/Contact";
+import Footer from "fragments/home/Footer";
 import Welcome from "fragments/home/Welcome";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
@@ -29,6 +30,9 @@ const Home: NextPage = () => {
       </Element>
       <Element name="contact" className={clsx(section, contact)}>
         <Contact />
+      </Element>
+      <Element name="footer">
+        <Footer />
       </Element>
     </div>
   );
