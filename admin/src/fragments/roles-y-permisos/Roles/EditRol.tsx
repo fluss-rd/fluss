@@ -1,11 +1,8 @@
-import { Dialog, DialogTitle, Divider, IconButton } from "@material-ui/core";
+import { Dialog, DialogTitle, IconButton } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Info } from "@material-ui/icons";
 import Rol from "models/Rol";
 import React, { FC, useState } from "react";
-import FormField from "shared/components/FormField";
-import ModalContent from "shared/components/ModalContent";
-import { formatDate } from "shared/helpers";
 
 import ModalFormDates from "../ModalFormDates";
 import RolModalForm, { RolForm } from "./RolModalForm";
@@ -25,7 +22,6 @@ const EditRol: FC<EditRolProps> = (props) => {
   const openDialog = () => setIsOpen(true);
   const closeDialog = () => setIsOpen(false);
   const handleSave = (data: RolForm) => console.log(data);
-  const updateValues = (data: RolForm) => console.log(data);
 
   return (
     <>
@@ -40,7 +36,7 @@ const EditRol: FC<EditRolProps> = (props) => {
         maxWidth="md"
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Detalle del permiso</DialogTitle>
+        <DialogTitle id="form-dialog-title">Detalle del rol</DialogTitle>
 
         <ModalFormDates lastUpdate={lastUpdate} creationDate={creationDate} />
 

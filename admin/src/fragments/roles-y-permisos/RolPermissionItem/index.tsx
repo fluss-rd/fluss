@@ -1,12 +1,4 @@
-import {
-  Avatar,
-  Button,
-  IconButton,
-  ListItem,
-  ListItemAvatar,
-  ListItemSecondaryAction,
-  ListItemText,
-} from "@material-ui/core";
+import { Avatar, Button, IconButton, ListItemAvatar, ListItemText } from "@material-ui/core";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { AssignmentIndOutlined, Close } from "@material-ui/icons";
 import Action from "models/Action";
