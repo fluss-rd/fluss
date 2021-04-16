@@ -1,4 +1,5 @@
 import { Typography } from "@material-ui/core";
+import CreateUser from "fragments/usuarios/CreateUser";
 import User from "models/User";
 import { NextPage } from "next";
 import { DataTableColumn, EnhancedDataTable, SelectColumnFilter } from "shared/components/Tables";
@@ -13,6 +14,8 @@ const Users: NextPage = () => {
       <Typography variant="h4">Usuarios</Typography>
       <br />
       <EnhancedDataTable withFilters labeledButtons data={data} columns={columns} />
+
+      <CreateUser />
     </div>
   );
 };

@@ -34,7 +34,10 @@ const RolModalForm: FC<RolModalFormProps> = ({ cancelForm, onSaveForm, values })
   const classes = useStyles();
   const { isDirty, isValid } = formState;
 
-  const onSubmit = (data: RolForm) => onSaveForm(data);
+  const onSubmit = (data: RolForm) => {
+    onSaveForm(data);
+    console.log(added);
+  };
 
   const onSavePermissions = (permissions: Permission[]) => {
     const rolPermissions = permissions.map(

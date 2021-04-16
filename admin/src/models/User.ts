@@ -32,7 +32,6 @@ export default class User {
         rol: roles[1],
       },
     ];
-
     return users;
   }
 }
