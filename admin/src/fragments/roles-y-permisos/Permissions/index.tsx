@@ -3,6 +3,7 @@ import { DataTableColumn, EnhancedDataTable } from "shared/components/Tables";
 import { formatDate } from "shared/helpers";
 
 import CreatePermission from "./CreatePermission";
+import EditPermission from "./EditPermission";
 
 export default function Permissions() {
   const permissions = Permission.mockData();
@@ -29,6 +30,12 @@ function generateColumns(): DataTableColumn<Permission>[] {
       Header: "Última actualización",
       id: "updatedAt",
       accessor: (p) => formatDate(p.updatedAt),
+    },
+    {
+      Header: " ",
+      id: "info",
+      columnWidth: "100px",
+      accessor: (p) => <EditPermission permission={p} />,
     },
   ];
 
