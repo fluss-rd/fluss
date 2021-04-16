@@ -4,6 +4,8 @@ export default class Permission {
   id: string;
   name: string;
   description: string;
+  creationDate: Date;
+  updatedAt: Date;
   roles: Rol[];
 
   static mockData(): Permission[] {
@@ -12,6 +14,8 @@ export default class Permission {
         id: "p1",
         name: "Módulos",
         description: "Permite el acceso al manejo de módulos del sistema",
+        creationDate: new Date(Date.now()),
+        updatedAt: new Date(Date.now()),
         roles: [],
       },
       {
@@ -19,6 +23,8 @@ export default class Permission {
         name: "Usuarios",
         description:
           "Permite manejar los usuarios dentro de la aplicación. Solo existe un superadmin",
+        creationDate: new Date(Date.now()),
+        updatedAt: new Date(Date.now()),
         roles: [],
       },
     ];
