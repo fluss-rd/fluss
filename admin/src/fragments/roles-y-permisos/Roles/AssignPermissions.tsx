@@ -82,7 +82,7 @@ const AssignPermissions: FC<AssignPermissionsProps> = (props) => {
         aria-labelledby={labelId}
         open={open}
       >
-        <DialogTitle id={labelId}>Selectionar permisos</DialogTitle>
+        <DialogTitle id={labelId}>Seleccionar permisos</DialogTitle>
         <DialogContent dividers className={classes.dialogContent}>
           <List dense>
             {permissions.map((permission: Permission, index: number) => {
