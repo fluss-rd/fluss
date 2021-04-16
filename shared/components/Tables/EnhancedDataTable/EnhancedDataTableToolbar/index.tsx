@@ -12,6 +12,7 @@ export interface EnhancedDataTableToolbarProps<T> {
   withFilters?: boolean;
   withColumnsSelection?: boolean;
   withSearchBar?: boolean;
+  labeledButtons?: boolean;
 }
 
 function EnhancedDataTableToolbar<T extends object>(
@@ -46,11 +47,13 @@ function EnhancedDataTableToolbar<T extends object>(
             columns={table.allColumns}
             stopLoading={stopLoading}
             startLoading={startLoading}
+            labeled={props.labeledButtons}
           />
         )}
         {props.withColumnsSelection && (
           <ShowColumns
             columns={table.allColumns}
+            labeled={props.labeledButtons}
             key={0}
           />
         )}

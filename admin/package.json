@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@fontsource/nunito": "^4.2.1",
+    "@hookform/resolvers": "^0.1.0",
     "axios": "^0.21.1",
     "mobx": "^6.1.7",
     "mobx-react": "^7.1.0",
@@ -26,7 +27,8 @@
     "react-input-mask": "^2.0.4",
     "react-map-gl": "^6.1.10",
     "sass": "^1.32.8",
-    "shared": "file:../shared"
+    "shared": "file:../shared",
+    "yup": "^0.32.9"
   },
   "devDependencies": {
     "@babel/core": "^7.13.8",
