@@ -19,8 +19,8 @@ import FormIconTitle from "shared/components/FormIconTitle";
 import ModalContent from "shared/components/ModalContent";
 import { useMergeState } from "shared/hooks";
 
+import RolPermission from "../RolPermission";
 import AssignRoles from "./AssignRoles";
-import RolPermission from "./RolPermission";
 
 interface AddPermissionProps {}
 
