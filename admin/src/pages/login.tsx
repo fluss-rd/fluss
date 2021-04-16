@@ -16,7 +16,7 @@ type LoginForm = {
 const Login: FC<StoreProps> = ({ store }) => {
   const [showPassword, setShowPassword] = useState(false);
   const { handleSubmit, control, errors, formState } = useForm<LoginForm>({ mode: "onBlur" });
-  const { isValid, isDirty, touched } = formState;
+  const { isValid } = formState;
 
   const classes = useStyles();
   const push = (path: string) => () => router.push(path);

@@ -1,15 +1,23 @@
 import { AppBar as Navbar, Button, Divider, Toolbar, Typography } from "@material-ui/core";
-import { makeStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, Theme, useTheme } from "@material-ui/core/styles";
 import Image from "next/image";
-import router from "next/router";
+import { useRouter } from "next/router";
 import React, { FC } from "react";
+import { appBarHeight, push, scroll } from "shared/helpers";
 
 const FlussAppBar: FC = () => {
   const classes = useStyles();
-  const push = (path: string) => () => router.push(path);
+  const router = useRouter();
+  const theme = useTheme();
+  const goTo = (sectionId: string) => {
+    return () => {
+      if (router.pathname !== "/") router.push({ pathname: "/", query: { sectionId } });
+      else scroll(sectionId, { offset: -appBarHeight(theme) })();
+    };
+  };
 
   return (
-    <Navbar position="fixed" color="transparent" elevation={0}>
+    <Navbar position="fixed" color="transparent" elevation={0} className={classes.navbar}>
       <Toolbar>
         <Button className={classes.brand} onClick={push("/")}>
           <div className={classes.logo}>
@@ -30,13 +38,15 @@ const FlussAppBar: FC = () => {
           </Button>
         </div>
         <div className={classes.endButtons}>
-          <Button color="inherit" onClick={push("/")}>
+          <Button color="inherit" onClick={goTo("welcome")}>
             Inicio
           </Button>
-          <Button color="inherit" onClick={push("/another")}>
-            Reportes recientes
+          <Button color="inherit" onClick={goTo("about-us")}>
+            ¿Quiénes somos?
           </Button>
-          <Button color="inherit">¿Quiénes somos?</Button>
+          <Button color="inherit" onClick={goTo("contact")}>
+            Contacto
+          </Button>
         </div>
       </Toolbar>
       <Divider />
@@ -83,6 +93,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     "& > *:not(:last-child)": {
       marginRight: theme.spacing(3),
     },
+  },
+  navbar: {
+    backgroundColor: `${theme.palette.background.default}CC`,
+    backdropFilter: `blur(4px)`,
   },
 }));
 

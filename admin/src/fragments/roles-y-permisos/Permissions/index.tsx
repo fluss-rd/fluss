@@ -1,81 +1,43 @@
-import { Fab, makeStyles } from "@material-ui/core";
-import PermissionGroup from "models/PermissionGroup";
-import Rol from "models/Rol";
-import { useMemo } from "react";
+import Permission from "models/Permission";
 import { DataTableColumn, EnhancedDataTable } from "shared/components/Tables";
-import { useMergeState } from "shared/hooks";
+import { formatDate } from "shared/helpers";
 
-import Actions, { ActionsEvent } from "./Action";
-import AddPermission from "./AddPermission";
-import NullActions from "./NullActions";
+import CreatePermission from "./CreatePermission";
+import EditPermission from "./EditPermission";
 
 export default function Permissions() {
-  const classes = useStyles();
-  const [data, columns] = useMemo(() => generateDateAndColumns(handleChange), []);
-  const [state, setState] = useMergeState({ data });
-
-  function handleChange({ groupIndex, actionIndex, actionType, checked }: ActionsEvent) {
-    setState((prev) => {
-      const modified = [...prev.data];
-      modified[groupIndex].actions[actionIndex][actionType] = checked;
-
-      return { data: modified };
-    });
-  }
+  const permissions = Permission.mockData();
+  const columns = generateColumns();
 
   return (
     <>
-      <EnhancedDataTable data={state.data} columns={columns} />
-      <AddPermission />
+      <EnhancedDataTable data={permissions} columns={columns} />
+      <CreatePermission />
     </>
   );
 }
 
-function generateDateAndColumns(handleChange: (event: ActionsEvent) => void): DataAndColumns {
-  const roles: Rol[] = Rol.mockData();
-  const data: PermissionGroup[] = PermissionGroup.mockData();
-  const columns: DataTableColumn<PermissionGroup>[] = [];
+function generateColumns(): DataTableColumn<Permission>[] {
+  const columns: DataTableColumn<Permission>[] = [
+    { Header: "Recurso", accessor: "name" },
+    { Header: "Descripción", accessor: "description" },
+    {
+      Header: "Creación",
+      id: "creationDate",
+      accessor: (p) => formatDate(p.creationDate),
+    },
+    {
+      Header: "Última actualización",
+      id: "updatedAt",
+      accessor: (p) => formatDate(p.updatedAt),
+    },
+    {
+      Header: " ",
+      id: "info",
+      columnWidth: "100px",
+      accessor: (p) => <EditPermission permission={p} />,
+    },
+  ];
 
-  // Add columns.
-  columns.push({
-    Header: "Recurso",
-    accessor: (group: PermissionGroup) => group.permission.name,
-    columnWidth: "10%",
-  });
-  columns.push({
-    Header: "Descripción",
-    accessor: (group: PermissionGroup) => group.permission.description,
-    columnWidth: "30%",
-  });
-
-  for (const rol of roles) {
-    columns.push({
-      Header: rol.name,
-      columnTitleStyles: { textAlign: "center" },
-      accessor: (group: PermissionGroup, i: number) => {
-        const index = group.actions.findIndex((a) => a.rol.id === rol.id);
-        const action = group.actions[index];
-
-        if (!action)
-          return (
-            <NullActions rolName={rol.name} permissionName={group.actions[0].permission.name} />
-          );
-
-        return (
-          <Actions
-            actions={action}
-            groupIndex={i}
-            actionIndex={index}
-            handleChange={handleChange}
-          />
-        );
-      },
-    });
-  }
-
-  return [data, columns];
+  return columns;
 }
-
-type DataAndColumns = [PermissionGroup[], DataTableColumn<PermissionGroup>[]];
-
-const useStyles = makeStyles((theme) => ({}));
