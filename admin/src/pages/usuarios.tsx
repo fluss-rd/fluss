@@ -12,7 +12,7 @@ const Users: NextPage = () => {
     <div>
       <Typography variant="h4">Usuarios</Typography>
       <br />
-      <EnhancedDataTable withFilters data={data} columns={columns} />
+      <EnhancedDataTable withFilters labeledButtons data={data} columns={columns} />
     </div>
   );
 };
