@@ -6,29 +6,19 @@ It's the web app for the final users of Fluss platform.
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-### Prerequisites
-
-You need to install these programs on your computer:
-
-- [NodeJS (v14.16.0) and npm (7.6.3)](https://nodejs.org/en/download/)
-
 ### Installation
 
-To install the dependencies for the project, run the following command:
-
-```bash
-npm install
-```
+To install this project follow the instructions of the root directory README file.
 
 ### Execute the project
 
-To execute the project, execute the following command:
+Once the dependencies required in the previous step are installed, you can run the project by running:
 
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3002](http://localhost:3002) with your browser to see the result.
 
 ## Usage
 
@@ -41,7 +31,7 @@ export default function NewPage() {
 }
 ```
 
-Then, run the project and go to [http://localhost:3000/new-page](http://localhost:3000/new-page) to see the results.
+Then, run the project and go to [http://localhost:3002/new-page](http://localhost:3002/new-page) to see the results.
 
 
 ## Running tests
