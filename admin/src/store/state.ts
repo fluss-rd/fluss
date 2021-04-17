@@ -5,7 +5,7 @@ import { createContext } from "react";
 export class State {
   counter = 0;
   modules = Module.mockData();
-  loggedIn = true;
+  loggedIn = false;
 
   constructor() {
     makeAutoObservable(this);
