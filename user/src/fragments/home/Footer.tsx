@@ -13,14 +13,14 @@ const Footer = () => {
     <div>
       <div>
         <svg
-          width="1440"
+          width="1445"
           height="129"
-          viewBox="0 0 1440 129"
+          viewBox="0 0 1444 129"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <rect width="1440" height="115" transform="translate(0 14)" fill="#7DB6D1" />
-          <path d="M1599 0L0 0L0 79C799.5 0 1599 79 1599 79V0Z" fill="white" />
+          <rect width="1444" height="115" transform="translate(-3 14)" fill="#7DB6D1" />
+          <path d="M1596 0L-3 0L-3 79C796.5 0 1596 79 1596 79V0Z" fill="white" />
         </svg>
       </div>
       <div className={classes.footer}>
