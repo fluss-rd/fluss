@@ -1,5 +1,6 @@
 import { Button, Container, Grid, Typography } from "@material-ui/core";
 import { lighten, makeStyles, useTheme } from "@material-ui/core/styles";
+import EmailIcon from "@material-ui/icons/Email";
 import Image from "next/image";
 import React, { FC } from "react";
 import FormField from "shared/components/FormField";
@@ -27,6 +28,11 @@ const Contact: FC<ContactProps> = () => {
             <span style={{ fontWeight: "bold" }}>ponerte en contacto</span>, utiliza el formulario a
             continuación.{" "}
             <span style={{ fontWeight: "bold" }}>Esperamos con interés escuchar de ti</span>
+          </Typography>
+
+          <Typography variant="caption">
+            <strong>Correo:</strong>{" "}
+            <a href="mailto:fluss.contact@gmail.com">fluss.contact@gmail.com</a>
           </Typography>
         </Grid>
         <Grid item md={7} className={classes.endSide}>

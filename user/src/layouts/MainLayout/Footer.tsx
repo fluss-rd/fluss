@@ -1,6 +1,5 @@
-import { Button, Grid, Typography } from "@material-ui/core";
+import { Button, Grid } from "@material-ui/core";
 import { lighten, makeStyles, withStyles } from "@material-ui/core/styles";
-import EmailIcon from "@material-ui/icons/Email";
 import clsx from "clsx";
 import Image from "next/image";
 import React, { FC } from "react";
@@ -11,9 +10,7 @@ const Footer = () => {
 
   return (
     <div className={root}>
-      <div className={curved}>
-        <Image src="/images/logo-2.png" width={100} height={110} />
-      </div>
+      <div className={curved}></div>
       <Grid container className={secondLevel}>
         <Grid item xs={12} md={6}>
           <div className={clsx(styles.center, suscription)}>
@@ -37,14 +34,9 @@ const Footer = () => {
           </div>
         </Grid>
         <Grid item xs={12} md={6} className={clsx(styles.center, contact)}>
-          <Typography variant="body1">
-            <strong>Contacto</strong>
-          </Typography>
-
-          <br />
-
-          <EmailIcon />
-          <Typography variant="caption">fluss.contact@gmail.com</Typography>
+          <div className={styles.imageBox}>
+            <Image src="/images/logo-2.png" alt="Gráficos" layout="fill" objectFit="contain" />
+          </div>
         </Grid>
       </Grid>
       <div className={clsx(styles.center, footer)}>
@@ -65,7 +57,7 @@ export const useStyles = makeStyles((theme) => ({
   curved: {
     borderRadius: "80% 80% 0 0",
     background: theme.palette.secondary.main,
-    minHeight: 100,
+    minHeight: 50,
     padding: theme.spacing(2),
   },
   secondLevel: {
@@ -98,6 +90,15 @@ export const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+  },
+  imageBox: {
+    position: "relative",
+    width: 100,
+    background: "white",
+    height: 120,
+    "& > div > div:first-child": {
+      borderRadius: 30,
+    },
   },
 }));
 

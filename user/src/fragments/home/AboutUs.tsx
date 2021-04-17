@@ -71,12 +71,13 @@ const AboutUs: FC = () => {
                 variant="h4"
                 style={{ fontWeight: "bold", lineHeight: theme.spacing(0.18) }}
               >
-                Nuestros patricinadores
+                Nuestros patrocinadores
               </Typography>
 
               <Typography variant="h5" style={{ lineHeight: theme.spacing(0.18) }}>
-                Gracias a nuestros patricanodores por el apoyo a nuestor proyecto INTEC(Instituto
-                Tecnologico de Santo Domingo) ACAP(Asociacion del Cibao de Ahorros y Prestamos)
+                Gracias a nuestros patricanodores por el apoyo a nuestor proyecto{" "}
+                <strong>INTEC</strong> (Instituto Tecnologico de Santo Domingo){" "}
+                <strong>ACAP</strong> (Asociacion del Cibao de Ahorros y Prestamos)
               </Typography>
             </Grid>
             <Grid item md={7} className={classes.endSide}>
