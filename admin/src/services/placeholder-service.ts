@@ -1,4 +1,4 @@
-import axios from "./index";
+import axios from "./axiosInstance";
 
 export interface PlaceholderResponse {
   userId: number;

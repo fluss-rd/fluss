@@ -1,12 +1,5 @@
-import axios from "axios";
+import ServiceProvider from "./ServiceProvider";
 
-const axiosInstance = axios.create({
-  baseURL: "https://jsonplaceholder.typicode.com/",
-  timeout: 1000,
-  headers: {
-    "Content-Type": "application/json",
-    Accept: "application/json, text/plain, */*",
-  },
-});
-
-export default axiosInstance;
+export { ServiceProvider };
+export * from "./placeholder-service";
+export * from "./ServiceProvider";

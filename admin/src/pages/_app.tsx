@@ -5,7 +5,7 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import Layout from "layouts";
 import React, { useEffect } from "react";
-import { ServiceProvider } from "services/service";
+import ServiceProvider from "services/ServiceProvider";
 import { initialState, StateContext } from "store/state";
 import theme, { GlobalCss } from "styles/theme";
 
