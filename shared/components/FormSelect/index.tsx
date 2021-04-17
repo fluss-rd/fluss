@@ -6,6 +6,7 @@ import {
   OutlinedInput,
   Select,
   SelectProps,
+  FormHelperText,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import generateId from "../../helpers/generateId";
@@ -14,6 +15,8 @@ import React, { FC, useMemo } from "react";
 interface FormSelectProps extends SelectProps {
   noneText?: string;
   noneValue?: any;
+  error?: boolean;
+  helperText?: string;
   FormControlProps?: Partial<FormControlProps>;
 }
 
@@ -43,6 +46,7 @@ const FormSelect: FC<FormSelectProps> = (props) => {
         </MenuItem>
         {props.children}
       </Select>
+      <FormHelperText error={props.error}>{props.helperText}</FormHelperText>
     </FormControl>
   );
 };
@@ -60,3 +64,4 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default FormSelect;
+

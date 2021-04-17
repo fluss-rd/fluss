@@ -17,7 +17,7 @@ export default function FlussDrawerItems() {
   return (
     <div className={classes.menuButtons}>
       <List component="nav">
-        <FlussDrawreItem title="Inicio" icon={Home} />
+        <FlussDrawreItem title="Inicio" icon={Home} to="/" />
         <FlussDrawreItem title="Módulos" icon={ViewModule} to="/modulos" />
         <FlussDrawreItem title="Cuerpos hídricos" icon={TrackChanges} to="/cuerpos-hidricos" />
         <FlussDrawreItem title="Roles y permisos" icon={VpnKey} to="/roles-y-permisos" />
