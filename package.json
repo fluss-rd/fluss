@@ -12,8 +12,8 @@
   "scripts": {
     "dev:user": "cd user && npm run dev",
     "dev:admin": "cd admin && npm run dev",
-    "install:admin": "npm install && npm install --prefix admin",
-    "install:user": "npm install && npm install --prefix user"
+    "install:admin": "npm install --legacy-peer-deps && npm install --prefix admin --legacy-peer-deps",
+    "install:user": "npm install --legacy-peer-deps && npm install --prefix user --legacy-peer-deps"
   },
   "author": "Bioteam",
   "license": "ISC",
