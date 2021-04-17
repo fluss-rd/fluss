@@ -28,7 +28,7 @@ To execute the project, execute the following command:
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3001](http://localhost:3001) with your browser to see the result.
 
 ## Usage
 
@@ -41,7 +41,7 @@ export default function NewPage() {
 }
 ```
 
-Then, run the project and go to [http://localhost:3000/new-page](http://localhost:3000/new-page) to see the results.
+Then, run the project and go to [http://localhost:3001/new-page](http://localhost:3001/new-page) to see the results.
 
 
 ## Running tests
