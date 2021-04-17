@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import React, { FC } from "react";
 
 import FlussAppBar from "./FlussAppBar";
+import Footer from "./Footer";
 
 const MainLayout: FC = ({ children }) => {
   const classes = useStyles();
@@ -28,6 +29,7 @@ const MainLayout: FC = ({ children }) => {
       ) : (
         children
       )}
+      <Footer />
     </>
   );
 };
