@@ -12,31 +12,37 @@ const MainLayout: FC = ({ children }) => {
   const isInHome = router.pathname === "/";
 
   return (
-    <>
+    <div className={classes.root}>
       <CssBaseline />
       <FlussAppBar />
-      {children ? (
-        <>
-          <Toolbar />
-          {!isInHome ? (
-            <Container maxWidth="lg" className={classes.container}>
-              {children}
-            </Container>
-          ) : (
-            children
-          )}
-        </>
-      ) : (
-        children
-      )}
+      <div style={{ flexGrow: 1 }}>
+        {children ? (
+          <>
+            <Toolbar />
+            {!isInHome ? (
+              <Container maxWidth="lg" className={classes.container}>
+                {children}
+              </Container>
+            ) : (
+              children
+            )}
+          </>
+        ) : (
+          children
+        )}
+      </div>
       <Footer />
-    </>
+    </div>
   );
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
     paddingTop: theme.spacing(4),
+  },
+  root: {
+    display: "flex",
+    flexDirection: "column",
   },
 }));
 
