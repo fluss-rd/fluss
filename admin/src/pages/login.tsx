@@ -1,4 +1,12 @@
-import { Button, Grid, IconButton, InputAdornment, Link, Typography, Hidden } from "@material-ui/core";
+import {
+  Button,
+  Grid,
+  IconButton,
+  InputAdornment,
+  Link,
+  Typography,
+  Hidden,
+} from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import useLogin from "hooks/useLogin";
@@ -46,15 +54,22 @@ const Login: FC<StoreProps> = ({ store }) => {
 
   return (
     <Grid container>
-      <Grid item xs={12} md={6}>
-        <div className={classes.backgroundContainer}>
-          <div className={classes.logoSection}>
-            <Image src="/images/logo-login.png" width={250} height={270} />
+      <Hidden smDown>
+        <Grid item xs={12} md={6}>
+          <div className={classes.backgroundContainer}>
+            <div className={classes.logoSection}>
+              <Image src="/images/logo-login.png" width={250} height={270} />
+            </div>
+            <img src="/images/river-login.jpg" alt="river" style={{ opacity: 0.8 }} />
           </div>
-          <img src="/images/river-login.jpg" alt="river" style={{ opacity: 0.8 }} />
-        </div>
-      </Grid>
+        </Grid>
+      </Hidden>
       <Grid item xs={12} md={6} className={classes.formSection}>
+        <Hidden mdUp>
+          <div className={classes.imageBox}>
+            <Image src="/images/logo-2.png" alt="Gráficos" layout="fill" objectFit="contain" />
+          </div>
+        </Hidden>
         <Typography variant="h4" style={{ textAlign: "center" }}>
           Inicio de sesion
         </Typography>
@@ -124,7 +139,6 @@ const Login: FC<StoreProps> = ({ store }) => {
             ¿Olvidó su contraseña?
           </Link>
           <br />
-          <Button onClick={onClick2}>Hey</Button>
           <Button variant="contained" color="primary" size="large" type="submit">
             Iniciar sesión
           </Button>
@@ -151,6 +165,15 @@ const useStyles = makeStyles((theme: Theme) => ({
     top: "calc(50% - 135px)",
     left: "calc(50% - 125px)",
     zIndex: 1,
+  },
+  imageBox: {
+    position: "relative",
+    width: "100%",
+    height: 100,
+    "& > div > div:first-child": {
+      borderRadius: 30,
+    },
+    marginBottom: theme.spacing(5),
   },
   formSection: {
     display: "flex",
