@@ -1,10 +1,13 @@
-import { Button, Grid, IconButton, InputAdornment, Link, Typography } from "@material-ui/core";
+import { Button, Grid, IconButton, InputAdornment, Link, Typography, Hidden } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
+import useLogin from "hooks/useLogin";
+import usePlaceholder from "hooks/usePlaceholder";
 import Image from "next/image";
 import router from "next/router";
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import axiosInstance from "services/axiosInstance";
 import FormField from "shared/components/FormField";
 import { connect, StoreProps } from "store";
 
@@ -15,6 +18,8 @@ type LoginForm = {
 
 const Login: FC<StoreProps> = ({ store }) => {
   const [showPassword, setShowPassword] = useState(false);
+  //const { data, error, isLoading } = usePlaceholder(1);
+  const { mutate } = useLogin();
   const { handleSubmit, control, errors, formState } = useForm<LoginForm>({ mode: "onBlur" });
 
   const { isValid } = formState;
@@ -22,6 +27,22 @@ const Login: FC<StoreProps> = ({ store }) => {
 
   const push = (path: string) => () => router.push(path);
   const onSubmit = (data: LoginForm) => (isValid ? store.logIn() : null);
+
+  const onClick = () => mutate({ email: "fluss.rd.admin@gmai.com", password: "fluss-rd" });
+
+  const onClick2 = () => {
+    axiosInstance
+      .post("account/login", {
+        email: "fluss.rd.admin@gmai.com",
+        password: "fluss-rd",
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
   return (
     <Grid container>
@@ -103,6 +124,7 @@ const Login: FC<StoreProps> = ({ store }) => {
             ¿Olvidó su contraseña?
           </Link>
           <br />
+          <Button onClick={onClick2}>Hey</Button>
           <Button variant="contained" color="primary" size="large" type="submit">
             Iniciar sesión
           </Button>
@@ -149,3 +171,4 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export default connect(Login);
+

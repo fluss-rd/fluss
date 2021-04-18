@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "https://jsonplaceholder.typicode.com/",
-  timeout: 1000,
+  baseURL: "http://ec2-52-90-208-30.compute-1.amazonaws.com:5000/",
+  timeout: 10000,
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json, text/plain, */*",
@@ -10,3 +10,4 @@ const axiosInstance = axios.create({
 });
 
 export default axiosInstance;
+
