@@ -1,6 +1,7 @@
-import { Box, Typography } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 
 import AntTabs, { AntTab } from "./AntTabs";
+import HorizontalIconTab from "./HorizontalIconTab";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -25,4 +26,5 @@ function TabPanel(props: TabPanelProps) {
 }
 
 export default TabPanel;
-export { AntTab, AntTabs };
+export { AntTab, AntTabs, HorizontalIconTab };
+
