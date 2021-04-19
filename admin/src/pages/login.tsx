@@ -10,12 +10,10 @@ import {
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import useLogin from "hooks/useLogin";
-import usePlaceholder from "hooks/usePlaceholder";
 import Image from "next/image";
 import router from "next/router";
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import axiosInstance from "services/axiosInstance";
 import FormField from "shared/components/FormField";
 import { connect, StoreProps } from "store";
 
@@ -34,22 +32,12 @@ const Login: FC<StoreProps> = ({ store }) => {
   const classes = useStyles();
 
   const push = (path: string) => () => router.push(path);
-  const onSubmit = (data: LoginForm) => (isValid ? store.logIn() : null);
 
-  const onClick = () => mutate({ email: "fluss.rd.admin@gmai.com", password: "fluss-rd" });
+  const onSubmit = (data: LoginForm) => {
+    if (!isValid) return;
 
-  const onClick2 = () => {
-    axiosInstance
-      .post("account/login", {
-        email: "fluss.rd.admin@gmai.com",
-        password: "fluss-rd",
-      })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    console.log(data);
+    mutate({ email: "fluss.rd.admin@gmai.com", password: "fluss-rd" });
   };
 
   return (

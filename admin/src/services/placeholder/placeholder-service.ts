@@ -1,4 +1,4 @@
-import axios from "./axiosInstance";
+import axios from "services/axiosInstance";
 
 export interface PlaceholderResponse {
   userId: number;
@@ -11,3 +11,4 @@ export async function getTodo(userId: number): Promise<PlaceholderResponse> {
   const response = await axios.get<PlaceholderResponse>(`todos/${userId}`);
   return response.data;
 }
+

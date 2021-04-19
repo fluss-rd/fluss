@@ -1,5 +1,5 @@
-import ServiceProvider from "./ServiceProvider";
+import axiosInstance from "./axiosInstance";
 
-export { ServiceProvider };
-export * from "./placeholder-service";
-export * from "./ServiceProvider";
+export * from "./auth";
+export * from "./placeholder/placeholder-service";
+export { axiosInstance };
