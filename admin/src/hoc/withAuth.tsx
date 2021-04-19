@@ -1,11 +1,12 @@
+import { useGetUserData } from "hooks/auth-service";
 import LoginLayout from "layouts/LoginLayout";
 import Login from "pages/login";
 import { ComponentType, FC } from "react";
-import { connect, StoreProps } from "store";
 
 export default function withAuth(Component: ComponentType) {
-  const Auth: FC<StoreProps> = ({ store, ...props }) => {
-    const loggedIn = store.loggedIn;
+  const Auth: FC = (props) => {
+    const { isSuccess, data } = useGetUserData();
+    const loggedIn = isSuccess ? (data.data ? true : false) : false;
 
     if (!loggedIn)
       return (
@@ -20,5 +21,5 @@ export default function withAuth(Component: ComponentType) {
   if ((Component as any).getInitialProps)
     (Auth as any).getInitialProps = (Component as any).getInitialProps;
 
-  return connect(Auth);
+  return Auth;
 }

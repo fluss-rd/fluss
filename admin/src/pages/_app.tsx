@@ -5,9 +5,13 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import Layout from "layouts";
 import React, { useEffect } from "react";
-import { ServiceProvider } from "services/service";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
 import { initialState, StateContext } from "store/state";
 import theme, { GlobalCss } from "styles/theme";
+
+// Create a client
+const queryClient = new QueryClient();
 
 function MyApp({ Component, pageProps }) {
   useEffect(removeServerSideInjectedCss, []);
@@ -24,11 +28,12 @@ function MyApp({ Component, pageProps }) {
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <ThemeProvider theme={theme}>
           <GlobalCss />
-          <ServiceProvider>
+          <QueryClientProvider client={queryClient}>
             <Layout>
               <Component {...pageProps} />
             </Layout>
-          </ServiceProvider>
+            <ReactQueryDevtools initialIsOpen={false} />
+          </QueryClientProvider>
         </ThemeProvider>
       </MuiPickersUtilsProvider>
     </StateContext.Provider>
