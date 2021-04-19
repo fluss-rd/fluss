@@ -6,38 +6,58 @@ import {
   Link,
   Typography,
   Hidden,
+  Container,
 } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
-import useLogin from "hooks/useLogin";
 import Image from "next/image";
 import router from "next/router";
-import React, { FC, useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import React, { FC, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import FormField from "shared/components/FormField";
-import { connect, StoreProps } from "store";
+import { Alert } from "@material-ui/lab";
+import { AxiosResponse } from "axios";
+import * as yup from "yup";
+import { useLogin } from "hooks/auth-service";
+import { Credentials } from "services/auth/models";
+import { yupResolver } from "@hookform/resolvers";
+import { storeToken } from "helpers/token";
 
-type LoginForm = {
-  email: string;
-  password: string;
-};
-
-const Login: FC<StoreProps> = ({ store }) => {
+const Login: FC = () => {
   const [showPassword, setShowPassword] = useState(false);
-  //const { data, error, isLoading } = usePlaceholder(1);
-  const { mutate } = useLogin();
-  const { handleSubmit, control, errors, formState } = useForm<LoginForm>({ mode: "onBlur" });
-
-  const { isValid } = formState;
+  const { handleSubmit, errors, register } = useForm<Credentials>({ resolver: yupResolver(loginSchema) });
+  const loginMutation = useLogin();
   const classes = useStyles();
 
+  // Store session token when obtained.
+  useEffect(() => {
+    if (!loginMutation.data) return;
+
+    const { token, userId } = loginMutation.data.data;
+    storeToken(token, userId);
+  }, [loginMutation.data]);
+
+  // Go to the specified page.
   const push = (path: string) => () => router.push(path);
 
-  const onSubmit = (data: LoginForm) => {
-    if (!isValid) return;
-
+  // Log In the user in the app
+  const onSubmit = (data: Credentials) => {
     console.log(data);
-    mutate({ email: "fluss.rd.admin@gmai.com", password: "fluss-rd" });
+
+    loginMutation.mutate(data);
+  };
+
+  // Shows login message errors.
+  const showError = () => {
+    if (!loginMutation.isError) return null;
+
+    const error: AxiosResponse = (loginMutation.error as any).response;
+    const message: string =
+      error.status === 401
+        ? "El usuario o contraseña propcionados no son correctos. Intente nuevamente."
+        : error.data.message;
+
+    return <Alert severity="error">{message}</Alert>;
   };
 
   return (
@@ -53,92 +73,80 @@ const Login: FC<StoreProps> = ({ store }) => {
         </Grid>
       </Hidden>
       <Grid item xs={12} md={6} className={classes.formSection}>
-        <Hidden mdUp>
-          <div className={classes.imageBox}>
-            <Image src="/images/logo-2.png" alt="Gráficos" layout="fill" objectFit="contain" />
-          </div>
-        </Hidden>
-        <Typography variant="h4" style={{ textAlign: "center" }}>
-          Inicio de sesion
-        </Typography>
+        <Container maxWidth="sm" className={classes.container}>
+          <Hidden mdUp implementation="css">
+            <div className={classes.imageBox}>
+              <Image src="/images/logo-2.png" alt="Gráficos" layout="fill" objectFit="contain" />
+            </div>
+          </Hidden>
+          <Typography variant="h4" className={classes.title}>
+            Inicio de sesión
+          </Typography>
 
-        <form
-          noValidate
-          autoComplete="off"
-          className={classes.form}
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <Controller
-            name="email"
-            control={control}
-            defaultValue=""
-            as={
-              <FormField
-                label="Email"
-                placeholder="user@email.com"
-                helperText={errors.email ? errors.email.message : null}
-                error={errors.email ? true : false}
-              />
-            }
-            rules={{
-              required: true,
-              pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                message: "Dirección de email inválida",
-              },
-            }}
-          />
-          <Controller
-            name="password"
-            control={control}
-            defaultValue=""
-            as={
-              <FormField
-                label="Contraseña"
-                type={showPassword ? "text" : "password"}
-                placeholder="******"
-                helperText={errors.password ? errors.password.message : null}
-                error={errors.password ? true : false}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={() => setShowPassword(!showPassword)}
-                        edge="end"
-                      >
-                        {showPassword ? <Visibility /> : <VisibilityOff />}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
-              />
-            }
-            rules={{
-              required: true,
-              minLength: { value: 6, message: "La contraseña debe tener como mínimo 6 caracteres" },
-              maxLength: {
-                value: 100,
-                message: "La contraseña debe tener como máximo 20 caracteres",
-              },
-            }}
-          />
-          <Link href="/recoverPassword" onClick={push("/recoverPassword")}>
-            ¿Olvidó su contraseña?
-          </Link>
-          <br />
-          <Button variant="contained" color="primary" size="large" type="submit">
-            Iniciar sesión
-          </Button>
-        </form>
+          {showError()}
+
+          <form
+            noValidate
+            autoComplete="off"
+            className={classes.form}
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <FormField
+              name="email"
+              label="Email"
+              placeholder="user@email.com"
+              error={!!errors.email}
+              helperText={errors.email ? errors.email.message : undefined}
+              inputRef={register}
+            />
+
+            <FormField
+              name="password"
+              label="Contraseña"
+              type={showPassword ? "text" : "password"}
+              placeholder="******"
+              helperText={errors.password ? errors.password.message : null}
+              error={errors.password ? true : false}
+              inputRef={register}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={() => setShowPassword(!showPassword)}
+                      edge="end"
+                    >
+                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+
+            <Link href="/recoverPassword" onClick={push("/recoverPassword")}>
+              ¿Olvidó su contraseña?
+            </Link>
+            <br />
+            <Button variant="contained" color="primary" size="large" type="submit">
+              Iniciar sesión
+            </Button>
+          </form>
+        </Container>
       </Grid>
     </Grid>
   );
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
+  container: {
+    marginTop: theme.spacing(4),
+  },
   background: {
     height: "100%",
+  },
+  title: {
+    textAlign: "center",
+    marginBottom: theme.spacing(2),
   },
   backgroundContainer: {
     position: "relative",
@@ -166,7 +174,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   formSection: {
     display: "flex",
     flexDirection: "column",
-    padding: theme.spacing(8),
     alignItems: "center",
     justifyContent: "center",
   },
@@ -181,5 +188,13 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default connect(Login);
+const loginSchema: yup.SchemaOf<Credentials> = yup.object().shape({
+  email: yup
+    .string()
+    .required("Por favor, introduzca su correo")
+    .email("Debe ingresar un correo válido. Ej: usuario@email.com"),
+  password: yup.string().required("Por favor, introduzca su contraseña"),
+});
+
+export default Login;
 
