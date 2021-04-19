@@ -2,12 +2,13 @@ import Rol from "./Rol";
 
 export default class User {
   id: string;
-  email: string;
   name: string;
   surname: string;
+  phoneNumber: string;
+  email: string;
+  rol: Rol;
   lastUpdate: Date;
   creationDate: Date;
-  rol: Rol;
 
   static mockData(): User[] {
     const roles = Rol.mockData();
@@ -16,6 +17,7 @@ export default class User {
       {
         id: "US-1",
         email: "persona@gmail.com",
+        phoneNumber: "8295650292",
         name: "Persona",
         surname: "Determinada",
         lastUpdate: new Date(Date.now()),
@@ -25,6 +27,7 @@ export default class User {
       {
         id: "US-2",
         email: "otra@gmail.com",
+        phoneNumber: "8092349384",
         name: "Otra",
         surname: "Persona",
         lastUpdate: new Date(Date.now()),

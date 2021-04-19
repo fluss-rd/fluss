@@ -8,6 +8,7 @@ import {
   InputAdornment,
   Link,
   Typography,
+  CircularProgress,
 } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
@@ -37,6 +38,7 @@ const Login: FC = () => {
 
     const { token, userId } = loginMutation.data.data;
     storeToken(token, userId);
+    console.log(loginMutation.data);
   }, [loginMutation.data]);
 
   // Go to the specified page.
@@ -46,7 +48,11 @@ const Login: FC = () => {
   const onSubmit = (data: Credentials) => {
     console.log(data);
 
-    loginMutation.mutate(data);
+    loginMutation.mutate(data, {
+      onSuccess: () => {
+        console.log(loginMutation);
+      },
+    });
   };
 
   // Shows login message errors.
@@ -61,6 +67,8 @@ const Login: FC = () => {
 
     return <Alert severity="error">{message}</Alert>;
   };
+
+  console.log(loginMutation);
 
   return (
     <Grid container>
@@ -130,7 +138,7 @@ const Login: FC = () => {
             </Link>
             <br />
             <Button variant="contained" color="primary" size="large" type="submit">
-              Iniciar sesión
+              {!loginMutation.isLoading ? <>Iniciar sesión</> : <CircularProgress />}
             </Button>
           </form>
         </Container>
@@ -199,3 +207,4 @@ const loginSchema: yup.SchemaOf<Credentials> = yup.object().shape({
 });
 
 export default Login;
+

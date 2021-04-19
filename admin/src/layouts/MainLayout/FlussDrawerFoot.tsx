@@ -6,18 +6,31 @@ import {
   ListItemText,
 } from "@material-ui/core";
 import { PowerSettingsNew } from "@material-ui/icons";
+import { getUserId, removeToken } from "helpers/token";
+import { useLogOut, useGetUserData } from "hooks/auth-service";
 
-interface FlussDrawerProps {
-  logout: () => void;
-}
+export default function FlussDrawerFoot() {
+  const logOutMutation = useLogOut();
+  const userId = getUserId();
+  const userQuery = useGetUserData(userId);
+  const response = userQuery.data;
+  const userName =
+    userQuery.isSuccess && response && response.data
+      ? `${response.data.name} ${response.data.surname}`
+      : null;
 
-export default function FlussDrawerFoot(props: FlussDrawerProps) {
+  const logOut = () => {
+    const userId = getUserId();
+    removeToken();
+
+    logOutMutation.mutate(userId);
+  };
   return (
     <List>
       <ListItem>
-        <ListItemText primary="Angélica Peña" />
+        <ListItemText primary={userName} />
         <ListItemSecondaryAction>
-          <IconButton onClick={props.logout}>
+          <IconButton onClick={logOut}>
             <PowerSettingsNew />
           </IconButton>
         </ListItemSecondaryAction>
@@ -25,3 +38,4 @@ export default function FlussDrawerFoot(props: FlussDrawerProps) {
     </List>
   );
 }
+
