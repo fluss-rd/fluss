@@ -118,7 +118,11 @@ const Login: FC = () => {
             </Link>
             <br />
             <Button variant="contained" color="primary" size="large" type="submit">
-              {!loginMutation.isLoading ? <>Iniciar sesión</> : <CircularProgress color="secondary" />}
+              {!loginMutation.isLoading ? (
+                <>Iniciar sesión</>
+              ) : (
+                <CircularProgress color="secondary" />
+              )}
             </Button>
           </form>
         </Container>
@@ -187,4 +191,3 @@ const loginSchema: yup.SchemaOf<Credentials> = yup.object().shape({
 });
 
 export default Login;
-

@@ -1,4 +1,4 @@
-import { getUserId, storeToken, removeToken } from "helpers/token";
+import { getUserId, removeToken, storeToken } from "helpers/token";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import * as service from "services/auth/auth-service";
 
@@ -40,4 +40,3 @@ export function useGetUserData() {
     return service.getUserData(userId);
   });
 }
-
