@@ -17,4 +17,3 @@ export type UserData = {
   lastUpdate: string;
   creationDate: string;
 };
-

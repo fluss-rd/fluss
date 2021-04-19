@@ -14,7 +14,7 @@ export async function logIn(credentials: Credentials) {
     response.data["userId"] = response.data["userID"];
     delete response.data["userID"];
   }
-  
+
   return response;
 }
 
@@ -38,5 +38,3 @@ export async function getUserData(userId?: string): Promise<AxiosResponse<UserDa
   const response = mockAxiosResponse<UserData>(data);
   return response;
 }
-
-

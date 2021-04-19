@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient, useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import * as service from "services/auth/auth-service";
 
 export function useLogin() {
@@ -18,7 +18,6 @@ export function useLogOut() {
 }
 
 export function useGetUserData(userId?: string) {
-  console.log(':O')
+  console.log(":O");
   return useQuery(["user"], () => service.getUserData(userId));
 }
-

@@ -7,7 +7,7 @@ import {
 } from "@material-ui/core";
 import { PowerSettingsNew } from "@material-ui/icons";
 import { getUserId, removeToken } from "helpers/token";
-import { useLogOut, useGetUserData } from "hooks/auth-service";
+import { useGetUserData, useLogOut } from "hooks/auth-service";
 
 export default function FlussDrawerFoot() {
   const logOutMutation = useLogOut();
@@ -38,4 +38,3 @@ export default function FlussDrawerFoot() {
     </List>
   );
 }
-

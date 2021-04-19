@@ -1,4 +1,4 @@
-import { AxiosResponse, AxiosRequestConfig } from "axios";
+import { AxiosRequestConfig, AxiosResponse } from "axios";
 
 export default function mockAxiosResponse<T>(
   data?: T,
@@ -17,4 +17,3 @@ export default function mockAxiosResponse<T>(
 
   return response;
 }
-

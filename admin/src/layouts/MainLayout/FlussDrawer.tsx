@@ -66,4 +66,3 @@ const useStyles = makeStyles<Theme, MainLayoutValues>((theme: Theme) => ({
 }));
 
 export default FlussDrawer;
-

@@ -29,4 +29,3 @@ export default function withAuth(Component: ComponentType) {
 
   return Auth;
 }
-

@@ -1,6 +1,7 @@
 import { yupResolver } from "@hookform/resolvers";
 import {
   Button,
+  CircularProgress,
   Container,
   Grid,
   Hidden,
@@ -8,7 +9,6 @@ import {
   InputAdornment,
   Link,
   Typography,
-  CircularProgress,
 } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
@@ -207,4 +207,3 @@ const loginSchema: yup.SchemaOf<Credentials> = yup.object().shape({
 });
 
 export default Login;
-
