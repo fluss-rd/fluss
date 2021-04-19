@@ -2,7 +2,9 @@ import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import { useRouter } from "next/router";
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
+
+import { MainLayoutContext } from ".";
 
 interface DrawerItemProps {
   icon?: React.ComponentType;
@@ -16,13 +18,17 @@ interface DrawerItemProps {
 
 const FlussDrawreItem: FC<DrawerItemProps> = (props) => {
   const { asPath, pathname, push } = useRouter();
+  const mainLayoutContext = useContext(MainLayoutContext);
   const { icon: Icon, title, to, expanded, onClick, nested, as } = props;
   const classes = useStyles({ nested });
-  const isSelected = as !== undefined ? as === asPath : to === pathname && !asPath;
+  const isSelected = asPath === pathname ? (as || to) === pathname : (as || to) === asPath;
 
   function handleClick() {
     if (onClick) onClick();
-    if (to) push(to, as);
+    if (to) {
+      if (mainLayoutContext.sidebarInMobileIsOpen) mainLayoutContext.closeSidebarInMobile();
+      push(to, as);
+    }
   }
 
   function renderExpandIcon() {
