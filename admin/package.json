@@ -17,7 +17,8 @@
   },
   "dependencies": {
     "@fontsource/nunito": "^4.2.1",
-    "@hookform/resolvers": "^0.1.0",
+    "@hookform/resolvers": "^0.1.1",
+    "@material-ui/lab": "*",
     "axios": "^0.21.1",
     "mobx": "^6.1.7",
     "mobx-react": "^7.1.0",
