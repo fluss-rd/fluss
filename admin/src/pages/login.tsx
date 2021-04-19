@@ -42,10 +42,11 @@ const Login: FC = () => {
     if (!loginMutation.isError) return null;
 
     const error: AxiosResponse = (loginMutation.error as any).response;
-    const message: string =
-      error.status === 401
+    const message: string = error
+      ? error.status === 401
         ? "El usuario o contraseña propcionados no son correctos. Intente nuevamente."
-        : error.data.message;
+        : error.data.message
+      : "Lo sentimos, estamos experimentando un error en nuestros servidores";
 
     return <Alert severity="error">{message}</Alert>;
   };
