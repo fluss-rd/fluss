@@ -1,8 +1,8 @@
-import { Dialog, ListItemText, makeStyles, MenuItem, Theme, ListItem } from "@material-ui/core";
-import { Notifications, AccountCircle } from "@material-ui/icons";
+import { Dialog, ListItem, ListItemText, makeStyles, MenuItem, Theme } from "@material-ui/core";
+import { Tabs } from "@material-ui/core";
+import { AccountCircle, Notifications } from "@material-ui/icons";
 import { useRouter } from "next/router";
 import React, { ChangeEvent, FC, useEffect, useState } from "react";
-import { Tabs } from "@material-ui/core";
 import TabPanel, { HorizontalIconTab } from "shared/components/TabPanel";
 
 interface SettingsProps {}
@@ -72,4 +72,3 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export default Settings;
-
