@@ -1,4 +1,3 @@
-import { getUserId } from "helpers/token";
 import { useGetUserData } from "hooks/auth-service";
 import LoginLayout from "layouts/LoginLayout";
 import Login from "pages/login";
@@ -6,13 +5,8 @@ import { ComponentType, FC } from "react";
 
 export default function withAuth(Component: ComponentType) {
   const Auth: FC = (props) => {
-    const userId = getUserId();
-    console.log(userId);
-    const { isSuccess, data } = useGetUserData(userId);
-    console.log(isSuccess, data);
-    const loggedIn = isSuccess && userId ? (data.data ? true : false) : false;
-
-    console.log(loggedIn);
+    const { isSuccess, data } = useGetUserData();
+    const loggedIn = isSuccess ? (data.data ? true : false) : false;
 
     if (!loggedIn)
       return (
@@ -29,3 +23,4 @@ export default function withAuth(Component: ComponentType) {
 
   return Auth;
 }
+
