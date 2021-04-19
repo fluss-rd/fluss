@@ -1,5 +1,6 @@
 import { CssBaseline, useMediaQuery, useTheme } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
+import Settings from "components/Settings";
 import React, { FC, useMemo, useState } from "react";
 
 import FlussAppBar from "./FlussAppBar";
@@ -30,6 +31,7 @@ const MainLayout: FC = ({ children }) => {
         <FlussContainer>
           <Children />
         </FlussContainer>
+        <Settings />
       </div>
     </MainLayoutContext.Provider>
   );

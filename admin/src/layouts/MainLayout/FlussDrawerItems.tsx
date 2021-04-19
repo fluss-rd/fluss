@@ -8,11 +8,13 @@ import {
   ViewModule,
   VpnKey,
 } from "@material-ui/icons";
+import { useRouter } from "next/router";
 
 import FlussDrawreItem from "./FlussDrawerItem";
 
 export default function FlussDrawerItems() {
   const classes = useStyles();
+  const router = useRouter();
 
   return (
     <div className={classes.menuButtons}>
@@ -24,7 +26,7 @@ export default function FlussDrawerItems() {
         <FlussDrawreItem title="Usuarios" icon={People} to="/usuarios" />
         <Divider />
         <FlussDrawreItem title="Notificaciones" icon={Notifications} to="/notificaciones" />
-        <FlussDrawreItem title="Ajustes" icon={Settings} to="/ajustes" />
+        <FlussDrawreItem title="Ajustes" icon={Settings} to={router.pathname} as="/ajustes" />
       </List>
     </div>
   );

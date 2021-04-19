@@ -8,20 +8,21 @@ interface DrawerItemProps {
   icon?: React.ComponentType;
   title: string;
   to?: string;
+  as?: string;
   expanded?: boolean;
   onClick?: () => void;
   nested?: boolean;
 }
 
 const FlussDrawreItem: FC<DrawerItemProps> = (props) => {
-  const router = useRouter();
-  const isSelected = router.pathname === props.to;
-  const { icon: Icon, title, to, expanded, onClick, nested } = props;
+  const { asPath, pathname, push } = useRouter();
+  const { icon: Icon, title, to, expanded, onClick, nested, as } = props;
   const classes = useStyles({ nested });
+  const isSelected = as !== undefined ? as === asPath : to === pathname && !asPath;
 
   function handleClick() {
     if (onClick) onClick();
-    if (to) router.push(to);
+    if (to) push(to, as);
   }
 
   function renderExpandIcon() {
