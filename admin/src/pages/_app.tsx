@@ -7,7 +7,6 @@ import Layout from "layouts";
 import React, { useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
-import ServiceProvider from "services/ServiceProvider";
 import { initialState, StateContext } from "store/state";
 import theme, { GlobalCss } from "styles/theme";
 
@@ -30,11 +29,9 @@ function MyApp({ Component, pageProps }) {
         <ThemeProvider theme={theme}>
           <GlobalCss />
           <QueryClientProvider client={queryClient}>
-            <ServiceProvider>
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
-            </ServiceProvider>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
             <ReactQueryDevtools initialIsOpen={false} />
           </QueryClientProvider>
         </ThemeProvider>
