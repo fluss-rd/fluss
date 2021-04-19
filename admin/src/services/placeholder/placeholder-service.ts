@@ -11,4 +11,3 @@ export async function getTodo(userId: number): Promise<PlaceholderResponse> {
   const response = await axios.get<PlaceholderResponse>(`todos/${userId}`);
   return response.data;
 }
-

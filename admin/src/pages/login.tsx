@@ -1,31 +1,33 @@
+import { yupResolver } from "@hookform/resolvers";
 import {
   Button,
+  Container,
   Grid,
+  Hidden,
   IconButton,
   InputAdornment,
   Link,
   Typography,
-  Hidden,
-  Container,
 } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
+import { Alert } from "@material-ui/lab";
+import { AxiosResponse } from "axios";
+import { storeToken } from "helpers/token";
+import { useLogin } from "hooks/auth-service";
 import Image from "next/image";
 import router from "next/router";
 import React, { FC, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import FormField from "shared/components/FormField";
-import { Alert } from "@material-ui/lab";
-import { AxiosResponse } from "axios";
-import * as yup from "yup";
-import { useLogin } from "hooks/auth-service";
 import { Credentials } from "services/auth/models";
-import { yupResolver } from "@hookform/resolvers";
-import { storeToken } from "helpers/token";
+import FormField from "shared/components/FormField";
+import * as yup from "yup";
 
 const Login: FC = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { handleSubmit, errors, register } = useForm<Credentials>({ resolver: yupResolver(loginSchema) });
+  const { handleSubmit, errors, register } = useForm<Credentials>({
+    resolver: yupResolver(loginSchema),
+  });
   const loginMutation = useLogin();
   const classes = useStyles();
 
@@ -197,4 +199,3 @@ const loginSchema: yup.SchemaOf<Credentials> = yup.object().shape({
 });
 
 export default Login;
-

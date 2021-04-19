@@ -1,5 +1,5 @@
 export function getToken(): string {
-  const token:string = sessionStorage.getItem("token");
+  const token: string = sessionStorage.getItem("token");
   return token;
 }
 

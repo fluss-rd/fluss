@@ -132,4 +132,3 @@ const schema = yup.object().shape({
 type UserForm = yup.Asserts<typeof schema>;
 
 export default CreateUser;
-

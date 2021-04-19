@@ -1,4 +1,5 @@
 import { AxiosResponse } from "axios";
+
 import axiosInstance from "../axiosInstance";
 import { Credentials, LogInData } from "./models";
 
@@ -9,4 +10,3 @@ export async function logIn(credentials: Credentials) {
   );
   return response;
 }
-
