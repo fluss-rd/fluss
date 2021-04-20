@@ -1,15 +1,15 @@
 import {
   Button,
-  IconButton,
   List,
   ListItem,
   ListItemSecondaryAction,
-  ListItemText,
+  Typography,
+  CircularProgress,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { PowerSettingsNew } from "@material-ui/icons";
 import { useGetUserData, useLogOut } from "hooks/auth-service";
-import clsx from "clsx";
+import PopoverIcon from "shared/components/PopoverIcon";
 
 export default function FlussDrawerFoot() {
   const classes = useStyles();
@@ -28,9 +28,37 @@ export default function FlussDrawerFoot() {
       <ListItem>
         <Button className={classes.buttons}>{userName}</Button>
         <ListItemSecondaryAction>
-          <IconButton onClick={logOut} className={classes.buttons}>
-            <PowerSettingsNew />
-          </IconButton>
+          <PopoverIcon
+            tooltipText="Cerrar sesión"
+            icon={PowerSettingsNew}
+            labeled={false}
+            IconButtonProps={{ style: { padding: 0 } }}
+            anchorOrigin={{
+              vertical: "center",
+              horizontal: "right",
+            }}
+            transformOrigin={{
+              vertical: "bottom",
+              horizontal: "left",
+            }}
+          >
+            <div className={classes.content}>
+              <Typography variant="body1">
+                <strong>¿Seguro que desea cerrar sesión?</strong>
+              </Typography>
+              <br />
+              <div className={classes.action}>
+                <Button
+                  variant="text"
+                  color="primary"
+                  onClick={logOut}
+                  startIcon={logOutMutation.isLoading && <CircularProgress color="primary" />}
+                >
+                  Cerrar sesión
+                </Button>
+              </div>
+            </div>
+          </PopoverIcon>
         </ListItemSecondaryAction>
       </ListItem>
     </List>
@@ -38,6 +66,11 @@ export default function FlussDrawerFoot() {
 }
 
 const useStyles = makeStyles((theme) => ({
+  content: { padding: theme.spacing(2) },
+  action: {
+    display: "flex",
+    flexDirection: "row-reverse",
+  },
   buttons: {
     textTransform: "capitalize",
     margin: 0,

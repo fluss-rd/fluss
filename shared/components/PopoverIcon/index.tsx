@@ -5,24 +5,29 @@ import {
   PopoverOrigin,
   SvgIconTypeMap,
   Tooltip,
+  IconButtonProps,
+  PopoverProps,
   Typography,
 } from "@material-ui/core";
 import { OverridableComponent } from "@material-ui/core/OverridableComponent";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles, Theme, useTheme } from "@material-ui/core/styles";
 import generateId from "../../helpers/generateId";
 import React, { FC, MouseEvent, ReactNode, useRef, useState } from "react";
 
 interface PopoverIconProps {
-  title: string;
+  title?: string; // When title is provided it adds padding formating.
+  tooltipText?: string; // The text that shows the tooltip text when mouse is over.
   icon: OverridableComponent<SvgIconTypeMap<{}, "svg">>;
-  labeled?: boolean;
-  children?: ReactNode;
+  labeled?: boolean; // Indicates wheter the icon button will have a label at its right or not. The text value will be the title or tooltipTextProvided.
+  children?: ReactNode; // The Popover content.
   anchorOrigin?: PopoverOrigin;
   transformOrigin?: PopoverOrigin;
+  IconButtonProps?: Partial<IconButtonProps>;
+  PopoverProps?: Partial<PopoverProps>;
 }
 
 const PopoverIcon: FC<PopoverIconProps> = (props) => {
-  const classes = useStyles();
+  const classes = useStyles(props);
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const key = generateId("popover-icon");
   const open = Boolean(anchorEl);
@@ -41,7 +46,7 @@ const PopoverIcon: FC<PopoverIconProps> = (props) => {
 
   return (
     <div>
-      <Tooltip title={props.title}>
+      <Tooltip title={props.tooltipText || props.title}>
         {props.labeled ? (
           <Button
             aria-describedby={id}
@@ -50,11 +55,11 @@ const PopoverIcon: FC<PopoverIconProps> = (props) => {
             className={classes.labeled}
           >
             <Typography variant="body1" style={{ marginLeft: theme.spacing(1) }}>
-              {props.title}
+              {props.title || props.tooltipText}
             </Typography>
           </Button>
         ) : (
-          <IconButton aria-describedby={id} onClick={handleClick}>
+          <IconButton aria-describedby={id} onClick={handleClick} {...props.IconButtonProps}>
             <Icon />
           </IconButton>
         )}
@@ -68,11 +73,14 @@ const PopoverIcon: FC<PopoverIconProps> = (props) => {
         transformOrigin={props.transformOrigin}
         className={classes.popover}
         ref={popoverRef}
+        {...(props.IconButtonProps as any)}
       >
         <div className={classes.root}>
-          <Typography variant="body1" className={classes.title}>
-            {props.title.toUpperCase()}
-          </Typography>
+          {props.title && (
+            <Typography variant="body1" className={classes.title}>
+              {props.title.toUpperCase()}
+            </Typography>
+          )}
           <div className={classes.content}>{props.children}</div>
         </div>
       </Popover>
@@ -80,7 +88,7 @@ const PopoverIcon: FC<PopoverIconProps> = (props) => {
   );
 };
 
-const useStyles = makeStyles((theme) => {
+const useStyles = makeStyles<Theme, PopoverIconProps>((theme) => {
   const spacing = theme.spacing(2);
   return {
     popover: {},
@@ -98,7 +106,7 @@ const useStyles = makeStyles((theme) => {
       width: "100%",
       display: "flex",
       flexDirection: "column",
-      padding: `0px ${spacing}px ${spacing}px ${spacing}px`,
+      padding: ({ title }) => (title ? `0px ${spacing}px ${spacing}px ${spacing}px` : undefined),
     },
     labeled: {
       textTransform: "none",
@@ -116,6 +124,8 @@ PopoverIcon.defaultProps = {
     vertical: "top",
     horizontal: "right",
   },
+  PopoverProps: {},
+  IconButtonProps: {},
 };
 
 export default PopoverIcon;
