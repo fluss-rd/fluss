@@ -22,19 +22,22 @@ export async function logOut(userId: string) {
   return mockAxiosResponse(null, 200, "Ok");
 }
 
-export async function getUserData(userId?: string): Promise<AxiosResponse<UserData | null>> {
+export async function getUserData(
+  userId: string,
+  token: string
+): Promise<AxiosResponse<UserData | null>> {
   if (!userId) return mockAxiosResponse(null);
 
-  const data: UserData = {
-    id: "U-1",
-    name: "Nombre",
-    surname: "Apellido",
-    email: "fluss.rd.admin@gmai.com",
-    lastUpdate: "18/04/2021 22:00",
-    creationDate: "04/01/2021 22:00",
-    phoneNumber: "(829) 242-1342",
-  };
+  //const response = mockAxiosResponse<UserData>(data);
+  const response = await axiosInstance.get<UserData>(`/account/users/${userId}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
 
-  const response = mockAxiosResponse<UserData>(data);
+  if (response.data) {
+    response.data["userId"] = response.data["userID"];
+    delete response.data["userID"];
+  }
+
   return response;
 }
+

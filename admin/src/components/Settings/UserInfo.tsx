@@ -1,33 +1,92 @@
-import { Button, Typography } from "@material-ui/core";
+import { Button, Typography, LinearProgress } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import PermIdentityOutlinedIcon from "@material-ui/icons/PermIdentityOutlined";
+import { useGetUserData } from "hooks/auth-service";
 import React, { FC } from "react";
+import { useForm, Controller } from "react-hook-form";
 import FormField from "shared/components/FormField";
 import FormIconTitle from "shared/components/FormIconTitle";
+import { yupResolver } from "@hookform/resolvers";
+import { UserInfo as UserInfoModel } from "services/auth/models";
+import clsx from "clsx";
+import * as yup from "yup";
+import ReactInputMask from "react-input-mask";
 
 interface UserInfoProps {}
 
 const UserInfo: FC<UserInfoProps> = () => {
   const classes = useStyles();
+  const { isLoading, data: response } = useGetUserData();
+  const { register, handleSubmit, errors: formErrors, control } = useForm<UserInfoModel>({
+    resolver: yupResolver(userInfoSchema),
+    defaultValues: {
+      name: response?.data?.name || "",
+      email: response?.data?.email || "",
+      phoneNumber: response?.data?.phoneNumber || "",
+    },
+  });
+
+  const onSubmit = (data: UserInfoModel) => console.log(data);
 
   return (
     <div className={classes.root}>
-      <div className={classes.content}>
+      {isLoading && <LinearProgress color="secondary" />}
+      <div className={clsx(classes.content, classes.separate)}>
         <Typography variant="h5">Información de cuenta</Typography>
 
         <FormIconTitle Icon={PermIdentityOutlinedIcon} title="Datos personales" />
 
-        <FormField name="name" label="Nombre" />
-        <FormField name="surname" label="Apellidos" />
-        <FormField name="email" label="Correo" />
+        <form
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit(onSubmit)}
+          className={classes.separate}
+        >
+          <FormField
+            name="name"
+            label="Nombre"
+            placeholder="Nombre del usuario"
+            error={!!formErrors.name}
+            helperText={formErrors.name ? formErrors.name.message : undefined}
+            inputRef={register}
+          />
 
-        <br />
-        <div className={classes.actions}>
-          <Button variant="outlined" color="primary">
-            Guardar cambios
-          </Button>
-        </div>
+          <Controller
+            name="phoneNumber"
+            control={control}
+            as={
+              <ReactInputMask mask="(999) 999-9999" maskChar=" ">
+                {() => (
+                  <FormField
+                    label="Numéro celular"
+                    placeholder="Número celular"
+                    error={!!formErrors.phoneNumber}
+                    helperText={formErrors.phoneNumber ? formErrors.phoneNumber.message : undefined}
+                  />
+                )}
+              </ReactInputMask>
+            }
+          />
+
+          <FormField
+            name="email"
+            label="Correo"
+            placeholder="Correo"
+            error={!!formErrors.email}
+            helperText={formErrors.email ? formErrors.email.message : undefined}
+            inputRef={register}
+          />
+
+          <FormField name="roleName" label="Rol" value={response?.data?.roleName || ""} />
+
+          <br />
+          <div className={classes.actions}>
+            <Button variant="outlined" color="primary">
+              Guardar cambios
+            </Button>
+          </div>
+        </form>
 
         <br />
 
@@ -39,7 +98,22 @@ const UserInfo: FC<UserInfoProps> = () => {
   );
 };
 
+const userInfoSchema: yup.SchemaOf<UserInfoModel> = yup.object().shape({
+  email: yup
+    .string()
+    .required("Por favor, introduzca su correo")
+    .email("Debe ingresar un correo válido. Ej: usuario@email.com"),
+  name: yup.string().required("Por favor, introduzca su nombre"),
+  surname: yup.string().required("Por favor, introduzca su/s apellido/s"),
+  phoneNumber: yup.string().required("Por favor, introduzca número celular"),
+});
+
 const useStyles = makeStyles((theme) => ({
+  separate: {
+    "& > *:not(:last-child)": {
+      marginBottom: theme.spacing(2),
+    },
+  },
   root: {
     display: "flex",
     height: "100%",
@@ -48,9 +122,7 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     flexGrow: 1,
-    "& > *:not(:last-child)": {
-      marginBottom: theme.spacing(2),
-    },
+    padding: theme.spacing(3),
   },
   actions: {
     marginTop: theme.spacing(2),
@@ -58,3 +130,4 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default UserInfo;
+

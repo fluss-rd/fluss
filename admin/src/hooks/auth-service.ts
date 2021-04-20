@@ -1,4 +1,4 @@
-import { getUserId, removeToken, storeToken } from "helpers/token";
+import { getToken, getUserId, removeToken, storeToken } from "helpers/token";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import * as service from "services/auth/auth-service";
 
@@ -37,6 +37,7 @@ export function useLogOut() {
 export function useGetUserData() {
   return useQuery(["user"], () => {
     const userId = getUserId();
-    return service.getUserData(userId);
+    const token = getToken();
+    return service.getUserData(userId, token);
   });
 }

@@ -16,12 +16,8 @@ export default function FlussDrawerFoot() {
   const classes = useStyles();
   const router = useRouter();
   const logOutMutation = useLogOut();
-  const userQuery = useGetUserData();
-  const response = userQuery.data;
-  const userName =
-    userQuery.isSuccess && response && response.data
-      ? `${response.data.name} ${response.data.surname}`
-      : null;
+  const { data: response } = useGetUserData();
+  const userName = response?.data?.name || "";
 
   const logOut = () => logOutMutation.mutate();
 
@@ -83,3 +79,4 @@ const useStyles = makeStyles((theme) => ({
     padding: 0,
   },
 }));
+

@@ -5,8 +5,9 @@ import { ComponentType, FC } from "react";
 
 export default function withAuth(Component: ComponentType) {
   const Auth: FC = (props) => {
-    const { isSuccess, data } = useGetUserData();
-    const loggedIn = isSuccess ? (data.data ? true : false) : false;
+    const query = useGetUserData();
+    const { isSuccess, data: response } = query;
+    const loggedIn = isSuccess ? (response?.data ? true : false) : false;
 
     if (!loggedIn)
       return (
@@ -23,3 +24,4 @@ export default function withAuth(Component: ComponentType) {
 
   return Auth;
 }
+

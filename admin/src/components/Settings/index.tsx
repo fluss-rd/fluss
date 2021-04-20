@@ -1,7 +1,7 @@
 import { Dialog, ListItem, ListItemText, makeStyles, Theme } from "@material-ui/core";
 import { Tabs } from "@material-ui/core";
 import { AccountCircle, Notifications as NotificationsIcon } from "@material-ui/icons";
-import { NextRouter, useRouter } from "next/router";
+import { useRouter, NextRouter } from "next/router";
 import React, { ChangeEvent, FC, useEffect, useState } from "react";
 import TabPanel, { HorizontalIconTab } from "shared/components/TabPanel";
 import { appBarHeight } from "shared/helpers";
@@ -42,10 +42,10 @@ const Settings: FC = () => {
           <HorizontalIconTab label="Mi cuenta" icon={<AccountCircle />} index={2} />
         </Tabs>
         <div className={classes.tabPanels}>
-          <TabPanel value={activeTab} index={1}>
+          <TabPanel value={activeTab} index={1} padding={0}>
             <Notifications />
           </TabPanel>
-          <TabPanel value={activeTab} index={2}>
+          <TabPanel value={activeTab} index={2} padding={0}>
             <UserInfo />
           </TabPanel>
         </div>
@@ -75,8 +75,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   tabs: {
     borderRight: `1px solid ${theme.palette.divider}`,
-    padding: 0,
-    margin: 0,
     background: theme.palette.grey[50],
   },
   tabPanels: {
@@ -85,3 +83,4 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export default Settings;
+

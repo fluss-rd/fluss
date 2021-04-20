@@ -9,11 +9,17 @@ export type LogInData = {
 };
 
 export type UserData = {
-  id: string;
+  userId: string;
   name: string;
-  surname: string;
+  phoneNumber: string;
+  roleName: string;
+  email: string;
+  creationDate: string;
+  updateDate: string;
+};
+
+export type UserInfo = {
+  name: string;
   phoneNumber: string;
   email: string;
-  lastUpdate: string;
-  creationDate: string;
-};
+}
