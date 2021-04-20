@@ -1,7 +1,7 @@
 import { Dialog, ListItem, ListItemText, makeStyles, Theme } from "@material-ui/core";
 import { Tabs } from "@material-ui/core";
 import { AccountCircle, Notifications as NotificationsIcon } from "@material-ui/icons";
-import { useRouter, NextRouter } from "next/router";
+import { NextRouter, useRouter } from "next/router";
 import React, { ChangeEvent, FC, useEffect, useState } from "react";
 import TabPanel, { HorizontalIconTab } from "shared/components/TabPanel";
 import { appBarHeight } from "shared/helpers";
@@ -83,4 +83,3 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export default Settings;
-

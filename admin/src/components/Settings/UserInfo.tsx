@@ -1,17 +1,17 @@
-import { Button, Typography, LinearProgress } from "@material-ui/core";
+import { yupResolver } from "@hookform/resolvers";
+import { Button, LinearProgress, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import PermIdentityOutlinedIcon from "@material-ui/icons/PermIdentityOutlined";
+import clsx from "clsx";
 import { useGetUserData } from "hooks/auth-service";
 import React, { FC } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
+import ReactInputMask from "react-input-mask";
+import { UserInfo as UserInfoModel } from "services/auth/models";
 import FormField from "shared/components/FormField";
 import FormIconTitle from "shared/components/FormIconTitle";
-import { yupResolver } from "@hookform/resolvers";
-import { UserInfo as UserInfoModel } from "services/auth/models";
-import clsx from "clsx";
 import * as yup from "yup";
-import ReactInputMask from "react-input-mask";
 
 interface UserInfoProps {}
 
@@ -130,4 +130,3 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default UserInfo;
-

@@ -22,4 +22,4 @@ export type UserInfo = {
   name: string;
   phoneNumber: string;
   email: string;
-}
+};
