@@ -60,7 +60,9 @@ function DataTable<T extends object>(props: DataTableProps<T>, ref: ForwardedRef
     <div className={classes.root}>
       <Paper className={classes.paper} elevation={props.elevation}>
         <TableContainer>
-          {(loading || props.data === undefined) && <LinearProgress color="secondary" />}
+          {props.data === undefined || props.data === null ? (
+            <LinearProgress color="secondary" />
+          ) : null}
           <Table
             {...table.getTableProps()}
             size={props.densed ? "small" : "medium"}
@@ -118,3 +120,4 @@ ForwardedDataTable.defaultProps = {
 export default (ForwardedDataTable as unknown) as <T extends object>(
   props: DataTableProps<T> & { ref?: MutableRefObject<DataTableRef<T>> }
 ) => ReactElement;
+
