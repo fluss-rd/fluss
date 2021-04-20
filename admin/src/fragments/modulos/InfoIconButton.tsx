@@ -4,8 +4,8 @@ import InfoIcon from "@material-ui/icons/Info";
 import { FC } from "react";
 
 interface InfoIconButtonProps {
-  index: number;
-  handleClick: (index: number) => void;
+  index: string;
+  handleClick: (index: string) => void;
 }
 
 const InfoIconButton: FC<InfoIconButtonProps> = (props) => {

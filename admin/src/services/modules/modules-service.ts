@@ -1,18 +1,16 @@
 import { AxiosResponse } from "axios";
-import { ModuleData } from "./models";
-
-import axiosInstance from "../axiosInstance";
 import replaceProperty from "helpers/replaceProperty";
 
+import axiosInstance from "../axiosInstance";
+import { ModuleData } from "./models";
+
 export async function getModules(token: string): Promise<AxiosResponse<ModuleData[] | null>> {
-  console.log(token)
   const response = await axiosInstance.get<ModuleData[]>(`/modules`, {
     headers: { Authorization: `Bearer ${token}` },
   });
 
-  console.log(response)
   if (response.data) {
-    for (let module of response.data) {
+    for (const module of response.data) {
       replaceProperty(module, "moduleID", "moduleId");
       replaceProperty(module, "riverID", "riverId");
       replaceProperty(module, "userID", "userId");
@@ -22,3 +20,22 @@ export async function getModules(token: string): Promise<AxiosResponse<ModuleDat
   return response;
 }
 
+export async function getModule(
+  token: string,
+  moduleId: string
+): Promise<AxiosResponse<ModuleData | null>> {
+  const response = await axiosInstance.get<ModuleData>(`/modules/${moduleId}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  if (response.data) {
+    const module = response.data;
+    replaceProperty(module, "moduleID", "moduleId");
+    replaceProperty(module, "riverID", "riverId");
+    replaceProperty(module, "userID", "userId");
+
+    console.log({ module });
+  }
+
+  return response;
+}

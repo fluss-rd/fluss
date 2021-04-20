@@ -12,6 +12,7 @@ export default class Module {
   updatedAt: Date;
   createdAt: Date;
   river: string;
+  state: string;
   hmm: number;
 
   constructor(module: Partial<Module>) {
@@ -27,6 +28,7 @@ export default class Module {
     this.createdAt = module.createdAt;
     this.river = module.river;
     this.hmm = module.hmm;
+    this.state = module.state;
   }
 
   static mockData(): Module[] {
@@ -47,6 +49,7 @@ export default class Module {
           name: `Módulo ${i}`,
           river: "Yaque del Norte",
           hmm: i,
+          state: "inactive",
         })
       );
     }
@@ -54,7 +57,7 @@ export default class Module {
     return modules;
   }
 
-  static fromModuleData(moduleData?: ModuleData): Module {
+  static fromModuleData(moduleData?: ModuleData): Module | null {
     if (!moduleData)
       return {
         river: "",
@@ -69,29 +72,30 @@ export default class Module {
         serial: "",
         simNumber: "",
         hmm: 1,
+        state: "",
       };
 
     return {
-      river: "Yaque del Norte",
+      river: moduleData.riverName,
       name: "",
       id: moduleData.moduleId,
-      longitude: -69.9,
-      latitude: 18.4667,
-      location: "18.4667,-69.9000",
+      longitude: moduleData.location.longitude,
+      latitude: moduleData.location.latitude,
+      location: `${moduleData.location.longitude} ${moduleData.location.latitude}`,
       updatedAt: new Date(moduleData.updateDate),
       createdAt: new Date(moduleData.creationDate),
       description: "Ubicado en el río Yaque del Norte",
       serial: moduleData.serial,
       simNumber: moduleData.phoneNumber,
       hmm: 1,
+      state: moduleData.state,
     };
   }
 
-  static fromModuleDataList(moduleDataList?: ModuleData[]): Module[] {
-    if (!moduleDataList) return [];
+  static fromModuleDataList(moduleDataList?: ModuleData[]): Module[] | undefined {
+    if (!moduleDataList) return undefined;
 
     const elements = moduleDataList.map((m) => Module.fromModuleData(m));
     return elements;
   }
 }
-

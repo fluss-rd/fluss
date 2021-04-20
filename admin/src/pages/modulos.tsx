@@ -2,8 +2,10 @@ import { makeStyles, Typography } from "@material-ui/core";
 import InfoIconButton from "fragments/modulos/InfoIconButton";
 import RegisterModule from "fragments/modulos/RegisterModule";
 import ViewModule from "fragments/modulos/ViewModule";
+import { useGetModules } from "hooks/modules-service";
 import Module from "models/Module";
 import { useCallback, useMemo, useState } from "react";
+import { ModuleData } from "services/modules/models";
 import { EnhancedDataTable } from "shared/components/Tables";
 import { DataTableColumn, SelectColumnFilter } from "shared/components/Tables";
 import formatDate from "shared/helpers/formatDate";
@@ -11,35 +13,24 @@ import useMergeState from "shared/hooks/useMergeState";
 
 export default function Modulos() {
   const classes = useStyles();
-  const [data, setData] = useState(Module.mockData());
-  const [current, setCurrent] = useMergeState<{
-    index: number;
-    module: Module;
-  }>({
-    index: 0,
-    module: null,
-  });
-  const handleModuleClicked = useCallback(
-    (index: number) => setCurrent({ module: { ...data[index] }, index }),
-    [setCurrent, data]
-  );
-  const dataColumns = useMemo(() => columns(handleModuleClicked), [handleModuleClicked]);
+  const { data: response, isLoading, refetch } = useGetModules();
+  const modules = Module.fromModuleDataList(response?.data);
+  const [viewState, setViewState] = useMergeState({ isOpen: false, moduleId: "" });
+  const selectModule = (id: string) => setViewState({ moduleId: id, isOpen: true });
+  const columns = useMemo(() => generateColumns(selectModule), []);
 
   return (
     <div className={classes.root}>
       <Typography variant="h4">Módulos</Typography>
-
       <br />
-
-      <EnhancedDataTable withFilters withColumnsSelection data={data} columns={dataColumns} />
+      <EnhancedDataTable withFilters withColumnsSelection data={modules} columns={columns} />
       <RegisterModule />
       <ViewModule
-        module={current.module}
-        close={() => setCurrent({ index: 0, module: null })}
-        onSave={(module) => {
-          const modified = [...data];
-          modified[current.index] = { ...module };
-          setData(modified);
+        open={viewState.isOpen}
+        moduleId={viewState.moduleId}
+        close={() => setViewState({ isOpen: false })}
+        onSave={(module: Module) => {
+          console.log(module);
         }}
       />
     </div>
@@ -53,21 +44,26 @@ const useStyles = makeStyles({
   },
 });
 
-const columns = (handleModuleClicked: (index: number) => void): DataTableColumn<Module>[] => [
-  { Header: "ID", accessor: "id", width: 200, columnWidth: "10%" },
+const generateColumns = (handleModuleClicked: (id: string) => void): DataTableColumn<Module>[] => [
   {
-    Header: "Número SIM",
+    Header: "ID",
+    id: "id",
+    accessor: (m) => (
+      <Typography style={{ wordWrap: "break-word" }} variant="body2">
+        {m.id}
+      </Typography>
+    ),
+  },
+  {
+    Header: "Número celular",
     accessor: "simNumber",
-    columnWidth: "12%",
     filter: "includes",
     Filter: SelectColumnFilter,
   },
-  { Header: "Nombre", accessor: "name", columnWidth: "8%" },
-  { Header: "Descripción", accessor: "description", columnWidth: "25%" },
   {
     id: "updatedAt",
     Header: "Última actualización",
-    accessor: (data) => formatDate(data.updatedAt),
+    accessor: (data) => formatDate(data.updatedAt, { type: "dateAndTime" }),
   },
   {
     id: "createdAt",
@@ -79,7 +75,7 @@ const columns = (handleModuleClicked: (index: number) => void): DataTableColumn<
     id: "info",
     Header: "Detalle",
     accessor: (data: Module, i: number) => (
-      <InfoIconButton index={i} handleClick={handleModuleClicked} />
+      <InfoIconButton index={data.id} handleClick={handleModuleClicked} />
     ),
   },
 ];

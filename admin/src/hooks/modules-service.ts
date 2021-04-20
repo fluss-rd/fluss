@@ -8,3 +8,10 @@ export function useGetModules() {
     return service.getModules(token);
   });
 }
+
+export function useGetModule(moduleId: string) {
+  return useQuery(["module", moduleId], () => {
+    const token = getToken();
+    return service.getModule(token, moduleId);
+  });
+}

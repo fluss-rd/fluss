@@ -12,8 +12,10 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Close, EditLocationOutlined, InfoOutlined } from "@material-ui/icons";
+import { useGetModule } from "hooks/modules-service";
 import Module from "models/Module";
 import React, { FC, useEffect, useMemo } from "react";
+import { useForm } from "react-hook-form";
 import FormField from "shared/components/FormField";
 import FormIconTitle from "shared/components/FormIconTitle";
 import FormSelect from "shared/components/FormSelect";
@@ -23,27 +25,34 @@ import useMergeState from "shared/hooks/useMergeState";
 import ModuleLocation from "./ModuleLocation";
 
 interface ViewModuleProps {
-  module?: Module;
+  moduleId?: string;
   close?: () => void;
+  open?: boolean;
   onSave?: (module: Module) => void;
 }
 
 const ViewModule: FC<ViewModuleProps> = (props) => {
   const classes = useStyles();
   const locations = useMemo(() => ["Yaque del Norte", "Yaque del Sur"], []);
-  const [module, setModule] = useMergeState({} as Module);
+  const { data: response, refetch: refetchModule } = useGetModule(props.moduleId);
+  const [module, setModule] = useMergeState(
+    Module.fromModuleData(response?.data) || ({} as Module)
+  );
 
+  // Load the module of the new provided module ID.
   useEffect(() => {
-    if (props.module) setModule(new Module(props.module));
-  }, [props.module]);
+    if (!props.moduleId) return;
+
+    refetchModule();
+  }, [props.moduleId]);
+
+  // Update the module form.
+  useEffect(() => {
+    if (response?.data) setModule({ ...(Module.fromModuleData(response?.data) || {}) });
+  }, [response?.data]);
 
   return (
-    <Dialog
-      fullScreen
-      open={props.module ? true : false}
-      onClose={props.close}
-      TransitionComponent={Transition}
-    >
+    <Dialog fullScreen open={props.open} onClose={props.close} TransitionComponent={Transition}>
       <form>
         <AppBar className={classes.appBar} color="inherit" elevation={0}>
           <Toolbar>
@@ -56,8 +65,9 @@ const ViewModule: FC<ViewModuleProps> = (props) => {
             <Button
               color="inherit"
               onClick={() => {
-                props.onSave(module);
-                props.close();
+                // TODO:J
+                //props.onSave(module);
+                //props.close();
               }}
             >
               Guardar cambios
