@@ -4,7 +4,10 @@ import { AccountCircle, Notifications as NotificationsIcon } from "@material-ui/
 import { useRouter } from "next/router";
 import React, { ChangeEvent, FC, useEffect, useState } from "react";
 import TabPanel, { HorizontalIconTab } from "shared/components/TabPanel";
+import { appBarHeight } from "shared/helpers";
+
 import Notifications from "./Notifications";
+import UserInfo from "./UserInfo";
 
 const Settings: FC = () => {
   const classes = useStyles();
@@ -45,12 +48,14 @@ const Settings: FC = () => {
           <HorizontalIconTab label="Notificaciones" icon={<NotificationsIcon />} index={1} />
           <HorizontalIconTab label="Mi cuenta" icon={<AccountCircle />} index={2} />
         </Tabs>
-        <TabPanel value={activeTab} index={1}>
-          <Notifications />
-        </TabPanel>
-        <TabPanel value={activeTab} index={2}>
-          Item Two
-        </TabPanel>
+        <div className={classes.tabPanels}>
+          <TabPanel value={activeTab} index={1}>
+            <Notifications />
+          </TabPanel>
+          <TabPanel value={activeTab} index={2}>
+            <UserInfo />
+          </TabPanel>
+        </div>
       </div>
     </Dialog>
   );
@@ -58,10 +63,9 @@ const Settings: FC = () => {
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
     display: "flex",
-    minHeight: 400,
+    height: `calc(100vh - ${appBarHeight(theme) * 2}px)`,
+    backgroundColor: theme.palette.background.paper,
   },
   tabs: {
     borderRight: `1px solid ${theme.palette.divider}`,
@@ -69,7 +73,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     margin: 0,
     background: theme.palette.grey[50],
   },
+  tabPanels: {
+    flexGrow: 1,
+  },
 }));
 
 export default Settings;
-

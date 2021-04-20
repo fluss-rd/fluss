@@ -1,6 +1,6 @@
+import { Button, FormControlLabel, Switch, Typography, useTheme } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Tune } from "@material-ui/icons";
-import { FormControlLabel, Switch, Typography, Button, useTheme } from "@material-ui/core";
 import React, { FC, useState } from "react";
 import FormIconTitle from "shared/components/FormIconTitle";
 
@@ -45,4 +45,3 @@ const Notifications: FC<NotificationsProps> = (props) => {
 const useStyles = makeStyles({});
 
 export default Notifications;
-
