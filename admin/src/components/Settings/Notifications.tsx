@@ -14,7 +14,7 @@ const Notifications: FC<NotificationsProps> = (props) => {
   const changeStatus = () => setStatus((prev) => !prev);
 
   return (
-    <div>
+    <div className={classes.root}>
       <Typography variant="h5">Notificaciones</Typography>
 
       <br />
@@ -42,6 +42,10 @@ const Notifications: FC<NotificationsProps> = (props) => {
   );
 };
 
-const useStyles = makeStyles({});
+const useStyles = makeStyles((theme) => ({
+  root: {
+    padding: theme.spacing(3),
+  },
+}));
 
 export default Notifications;
