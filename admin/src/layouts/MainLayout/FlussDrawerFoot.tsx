@@ -1,18 +1,20 @@
 import {
   Button,
+  CircularProgress,
   List,
   ListItem,
   ListItemSecondaryAction,
   Typography,
-  CircularProgress,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { PowerSettingsNew } from "@material-ui/icons";
 import { useGetUserData, useLogOut } from "hooks/auth-service";
+import { useRouter } from "next/router";
 import PopoverIcon from "shared/components/PopoverIcon";
 
 export default function FlussDrawerFoot() {
   const classes = useStyles();
+  const router = useRouter();
   const logOutMutation = useLogOut();
   const userQuery = useGetUserData();
   const response = userQuery.data;
@@ -23,10 +25,14 @@ export default function FlussDrawerFoot() {
 
   const logOut = () => logOutMutation.mutate();
 
+  const goToUserInfo = () => router.push(router.pathname, "/ajustes/informacion-de-cuenta");
+
   return (
     <List>
       <ListItem>
-        <Button className={classes.buttons}>{userName}</Button>
+        <Button className={classes.buttons} onClick={goToUserInfo}>
+          {userName}
+        </Button>
         <ListItemSecondaryAction>
           <PopoverIcon
             tooltipText="Cerrar sesión"
@@ -77,4 +83,3 @@ const useStyles = makeStyles((theme) => ({
     padding: 0,
   },
 }));
-

@@ -1,7 +1,7 @@
 import { Dialog, ListItem, ListItemText, makeStyles, Theme } from "@material-ui/core";
 import { Tabs } from "@material-ui/core";
 import { AccountCircle, Notifications as NotificationsIcon } from "@material-ui/icons";
-import { useRouter } from "next/router";
+import { NextRouter, useRouter } from "next/router";
 import React, { ChangeEvent, FC, useEffect, useState } from "react";
 import TabPanel, { HorizontalIconTab } from "shared/components/TabPanel";
 import { appBarHeight } from "shared/helpers";
@@ -11,21 +11,14 @@ import UserInfo from "./UserInfo";
 
 const Settings: FC = () => {
   const classes = useStyles();
-  const [activeTab, setActiveTab] = useState(1);
   const router = useRouter();
   const settingsRoute = "/ajustes";
-  const isOpen = router.asPath === "/ajustes";
+  const [isOpen, activeIndex] = computeOpening(router, settingsRoute);
 
-  useEffect(handleSettingsOpeningOnRefresh, []);
+  const [activeTab, setActiveTab] = useState(activeIndex);
 
-  function handleSettingsOpeningOnRefresh() {
-    // TODO: Improve this: Go to home page if the page has ben reloaded and the route is the contextual route "/ajustes".
-    const { pathname, route, asPath, push } = router;
-
-    const fromPageReload =
-      pathname === settingsRoute && route === settingsRoute && asPath === settingsRoute;
-    if (fromPageReload) push("/", settingsRoute);
-  }
+  // Select the active tab for the opened settings dialog.
+  useEffect(() => setActiveTab(activeIndex), [isOpen, activeIndex]);
 
   function changeActiveTab(_: ChangeEvent<{}>, newValue: number) {
     setActiveTab(newValue);
@@ -60,6 +53,19 @@ const Settings: FC = () => {
     </Dialog>
   );
 };
+
+function computeOpening(router: NextRouter, settingsRoute: string): [boolean, number] {
+  const settingsName = settingsRoute.split("/")[1];
+  const parts = router.asPath.split("/");
+  const isOpen = parts[1] === settingsName;
+  const userInfoIsActive = parts[2] === "informacion-de-cuenta";
+
+  let activeIndex = 1;
+
+  if (userInfoIsActive) activeIndex = 2;
+
+  return [isOpen, activeIndex];
+}
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {

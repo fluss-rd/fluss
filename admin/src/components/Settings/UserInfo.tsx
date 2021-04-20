@@ -1,10 +1,10 @@
+import { Button, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import React, { FC } from "react";
-import PermIdentityOutlinedIcon from "@material-ui/icons/PermIdentityOutlined";
-import FormIconTitle from "shared/components/FormIconTitle";
-import { Typography, Button } from "@material-ui/core";
-import FormField from "shared/components/FormField";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import PermIdentityOutlinedIcon from "@material-ui/icons/PermIdentityOutlined";
+import React, { FC } from "react";
+import FormField from "shared/components/FormField";
+import FormIconTitle from "shared/components/FormIconTitle";
 
 interface UserInfoProps {}
 
@@ -58,4 +58,3 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default UserInfo;
-
