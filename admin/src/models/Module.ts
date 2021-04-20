@@ -1,3 +1,5 @@
+import { ModuleData } from "services/modules/models";
+
 export default class Module {
   id: string;
   simNumber: string;
@@ -51,4 +53,45 @@ export default class Module {
 
     return modules;
   }
+
+  static fromModuleData(moduleData?: ModuleData): Module {
+    if (!moduleData)
+      return {
+        river: "",
+        name: "",
+        id: "",
+        longitude: 0,
+        latitude: 0,
+        location: "",
+        updatedAt: new Date(Date.now()),
+        createdAt: new Date(Date.now()),
+        description: "",
+        serial: "",
+        simNumber: "",
+        hmm: 1,
+      };
+
+    return {
+      river: "Yaque del Norte",
+      name: "",
+      id: moduleData.moduleId,
+      longitude: -69.9,
+      latitude: 18.4667,
+      location: "18.4667,-69.9000",
+      updatedAt: new Date(moduleData.updateDate),
+      createdAt: new Date(moduleData.creationDate),
+      description: "Ubicado en el río Yaque del Norte",
+      serial: moduleData.serial,
+      simNumber: moduleData.phoneNumber,
+      hmm: 1,
+    };
+  }
+
+  static fromModuleDataList(moduleDataList?: ModuleData[]): Module[] {
+    if (!moduleDataList) return [];
+
+    const elements = moduleDataList.map((m) => Module.fromModuleData(m));
+    return elements;
+  }
 }
+
