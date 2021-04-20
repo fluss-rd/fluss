@@ -2,11 +2,15 @@ import { Button, Container, Grid, makeStyles, Typography } from "@material-ui/co
 import { useTheme } from "@material-ui/core/styles";
 import Image from "next/image";
 import React, { FC } from "react";
+import { useRouter } from "next/router";
 
 const Welcome: FC = () => {
   const theme = useTheme();
+  const router = useRouter();
   const primary = theme.palette.primary.main;
   const classes = useStyles();
+
+  const goToDataAndReports = () => router.push("/datos-y-reportes");
 
   return (
     <Container maxWidth="lg" className={classes.container}>
@@ -22,7 +26,12 @@ const Welcome: FC = () => {
             datos de parámetros fisicoquímicos del agua de los ríos de la República Dominicana
           </Typography>
 
-          <Button variant="contained" color="primary" style={{ fontWeight: "bold" }}>
+          <Button
+            variant="contained"
+            color="primary"
+            style={{ fontWeight: "bold" }}
+            onClick={goToDataAndReports}
+          >
             Ver datos y reportes
           </Button>
         </Grid>
@@ -62,3 +71,4 @@ export const useStyles = makeStyles((theme) => ({
 }));
 
 export default Welcome;
+
