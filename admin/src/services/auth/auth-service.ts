@@ -36,6 +36,8 @@ export async function getUserData(
   if (response.data) {
     response.data["userId"] = response.data["userID"];
     delete response.data["userID"];
+    if (!response.data.name)
+      response.data.name = response.data.name ? response.data.name : "Administrador";
   }
 
   return response;

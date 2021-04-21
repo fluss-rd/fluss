@@ -24,18 +24,18 @@ import FormField from "shared/components/FormField";
 import * as yup from "yup";
 
 const Login: FC = () => {
-  const [showPassword, setShowPassword] = useState(false);
   const { handleSubmit, errors, register } = useForm<Credentials>({
     resolver: yupResolver(loginSchema),
   });
-  const loginMutation = useLogin();
+  const [showPassword, setShowPassword] = useState(false);
   const classes = useStyles();
-
-  // Go to the specified page.
-  const push = (path: string) => () => router.push(path);
+  const loginMutation = useLogin();
 
   // Log In the user in the app
-  const onSubmit = (data: Credentials) => loginMutation.mutate(data);
+  const onSubmit = (credentials: Credentials) => loginMutation.mutate(credentials);
+
+  // Go to the specified page.
+  const goToRecoverPassword = () => router.push("/recuperar-contraseña");
 
   // Shows login message errors.
   const showError = () => {
@@ -114,7 +114,7 @@ const Login: FC = () => {
               }}
             />
 
-            <Link href="/recoverPassword" onClick={push("/recoverPassword")}>
+            <Link href="/recoverPassword" onClick={goToRecoverPassword}>
               ¿Olvidó su contraseña?
             </Link>
             <br />

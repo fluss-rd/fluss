@@ -4,5 +4,3 @@ export default function replaceProperty<T>(obj: T, old: string, newProperty: key
     delete obj[old];
   }
 }
-
-
