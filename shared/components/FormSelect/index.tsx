@@ -23,12 +23,10 @@ interface FormSelectProps extends SelectProps {
 const FormSelect: FC<FormSelectProps> = (props) => {
   const classes = useStyles();
   const selectId = useMemo(() => generateId("select"), []);
-  const { noneText } = props;
-  const propsCopy = { ...props };
-  delete propsCopy.noneText;
+  const { noneText, FormControlProps, ...rest } = props;
 
   return (
-    <FormControl fullWidth variant="outlined" {...props.FormControlProps}>
+    <FormControl fullWidth variant="outlined" {...FormControlProps}>
       <InputLabel shrink id={`${selectId}-label`}>
         {props.label}
       </InputLabel>
@@ -39,7 +37,7 @@ const FormSelect: FC<FormSelectProps> = (props) => {
         value={props.value}
         onChange={props.onChange}
         input={<OutlinedInput notched label={props.label} />}
-        {...propsCopy}
+        {...rest}
       >
         <MenuItem value={props.noneValue ? props.noneValue : ""}>
           <span className={classes.none}>{noneText}</span>
