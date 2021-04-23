@@ -74,8 +74,6 @@ const generateColumns = (handleModuleClicked: (id: string) => void): DataTableCo
   {
     id: "info",
     Header: "Detalle",
-    accessor: (data: Module, i: number) => (
-      <InfoIconButton index={data.id} handleClick={handleModuleClicked} />
-    ),
+    accessor: (data: Module, i: number) => <InfoIconButton index={data.id} />,
   },
 ];
