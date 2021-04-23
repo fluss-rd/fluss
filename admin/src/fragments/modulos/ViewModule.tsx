@@ -13,8 +13,8 @@ import {
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import { Close, EditLocationOutlined, InfoOutlined } from "@material-ui/icons";
 import { useGetModule } from "hooks/modules-service";
-import { FC, useEffect, useMemo, useState } from "react";
-import { useForm } from "react-hook-form";
+import { FC, useEffect, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import ReactInputMask from "react-input-mask";
 import { ModuleForm } from "services/modules/models";
 import FormField from "shared/components/FormField";
@@ -34,12 +34,14 @@ interface ViewModuleProps {
 const ViewModule: FC<ViewModuleProps> = (props) => {
   const classes = useStyles();
   const [locations] = useState([]);
-  const { handleSubmit, errors: formErrors, register, reset } = useForm<ModuleForm>({
+  const { handleSubmit, errors: formErrors, register, reset, control } = useForm<ModuleForm>({
     resolver: yupResolver(formSchema),
   });
   const moduleQuery = useGetModule(props.moduleId, {
     enabled: false,
-    onSuccess: (fetchResponse) => reset(fetchResponse?.data),
+    onSuccess: (response) => {
+      if (response?.data) reset(response?.data);
+    },
   });
 
   // Initialize module form initial data.
@@ -75,17 +77,21 @@ const ViewModule: FC<ViewModuleProps> = (props) => {
                   <FormIconTitle Icon={InfoOutlined} title="Detalle" />
                   <Grid container spacing={2}>
                     <Grid item xs={12} md={6}>
-                      <ReactInputMask mask="(999) 999-9999" maskChar=" ">
-                        {() => (
-                          <FormField
-                            label="Numéro celular"
-                            name="phoneNumber"
-                            inputRef={register}
-                            error={!!formErrors.phoneNumber}
-                            helperText={formErrors.phoneNumber?.message}
-                          />
-                        )}
-                      </ReactInputMask>
+                      <Controller
+                        name="phoneNumber"
+                        control={control}
+                        as={
+                          <ReactInputMask mask="(999) 999-9999" maskChar=" ">
+                            {() => (
+                              <FormField
+                                label="Numéro celular"
+                                error={!!formErrors.phoneNumber}
+                                helperText={formErrors.phoneNumber?.message}
+                              />
+                            )}
+                          </ReactInputMask>
+                        }
+                      />
                     </Grid>
                     <Grid item xs={12} md={6}>
                       <FormField
@@ -168,6 +174,17 @@ const ViewModule: FC<ViewModuleProps> = (props) => {
   );
 };
 
+const useStyles = makeStyles((theme: Theme) => ({
+  content: {
+    padding: theme.spacing(3),
+    width: "100%",
+  },
+  title: {
+    marginLeft: theme.spacing(2),
+    flex: 1,
+  },
+}));
+
 const formSchema: yup.SchemaOf<ModuleForm> = yup.object().shape({
   phoneNumber: yup.string().required("Por favor, introduzca el número de teléfono del módulo"),
   riverId: yup
@@ -185,16 +202,5 @@ const formSchema: yup.SchemaOf<ModuleForm> = yup.object().shape({
       .required("Debe inidicar la longitud de la ubicación del módulo"),
   }),
 });
-
-const useStyles = makeStyles((theme: Theme) => ({
-  content: {
-    padding: theme.spacing(3),
-    width: "100%",
-  },
-  title: {
-    marginLeft: theme.spacing(2),
-    flex: 1,
-  },
-}));
 
 export default ViewModule;
