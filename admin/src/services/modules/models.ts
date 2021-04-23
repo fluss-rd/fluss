@@ -13,3 +13,13 @@ export type ModuleData = {
     longitude: number;
   };
 };
+
+export type ModuleForm = {
+  phoneNumber: string;
+  riverId: string;
+  serial: string;
+  location: {
+    latitude: number;
+    longitude: number;
+  };
+};

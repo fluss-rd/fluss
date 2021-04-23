@@ -1,3 +1,4 @@
+import { yupResolver } from "@hookform/resolvers";
 import {
   AppBar,
   Button,
@@ -13,11 +14,14 @@ import { makeStyles, Theme } from "@material-ui/core/styles";
 import { Close, EditLocationOutlined, InfoOutlined } from "@material-ui/icons";
 import InfoIcon from "@material-ui/icons/Info";
 import { FC, useState } from "react";
+import { useForm } from "react-hook-form";
 import ReactInputMask from "react-input-mask";
+import { ModuleForm } from "services/modules/models";
 import FormField from "shared/components/FormField";
 import FormIconTitle from "shared/components/FormIconTitle";
 import FormSelect from "shared/components/FormSelect";
 import Transition from "shared/components/Transition";
+import * as yup from "yup";
 
 import ModuleLocation from "./ModuleLocation";
 
@@ -27,11 +31,17 @@ interface InfoIconButtonProps {
 
 const InfoIconButton: FC<InfoIconButtonProps> = () => {
   const classes = useStyles();
+  const { handleSubmit, errors: formErrors, register } = useForm<ModuleForm>({
+    resolver: yupResolver(formSchema),
+  });
   const [dialogIsOpen, setDialogIsOpen] = useState(false);
   const [locations] = useState([]);
 
   const closeDialog = () => setDialogIsOpen(false);
   const openDialog = () => setDialogIsOpen(true);
+  const onSubmit = () => (data: ModuleForm) => console.log(data);
+
+  console.log(formErrors);
 
   return (
     <>
@@ -40,7 +50,7 @@ const InfoIconButton: FC<InfoIconButtonProps> = () => {
       </IconButton>
 
       <Dialog fullScreen open={dialogIsOpen} onClose={closeDialog} TransitionComponent={Transition}>
-        <form>
+        <form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
           <AppBar color="inherit" elevation={0} style={{ position: "relative" }}>
             <Toolbar>
               <IconButton edge="start" color="inherit" onClick={closeDialog} aria-label="close">
@@ -49,7 +59,7 @@ const InfoIconButton: FC<InfoIconButtonProps> = () => {
               <Typography variant="h6" className={classes.title}>
                 Información de módulo
               </Typography>
-              <Button color="inherit" onClick={() => {}}>
+              <Button color="inherit" type="submit">
                 Guardar cambios
               </Button>
             </Toolbar>
@@ -65,11 +75,25 @@ const InfoIconButton: FC<InfoIconButtonProps> = () => {
                     <Grid container spacing={2}>
                       <Grid item xs={12} md={6}>
                         <ReactInputMask mask="(999) 999-9999" maskChar=" ">
-                          {() => <FormField label="Numéro celular" />}
+                          {() => (
+                            <FormField
+                              label="Numéro celular"
+                              name="phoneNumber"
+                              inputRef={register}
+                              error={!!formErrors.phoneNumber}
+                              helperText={formErrors.phoneNumber?.message}
+                            />
+                          )}
                         </ReactInputMask>
                       </Grid>
                       <Grid item xs={12} md={6}>
-                        <FormField name="serial" label="Serial" />
+                        <FormField
+                          name="serial"
+                          label="Serial"
+                          inputRef={register}
+                          error={!!formErrors.serial}
+                          helperText={formErrors.serial?.message}
+                        />
                       </Grid>
                       <Grid item xs={12} md={6}>
                         <FormField
@@ -86,13 +110,33 @@ const InfoIconButton: FC<InfoIconButtonProps> = () => {
                     <FormIconTitle Icon={EditLocationOutlined} title="Ubicación" />
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
-                        <FormField name="latitude" label="Latitud" type="number" />
+                        <FormField
+                          name="location.latitude"
+                          label="Latitud"
+                          type="number"
+                          inputRef={register}
+                          error={!!formErrors.location?.latitude}
+                          helperText={formErrors.location?.latitude?.message}
+                        />
                       </Grid>
                       <Grid item xs={12}>
-                        <FormField name="longitude" label="Longitud" type="number" />
+                        <FormField
+                          name="location.longitude"
+                          label="Longitud"
+                          type="number"
+                          inputRef={register}
+                          error={!!formErrors.location?.longitude}
+                          helperText={formErrors.location?.longitude?.message}
+                        />
                       </Grid>
                       <Grid item xs={12}>
-                        <FormSelect noneText="Ninguno" label="Cuerpo hídrico">
+                        <FormSelect
+                          noneText="Ninguno"
+                          label="Cuerpo hídrico"
+                          ref={register}
+                          error={!!formErrors.riverId}
+                          helperText={formErrors.riverId?.message}
+                        >
                           {locations.map((location, i) => (
                             <MenuItem key={i} value={location}>
                               {location}
@@ -122,6 +166,24 @@ const InfoIconButton: FC<InfoIconButtonProps> = () => {
     </>
   );
 };
+
+const formSchema: yup.SchemaOf<ModuleForm> = yup.object().shape({
+  phoneNumber: yup.string().required("Por favor, introduzca el número de teléfono del módulo"),
+  riverId: yup
+    .string()
+    .required("Por favor, seleccione el cuerpo hídrico al que pertenece el módulo"),
+  serial: yup.string().required("Por favor, introduzca el serial del módulo"),
+  location: yup.object().shape({
+    latitude: yup
+      .number()
+      .typeError("La latitud ingresada noes válida, debe ser un número")
+      .required("Debe inidicar la latitud de la ubicación del módulo"),
+    longitude: yup
+      .number()
+      .typeError("La longitud ingresada noes válida, debe ser un número")
+      .required("Debe inidicar la longitud de la ubicación del módulo"),
+  }),
+});
 
 const useStyles = makeStyles((theme: Theme) => ({
   content: {

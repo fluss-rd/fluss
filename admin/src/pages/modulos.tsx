@@ -1,7 +1,6 @@
 import { makeStyles, Typography } from "@material-ui/core";
 import InfoIconButton from "fragments/modulos/InfoIconButton";
 import RegisterModule from "fragments/modulos/RegisterModule";
-import ViewModule from "fragments/modulos/ViewModule";
 import { useGetModules } from "hooks/modules-service";
 import Module from "models/Module";
 import { useCallback, useMemo, useState } from "react";
@@ -25,14 +24,6 @@ export default function Modulos() {
       <br />
       <EnhancedDataTable withFilters withColumnsSelection data={modules} columns={columns} />
       <RegisterModule />
-      <ViewModule
-        open={viewState.isOpen}
-        moduleId={viewState.moduleId}
-        close={() => setViewState({ isOpen: false })}
-        onSave={(module: Module) => {
-          console.log(module);
-        }}
-      />
     </div>
   );
 }
@@ -70,7 +61,7 @@ const generateColumns = (handleModuleClicked: (id: string) => void): DataTableCo
     Header: "Fecha de registro",
     accessor: (data) => formatDate(data.createdAt),
   },
-  { accessor: "river", Header: "Cuerpo hídrico" },
+  { accessor: "riverName", Header: "Cuerpo hídrico" },
   {
     id: "info",
     Header: "Detalle",
