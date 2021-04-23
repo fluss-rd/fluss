@@ -1,10 +1,10 @@
 import { makeStyles, Typography } from "@material-ui/core";
 import InfoIconButton from "fragments/modulos/InfoIconButton";
 import RegisterModule from "fragments/modulos/RegisterModule";
+import ViewModule from "fragments/modulos/ViewModule";
 import { useGetModules } from "hooks/modules-service";
 import Module from "models/Module";
-import { useCallback, useMemo, useState } from "react";
-import { ModuleData } from "services/modules/models";
+import { useMemo } from "react";
 import { EnhancedDataTable } from "shared/components/Tables";
 import { DataTableColumn, SelectColumnFilter } from "shared/components/Tables";
 import formatDate from "shared/helpers/formatDate";
@@ -12,11 +12,14 @@ import useMergeState from "shared/hooks/useMergeState";
 
 export default function Modulos() {
   const classes = useStyles();
-  const { data: response, isLoading, refetch } = useGetModules();
+  const [state, setState] = useMergeState({ open: false, moduleId: "" });
+  const { data: response } = useGetModules();
+
+  const closeViewModule = () => setState({ open: false, moduleId: "" });
+  const openViewModule = (moduleId: string) => setState({ open: true, moduleId });
+
   const modules = Module.fromModuleDataList(response?.data);
-  const [viewState, setViewState] = useMergeState({ isOpen: false, moduleId: "" });
-  const selectModule = (id: string) => setViewState({ moduleId: id, isOpen: true });
-  const columns = useMemo(() => generateColumns(selectModule), []);
+  const columns = useMemo(() => generateColumns(openViewModule), []);
 
   return (
     <div className={classes.root}>
@@ -24,6 +27,7 @@ export default function Modulos() {
       <br />
       <EnhancedDataTable withFilters withColumnsSelection data={modules} columns={columns} />
       <RegisterModule />
+      <ViewModule moduleId={state.moduleId} open={state.open} close={closeViewModule} />
     </div>
   );
 }
@@ -35,7 +39,7 @@ const useStyles = makeStyles({
   },
 });
 
-const generateColumns = (handleModuleClicked: (id: string) => void): DataTableColumn<Module>[] => [
+const generateColumns = (onModuleInfo: (id: string) => void): DataTableColumn<Module>[] => [
   {
     Header: "ID",
     id: "id",
@@ -65,6 +69,8 @@ const generateColumns = (handleModuleClicked: (id: string) => void): DataTableCo
   {
     id: "info",
     Header: "Detalle",
-    accessor: (data: Module, i: number) => <InfoIconButton index={data.id} />,
+    accessor: (data: Module, i: number) => (
+      <InfoIconButton moduleId={data.id} onModuleInfo={onModuleInfo} />
+    ),
   },
 ];
