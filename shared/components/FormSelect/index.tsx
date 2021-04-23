@@ -12,18 +12,19 @@ import { makeStyles } from "@material-ui/core/styles";
 import generateId from "../../helpers/generateId";
 import React, { FC, useMemo } from "react";
 
-interface FormSelectProps extends SelectProps {
+interface FormSelectProps extends Omit<SelectProps, "ref"> {
   noneText?: string;
   noneValue?: any;
   error?: boolean;
   helperText?: string;
   FormControlProps?: Partial<FormControlProps>;
+  selectRef?: any;
 }
 
 const FormSelect: FC<FormSelectProps> = (props) => {
   const classes = useStyles();
   const selectId = useMemo(() => generateId("select"), []);
-  const { noneText, FormControlProps, ...rest } = props;
+  const { noneText, FormControlProps, selectRef, helperText, ...rest } = props;
 
   return (
     <FormControl fullWidth variant="outlined" {...FormControlProps}>
@@ -37,6 +38,7 @@ const FormSelect: FC<FormSelectProps> = (props) => {
         value={props.value}
         onChange={props.onChange}
         input={<OutlinedInput notched label={props.label} />}
+        ref={selectRef}
         {...rest}
       >
         <MenuItem value={props.noneValue ? props.noneValue : ""}>
@@ -44,7 +46,7 @@ const FormSelect: FC<FormSelectProps> = (props) => {
         </MenuItem>
         {props.children}
       </Select>
-      <FormHelperText error={props.error}>{props.helperText}</FormHelperText>
+      <FormHelperText error={props.error}>{helperText}</FormHelperText>
     </FormControl>
   );
 };
