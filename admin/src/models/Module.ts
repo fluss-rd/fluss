@@ -1,4 +1,6 @@
-import { ModuleData } from "services/modules/models";
+import { ModuleData, ModuleForm } from "services/modules/models";
+
+import River from "./River";
 
 export type Location = {
   latitude: number;
@@ -9,18 +11,17 @@ export default class Module {
   id: string;
   simNumber: string;
   serial: string;
-  description: string;
   location: Location;
   updatedAt: Date;
   createdAt: Date;
   riverName: string;
+  riverId: string;
   state: string;
 
   constructor(module: Partial<Module>) {
     this.id = module.id;
     this.simNumber = module.simNumber;
     this.serial = module.serial;
-    this.description = module.description;
     this.location = module.location;
     this.updatedAt = module.updatedAt;
     this.createdAt = module.createdAt;
@@ -39,7 +40,6 @@ export default class Module {
           serial: `000${i}`,
           createdAt: new Date(Date.now()),
           updatedAt: new Date(Date.now()),
-          description: "Permite obtener la información de los sensores y enviarlas",
           location: { latitude: 18.4667, longitude: -69.9 },
           riverName: "Yaque del Norte",
           state: "inactive",
@@ -50,26 +50,31 @@ export default class Module {
     return modules;
   }
 
-  static fromModuleData(moduleData?: ModuleData): Module | null {
-    if (!moduleData) return null;
-
+  static fromModuleData(moduleData: ModuleData): Module {
     return {
       id: moduleData.moduleId,
       location: { ...moduleData.location },
       riverName: moduleData.riverName,
       updatedAt: new Date(moduleData.updateDate),
       createdAt: new Date(moduleData.creationDate),
-      description: "Ubicado en el río Yaque del Norte",
       serial: moduleData.serial,
       simNumber: moduleData.phoneNumber,
+      riverId: moduleData.riverId,
       state: moduleData.state,
     };
   }
 
-  static fromModuleDataList(moduleDataList?: ModuleData[]): Module[] | undefined {
-    if (!moduleDataList) return undefined;
-
+  static fromModuleDataList(moduleDataList?: ModuleData[]): Module[] {
     const elements = moduleDataList.map((m) => Module.fromModuleData(m));
     return elements;
+  }
+
+  static toModuleForm(module: Module): ModuleForm {
+    return {
+      phoneNumber: module.simNumber,
+      serial: module.serial,
+      location: module.location,
+      riverId: module.riverId,
+    };
   }
 }

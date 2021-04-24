@@ -1,7 +1,7 @@
 import { AxiosResponse } from "axios";
 import { getToken } from "helpers/token";
+import Module from "models/Module";
 import { useQuery, UseQueryOptions } from "react-query";
-import { ModuleData } from "services/modules/models";
 import * as service from "services/modules/modules-service";
 
 export function useGetModules() {
@@ -13,7 +13,7 @@ export function useGetModules() {
 
 export function useGetModule(
   moduleId: string,
-  options?: UseQueryOptions<AxiosResponse<ModuleData>, unknown, AxiosResponse<ModuleData>, string[]>
+  options?: UseQueryOptions<AxiosResponse<Module>, unknown, AxiosResponse<Module>, string[]>
 ) {
   return useQuery(
     ["module", moduleId],

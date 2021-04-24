@@ -1,6 +1,8 @@
 import { AxiosResponse } from "axios";
 import mockAxiosResponse from "helpers/mockAxiosResponse";
 import replaceProperty from "helpers/replaceProperty";
+import Module from "models/Module";
+import ServiceResponse from "models/ServiceResponse";
 
 import axiosInstance from "../axiosInstance";
 import { ModuleData } from "./models";
@@ -24,7 +26,7 @@ export async function getModules(token: string): Promise<AxiosResponse<ModuleDat
 export async function getModule(
   token: string,
   moduleId: string
-): Promise<AxiosResponse<ModuleData | null>> {
+): Promise<ServiceResponse<Module | null>> {
   //const response = await axiosInstance.get<ModuleData>(`/modules/${moduleId}`, {
   //headers: { Authorization: `Bearer ${token}` },
   //});
@@ -38,17 +40,24 @@ export async function getModule(
   //console.log({ module });
   //}
 
-  const response = mockAxiosResponse({
-    userId: "fdsa",
-    riverId: "fdsf233",
-    moduleId: "module-ID203",
-    state: "active",
-    serial: "serial-29329d",
-    location: { latitude: 12.43, longitude: -39.34 },
-    riverName: "Yaque del norte",
-    updateDate: new Date(Date.now()).toString(),
-    phoneNumber: "8098013284",
-    creationDate: new Date(Date.now()).toString(),
-  } as ModuleData);
+  const module: Module = {
+    id: "MDLd931a61d5bb442c696e1c9a7dfa9ed87",
+    state: "inactive",
+    serial: "serial-193KJF23",
+    location: {
+      latitude: 19.627234,
+      longitude: -71.126908,
+    },
+    riverName: "Yaque del Norte",
+    riverId: "RVRc7c5d271cc1d40e990c103950bb75514",
+    createdAt: new Date(Date.now()),
+    simNumber: "8098045201",
+    updatedAt: new Date(Date.now()),
+  };
+
+  const response: ServiceResponse<Module> = ServiceResponse.fromAxiosResponse(
+    mockAxiosResponse(module)
+  );
+
   return response;
 }

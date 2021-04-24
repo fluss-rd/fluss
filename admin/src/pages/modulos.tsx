@@ -18,7 +18,8 @@ export default function Modulos() {
   const closeViewModule = () => setState({ open: false, moduleId: "" });
   const openViewModule = (moduleId: string) => setState({ open: true, moduleId });
 
-  const modules = Module.fromModuleDataList(response?.data);
+  const modules =
+    response?.data !== undefined ? Module.fromModuleDataList(response?.data) : undefined;
   const columns = useMemo(() => generateColumns(openViewModule), []);
 
   return (

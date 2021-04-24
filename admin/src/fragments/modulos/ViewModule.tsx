@@ -14,8 +14,9 @@ import { makeStyles, Theme } from "@material-ui/core/styles";
 import { Close, EditLocationOutlined, InfoOutlined } from "@material-ui/icons";
 import { useGetModule } from "hooks/modules-service";
 import { useGetRivers } from "hooks/rivers-service";
+import Module from "models/Module";
 import River from "models/River";
-import { FC, useEffect, useState } from "react";
+import { ChangeEvent, FC, useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import ReactInputMask from "react-input-mask";
 import { ModuleForm } from "services/modules/models";
@@ -36,17 +37,21 @@ interface ViewModuleProps {
 
 const ViewModule: FC<ViewModuleProps> = (props) => {
   const classes = useStyles();
-  const { handleSubmit, errors: formErrors, register, reset, control } = useForm<ModuleForm>({
-    resolver: yupResolver(formSchema),
-  });
+  const form = useForm<ModuleForm>({ resolver: yupResolver(formSchema) });
+  const { handleSubmit, errors, register, reset, control, setValue } = form;
   const riversQuery = useGetRivers({ enabled: false });
   const moduleQuery = useGetModule(props.moduleId, {
     enabled: false,
-    // Initialize module form initial data.
     onSuccess: (response) => {
-      if (response?.data) reset(response.data);
+      // Initialize module form initial data.
+      if (response?.data) {
+        const defaultValues = Module.toModuleForm(response.data);
+        reset(defaultValues);
+      }
     },
   });
+  const module: Module = moduleQuery.data?.data || ({} as Module);
+  const rivers: River[] = riversQuery.data?.data || [];
 
   // Refetch module data on dialog opening.
   useEffect(() => {
@@ -56,12 +61,23 @@ const ViewModule: FC<ViewModuleProps> = (props) => {
     }
   }, [props.open]);
 
+  // Register riverId to the form.
+  useEffect(() => {
+    if (props.open) register("riverId");
+  }, [register]);
+
+  // Update the module data.
   const onSubmit = () => (data: ModuleForm) => console.log(data);
 
-  const data = moduleQuery.data?.data;
-  const creationDate = formatDate(new Date(data?.creationDate), { type: "dateAndTime" });
-  const updateDate = formatDate(new Date(data?.updateDate), { type: "dateAndTime" });
-  const rivers = riversQuery.isSuccess ? riversQuery.data?.data : [];
+  // Update the riverId value when the river name changes.
+  const onRiverIdChange = (e: ChangeEvent<{ name: string; value: string }>) => {
+    if (!riversQuery.data?.data) return;
+
+    const riverName = e.target.value;
+    const riverMatch = riversQuery.data.data.find((river) => river.name === riverName);
+
+    setValue("riverId", riverMatch?.id || "", { shouldValidate: true });
+  };
 
   return (
     <Dialog fullScreen open={props.open} onClose={props.close} TransitionComponent={Transition}>
@@ -89,7 +105,7 @@ const ViewModule: FC<ViewModuleProps> = (props) => {
                 underlined
                 fullWidth={false}
                 variant="standard"
-                value={creationDate}
+                value={formatDate(module.createdAt, { type: "dateAndTime" })}
                 label="Fecha de registro"
               />
               <FormField
@@ -97,7 +113,7 @@ const ViewModule: FC<ViewModuleProps> = (props) => {
                 underlined
                 fullWidth={false}
                 variant="standard"
-                value={updateDate}
+                value={formatDate(new Date(module.updatedAt), { type: "dateAndTime" })}
                 label="Última actualización"
               />
             </Grid>
@@ -108,14 +124,15 @@ const ViewModule: FC<ViewModuleProps> = (props) => {
                 <Grid item xs={12} md={6}>
                   <Controller
                     name="phoneNumber"
+                    defaultValue=""
                     control={control}
                     as={
-                      <ReactInputMask mask="(999) 999-9999" maskChar=" ">
+                      <ReactInputMask mask="(999) 999-9999">
                         {() => (
                           <FormField
                             label="Numéro celular"
-                            error={!!formErrors.phoneNumber}
-                            helperText={formErrors.phoneNumber?.message}
+                            error={!!errors.phoneNumber}
+                            helperText={errors.phoneNumber?.message}
                           />
                         )}
                       </ReactInputMask>
@@ -127,8 +144,8 @@ const ViewModule: FC<ViewModuleProps> = (props) => {
                     name="serial"
                     label="Serial"
                     inputRef={register}
-                    error={!!formErrors.serial}
-                    helperText={formErrors.serial?.message}
+                    error={!!errors.serial}
+                    helperText={errors.serial?.message}
                   />
                 </Grid>
               </Grid>
@@ -139,30 +156,32 @@ const ViewModule: FC<ViewModuleProps> = (props) => {
               <Grid container spacing={2}>
                 <Grid item xs={12} md={6}>
                   <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                      <FormSelect
-                        name="riverId"
-                        noneText="Ninguno"
-                        label="Cuerpo hídrico"
-                        selectRef={register}
-                        error={!!formErrors.riverId}
-                        helperText={formErrors.riverId?.message}
-                      >
-                        {rivers.map((river: River) => (
-                          <MenuItem key={river.id} value={river.name}>
-                            {river.name}
-                          </MenuItem>
-                        ))}
-                      </FormSelect>
-                    </Grid>
+                    {moduleQuery.data?.data?.riverName && rivers.length && (
+                      <Grid item xs={12}>
+                        <FormSelect
+                          noneText="Ninguno"
+                          label="Cuerpo hídrico"
+                          error={!!errors.riverId}
+                          helperText={errors.riverId?.message}
+                          onChange={onRiverIdChange}
+                          defaultValue={module.riverName}
+                        >
+                          {rivers.map((river: River) => (
+                            <MenuItem key={river.id} value={river.name}>
+                              {river.name}
+                            </MenuItem>
+                          ))}
+                        </FormSelect>
+                      </Grid>
+                    )}
                     <Grid item xs={12} md={6}>
                       <FormField
                         name="location.latitude"
                         label="Latitud"
                         type="number"
                         inputRef={register}
-                        error={!!formErrors.location?.latitude}
-                        helperText={formErrors.location?.latitude?.message}
+                        error={!!errors.location?.latitude}
+                        helperText={errors.location?.latitude?.message}
                       />
                     </Grid>
                     <Grid item xs={12} md={6}>
@@ -171,8 +190,8 @@ const ViewModule: FC<ViewModuleProps> = (props) => {
                         label="Longitud"
                         type="number"
                         inputRef={register}
-                        error={!!formErrors.location?.longitude}
-                        helperText={formErrors.location?.longitude?.message}
+                        error={!!errors.location?.longitude}
+                        helperText={errors.location?.longitude?.message}
                       />
                     </Grid>
                   </Grid>
