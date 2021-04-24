@@ -66,7 +66,7 @@ const ViewModule: FC<ViewModuleProps> = (props) => {
     if (props.open) register("riverId");
   }, [register]);
 
-  // Update the module data.
+  // Update the module data when the form is submitted.
   const onSubmit = () => (data: ModuleForm) => console.log(data);
 
   // Update the riverId value when the river name changes.
@@ -77,6 +77,11 @@ const ViewModule: FC<ViewModuleProps> = (props) => {
     const riverMatch = riversQuery.data.data.find((river) => river.name === riverName);
 
     setValue("riverId", riverMatch?.id || "", { shouldValidate: true });
+  };
+
+  const changeLocation = (latitude: number, longitude: number) => {
+    form.setValue("location.latitude", latitude);
+    form.setValue("location.longitude", longitude);
   };
 
   return (
@@ -198,7 +203,7 @@ const ViewModule: FC<ViewModuleProps> = (props) => {
                 </Grid>
                 <Grid item xs={12} md={6}>
                   <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                    <ModuleLocation onNewMarker={(l, g) => {}} />
+                    <ModuleLocation onNewMarker={changeLocation} />
                     <br />
                     <Typography style={{ fontWeight: "bold" }} color="textSecondary">
                       Ubicación
@@ -224,7 +229,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     "& > *:not(:last-child)": {
       marginRight: theme.spacing(2),
     },
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("xs")]: {
       flexDirection: "column",
       "& > *:not(:last-child)": {
         marginRight: 0,
@@ -242,7 +247,7 @@ const formSchema: yup.SchemaOf<ModuleForm> = yup.object().shape({
   phoneNumber: yup.string().required("Por favor, introduzca el número de teléfono del módulo"),
   riverId: yup
     .string()
-    .required("Por favor, seleccione el cuerpo hídrico al que pertenece el módulo"),
+    .required("Por favor, seleccione el cuerpo hídrico donde el módulo se encuentra ubicado"),
   serial: yup.string().required("Por favor, introduzca el serial del módulo"),
   location: yup.object().shape({
     latitude: yup

@@ -14,10 +14,8 @@ export default function Modulos() {
   const classes = useStyles();
   const [state, setState] = useMergeState({ open: false, moduleId: "" });
   const { data: response } = useGetModules();
-
   const closeViewModule = () => setState({ open: false, moduleId: "" });
   const openViewModule = (moduleId: string) => setState({ open: true, moduleId });
-
   const modules =
     response?.data !== undefined ? Module.fromModuleDataList(response?.data) : undefined;
   const columns = useMemo(() => generateColumns(openViewModule), []);
