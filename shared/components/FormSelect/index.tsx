@@ -35,7 +35,6 @@ const FormSelect: FC<FormSelectProps> = (props) => {
         displayEmpty
         labelId={`${selectId}-label`}
         id={selectId}
-        value={props.value}
         onChange={props.onChange}
         input={<OutlinedInput notched label={props.label} />}
         ref={selectRef}
@@ -53,7 +52,6 @@ const FormSelect: FC<FormSelectProps> = (props) => {
 
 FormSelect.defaultProps = {
   noneText: "Todos",
-  value: "",
   FormControlProps: {},
 };
 

@@ -7,7 +7,9 @@ export type FormatDateConfig = {
   dateTimeSeparator?: string;
 };
 
-export default function formatDate(date: Date, config: FormatDateConfig = {}) {
+export default function formatDate(date?: Date, config: FormatDateConfig = {}): string {
+  if (!date) return "";
+
   const type = config.type ? config.type : "date";
   const separator = config.separator ? config.separator : "/";
   const dateTimeSeparator = config.dateTimeSeparator ? config.dateTimeSeparator : " ";
@@ -22,7 +24,15 @@ export default function formatDate(date: Date, config: FormatDateConfig = {}) {
       return hours + separator + minutes;
     case "dateAndTime":
       return (
-        day + separator + month + separator + year + dateTimeSeparator + hours + timeSeparator + minutes
+        day +
+        separator +
+        month +
+        separator +
+        year +
+        dateTimeSeparator +
+        hours +
+        timeSeparator +
+        minutes
       );
     default:
       return "";
