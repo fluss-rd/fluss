@@ -6,7 +6,7 @@ import EnhancedDataTableToolbar, {
 } from "./EnhancedDataTableToolbar";
 
 type EnhancedDataTableProps<T extends object> = DataTableProps<T> &
-  EnhancedDataTableToolbarProps<T> & { isLoading: boolean };
+  EnhancedDataTableToolbarProps<T> & { isLoading?: boolean };
 
 export default function EnhancedDataTable<T extends object>(props: EnhancedDataTableProps<T>) {
   const classes = useStyles();
