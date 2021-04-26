@@ -10,6 +10,7 @@ import {
 } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import { Close } from "@material-ui/icons";
+import { AxiosResponse } from "axios";
 import { useGetModule } from "hooks/modules-service";
 import Module from "models/Module";
 import { FC, useEffect } from "react";
@@ -28,27 +29,27 @@ interface ViewModuleProps {
 
 const ViewModule: FC<ViewModuleProps> = (props) => {
   const classes = useStyles();
-  const formLogic = useModuleForm();
-  const moduleQuery = useGetModule(props.moduleId, {
-    enabled: false,
-    onSuccess: (response) => {
-      // Initialize module form initial data.
-      if (response?.data) {
-        const defaultValues = Module.toModuleForm(response.data);
-        formLogic.form.reset(defaultValues);
-      }
-    },
-  });
+  const formLogic = useModuleForm(props.open);
+  const moduleQuery = useGetModule(props.moduleId, { enabled: false, onSuccess });
   const module: Module = moduleQuery.data?.data || ({} as Module);
-  const onSubmit = (data: any) => console.log(data);
 
-  // Refetch module data on dialog opening.
-  useEffect(() => {
-    if (props.open) {
-      moduleQuery.refetch();
-      formLogic.riversQuery.refetch();
+  useEffect(fetchModuleOnOpening, [props.open]);
+
+  // Initialize the form with the module data.
+  function onSuccess(response: AxiosResponse<Module>) {
+    if (response?.data) {
+      const defaultValues = Module.toModuleForm(response.data);
+      formLogic.form.reset(defaultValues);
     }
-  }, [props.open]);
+  }
+
+  function fetchModuleOnOpening() {
+    if (props.open) moduleQuery.refetch();
+  }
+
+  function onSubmit(data: any) {
+    console.log(data);
+  }
 
   return (
     <Dialog fullScreen open={props.open} onClose={props.close} TransitionComponent={Transition}>
@@ -88,7 +89,11 @@ const ViewModule: FC<ViewModuleProps> = (props) => {
                 label="Última actualización"
               />
             </Grid>
-            <ModuleForm moduleForm={formLogic} module={module} />
+            <ModuleForm
+              moduleForm={formLogic}
+              module={module}
+              ModuleLocationProps={{ markLocation: true }}
+            />
           </Grid>
         </div>
       </form>

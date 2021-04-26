@@ -9,18 +9,20 @@ import FormField from "shared/components/FormField";
 import FormIconTitle from "shared/components/FormIconTitle";
 import FormSelect from "shared/components/FormSelect";
 
+import { ModuleLocationProps } from "./ModuleLocation";
 import ModuleLocation from "./ModuleLocation";
 import { UseModuleForm } from "./useModuleForm";
 
 interface ModuleFormProps {
   moduleForm: UseModuleForm;
   module?: Module;
+  ModuleLocationProps?: Partial<ModuleLocationProps>;
 }
 
 const ModuleForm: FC<ModuleFormProps> = (props) => {
   const { form, onRiverIdChange, changeLocation, riversQuery } = props.moduleForm;
   const { control, errors, register } = form;
-  const rivers = riversQuery.isSuccess ? riversQuery.data?.data || [] : [];
+  const rivers = riversQuery.data?.data || [];
   const module = props.module;
 
   return (
@@ -83,7 +85,7 @@ const ModuleForm: FC<ModuleFormProps> = (props) => {
                   </FormSelect>
                 </Grid>
               )}
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12}>
                 <FormField
                   name="location.latitude"
                   label="Latitud"
@@ -93,7 +95,7 @@ const ModuleForm: FC<ModuleFormProps> = (props) => {
                   helperText={errors.location?.latitude?.message}
                 />
               </Grid>
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12}>
                 <FormField
                   name="location.longitude"
                   label="Longitud"
@@ -107,7 +109,7 @@ const ModuleForm: FC<ModuleFormProps> = (props) => {
           </Grid>
           <Grid item xs={12} md={6}>
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-              <ModuleLocation onNewMarker={changeLocation} />
+              <ModuleLocation onNewMarker={changeLocation} {...props.ModuleLocationProps} />
               <br />
               <Typography style={{ fontWeight: "bold" }} color="textSecondary">
                 Ubicación
@@ -119,5 +121,7 @@ const ModuleForm: FC<ModuleFormProps> = (props) => {
     </>
   );
 };
+
+ModuleForm.defaultProps = {};
 
 export default ModuleForm;

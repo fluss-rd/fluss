@@ -15,7 +15,7 @@ export type UseModuleForm = {
   riversQuery: UseQueryResult<ServiceResponse<River[]>, unknown>;
 };
 
-export default function useModuleForm(): UseModuleForm {
+export default function useModuleForm(formIsOpen = true): UseModuleForm {
   const form = useForm<ModuleForm>({ resolver: yupResolver(moduleFormSchema) });
   const riversQuery = useGetRivers({ enabled: false });
 
@@ -23,6 +23,13 @@ export default function useModuleForm(): UseModuleForm {
   useEffect(() => {
     form.register("riverId");
   }, [form.register]);
+
+  // Fetch rivers data on opening
+  useEffect(() => {
+    if (formIsOpen) {
+      riversQuery.refetch();
+    }
+  }, [formIsOpen]);
 
   // Update the riverId value when the river name changes.
   const onRiverIdChange = (e: ChangeEvent<{ name: string; value: string }>) => {
