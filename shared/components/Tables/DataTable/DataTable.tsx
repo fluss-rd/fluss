@@ -47,22 +47,19 @@ function DataTable<T extends object>(props: DataTableProps<T>, ref: ForwardedRef
   const classes = useStyles(props);
   const { table, loading } = useDataTable();
   const prevLoading = usePrevious(loading);
-
-  // The returned object will be used by another component that uses a reference of the table.
-  useImperativeHandle(ref, () => ({ context: table }), [table]);
-
   const thereAreElements = props.paginated ? table.page.length === 0 : table.rows.length === 0;
   const dataIsLoading = props.data === undefined;
   const noSearchResults = prevLoading !== loading && thereAreElements;
   const showRows = !dataIsLoading && !noSearchResults && !thereAreElements;
 
+  // The returned object will be used by another component that uses a reference of the table.
+  useImperativeHandle(ref, () => ({ context: table }), [table]);
+
   return (
     <div className={classes.root}>
       <Paper className={classes.paper} elevation={props.elevation}>
         <TableContainer>
-          {props.data === undefined || props.data === null ? (
-            <LinearProgress color="secondary" />
-          ) : null}
+          {loading && <LinearProgress color="secondary" />}
           <Table
             {...table.getTableProps()}
             size={props.densed ? "small" : "medium"}
