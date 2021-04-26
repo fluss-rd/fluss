@@ -13,18 +13,23 @@ import useMergeState from "shared/hooks/useMergeState";
 export default function Modulos() {
   const classes = useStyles();
   const [state, setState] = useMergeState({ open: false, moduleId: "" });
-  const { data: response } = useGetModules();
   const closeViewModule = () => setState({ open: false, moduleId: "" });
   const openViewModule = (moduleId: string) => setState({ open: true, moduleId });
-  const modules =
-    response?.data !== undefined ? Module.fromModuleDataList(response?.data) : undefined;
+  const { data: modulesResponse, isLoading: modulesAreLoading } = useGetModules();
+  const modules = Module.fromModuleDataList(modulesResponse?.data || []);
   const columns = useMemo(() => generateColumns(openViewModule), []);
 
   return (
     <div className={classes.root}>
       <Typography variant="h4">Módulos</Typography>
       <br />
-      <EnhancedDataTable withFilters withColumnsSelection data={modules} columns={columns} />
+      <EnhancedDataTable
+        withFilters
+        withColumnsSelection
+        isLoading={modulesAreLoading}
+        data={modules}
+        columns={columns}
+      />
       <RegisterModule />
       <ViewModule moduleId={state.moduleId} open={state.open} close={closeViewModule} />
     </div>
