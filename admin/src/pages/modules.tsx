@@ -11,13 +11,19 @@ import formatDate from "shared/helpers/formatDate";
 import useMergeState from "shared/hooks/useMergeState";
 
 export default function Modulos() {
-  const classes = useStyles();
   const [state, setState] = useMergeState({ open: false, moduleId: "" });
-  const closeViewModule = () => setState({ open: false, moduleId: "" });
-  const openViewModule = (moduleId: string) => setState({ open: true, moduleId });
-  const { data: modulesResponse, isLoading: modulesAreLoading } = useGetModules();
-  const modules = Module.fromModuleDataList(modulesResponse?.data || []);
+  const classes = useStyles();
+  const modulesQuery = useGetModules();
+  const modules = Module.fromModuleDataList(modulesQuery.data?.data || []);
   const columns = useMemo(() => generateColumns(openViewModule), []);
+
+  function closeViewModule() {
+    setState({ open: false, moduleId: "" });
+  }
+
+  function openViewModule(moduleId: string) {
+    setState({ open: true, moduleId });
+  }
 
   return (
     <div className={classes.root}>
@@ -26,7 +32,7 @@ export default function Modulos() {
       <EnhancedDataTable
         withFilters
         withColumnsSelection
-        isLoading={modulesAreLoading}
+        isLoading={modulesQuery.isLoading}
         data={modules}
         columns={columns}
       />
@@ -35,13 +41,6 @@ export default function Modulos() {
     </div>
   );
 }
-
-const useStyles = makeStyles({
-  root: {
-    position: "relative",
-    height: "100%",
-  },
-});
 
 const generateColumns = (onModuleInfo: (id: string) => void): DataTableColumn<Module>[] => [
   {
@@ -78,3 +77,10 @@ const generateColumns = (onModuleInfo: (id: string) => void): DataTableColumn<Mo
     ),
   },
 ];
+
+const useStyles = makeStyles({
+  root: {
+    position: "relative",
+    height: "100%",
+  },
+});
