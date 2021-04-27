@@ -1,5 +1,5 @@
 import { Typography } from "@material-ui/core";
-import CreateUser from "fragments/usuarios/CreateUser";
+import CreateUser from "fragments/users/CreateUser";
 import User from "models/User";
 import { NextPage } from "next";
 import { DataTableColumn, EnhancedDataTable, SelectColumnFilter } from "shared/components/Tables";

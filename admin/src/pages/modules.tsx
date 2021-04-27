@@ -1,7 +1,7 @@
 import { makeStyles, Typography } from "@material-ui/core";
-import InfoIconButton from "fragments/modulos/InfoIconButton";
-import RegisterModule from "fragments/modulos/RegisterModule";
-import ViewModule from "fragments/modulos/ViewModule";
+import InfoIconButton from "fragments/modules/InfoIconButton";
+import RegisterModule from "fragments/modules/RegisterModule";
+import ViewModule from "fragments/modules/ViewModule";
 import { useGetModules } from "hooks/modules-service";
 import Module from "models/Module";
 import { useMemo } from "react";

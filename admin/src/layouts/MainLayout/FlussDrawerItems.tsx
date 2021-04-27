@@ -21,7 +21,12 @@ export default function FlussDrawerItems() {
       <List component="nav">
         <FlussDrawreItem title="Inicio" icon={Home} to="/" />
         <FlussDrawreItem title="Módulos" icon={ViewModule} to="/modules" as="/modulos" />
-        <FlussDrawreItem title="Cuerpos hídricos" icon={TrackChanges} to="/rivers" as="rios" />
+        <FlussDrawreItem
+          title="Cuerpos hídricos"
+          icon={TrackChanges}
+          to="/rivers"
+          as="cuerpos-hidricos"
+        />
         <FlussDrawreItem
           title="Roles y permisos"
           icon={VpnKey}
