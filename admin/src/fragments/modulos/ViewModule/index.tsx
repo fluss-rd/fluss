@@ -18,8 +18,8 @@ import FormField from "shared/components/FormField";
 import Transition from "shared/components/Transition";
 import { formatDate } from "shared/helpers";
 
-import ModuleForm from "./ModuleForm";
-import useModuleForm from "./useModuleForm";
+import ModuleForm from "../ModuleForm";
+import useModuleForm from "../ModuleForm/useModuleForm";
 
 interface ViewModuleProps {
   open?: boolean;

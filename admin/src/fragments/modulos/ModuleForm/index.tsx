@@ -9,8 +9,8 @@ import FormField from "shared/components/FormField";
 import FormIconTitle from "shared/components/FormIconTitle";
 import FormSelect from "shared/components/FormSelect";
 
-import { ModuleLocationProps } from "./ModuleLocation";
-import ModuleLocation from "./ModuleLocation";
+import { ModuleLocationProps } from "../ModuleLocation";
+import ModuleLocation from "../ModuleLocation";
 import { UseModuleForm } from "./useModuleForm";
 
 interface ModuleFormProps {

@@ -14,8 +14,8 @@ import RegisterModuleForm from "models/RegisterModuleForm";
 import React, { FC } from "react";
 import ModalContent from "shared/components/ModalContent";
 
-import ModuleForm from "./ModuleForm";
-import useModuleForm from "./useModuleForm";
+import ModuleForm from "../ModuleForm";
+import useModuleForm from "../ModuleForm/useModuleForm";
 
 interface OpenFormButtonProps {}
 
