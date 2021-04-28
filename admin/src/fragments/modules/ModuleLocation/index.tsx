@@ -1,19 +1,18 @@
-import { makeStyles, Theme } from "@material-ui/core/styles";
 import { LocationOn } from "@material-ui/icons";
 import React, { FC, memo, useEffect, useState } from "react";
-import ReactMapGL, { InteractiveMap, Marker } from "react-map-gl";
+import { InteractiveMap, Marker } from "react-map-gl";
 
-interface ModuleLocationProps {
+export interface ModuleLocationProps {
   isMarkerShown?: boolean;
   onNewMarker: (latitude: number, longitude: number) => void;
   height?: number | string;
   width?: number | string;
   latitude?: number;
   longitude?: number;
+  markLocation?: boolean;
 }
 
 const ModuleLocation: FC<ModuleLocationProps> = (props) => {
-  const classes = useStyles();
   const [markers, setMarkers] = useState([]);
   const [viewport, setViewport] = useState({
     width: props.width,
@@ -24,9 +23,10 @@ const ModuleLocation: FC<ModuleLocationProps> = (props) => {
   });
 
   useEffect(() => {
-    const { latitude, longitude } = viewport;
-    setMarkers((markers) => [{ longitude, latitude }]);
-    props.onNewMarker(latitude, longitude);
+    if (props.markLocation) {
+      const { latitude, longitude } = props;
+      setMarkers((markers) => [{ latitude, longitude }]);
+    }
   }, []);
 
   function handleClick({ lngLat: [longitude, latitude] }) {
@@ -54,8 +54,6 @@ const ModuleLocation: FC<ModuleLocationProps> = (props) => {
     </InteractiveMap>
   );
 };
-
-const useStyles = makeStyles(() => ({}));
 
 const Memoized: FC<ModuleLocationProps> = memo(ModuleLocation);
 (Memoized as any).defaultProps = {

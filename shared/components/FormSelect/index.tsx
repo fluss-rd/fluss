@@ -12,23 +12,22 @@ import { makeStyles } from "@material-ui/core/styles";
 import generateId from "../../helpers/generateId";
 import React, { FC, useMemo } from "react";
 
-interface FormSelectProps extends SelectProps {
+interface FormSelectProps extends Omit<SelectProps, "ref"> {
   noneText?: string;
   noneValue?: any;
   error?: boolean;
   helperText?: string;
   FormControlProps?: Partial<FormControlProps>;
+  selectRef?: any;
 }
 
 const FormSelect: FC<FormSelectProps> = (props) => {
   const classes = useStyles();
   const selectId = useMemo(() => generateId("select"), []);
-  const { noneText } = props;
-  const propsCopy = { ...props };
-  delete propsCopy.noneText;
+  const { noneText, FormControlProps, selectRef, helperText, ...rest } = props;
 
   return (
-    <FormControl fullWidth variant="outlined" {...props.FormControlProps}>
+    <FormControl fullWidth variant="outlined" {...FormControlProps}>
       <InputLabel shrink id={`${selectId}-label`}>
         {props.label}
       </InputLabel>
@@ -36,24 +35,23 @@ const FormSelect: FC<FormSelectProps> = (props) => {
         displayEmpty
         labelId={`${selectId}-label`}
         id={selectId}
-        value={props.value}
         onChange={props.onChange}
         input={<OutlinedInput notched label={props.label} />}
-        {...propsCopy}
+        ref={selectRef}
+        {...rest}
       >
         <MenuItem value={props.noneValue ? props.noneValue : ""}>
           <span className={classes.none}>{noneText}</span>
         </MenuItem>
         {props.children}
       </Select>
-      <FormHelperText error={props.error}>{props.helperText}</FormHelperText>
+      <FormHelperText error={props.error}>{helperText}</FormHelperText>
     </FormControl>
   );
 };
 
 FormSelect.defaultProps = {
   noneText: "Todos",
-  value: "",
   FormControlProps: {},
 };
 

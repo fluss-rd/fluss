@@ -1,10 +1,9 @@
 import { Paper, Typography } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
-import React, { FC } from "react";
+import { NextPage } from "next";
+import React from "react";
 
-interface Fluss404Props {}
-
-const Fluss404: FC<Fluss404Props> = (props) => {
+const Fluss404: NextPage = () => {
   const classes = useStyles();
 
   return (

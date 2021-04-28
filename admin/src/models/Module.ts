@@ -1,30 +1,32 @@
+import { ModuleData, ModuleForm } from "services/modules/models";
+
+import River from "./River";
+
+export type Location = {
+  latitude: number;
+  longitude: number;
+};
+
 export default class Module {
   id: string;
   simNumber: string;
   serial: string;
-  name: string;
-  description: string;
-  location: string;
-  latitude: number;
-  longitude: number;
+  location: Location;
   updatedAt: Date;
   createdAt: Date;
-  river: string;
-  hmm: number;
+  riverName: string;
+  riverId: string;
+  state: string;
 
   constructor(module: Partial<Module>) {
     this.id = module.id;
     this.simNumber = module.simNumber;
     this.serial = module.serial;
-    this.name = module.name;
-    this.description = module.description;
     this.location = module.location;
-    this.latitude = module.latitude;
-    this.longitude = module.longitude;
     this.updatedAt = module.updatedAt;
     this.createdAt = module.createdAt;
-    this.river = module.river;
-    this.hmm = module.hmm;
+    this.riverName = module.riverName;
+    this.state = module.state;
   }
 
   static mockData(): Module[] {
@@ -38,17 +40,41 @@ export default class Module {
           serial: `000${i}`,
           createdAt: new Date(Date.now()),
           updatedAt: new Date(Date.now()),
-          description: "Permite obtener la información de los sensores y enviarlas",
-          location: "18.4667,-69.9000",
-          latitude: 18.4667,
-          longitude: -69.9,
-          name: `Módulo ${i}`,
-          river: "Yaque del Norte",
-          hmm: i,
+          location: { latitude: 18.4667, longitude: -69.9 },
+          riverName: "Yaque del Norte",
+          state: "inactive",
         })
       );
     }
 
     return modules;
+  }
+
+  static fromModuleData(moduleData: ModuleData): Module {
+    return {
+      id: moduleData.moduleId,
+      location: { ...moduleData.location },
+      riverName: moduleData.riverName,
+      updatedAt: new Date(moduleData.updateDate),
+      createdAt: new Date(moduleData.creationDate),
+      serial: moduleData.serial,
+      simNumber: moduleData.phoneNumber,
+      riverId: moduleData.riverId,
+      state: moduleData.state,
+    };
+  }
+
+  static fromModuleDataList(moduleDataList?: ModuleData[]): Module[] {
+    const elements = moduleDataList.map((m) => Module.fromModuleData(m));
+    return elements;
+  }
+
+  static toModuleForm(module: Module): ModuleForm {
+    return {
+      phoneNumber: module.simNumber,
+      serial: module.serial,
+      location: module.location,
+      riverId: module.riverId,
+    };
   }
 }

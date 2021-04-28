@@ -1,6 +1,6 @@
 import { Typography } from "@material-ui/core";
-import Permissions from "fragments/roles-y-permisos/Permissions";
-import Roles from "fragments/roles-y-permisos/Roles";
+import Permissions from "fragments/roles-and-permissions/Permissions";
+import Roles from "fragments/roles-and-permissions/Roles";
 import React, { ChangeEvent, useCallback, useState } from "react";
 import TabPanel, { AntTab, AntTabs } from "shared/components/TabPanel";
 

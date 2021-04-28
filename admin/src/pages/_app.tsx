@@ -1,4 +1,5 @@
 import "@fontsource/nunito";
+import "mapbox-gl/dist/mapbox-gl.css";
 
 import DateFnsUtils from "@date-io/date-fns";
 import { ThemeProvider } from "@material-ui/core/styles";

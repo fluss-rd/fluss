@@ -1,4 +1,4 @@
-import { Button, Grid } from "@material-ui/core";
+import { Button, Grid, Typography } from "@material-ui/core";
 import { lighten, makeStyles, withStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import Image from "next/image";
@@ -14,6 +14,10 @@ const Footer = () => {
       <Grid container className={secondLevel}>
         <Grid item xs={12} md={6}>
           <div className={clsx(styles.center, suscription)}>
+            <div className={styles.imageBox}>
+              <Image src="/images/logo-2.png" alt="Gráficos" layout="fill" objectFit="contain" />
+            </div>
+            <br />
             <div>
               <CssTextField
                 id="outlined-basic"
@@ -33,10 +37,10 @@ const Footer = () => {
             </Button>
           </div>
         </Grid>
-        <Grid item xs={12} md={6} className={clsx(styles.center, contact)}>
-          <div className={styles.imageBox}>
-            <Image src="/images/logo-2.png" alt="Gráficos" layout="fill" objectFit="contain" />
-          </div>
+        <Grid item xs={12} md={6} className={styles.center}>
+          <Typography variant="body1" style={{ color: "white" }}>
+            <strong>Email:</strong> fluss.contact@gmail.com
+          </Typography>
         </Grid>
       </Grid>
       <div className={clsx(styles.center, footer)}>
@@ -65,6 +69,7 @@ export const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(6),
   },
   contact: {
+    display: "flex",
     flexDirection: "column",
     height: "100%",
     color: theme.palette.common.white,
@@ -116,3 +121,4 @@ const textFieldConfig = {
 const CssTextField = withStyles(textFieldConfig)(TextField);
 
 export default Footer;
+

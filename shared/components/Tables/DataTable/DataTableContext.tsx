@@ -1,6 +1,6 @@
 import { searchRows } from "../../SearchBar/search";
 import { DataTableColumn } from "..";
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useContext, useState, useEffect } from "react";
 import {
   Column,
   HeaderGroup,
@@ -27,11 +27,10 @@ export interface DataTableProviderProps<T extends object> {
   sortDirection?: "asc" | "desc";
   paginated?: boolean;
   pageSize?: number;
+  isLoading?: boolean;
 }
 
-export function DataTableProvider<T extends object>(
-  props: DataTableProviderProps<T>
-) {
+export function DataTableProvider<T extends object>(props: DataTableProviderProps<T>) {
   const table = useTable<T>(
     applyInitialState(props),
     useFilters,
@@ -39,15 +38,17 @@ export function DataTableProvider<T extends object>(
     useSortBy,
     usePagination
   );
-  const sortingColumnId =
-    table.state.sortBy.length > 0 ? table.state.sortBy[0].id : "";
+  const sortingColumnId = table.state.sortBy.length > 0 ? table.state.sortBy[0].id : "";
   const headerGroups = table.headerGroups as HeaderGroup<T>[];
-  const [loading, setLoading] = useState(
-    props.data === undefined ? true : false
-  );
-
+  const [loading, setLoading] = useState(props.isLoading);
   const startLoading = () => setLoading(true);
   const stopLoading = () => setLoading(false);
+
+  // Update the loading status every time props.isLoading changes.
+  useEffect(() => {
+    if (props.isLoading) startLoading();
+    else stopLoading();
+  }, [props.isLoading]);
 
   return (
     <DataTableContext.Provider
@@ -68,11 +69,10 @@ export function DataTableProvider<T extends object>(
 DataTableProvider.defaultProps = {
   pageSize: 5,
   paginated: true,
+  isLoading: false,
 };
 
-function applyInitialState<T extends object>(
-  props: DataTableProviderProps<T>
-): TableOptions<T> {
+function applyInitialState<T extends object>(props: DataTableProviderProps<T>): TableOptions<T> {
   return {
     columns: props.columns as Column<T>[],
     data: props.data === undefined ? [] : props.data,
@@ -84,11 +84,7 @@ function applyInitialState<T extends object>(
         },
       ],
       pageIndex: 0,
-      pageSize: props.paginated
-        ? props.pageSize
-        : props.data
-        ? props.data.length
-        : 0,
+      pageSize: props.paginated ? props.pageSize : props.data ? props.data.length : 0,
       globalFilter: "",
     },
     globalFilter: customFilter,
