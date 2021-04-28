@@ -37,8 +37,8 @@ const Footer = () => {
             </Button>
           </div>
         </Grid>
-        <Grid item xs={12} md={6} className={clsx(styles.center, contact)}>
-          <Typography variant="body1">
+        <Grid item xs={12} md={6} className={styles.center}>
+          <Typography variant="body1" style={{ color: "white" }}>
             <strong>Email:</strong> fluss.contact@gmail.com
           </Typography>
         </Grid>
