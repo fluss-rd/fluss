@@ -1,6 +1,6 @@
 # Fluss
 
-A web platform to download data, see interactive reports, and more about the tracked data of the rivers and other watersheds of the Dominican Republic (aka República Dominicana).
+A web platform to download data, see interactive reports, and more about the tracked data of the rivers and other watersheds of the Dominican Republic.
 
 ## Folder structure
 
@@ -25,25 +25,25 @@ Run the following command inthe root directory of the repository:
 yarn install
 ```
 
-## Execute the installed projects
+## Run the projects in dev mode
 
-To run the user project run:
+To execute the user project run:
 
 ```
 yarn dev:user
 ```
 
-To run the admin project run:
+To execute the admin project run:
 
 ```
 yarn dev:admin
 ```
 
-Open [http://localhost:3001](http://localhost:3001) or [http://localhost:3002](http://localhost:3002) with your browser to see the result.
+Open [http://localhost:3001](http://localhost:3001) or [http://localhost:3002](http://localhost:3002) with your browser to see the project/s running.
 
 ## Commands
 
-The complete list of custom yarn commands in the package are:
+The following are is the list of custom yarn commands in the package:
 
 |Command|Description|
 |-|-|
