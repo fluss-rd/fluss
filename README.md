@@ -41,10 +41,6 @@ yarn dev:admin
 
 Open [http://localhost:3001](http://localhost:3001) or [http://localhost:3002](http://localhost:3002) with your browser to see the result.
 
-## Usage
-
-For more information about the projects, see the specific README files for each one.
-
 ## Commands
 
 The complete list of custom yarn commands in the package are:
