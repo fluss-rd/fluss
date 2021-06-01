@@ -1,0 +1,20 @@
+{
+  "name": "user",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3002",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@nivo/bar": "0.67.0",
+    "@nivo/core": "0.67.0",
+    "@types/react-slick": "0.23.4",
+    "next": "10.2.3",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-slick": "0.28.1",
+    "slick-carousel": "1.8.1"
+  }
+}
