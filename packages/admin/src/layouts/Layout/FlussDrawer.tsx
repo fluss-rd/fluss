@@ -1,6 +1,14 @@
-import { IconButton, Drawer, Divider, createMuiTheme, ThemeProvider } from "@material-ui/core";
-import { makeStyles, useTheme, Theme } from "@material-ui/core/styles";
-import { ChevronLeft, ChevronRight, Menu, MenuOpen } from "@material-ui/icons";
+import {
+  IconButton,
+  Button,
+  Drawer,
+  Divider,
+  createMuiTheme,
+  ThemeProvider,
+  Typography,
+} from "@material-ui/core";
+import { makeStyles, Theme } from "@material-ui/core/styles";
+import { Menu, MenuOpen, AccountCircle, ArrowDropDown } from "@material-ui/icons";
 import React, { FC, useContext, useState } from "react";
 import { LayoutContext } from ".";
 import clsx from "clsx";
@@ -15,31 +23,28 @@ const FlussDrawer: FC<FlussDrawerProps> = (props) => {
   const closeDrawer = () => setOpen(false);
   const context = useContext(LayoutContext);
   const classes = useStyles({ drawerWidth: context.drawerWidth, open });
-  const theme = useTheme();
+  const className = clsx(classes.drawer, {
+    [classes.drawerOpen]: open,
+    [classes.drawerClose]: !open,
+  });
+  const drawerClasses = {
+    paper: clsx({
+      [classes.drawerOpen]: open,
+      [classes.drawerClose]: !open,
+      [classes.paper]: true,
+    }),
+  };
 
   return (
     <ThemeProvider theme={drawerTheme}>
       <div>
-        <Drawer
-          variant="permanent"
-          className={clsx(classes.drawer, {
-            [classes.drawerOpen]: open,
-            [classes.drawerClose]: !open,
-          })}
-          classes={{
-            paper: clsx({
-              [classes.drawerOpen]: open,
-              [classes.drawerClose]: !open,
-              [classes.paper]: true,
-            }),
-          }}
-        >
+        <Drawer variant="permanent" className={className} classes={drawerClasses}>
           <div className={classes.toolbar}>
             {open ? (
               <>
                 <FlussLogo imagePath="/images/logo_image_dark.png" />
                 <IconButton onClick={closeDrawer} style={{ color: "#ffffff" }}>
-                  {theme.direction === "rtl" ? <ChevronRight /> : <ChevronLeft />}
+                  <MenuOpen />
                 </IconButton>
               </>
             ) : (
@@ -49,25 +54,46 @@ const FlussDrawer: FC<FlussDrawerProps> = (props) => {
             )}
           </div>
           <Divider />
-          {props.children}
+          <div className={classes.drawerBody}>{props.children}</div>
+          <Divider />
+          <div className={clsx(classes.drawerFooter)}>
+            {open && (
+              <Typography variant="body1" style={{ flex: 1, alignSelf: "center" }}>
+                Mikhael Santos
+              </Typography>
+            )}
+            <Button size="small" className={classes.options}>
+              <AccountCircle />
+              <ArrowDropDown />
+            </Button>
+          </div>
         </Drawer>
       </div>
     </ThemeProvider>
   );
 };
 
-const drawerTheme = createMuiTheme({
-  ...theme,
-  palette: {
-    type: "dark",
-  },
-});
-
 const useStyles = makeStyles<Theme, { drawerWidth: number; open: boolean }>((theme) => ({
   drawer: {
     width: ({ drawerWidth }) => drawerWidth,
     flexShrink: 0,
     whiteSpace: "nowrap",
+  },
+  drawerBody: {
+    flex: 1,
+  },
+  drawerFooter: ({ open }) => ({
+    paddingTop: theme.spacing(1.5),
+    paddingLeft: open ? theme.spacing(2) : 0,
+    paddingRight: open ? theme.spacing(1) : 0,
+    paddingBottom: theme.spacing(1.5),
+    display: "flex",
+    justifyContent: "center",
+  }),
+  options: {
+    "&:hover": {
+      background: "none",
+    },
   },
   drawerOpen: {
     width: ({ drawerWidth }) => drawerWidth,
@@ -82,6 +108,7 @@ const useStyles = makeStyles<Theme, { drawerWidth: number; open: boolean }>((the
       duration: theme.transitions.duration.leavingScreen,
     }),
     overflowX: "hidden",
+    width: theme.spacing(7) + 1,
     [theme.breakpoints.up("sm")]: {
       width: theme.spacing(9) + 1,
     },
@@ -99,6 +126,13 @@ const useStyles = makeStyles<Theme, { drawerWidth: number; open: boolean }>((the
     color: "white",
   },
 }));
+
+const drawerTheme = createMuiTheme({
+  ...theme,
+  palette: {
+    type: "dark",
+  },
+});
 
 export default FlussDrawer;
 
