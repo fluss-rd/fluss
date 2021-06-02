@@ -11,7 +11,7 @@ import formatDate from "shared/helpers/formatDate";
 import useMergeState from "shared/hooks/useMergeState";
 
 export default function Modulos() {
-  const [state, setState] = useMergeState({ open: false, moduleId: "" });
+  const [state, setState] = useMergeState({ open: true, moduleId: "" });
   const classes = useStyles();
   const modulesQuery = useGetModules();
   const modules = Module.fromModuleDataList(modulesQuery.data?.data || []);

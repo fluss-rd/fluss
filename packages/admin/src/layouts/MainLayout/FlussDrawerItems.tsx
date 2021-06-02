@@ -10,38 +10,38 @@ import {
 } from "@material-ui/icons";
 import { useRouter } from "next/router";
 
-import FlussDrawreItem from "./FlussDrawerItem";
+import DrawerItem from "./FlussDrawerItem";
 
-export default function FlussDrawerItems() {
+export default function DrawerItems() {
   const classes = useStyles();
   const router = useRouter();
 
   return (
     <div className={classes.menuButtons}>
       <List component="nav">
-        <FlussDrawreItem title="Inicio" icon={Home} to="/" />
-        <FlussDrawreItem title="Módulos" icon={ViewModule} to="/modules" as="/modulos" />
-        <FlussDrawreItem
+        <DrawerItem title="Inicio" icon={Home} to="/" />
+        <DrawerItem title="Módulos" icon={ViewModule} to="/modules" as="/modulos" />
+        <DrawerItem
           title="Cuerpos hídricos"
           icon={TrackChanges}
           to="/rivers"
           as="cuerpos-hidricos"
         />
-        <FlussDrawreItem
+        <DrawerItem
           title="Roles y permisos"
           icon={VpnKey}
           to="/roles-and-permissions"
           as="roles-y-permisos"
         />
-        <FlussDrawreItem title="Usuarios" icon={People} to="/users" as="usuarios" />
+        <DrawerItem title="Usuarios" icon={People} to="/users" as="usuarios" />
         <Divider />
-        <FlussDrawreItem
+        <DrawerItem
           title="Notificaciones"
           icon={Notifications}
           to="/notifications"
           as="notificaciones"
         />
-        <FlussDrawreItem title="Ajustes" icon={Settings} to={router.pathname} as="/ajustes" />
+        <DrawerItem title="Ajustes" icon={Settings} to={router.pathname} as="/ajustes" />
       </List>
     </div>
   );
