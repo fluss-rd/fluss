@@ -21,8 +21,7 @@ const Settings: FC = () => {
   useEffect(() => setActiveTab(activeIndex), [isOpen, activeIndex]);
 
   function changeActiveTab(_: ChangeEvent<{}>, newValue: number) {
-    if (newValue !== 0)
-      setActiveTab(newValue);
+    if (newValue !== 0) setActiveTab(newValue);
   }
 
   function closeDialog() {
@@ -30,8 +29,6 @@ const Settings: FC = () => {
       router.push(router.pathname);
     else router.push("/");
   }
-
-  console.log(router);
 
   return (
     <Dialog fullWidth open={isOpen} onClose={closeDialog} maxWidth="lg">
