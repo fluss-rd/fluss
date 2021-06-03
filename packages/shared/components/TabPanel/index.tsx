@@ -15,8 +15,7 @@ interface TabPanelProps {
 }
 
 function TabPanel(props: TabPanelProps) {
-  const { children, value, index, padding, ...other } = props;
-  console.log(padding);
+  const { children, value, index, padding, BoxProps } = props;
 
   return (
     <div
@@ -25,10 +24,9 @@ function TabPanel(props: TabPanelProps) {
       id={`vertical-tabpanel-${index}`}
       aria-labelledby={`vertical-tab-${index}`}
       style={{ height: "100%" }}
-      {...other}
     >
       {value === index && (
-        <Box p={padding} {...other.BoxProps}>
+        <Box p={padding} {...BoxProps}>
           {children}
         </Box>
       )}

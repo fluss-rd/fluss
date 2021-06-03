@@ -1,5 +1,5 @@
 import { Dialog, ListItem, ListItemText, makeStyles, Theme } from "@material-ui/core";
-import { Tabs } from "@material-ui/core";
+import { Tabs, Tab } from "@material-ui/core";
 import { AccountCircle, Notifications as NotificationsIcon } from "@material-ui/icons";
 import { NextRouter, useRouter } from "next/router";
 import React, { ChangeEvent, FC, useEffect, useState } from "react";
@@ -21,17 +21,17 @@ const Settings: FC = () => {
   useEffect(() => setActiveTab(activeIndex), [isOpen, activeIndex]);
 
   function changeActiveTab(_: ChangeEvent<{}>, newValue: number) {
-    setActiveTab(newValue);
+    if (newValue !== 0)
+      setActiveTab(newValue);
   }
 
   function closeDialog() {
     if (router.asPath == settingsRoute && router.pathname !== settingsRoute)
-     router.push(router.pathname)
-    else
-      router.push("/")
+      router.push(router.pathname);
+    else router.push("/");
   }
 
-  console.log(router)
+  console.log(router);
 
   return (
     <Dialog fullWidth open={isOpen} onClose={closeDialog} maxWidth="lg">
@@ -41,15 +41,22 @@ const Settings: FC = () => {
           variant="scrollable"
           value={activeTab}
           onChange={changeActiveTab}
-          aria-label="Vertical tabs example"
+          aria-label="vertical-tabs"
           className={classes.tabs}
         >
-          <ListItem>
-            <ListItemText primary="Ajustes" />
-          </ListItem>
+          <Tab
+            value={0}
+            label={
+              <ListItem style={{ padding: 0, textTransform: "capitalize", fontWeight: "bold" }}>
+                <ListItemText primary="Ajustes" />
+              </ListItem>
+            }
+          />
+
           <HorizontalIconTab label="Notificaciones" icon={<NotificationsIcon />} index={1} />
           <HorizontalIconTab label="Mi cuenta" icon={<AccountCircle />} index={2} />
         </Tabs>
+
         <div className={classes.tabPanels}>
           <TabPanel value={activeTab} index={1} padding={0}>
             <Notifications />
@@ -91,3 +98,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 export default Settings;
+
