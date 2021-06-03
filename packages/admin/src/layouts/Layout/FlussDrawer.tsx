@@ -13,7 +13,7 @@ import FlussDrawerFooter from "./FlussDrawerFooter";
 interface FlussDrawerProps {}
 
 const FlussDrawer: FC<FlussDrawerProps> = () => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const openDrawer = () => setOpen(true);
   const closeDrawer = () => setOpen(false);
   const context = useContext(LayoutContext);

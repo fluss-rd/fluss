@@ -1,7 +1,7 @@
 import { Divider, List } from "@material-ui/core";
 import { Grain, Home, Lock, Notifications, People, Settings } from "@material-ui/icons";
-import React, { FC } from "react";
 import { useRouter } from "next/router";
+import React, { FC } from "react";
 
 import DrawerItem from "./DrawerItem";
 
@@ -27,4 +27,3 @@ const FlussDrawerBody: FC<FlussDrawerBodyProps> = () => {
 };
 
 export default FlussDrawerBody;
-

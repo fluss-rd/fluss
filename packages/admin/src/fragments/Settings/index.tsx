@@ -1,5 +1,5 @@
 import { Dialog, ListItem, ListItemText, makeStyles, Theme } from "@material-ui/core";
-import { Tabs, Tab } from "@material-ui/core";
+import { Tab, Tabs } from "@material-ui/core";
 import { AccountCircle, Notifications as NotificationsIcon } from "@material-ui/icons";
 import { NextRouter, useRouter } from "next/router";
 import React, { ChangeEvent, FC, useEffect, useState } from "react";
@@ -95,4 +95,3 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 export default Settings;
-
