@@ -1,17 +1,6 @@
 import { makeStyles, Theme } from "@material-ui/core/styles";
-import clsx from "clsx";
-import {
-  CssBaseline,
-  List,
-  AppBar,
-  Toolbar,
-  Typography,
-  Divider,
-  IconButton,
-} from "@material-ui/core";
-import { Menu, Home, Grain, People, Lock, Notifications, Settings } from "@material-ui/icons";
-import React, { FC, useState, createContext } from "react";
-import DrawerItem from "./DrawerItem";
+import { CssBaseline } from "@material-ui/core";
+import React, { FC, createContext } from "react";
 import FlussDrawer from "./FlussDrawer";
 
 interface LayoutProps {}
@@ -22,19 +11,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <FlussDrawer>
-        <List>
-          <DrawerItem title="Inicio" icon={Home} />
-          <DrawerItem title="Cuerpos hídricos" icon={Grain} />
-          <DrawerItem title="Usuarios" icon={People} />
-          <DrawerItem title="Roles y permisos" icon={Lock} />
-        </List>
-        <Divider />
-        <List>
-          <DrawerItem title="Notificaiones" icon={Notifications} />
-          <DrawerItem title="Ajustes" icon={Settings} />
-        </List>
-      </FlussDrawer>
+      <FlussDrawer />
       <main className={classes.content}>{children}</main>
     </div>
   );

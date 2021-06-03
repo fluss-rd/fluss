@@ -1,23 +1,17 @@
-import {
-  IconButton,
-  Button,
-  Drawer,
-  Divider,
-  createMuiTheme,
-  ThemeProvider,
-  Typography,
-} from "@material-ui/core";
+import { IconButton, Drawer, Divider, createMuiTheme, ThemeProvider } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
-import { Menu, MenuOpen, AccountCircle, ArrowDropDown } from "@material-ui/icons";
+import { Menu, MenuOpen } from "@material-ui/icons";
 import React, { FC, useContext, useState } from "react";
 import { LayoutContext } from ".";
 import clsx from "clsx";
 import FlussLogo from "shared/components/FlussLogo";
 import theme from "shared/styles/theme";
+import FlussDrawerFooter from "./FlussDrawerFooter";
+import FlussDrawerBody from "./FlussDrawerBody";
 
 interface FlussDrawerProps {}
 
-const FlussDrawer: FC<FlussDrawerProps> = (props) => {
+const FlussDrawer: FC<FlussDrawerProps> = () => {
   const [open, setOpen] = useState(false);
   const openDrawer = () => setOpen(true);
   const closeDrawer = () => setOpen(false);
@@ -54,19 +48,11 @@ const FlussDrawer: FC<FlussDrawerProps> = (props) => {
             )}
           </div>
           <Divider />
-          <div className={classes.drawerBody}>{props.children}</div>
-          <Divider />
-          <div className={clsx(classes.drawerFooter)}>
-            {open && (
-              <Typography variant="body1" style={{ flex: 1, alignSelf: "center" }}>
-                Mikhael Santos
-              </Typography>
-            )}
-            <Button size="small" className={classes.options}>
-              <AccountCircle />
-              <ArrowDropDown />
-            </Button>
+          <div className={classes.drawerBody}>
+            <FlussDrawerBody />
           </div>
+          <Divider />
+          <FlussDrawerFooter drawerIsOpen={open} />
         </Drawer>
       </div>
     </ThemeProvider>
@@ -74,26 +60,8 @@ const FlussDrawer: FC<FlussDrawerProps> = (props) => {
 };
 
 const useStyles = makeStyles<Theme, { drawerWidth: number; open: boolean }>((theme) => ({
-  drawer: {
-    width: ({ drawerWidth }) => drawerWidth,
-    flexShrink: 0,
-    whiteSpace: "nowrap",
-  },
   drawerBody: {
     flex: 1,
-  },
-  drawerFooter: ({ open }) => ({
-    paddingTop: theme.spacing(1.5),
-    paddingLeft: open ? theme.spacing(2) : 0,
-    paddingRight: open ? theme.spacing(1) : 0,
-    paddingBottom: theme.spacing(1.5),
-    display: "flex",
-    justifyContent: "center",
-  }),
-  options: {
-    "&:hover": {
-      background: "none",
-    },
   },
   drawerOpen: {
     width: ({ drawerWidth }) => drawerWidth,
