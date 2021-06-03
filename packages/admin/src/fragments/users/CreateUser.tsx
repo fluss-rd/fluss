@@ -13,7 +13,7 @@ import * as yup from "yup";
 
 const CreateUser: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { handleSubmit, errors, formState, register, control } = useForm<UserForm>({
+  const { handleSubmit, errors, register, control } = useForm<UserForm>({
     resolver: yupResolver(schema),
     mode: "onSubmit",
   });
@@ -28,7 +28,7 @@ const CreateUser: FC = () => {
     <>
       <Fab variant="extended" color="primary" className={classes.fab} onClick={openDialog}>
         <Add className={classes.extendedIcon} />
-        Registrar módulo
+        Registrar usuario
       </Fab>
       <Dialog
         fullWidth
@@ -66,6 +66,8 @@ const CreateUser: FC = () => {
             />
 
             <br />
+            <br />
+
 
             <FormIconTitle Icon={Security} title="Asignar rol" />
 
@@ -132,3 +134,4 @@ const schema = yup.object().shape({
 type UserForm = yup.Asserts<typeof schema>;
 
 export default CreateUser;
+
