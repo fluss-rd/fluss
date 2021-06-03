@@ -5,7 +5,6 @@ import DateFnsUtils from "@date-io/date-fns";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import Layout from "layouts/Layout";
-//import Layout from "layouts";
 import React, { useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";

@@ -1,13 +1,14 @@
-import { IconButton, Drawer, Divider, createMuiTheme, ThemeProvider } from "@material-ui/core";
+import { createMuiTheme, Divider, Drawer, IconButton, ThemeProvider } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import { Menu, MenuOpen } from "@material-ui/icons";
-import React, { FC, useContext, useState } from "react";
-import { LayoutContext } from ".";
 import clsx from "clsx";
+import React, { FC, useContext, useState } from "react";
 import FlussLogo from "shared/components/FlussLogo";
 import theme from "shared/styles/theme";
-import FlussDrawerFooter from "./FlussDrawerFooter";
+
+import { LayoutContext } from ".";
 import FlussDrawerBody from "./FlussDrawerBody";
+import FlussDrawerFooter from "./FlussDrawerFooter";
 
 interface FlussDrawerProps {}
 
@@ -103,4 +104,3 @@ const drawerTheme = createMuiTheme({
 });
 
 export default FlussDrawer;
-

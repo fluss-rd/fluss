@@ -1,5 +1,6 @@
 import { CssBaseline } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
+import withAuth from "hoc/withAuth";
 import React, { createContext, FC } from "react";
 
 import FlussDrawer from "./FlussDrawer";
@@ -32,4 +33,4 @@ export const LayoutContext = createContext({
   drawerWidth: 240,
 });
 
-export default Layout;
+export default withAuth(Layout);
