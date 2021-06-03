@@ -18,7 +18,12 @@ interface UserInfoProps {}
 const UserInfo: FC<UserInfoProps> = () => {
   const classes = useStyles();
   const { isLoading, data: response } = useGetUserData();
-  const { register, handleSubmit, errors: formErrors, control } = useForm<UserInfoModel>({
+  const {
+    register,
+    handleSubmit,
+    errors: formErrors,
+    control,
+  } = useForm<UserInfoModel>({
     resolver: yupResolver(userInfoSchema),
     defaultValues: {
       name: response?.data?.name || "",
