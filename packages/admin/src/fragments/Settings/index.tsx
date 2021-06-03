@@ -31,6 +31,8 @@ const Settings: FC = () => {
       router.push("/")
   }
 
+  console.log(router)
+
   return (
     <Dialog fullWidth open={isOpen} onClose={closeDialog} maxWidth="lg">
       <div className={classes.root}>
@@ -65,7 +67,7 @@ function computeOpening(router: NextRouter, settingsRoute: string): [boolean, nu
   const settingsName = settingsRoute.split("/")[1];
   const parts = router.asPath.split("/");
   const isOpen = parts[1] === settingsName;
-  const userInfoIsActive = parts[2] === "informacion-de-cuenta";
+  const userInfoIsActive = parts[2] === "account";
 
   let activeIndex = 1;
 
