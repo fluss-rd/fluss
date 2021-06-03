@@ -12,7 +12,7 @@ import UserInfo from "./UserInfo";
 const Settings: FC = () => {
   const classes = useStyles();
   const router = useRouter();
-  const settingsRoute = "/ajustes";
+  const settingsRoute = "/settings";
   const [isOpen, activeIndex] = computeOpening(router, settingsRoute);
 
   const [activeTab, setActiveTab] = useState(activeIndex);
@@ -24,8 +24,15 @@ const Settings: FC = () => {
     setActiveTab(newValue);
   }
 
+  function closeDialog() {
+    if (router.asPath == settingsRoute && router.pathname !== settingsRoute)
+     router.push(router.pathname)
+    else
+      router.push("/")
+  }
+
   return (
-    <Dialog fullWidth open={isOpen} onClose={() => router.push(router.pathname)} maxWidth="lg">
+    <Dialog fullWidth open={isOpen} onClose={closeDialog} maxWidth="lg">
       <div className={classes.root}>
         <Tabs
           orientation="vertical"
@@ -81,5 +88,4 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexGrow: 1,
   },
 }));
-
 export default Settings;

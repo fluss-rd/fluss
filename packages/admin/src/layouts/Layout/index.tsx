@@ -2,6 +2,7 @@ import { CssBaseline } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import withAuth from "hoc/withAuth";
 import React, { createContext, FC } from "react";
+import Settings from "fragments/Settings";
 
 import FlussDrawer from "./FlussDrawer";
 
@@ -15,6 +16,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
       <CssBaseline />
       <FlussDrawer />
       <main className={classes.content}>{children}</main>
+      <Settings />
     </div>
   );
 };
@@ -22,6 +24,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     display: "flex",
+    minHeight: "100vh"
   },
   content: {
     flexGrow: 1,
@@ -33,4 +36,5 @@ export const LayoutContext = createContext({
   drawerWidth: 240,
 });
 
-export default withAuth(Layout);
+//export default withAuth(Layout);
+export default Layout;
