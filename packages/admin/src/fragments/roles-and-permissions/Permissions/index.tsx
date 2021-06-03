@@ -2,19 +2,13 @@ import Permission from "models/Permission";
 import { DataTableColumn, EnhancedDataTable } from "shared/components/Tables";
 import { formatDate } from "shared/helpers";
 
-import CreatePermission from "./CreatePermission";
 import EditPermission from "./EditPermission";
 
 export default function Permissions() {
   const permissions = Permission.mockData();
   const columns = generateColumns();
 
-  return (
-    <>
-      <EnhancedDataTable data={permissions} columns={columns} />
-      <CreatePermission />
-    </>
-  );
+  return <EnhancedDataTable data={permissions} columns={columns} />;
 }
 
 function generateColumns(): DataTableColumn<Permission>[] {
@@ -41,3 +35,4 @@ function generateColumns(): DataTableColumn<Permission>[] {
 
   return columns;
 }
+
