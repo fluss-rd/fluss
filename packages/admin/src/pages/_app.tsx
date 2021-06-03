@@ -4,13 +4,13 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import DateFnsUtils from "@date-io/date-fns";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+import Layout from "layouts/Layout";
 //import Layout from "layouts";
 import React, { useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { initialState, StateContext } from "store/state";
 import theme, { GlobalCss } from "styles/theme";
-import Layout from "layouts/Layout";
 
 // Create a client
 const queryClient = new QueryClient();

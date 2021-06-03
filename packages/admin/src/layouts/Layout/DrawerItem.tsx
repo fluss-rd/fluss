@@ -58,4 +58,3 @@ const useStyles = makeStyles<Theme, { nested: boolean }>((theme: Theme) => ({
 }));
 
 export default DrawerItem;
-

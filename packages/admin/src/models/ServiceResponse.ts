@@ -12,7 +12,7 @@ export default class ServiceResponse<U> {
     const response: ServiceResponse<U> = {
       statusCode: axiosResponse?.status,
       statusText: axiosResponse?.statusText,
-      data: mapData ? mapData(axiosResponse?.data) : ((axiosResponse.data as unknown) as U),
+      data: mapData ? mapData(axiosResponse?.data) : (axiosResponse.data as unknown as U),
     };
 
     return response;

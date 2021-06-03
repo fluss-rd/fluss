@@ -17,7 +17,7 @@ const FlussDrawer: FC<FlussDrawerProps> = () => {
   const closeDrawer = () => setOpen(false);
   const context = useContext(LayoutContext);
   const classes = useStyles({ drawerWidth: context.drawerWidth, open });
-  const className = clsx(classes.drawer, {
+  const drawerClassNames = clsx(classes.drawer, {
     [classes.drawerOpen]: open,
     [classes.drawerClose]: !open,
   });
@@ -32,7 +32,7 @@ const FlussDrawer: FC<FlussDrawerProps> = () => {
   return (
     <ThemeProvider theme={drawerTheme}>
       <div>
-        <Drawer variant="permanent" className={className} classes={drawerClasses}>
+        <Drawer variant="permanent" className={drawerClassNames} classes={drawerClasses}>
           <div className={classes.toolbar}>
             {open ? (
               <>

@@ -11,18 +11,18 @@ export default function withAuth(Component: ComponentType) {
     const loggedIn = query.isSuccess ? (query.data?.data ? true : false) : false;
 
     //if (query.isLoading)
-      //return (
-        //<LoadingLayout>
-          //<CircularProgress />
-        //</LoadingLayout>
-      //);
+    //return (
+    //<LoadingLayout>
+    //<CircularProgress />
+    //</LoadingLayout>
+    //);
 
     //if (!loggedIn)
-      //return (
-        //<LoginLayout>
-          //<Login />
-        //</LoginLayout>
-      //);
+    //return (
+    //<LoginLayout>
+    //<Login />
+    //</LoginLayout>
+    //);
 
     return <Component {...props} />;
   };

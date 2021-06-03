@@ -1,7 +1,8 @@
+import { Divider, List } from "@material-ui/core";
+import { Grain, Home, Lock, Notifications, People, Settings } from "@material-ui/icons";
 import React, { FC } from "react";
-import { List, Divider } from "@material-ui/core";
+
 import DrawerItem from "./DrawerItem";
-import { Home, Grain, People, Lock, Notifications, Settings } from "@material-ui/icons";
 
 interface FlussDrawerBodyProps {}
 
@@ -24,4 +25,3 @@ const FlussDrawerBody: FC<FlussDrawerBodyProps> = () => {
 };
 
 export default FlussDrawerBody;
-

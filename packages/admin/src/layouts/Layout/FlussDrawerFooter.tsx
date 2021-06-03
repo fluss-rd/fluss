@@ -1,18 +1,19 @@
-import { makeStyles } from "@material-ui/core/styles";
 import {
-  Divider,
-  Theme,
-  Popover,
   Button,
+  Divider,
   ListItem,
   ListItemText,
-  Typography,
+  Popover,
+  Theme,
   ThemeProvider,
+  Typography,
 } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import { AccountCircle, ArrowDropDown, PersonOutline } from "@material-ui/icons";
 import React, { FC, useContext } from "react";
-import { LayoutContext } from ".";
 import theme from "shared/styles/theme";
+
+import { LayoutContext } from ".";
 
 interface FlussDrawerFooterProps {
   drawerIsOpen: boolean;
@@ -103,4 +104,3 @@ const useStyles = makeStyles<Theme, { drawerWidth: number; open: boolean }>({
 });
 
 export default FlussDrawerFooter;
-
