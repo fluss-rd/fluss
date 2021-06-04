@@ -2,7 +2,7 @@ import { yupResolver } from "@hookform/resolvers";
 import { Button, Dialog, DialogActions, DialogTitle, Fab, MenuItem } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Add, Info, Security } from "@material-ui/icons";
-import Rol from "models/Rol";
+import Role from "models/Role";
 import React, { FC, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import FormField from "shared/components/FormField";
@@ -18,7 +18,7 @@ const CreateUser: FC = () => {
     mode: "onSubmit",
   });
 
-  const roles = Rol.mockData();
+  const roles = Role.mockData();
   const classes = useStyles();
   const openDialog = () => setIsOpen(true);
   const closeDialog = () => setIsOpen(false);

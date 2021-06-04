@@ -1,10 +1,10 @@
 import Action from "./Action";
 import Permission from "./Permission";
-import Rol from "./Rol";
+import Role from "./Role";
 
 export default class RolPermission {
   id: string;
-  rol: Rol;
+  rol: Role;
   permission: Permission;
   actions: Action[];
 
@@ -13,7 +13,7 @@ export default class RolPermission {
   }
 
   static mockData() {
-    const roles = Rol.mockData();
+    const roles = Role.mockData();
     const permissions = Permission.mockData();
 
     const rolesAndPermissions: RolPermission[] = [

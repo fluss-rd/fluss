@@ -1,4 +1,4 @@
-import Rol from "./Rol";
+import Role from "./Role";
 
 export default class User {
   id: string;
@@ -6,12 +6,12 @@ export default class User {
   surname: string;
   phoneNumber: string;
   email: string;
-  rol: Rol;
+  rol: Role;
   lastUpdate: Date;
   creationDate: Date;
 
   static mockData(): User[] {
-    const roles = Rol.mockData();
+    const roles = Role.mockData();
 
     const users: User[] = [
       {

@@ -2,7 +2,7 @@ import { Permission as PermissionForm, Role as RoleForm } from "services/auth/mo
 
 import Permission from "./Permission";
 
-export default class Rol {
+export default class Role {
   id: string;
   name: string;
   description: string;
@@ -10,8 +10,8 @@ export default class Rol {
   creationDate: Date;
   lastUpdate: Date;
 
-  static mockData(): Rol[] {
-    const roles: Array<Rol> = [
+  static mockData(): Role[] {
+    const roles: Array<Role> = [
       {
         id: "r1",
         name: "Administrador",
@@ -33,7 +33,7 @@ export default class Rol {
     return roles;
   }
 
-  static toRoleForm(role: Rol): RoleForm {
+  static toRoleForm(role: Role): RoleForm {
     return {
       permissions: role.permissions.map(
         (p) => ({ actions: [...p.actions], resource: p.name } as PermissionForm)

@@ -1,4 +1,4 @@
-import Rol from "models/Rol";
+import Role from "models/Role";
 import { DataTableColumn, EnhancedDataTable } from "shared/components/Tables";
 import formatDate from "shared/helpers/formatDate";
 
@@ -8,13 +8,13 @@ import EditRol from "./EditRole";
 export default function Roles() {
   return (
     <>
-      <EnhancedDataTable data={Rol.mockData()} columns={columns} />
+      <EnhancedDataTable data={Role.mockData()} columns={columns} />
       <CreateRol />
     </>
   );
 }
 
-const columns: DataTableColumn<Rol>[] = [
+const columns: DataTableColumn<Role>[] = [
   { Header: "Nombre", accessor: "name" },
   { Header: "Descripción", accessor: "description" },
   { Header: "Fecha de creación", accessor: (rol) => formatDate(rol.creationDate) },
