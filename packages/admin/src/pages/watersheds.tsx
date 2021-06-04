@@ -3,14 +3,15 @@ import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { mockWatersheds } from "models/watershed";
 import WatershedCard from "fragments/watersheds/WatershedCard";
+import Watershed from "models/watershed";
 
 interface HydricResourcesProps {
   quantity: number;
+  watersheds: Watershed[];
 }
 
-const Watersheds: NextPage<HydricResourcesProps> = ({ quantity }) => {
+const Watersheds: NextPage<HydricResourcesProps> = ({ quantity, watersheds }) => {
   const classes = useStyles();
-  const watersheds = mockWatersheds();
 
   return (
     <div>
@@ -27,7 +28,7 @@ const Watersheds: NextPage<HydricResourcesProps> = ({ quantity }) => {
             id={watershed.id}
             name={watershed.name}
             wqiValue={watershed.wqi.value}
-            lastUpdate={watershed.updateDate}
+            lastUpdate={new Date(watershed.updateDate)}
             modulesQuantity={watershed.modulesQuantity}
           />
         ))}
@@ -37,7 +38,9 @@ const Watersheds: NextPage<HydricResourcesProps> = ({ quantity }) => {
 };
 
 Watersheds.getInitialProps = async ({ req }) => {
-  return { quantity: 5 };
+  const watersheds = mockWatersheds();
+
+  return { quantity: watersheds.length, watersheds };
 };
 
 const useStyles = makeStyles((theme) => ({

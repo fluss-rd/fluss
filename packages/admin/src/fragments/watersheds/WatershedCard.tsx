@@ -22,6 +22,7 @@ interface WatershedCardProps {
 
 const WatershedCard: FC<WatershedCardProps> = (props) => {
   const classes = useStyles();
+  const lastUpdate = formatDate(props.lastUpdate);
 
   return (
     <Card className={classes.root} variant="outlined">
@@ -36,22 +37,24 @@ const WatershedCard: FC<WatershedCardProps> = (props) => {
             <br />
 
             <table>
-              <tr>
-                <td>
-                  <Typography>Módulos registrados:</Typography>
-                </td>
-                <td>
-                  <Typography>{props.modulesQuantity}</Typography>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <Typography>Última actualización:</Typography>
-                </td>
-                <td>
-                  <Typography>{formatDate(props.lastUpdate)}</Typography>
-                </td>
-              </tr>
+              <tbody>
+                <tr>
+                  <td>
+                    <Typography>Módulos registrados:</Typography>
+                  </td>
+                  <td>
+                    <Typography>{props.modulesQuantity}</Typography>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <Typography>Última actualización:</Typography>
+                  </td>
+                  <td>
+                    <Typography>{lastUpdate}</Typography>
+                  </td>
+                </tr>
+              </tbody>
             </table>
           </CardContent>
 
