@@ -1,6 +1,6 @@
 import { Dialog, DialogTitle, IconButton } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { Info } from "@material-ui/icons";
+import { Edit } from "@material-ui/icons";
 import Role from "models/Role";
 import React, { FC, useState } from "react";
 import { Role as RoleForm } from "services/auth/models";
@@ -31,7 +31,7 @@ const EditRol: FC<EditRolProps> = ({ rol }) => {
   return (
     <>
       <IconButton onClick={openDialog}>
-        <Info />
+        <Edit />
       </IconButton>
       <Dialog
         fullWidth
