@@ -13,7 +13,7 @@ const FlussDrawerBody: FC<FlussDrawerBodyProps> = () => {
     <div>
       <List>
         <DrawerItem title="Inicio" icon={Home} to="/" />
-        <DrawerItem title="Cuerpos hídricos" icon={Grain} to="/rivers" />
+        <DrawerItem title="Cuerpos hídricos" icon={Grain} to="/watersheds" />
         <DrawerItem title="Usuarios" icon={People} to="/users" />
         <DrawerItem title="Roles y permisos" icon={Lock} to="/roles-and-permissions" />
       </List>
@@ -27,3 +27,4 @@ const FlussDrawerBody: FC<FlussDrawerBodyProps> = () => {
 };
 
 export default FlussDrawerBody;
+
