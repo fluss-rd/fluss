@@ -2,11 +2,11 @@ import { Dialog, DialogTitle, IconButton } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Info } from "@material-ui/icons";
 import Rol from "models/Rol";
-import { Role as RoleForm } from "services/auth/models";
 import React, { FC, useState } from "react";
+import { Role as RoleForm } from "services/auth/models";
 
 import ModalFormDates from "../ModalFormDates";
-import RolModalForm from "./AddRol";
+import RoleModalForm from "./RoleForm";
 
 interface EditRolProps {
   rol: Rol;
@@ -46,7 +46,7 @@ const EditRol: FC<EditRolProps> = ({ rol }) => {
         <ModalFormDates lastUpdate={rol.lastUpdate} creationDate={rol.creationDate} />
 
         <div className={classes.formSection}>
-          <RolModalForm
+          <RoleModalForm
             cancelForm={closeDialog}
             onSaveForm={handleSave}
             values={Rol.toRoleForm(rol)}
@@ -75,4 +75,3 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default EditRol;
-

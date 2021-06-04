@@ -24,4 +24,3 @@ function generateColumns(): DataTableColumn<Permission>[] {
 
   return columns;
 }
-

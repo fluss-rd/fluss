@@ -1,18 +1,18 @@
-import { Button, DialogActions, List, Divider } from "@material-ui/core";
+import { yupResolver } from "@hookform/resolvers";
+import { Button, DialogActions, Divider, List } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { AssignmentIndOutlined, InfoOutlined } from "@material-ui/icons";
-import React, { FC, useState, Fragment, useEffect } from "react";
-import { useForm, useWatch, Control } from "react-hook-form";
+import PermissionAction from "models/PermissionAction";
+import React, { FC, Fragment, useEffect } from "react";
+import { Control, useForm, useWatch } from "react-hook-form";
+import { Permission, Role } from "services/auth/models";
 import FormField from "shared/components/FormField";
 import FormIconTitle from "shared/components/FormIconTitle";
 import ModalContent from "shared/components/ModalContent";
-import { Role, Permission } from "services/auth/models";
-import PermissionAction from "models/PermissionAction";
-import { yupResolver } from "@hookform/resolvers";
 import * as yup from "yup";
-import PermissionActions from "./PermissionActions";
 
-import AssignPermissions from "./AssignPermissions2";
+import AssignPermissions from "./AssignPermissions";
+import PermissionActions from "./PermissionActions";
 
 export interface RolModalFormProps {
   cancelForm?: () => void;
@@ -37,7 +37,7 @@ const RolModalForm: FC<RolModalFormProps> = ({ cancelForm, onSaveForm, values })
 
   const setPermissions = (permissions: Permission[]) => {
     form.setValue("permissions", permissions);
-  }
+  };
 
   const assignPermissions = (permissions: string[]): void => {
     const actions: PermissionAction[] = ["read", "write", "update", "delete"];
@@ -165,4 +165,3 @@ const formSchema: yup.SchemaOf<Role> = yup.object().shape({
 });
 
 export default RolModalForm;
-

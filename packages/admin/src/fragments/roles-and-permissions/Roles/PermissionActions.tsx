@@ -1,15 +1,15 @@
-import { Permission } from "services/auth/models";
-import PermissionAction, { actions, actionToString } from "models/PermissionAction";
-import { makeStyles, useTheme, lighten } from "@material-ui/core/styles";
 import {
-  ListItem,
-  ListItemText,
-  ListItemSecondaryAction,
   Button,
   IconButton,
+  ListItem,
+  ListItemSecondaryAction,
+  ListItemText,
 } from "@material-ui/core";
+import { lighten, makeStyles, useTheme } from "@material-ui/core/styles";
 import { Close } from "@material-ui/icons";
+import PermissionAction, { actions, actionToString } from "models/PermissionAction";
 import React, { FC } from "react";
+import { Permission } from "services/auth/models";
 
 interface PermissionActionsProps {
   index: number;
@@ -84,4 +84,3 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default PermissionActions;
-

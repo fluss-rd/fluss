@@ -68,7 +68,6 @@ const CreateUser: FC = () => {
             <br />
             <br />
 
-
             <FormIconTitle Icon={Security} title="Asignar rol" />
 
             <Controller
@@ -134,4 +133,3 @@ const schema = yup.object().shape({
 type UserForm = yup.Asserts<typeof schema>;
 
 export default CreateUser;
-

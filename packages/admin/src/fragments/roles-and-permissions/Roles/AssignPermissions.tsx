@@ -12,55 +12,60 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import { Add } from "@material-ui/icons";
 import Permission from "models/Permission";
-import RolPermission from "models/RolPermission";
 import React, { ChangeEvent, FC, useEffect, useState } from "react";
 
 interface AssignPermissionsProps {
-  onSave: (permissions: Permission[]) => void;
-  selected?: RolPermission[];
+  onSave: (selectedPermissions: string[]) => void;
+  defaultSelected?: string[];
 }
 
 const AssignPermissions: FC<AssignPermissionsProps> = (props) => {
-  const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState<Record<string, string>>({});
+  const [isOpen, setIsOpen] = useState(false);
+  const [selected, setSelected] = useState<Map<string, boolean>>(new Map());
   const classes = useStyles();
-  const permissions = Permission.mockData();
-  const labelId = "permissions-selection-dialog";
+  const permissions = Permission.mockData().map((p) => p.name);
+  const labelId = "assign-permission-dialog";
 
-  useEffect(() => setSelected(fromSelected()), [open, props.selected]);
+  const openDialog = () => {
+    setIsOpen(true);
+  };
 
-  const openDialog = () => setOpen(true);
+  const closeDialog = () => {
+    setIsOpen(false);
+  };
 
-  const closeDialog = () => setOpen(false);
+  const updateSelection = (e: ChangeEvent<HTMLInputElement>) => {
+    const { checked, value } = e.target;
 
-  const updateSelected = (e: ChangeEvent<HTMLInputElement>) => {
     setSelected((prev) => {
-      const modified = { ...prev };
-      const { checked, name, value } = e.target;
-
-      console.log(checked, name, value);
-
-      if (!checked) delete modified[name];
-      else modified[name] = value;
+      const modified = new Map<string, boolean>(prev);
+      modified.set(value, checked);
 
       return modified;
     });
   };
 
-  const save = () => {
-    const findPermission = (id: string) => permissions.find((p) => p.id === id);
-    const selectedPermissions: Permission[] = Object.keys(selected).map(findPermission);
+  const sendSelection = () => {
+    const selection: string[] = [];
+    selected.forEach((isChecked, resource) => {
+      if (!isChecked) return;
+      selection.push(resource);
+    });
 
+    props.onSave(selection);
     closeDialog();
-    props.onSave(selectedPermissions);
   };
 
-  function fromSelected(): Record<string, string> {
-    const rolPermissions: Record<string, string> = {};
-    props.selected.forEach((s, i) => (rolPermissions[s.permission.id] = i.toString()));
+  const fillSelected = () => {
+    if (!props.defaultSelected) return;
 
-    return rolPermissions;
-  }
+    const selection = new Map<string, boolean>();
+    props.defaultSelected.forEach((s: string) => selection.set(s, true));
+
+    setSelected(selection);
+  };
+
+  useEffect(fillSelected, [open, props.defaultSelected]);
 
   return (
     <>
@@ -79,25 +84,24 @@ const AssignPermissions: FC<AssignPermissionsProps> = (props) => {
         disableEscapeKeyDown
         maxWidth="sm"
         aria-labelledby={labelId}
-        open={open}
+        open={isOpen}
       >
         <DialogTitle id={labelId}>Seleccionar permisos</DialogTitle>
         <DialogContent dividers className={classes.dialogContent}>
           <List dense>
-            {permissions.map((permission: Permission, index: number) => {
+            {permissions.map((permission) => {
               return (
-                <ListItem key={permission.id}>
+                <ListItem key={permission}>
                   <FormControlLabel
+                    label={permission}
                     control={
                       <Checkbox
-                        checked={selected[permission.id] ? true : false}
-                        onChange={updateSelected}
-                        value={index}
-                        name={permission.id}
+                        checked={selected.get(permission) || false}
+                        onChange={updateSelection}
+                        value={permission}
                         color="primary"
                       />
                     }
-                    label={permission.name}
                   />
                 </ListItem>
               );
@@ -108,7 +112,7 @@ const AssignPermissions: FC<AssignPermissionsProps> = (props) => {
           <Button onClick={closeDialog} color="primary">
             Cancelar
           </Button>
-          <Button onClick={save} color="primary">
+          <Button onClick={sendSelection} color="primary">
             Guardar
           </Button>
         </DialogActions>

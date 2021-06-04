@@ -2,10 +2,10 @@ import { Dialog, DialogContentText, DialogTitle, Fab } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Add } from "@material-ui/icons";
 import React, { FC, useState } from "react";
-import ModalContent from "shared/components/ModalContent";
 import { Role } from "services/auth/models";
+import ModalContent from "shared/components/ModalContent";
 
-import RolModalForm from "./AddRol";
+import RoleForm from "./RoleForm";
 
 interface CreateRolProps {}
 
@@ -15,15 +15,15 @@ const CreateRol: FC<CreateRolProps> = (props) => {
 
   const openDialog = () => {
     setIsOpen(true);
-  }
+  };
 
   const closeDialog = () => {
     setIsOpen(false);
-  }
+  };
 
   const saveNewRol = (data: Role) => {
     console.log(data);
-  }
+  };
 
   return (
     <>
@@ -46,7 +46,7 @@ const CreateRol: FC<CreateRolProps> = (props) => {
           </DialogContentText>
         </ModalContent>
         <br />
-        <RolModalForm cancelForm={closeDialog} onSaveForm={saveNewRol} />
+        <RoleForm cancelForm={closeDialog} onSaveForm={saveNewRol} />
       </Dialog>
     </>
   );
@@ -69,4 +69,3 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default CreateRol;
-

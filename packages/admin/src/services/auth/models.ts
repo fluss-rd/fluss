@@ -30,9 +30,9 @@ export type Role = {
   name: string;
   description: string;
   permissions: Permission[];
-}
+};
 
 export type Permission = {
   resource: string;
   actions: PermissionAction[];
-}
+};

@@ -1,5 +1,6 @@
+import { Permission as PermissionForm, Role as RoleForm } from "services/auth/models";
+
 import Permission from "./Permission";
-import { Role as RoleForm, Permission as PermissionForm } from "services/auth/models";
 
 export default class Rol {
   id: string;
@@ -42,4 +43,3 @@ export default class Rol {
     };
   }
 }
-

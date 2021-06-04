@@ -18,4 +18,3 @@ type PermissionAction = typeof actions[number];
 export const actions = ["read", "write", "update", "delete", "*"] as const;
 
 export default PermissionAction;
-

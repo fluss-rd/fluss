@@ -31,4 +31,3 @@ export default class Permission {
     return permissions;
   }
 }
-

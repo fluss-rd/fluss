@@ -2,8 +2,8 @@ import Rol from "models/Rol";
 import { DataTableColumn, EnhancedDataTable } from "shared/components/Tables";
 import formatDate from "shared/helpers/formatDate";
 
-import CreateRol from "./CreateRol";
-import EditRol from "./EditRol";
+import CreateRol from "./CreateRole";
+import EditRol from "./EditRole";
 
 export default function Roles() {
   return (
