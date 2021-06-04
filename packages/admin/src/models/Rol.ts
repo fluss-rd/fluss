@@ -1,4 +1,5 @@
 import Permission from "./Permission";
+import { Role as RoleForm, Permission as PermissionForm } from "services/auth/models";
 
 export default class Rol {
   id: string;
@@ -30,4 +31,15 @@ export default class Rol {
 
     return roles;
   }
+
+  static toRoleForm(role: Rol): RoleForm {
+    return {
+      permissions: role.permissions.map(
+        (p) => ({ actions: [...p.actions], resource: p.name } as PermissionForm)
+      ),
+      name: role.name,
+      description: role.description,
+    };
+  }
 }
+

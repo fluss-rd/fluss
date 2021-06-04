@@ -23,12 +23,11 @@ interface AssignPermissionsProps {
 const AssignPermissions: FC<AssignPermissionsProps> = (props) => {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState<Record<string, string>>({});
-
-  useEffect(() => setSelected(fromSelected()), [open, props.selected]);
-
   const classes = useStyles();
   const permissions = Permission.mockData();
   const labelId = "permissions-selection-dialog";
+
+  useEffect(() => setSelected(fromSelected()), [open, props.selected]);
 
   const openDialog = () => setOpen(true);
 

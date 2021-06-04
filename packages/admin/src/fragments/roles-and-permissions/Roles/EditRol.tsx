@@ -2,26 +2,31 @@ import { Dialog, DialogTitle, IconButton } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Info } from "@material-ui/icons";
 import Rol from "models/Rol";
+import { Role as RoleForm } from "services/auth/models";
 import React, { FC, useState } from "react";
 
 import ModalFormDates from "../ModalFormDates";
-import RolModalForm, { RolForm } from "./RolModalForm";
+import RolModalForm from "./AddRol";
 
 interface EditRolProps {
   rol: Rol;
 }
 
-const EditRol: FC<EditRolProps> = (props) => {
+const EditRol: FC<EditRolProps> = ({ rol }) => {
   const [isOpen, setIsOpen] = useState(false);
-
   const classes = useStyles();
-  const {
-    rol: { name, description, lastUpdate, creationDate },
-  } = props;
 
-  const openDialog = () => setIsOpen(true);
-  const closeDialog = () => setIsOpen(false);
-  const handleSave = (data: RolForm) => console.log(data);
+  const openDialog = () => {
+    setIsOpen(true);
+  };
+
+  const closeDialog = () => {
+    setIsOpen(false);
+  };
+
+  const handleSave = (data: RoleForm) => {
+    console.log(data);
+  };
 
   return (
     <>
@@ -38,13 +43,13 @@ const EditRol: FC<EditRolProps> = (props) => {
       >
         <DialogTitle id="form-dialog-title">Detalle del rol</DialogTitle>
 
-        <ModalFormDates lastUpdate={lastUpdate} creationDate={creationDate} />
+        <ModalFormDates lastUpdate={rol.lastUpdate} creationDate={rol.creationDate} />
 
         <div className={classes.formSection}>
           <RolModalForm
             cancelForm={closeDialog}
             onSaveForm={handleSave}
-            values={{ name, description }}
+            values={Rol.toRoleForm(rol)}
           />
         </div>
       </Dialog>
@@ -70,3 +75,4 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default EditRol;
+

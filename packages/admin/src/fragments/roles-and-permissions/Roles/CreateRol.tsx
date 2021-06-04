@@ -3,22 +3,31 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Add } from "@material-ui/icons";
 import React, { FC, useState } from "react";
 import ModalContent from "shared/components/ModalContent";
+import { Role } from "services/auth/models";
 
-import RolModalForm, { RolForm } from "./RolModalForm";
+import RolModalForm from "./AddRol";
 
 interface CreateRolProps {}
 
 const CreateRol: FC<CreateRolProps> = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const classes = useStyles();
-  const onOpenDialog = () => setIsOpen(true);
-  const onCloseDialog = () => setIsOpen(false);
 
-  const saveNewRol = (data: RolForm) => console.log(data);
+  const openDialog = () => {
+    setIsOpen(true);
+  }
+
+  const closeDialog = () => {
+    setIsOpen(false);
+  }
+
+  const saveNewRol = (data: Role) => {
+    console.log(data);
+  }
 
   return (
     <>
-      <Fab variant="extended" color="primary" className={classes.fab} onClick={onOpenDialog}>
+      <Fab variant="extended" color="primary" className={classes.fab} onClick={openDialog}>
         <Add className={classes.extendedIcon} />
         Agregar rol
       </Fab>
@@ -26,7 +35,7 @@ const CreateRol: FC<CreateRolProps> = (props) => {
         fullWidth
         open={isOpen}
         maxWidth="md"
-        onClose={onCloseDialog}
+        onClose={closeDialog}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">Agregar rol</DialogTitle>
@@ -37,7 +46,7 @@ const CreateRol: FC<CreateRolProps> = (props) => {
           </DialogContentText>
         </ModalContent>
         <br />
-        <RolModalForm cancelForm={onCloseDialog} onSaveForm={saveNewRol} />
+        <RolModalForm cancelForm={closeDialog} onSaveForm={saveNewRol} />
       </Dialog>
     </>
   );
@@ -60,3 +69,4 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default CreateRol;
+

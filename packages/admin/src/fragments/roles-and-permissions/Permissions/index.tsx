@@ -1,6 +1,5 @@
 import Permission from "models/Permission";
 import { DataTableColumn, EnhancedDataTable } from "shared/components/Tables";
-import { formatDate } from "shared/helpers";
 
 import EditPermission from "./EditPermission";
 
@@ -15,16 +14,6 @@ function generateColumns(): DataTableColumn<Permission>[] {
   const columns: DataTableColumn<Permission>[] = [
     { Header: "Recurso", accessor: "name" },
     { Header: "Descripción", accessor: "description" },
-    {
-      Header: "Creación",
-      id: "creationDate",
-      accessor: (p) => formatDate(p.creationDate),
-    },
-    {
-      Header: "Última actualización",
-      id: "updatedAt",
-      accessor: (p) => formatDate(p.updatedAt),
-    },
     {
       Header: " ",
       id: "info",

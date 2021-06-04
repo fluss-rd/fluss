@@ -58,10 +58,10 @@ const EditPermission: FC<EditPermissionProps> = (props) => {
 EditPermission.defaultProps = {
   permission: {
     id: "",
+    actions: [],
     name: "",
     description: "",
     updatedAt: new Date(Date.now()),
-    roles: [],
     creationDate: new Date(Date.now()),
   },
 };
@@ -73,3 +73,4 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default EditPermission;
+
