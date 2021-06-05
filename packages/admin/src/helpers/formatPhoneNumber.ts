@@ -4,4 +4,3 @@ export default function formatPhoneNumber(phoneNumber: string): string {
 
   return masked;
 }
-

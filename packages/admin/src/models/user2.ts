@@ -32,7 +32,7 @@ export function mockUsers(): User[] {
       lastUpdate: new Date(Date.now()),
     },
     {
-      id: "US-1",
+      id: "US-2",
       name: "Denys",
       surname: "Rosario",
       phoneNumber: "8295650234",
@@ -44,4 +44,3 @@ export function mockUsers(): User[] {
     },
   ];
 }
-

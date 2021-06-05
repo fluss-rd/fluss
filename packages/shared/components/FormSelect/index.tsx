@@ -9,7 +9,7 @@ import {
   SelectProps,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import React, { FC, useMemo } from "react";
+import React, { FC, useMemo, forwardRef, ForwardedRef } from "react";
 
 import generateId from "../../helpers/generateId";
 
@@ -22,13 +22,13 @@ interface FormSelectProps extends Omit<SelectProps, "ref"> {
   selectRef?: any;
 }
 
-const FormSelect: FC<FormSelectProps> = (props) => {
+const FormSelect = forwardRef((props: FormSelectProps, ref: ForwardedRef<any>) => {
   const classes = useStyles();
   const selectId = useMemo(() => generateId("select"), []);
   const { noneText, FormControlProps, selectRef, helperText, ...rest } = props;
 
   return (
-    <FormControl fullWidth variant="outlined" {...FormControlProps}>
+    <FormControl fullWidth variant="outlined" {...FormControlProps} ref={ref}>
       <InputLabel shrink id={`${selectId}-label`}>
         {props.label}
       </InputLabel>
@@ -49,7 +49,7 @@ const FormSelect: FC<FormSelectProps> = (props) => {
       <FormHelperText error={props.error}>{helperText}</FormHelperText>
     </FormControl>
   );
-};
+});
 
 FormSelect.defaultProps = {
   noneText: "Todos",
@@ -63,3 +63,4 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default FormSelect;
+
