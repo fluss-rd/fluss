@@ -2,7 +2,7 @@ import { IconButton, Typography } from "@material-ui/core";
 import { Edit } from "@material-ui/icons";
 import CreateUser from "fragments/users/CreateUser";
 import EditUser from "fragments/users/EditUser";
-import User, { mockUsers } from "models/user2";
+import User, { mockUsers } from "models/user";
 import { NextPage } from "next";
 import { useState } from "react";
 import { DataTableColumn, EnhancedDataTable, SelectColumnFilter } from "shared/components/Tables";
