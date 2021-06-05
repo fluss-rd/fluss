@@ -10,8 +10,8 @@ import { DataTableColumn, EnhancedDataTable, SelectColumnFilter } from "shared/c
 import { formatDate } from "shared/helpers";
 
 const Users: NextPage = () => {
-  const users = mockUsers();
   const [userId, setUserId] = useState<string>("");
+  const users = mockUsers();
   const onEdit = (id: string) => () => setUserId(id);
   const close = () => setUserId("");
   const columns = generateColumns(onEdit);

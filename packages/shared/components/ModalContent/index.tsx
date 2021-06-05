@@ -34,4 +34,3 @@ const useStyles = makeStyles<Theme, { spacing: number }>((theme) => ({
 ModalContent.defaultProps = { spacing: 0 };
 
 export default ModalContent;
-

@@ -1,8 +1,11 @@
-import { Button, Dialog, DialogActions, DialogTitle } from "@material-ui/core";
+import { Button, Dialog, DialogActions, DialogTitle, Grid } from "@material-ui/core";
 import { mockUsers } from "models/user2";
 import React, { FC } from "react";
 import ModalContent from "shared/components/ModalContent";
 import useRefCallback from "shared/hooks/useRefCallback";
+import { useMergeState } from "shared/hooks";
+import FormField from "shared/components/FormField";
+import formatDate from "shared/helpers/formatDate";
 
 import UserForm, { UserFormModel, UserFormRef } from "./UserForm";
 
@@ -14,17 +17,27 @@ interface EditUserProps {
 
 const EditUser: FC<EditUserProps> = (props) => {
   const [userFormRef, setUserFormRef] = useRefCallback(initializeForm, [props.id]);
+  const [dates, setDates] = useMergeState({
+    registration: new Date(Date.now()),
+    update: new Date(Date.now()),
+  });
 
   function initializeForm(ref: UserFormRef) {
     const users = mockUsers();
     const match = users.find((u) => u.id === props.id);
 
+    // Fill form with the selected user data.
+    if (!match) return;
+
     ref.form.reset({
-      name: match?.name || "",
-      surname: match?.surname || "",
-      email: match?.email || "",
-      rolName: match?.roleName || "",
+      name: match.name || "",
+      surname: match.surname || "",
+      email: match.email || "",
+      rolName: match.roleName || "",
     });
+
+    // Fill user dates.
+    setDates({ update: match.lastUpdate, registration: match.creationDate });
   }
 
   function onSubmit(data: UserFormModel) {
@@ -43,6 +56,24 @@ const EditUser: FC<EditUserProps> = (props) => {
       <DialogTitle id="form-dialog-title">Editar información de usuario</DialogTitle>
       <form noValidate autoComplete="off">
         <ModalContent spacing={2}>
+          <Grid container spacing={2}>
+            <Grid item>
+              <FormField
+                disabled
+                variant="standard"
+                label="Fecha de registro"
+                value={formatDate(dates.registration)}
+              />
+            </Grid>
+            <Grid item>
+              <FormField
+                disabled
+                variant="standard"
+                label="Última actualización"
+                value={formatDate(dates.update)}
+              />
+            </Grid>
+          </Grid>
           <UserForm ref={setUserFormRef} />
         </ModalContent>
         <DialogActions>
@@ -50,7 +81,7 @@ const EditUser: FC<EditUserProps> = (props) => {
             Cancelar
           </Button>
           <Button color="primary" onClick={() => userFormRef.current.form.handleSubmit(onSubmit)()}>
-            Registrar
+            Guardar cambios
           </Button>
         </DialogActions>
       </form>
@@ -59,3 +90,4 @@ const EditUser: FC<EditUserProps> = (props) => {
 };
 
 export default EditUser;
+

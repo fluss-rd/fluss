@@ -128,4 +128,3 @@ declare module "react-table" {
     allCells: Cell<D>[];
   }
 }
-

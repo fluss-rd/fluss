@@ -18,7 +18,7 @@ const CreateUser: FC = () => {
   return (
     <>
       <Fab variant="extended" color="primary" className={classes.fab} onClick={openDialog}>
-        <Add className={classes.extendedIcon} />
+        <Add />
         Registrar usuario
       </Fab>
       <Dialog
@@ -31,7 +31,7 @@ const CreateUser: FC = () => {
       >
         <DialogTitle id="form-dialog-title">Registrar usuario</DialogTitle>
         <form noValidate autoComplete="off">
-          <ModalContent className={classes.content}>
+          <ModalContent spacing={2}>
             <UserForm ref={userFormRef} />
           </ModalContent>
           <DialogActions>
@@ -52,18 +52,10 @@ const CreateUser: FC = () => {
 };
 
 const useStyles = makeStyles((theme) => ({
-  content: {
-    "& > *:not(:last-child)": {
-      marginBottom: theme.spacing(2),
-    },
-  },
   fab: {
     position: "fixed",
     bottom: theme.spacing(4),
     right: theme.spacing(4),
-  },
-  extendedIcon: {
-    marginRight: theme.spacing(1),
   },
 }));
 

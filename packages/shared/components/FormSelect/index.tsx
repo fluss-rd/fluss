@@ -9,7 +9,7 @@ import {
   SelectProps,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import React, { FC, useMemo, forwardRef, ForwardedRef } from "react";
+import React, { FC, ForwardedRef, forwardRef, useMemo } from "react";
 
 import generateId from "../../helpers/generateId";
 
@@ -63,4 +63,3 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default FormSelect;
-

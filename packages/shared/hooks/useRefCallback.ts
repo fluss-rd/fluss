@@ -1,4 +1,4 @@
-import { useRef, useCallback, MutableRefObject } from "react";
+import { MutableRefObject, useCallback, useRef } from "react";
 
 export default function useRefCallback<T>(
   callback: (node: T) => void,
@@ -15,4 +15,3 @@ export default function useRefCallback<T>(
 
   return [ref, setRef];
 }
-

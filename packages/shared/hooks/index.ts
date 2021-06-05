@@ -1,11 +1,10 @@
+import useFetch from "./useFetch";
+import useHeight from "./useHeight";
 import useMergeState from "./useMergeState";
 import usePrevious from "./usePrevious";
-import useHeight from "./useHeight";
-import useFetch from "./useFetch";
 
-export { useMergeState, usePrevious, useHeight, useFetch };
+export { useFetch, useHeight, useMergeState, usePrevious };
 export * from "./useFetch";
 export * from "./useHeight";
 export * from "./useMergeState";
 export * from "./usePrevious";
-

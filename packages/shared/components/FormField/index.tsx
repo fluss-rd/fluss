@@ -6,12 +6,12 @@ export type FormFieldProps = TextFieldProps & {
   underlined?: boolean;
 };
 
-const FormField = (props: FormFieldProps, ref: ForwardedRef<any>) => {
+const FormField = forwardRef((props: FormFieldProps, ref: ForwardedRef<any>) => {
   const classes = useStyles();
   const { fullWidth, variant, InputLabelProps, InputProps, underlined, ...rest } = props;
   const inputProps = variant === "outlined" ? { notched: true, ...InputProps } : InputProps;
   const underline: any =
-    variant === "standard" ? { underline: underlined && classes.underline } : {};
+    variant === "standard" ? { underline: !underlined && classes.noUnderline } : {};
 
   return (
     <TextField
@@ -23,10 +23,10 @@ const FormField = (props: FormFieldProps, ref: ForwardedRef<any>) => {
       {...rest}
     />
   );
-};
+});
 
 const useStyles = makeStyles(() => ({
-  underline: {
+  noUnderline: {
     "&&&:before": {
       borderBottom: "none",
     },
@@ -36,15 +36,13 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const ForwardedFormField = forwardRef(FormField);
-
-ForwardedFormField.defaultProps = {
+FormField.defaultProps = {
   fullWidth: true,
   variant: "outlined",
   name: "latitude",
   InputLabelProps: { shrink: true },
   InputProps: {},
-  underlined: true,
+  underlined: false,
 };
 
-export default ForwardedFormField;
+export default FormField;
