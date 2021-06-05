@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { mockWatersheds } from "models/watershed";
 import WatershedCard from "fragments/watersheds/WatershedCard";
 import Watershed from "models/watershed";
+import AddWatershed from "fragments/watersheds/AddWatershed";
 
 interface HydricResourcesProps {
   quantity: number;
@@ -33,6 +34,7 @@ const Watersheds: NextPage<HydricResourcesProps> = ({ quantity, watersheds }) =>
           />
         ))}
       </div>
+      <AddWatershed />
     </div>
   );
 };

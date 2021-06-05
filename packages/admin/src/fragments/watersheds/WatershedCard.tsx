@@ -1,12 +1,4 @@
-import {
-  Grid,
-  Typography,
-  Card,
-  CardActionArea,
-  CardContent,
-  CardActions,
-  Button,
-} from "@material-ui/core";
+import { Grid, Typography, Card, CardContent, CardActions, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { FC } from "react";
 import Map from "components/Map";
@@ -22,7 +14,6 @@ interface WatershedCardProps {
 
 const WatershedCard: FC<WatershedCardProps> = (props) => {
   const classes = useStyles();
-  const lastUpdate = formatDate(props.lastUpdate);
 
   return (
     <Card className={classes.root} variant="outlined">
@@ -51,7 +42,7 @@ const WatershedCard: FC<WatershedCardProps> = (props) => {
                     <Typography>Última actualización:</Typography>
                   </td>
                   <td>
-                    <Typography>{lastUpdate}</Typography>
+                    <Typography>{formatDate(props.lastUpdate)}</Typography>
                   </td>
                 </tr>
               </tbody>

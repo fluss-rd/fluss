@@ -33,7 +33,6 @@ function MyApp({ Component, pageProps }) {
             <Layout>
               <Component {...pageProps} />
             </Layout>
-            <ReactQueryDevtools initialIsOpen={false} />
           </QueryClientProvider>
         </ThemeProvider>
       </MuiPickersUtilsProvider>
