@@ -1,19 +1,20 @@
 import { Typography } from "@material-ui/core";
 import CreateUser from "fragments/users/CreateUser";
-import User from "models/User";
 import { NextPage } from "next";
 import { DataTableColumn, EnhancedDataTable, SelectColumnFilter } from "shared/components/Tables";
 import { formatDate } from "shared/helpers";
+import User, { mockUsers } from "models/user2";
+import formatPhoneNumber from "helpers/formatPhoneNumber";
 
 const Users: NextPage = () => {
-  const data = User.mockData();
+  const users = mockUsers();
   const columns = generateColumns();
 
   return (
     <div>
       <Typography variant="h4">Usuarios</Typography>
       <br />
-      <EnhancedDataTable withFilters labeledButtons data={data} columns={columns} />
+      <EnhancedDataTable withFilters labeledButtons data={users} columns={columns} />
 
       <CreateUser />
     </div>
@@ -24,18 +25,28 @@ function generateColumns() {
   const columns: DataTableColumn<User>[] = [
     { Header: "Nombre", accessor: "name" },
     { Header: "Apellido", accessor: "surname" },
-    { Header: "Última actualización", id: "lastUpdate", accessor: (u) => formatDate(u.lastUpdate) },
+    { Header: "Email", accessor: "email" },
     {
-      Header: "Fecha de creación",
-      id: "creationDate",
-      accessor: (u) => formatDate(u.creationDate),
+      Header: "Celular",
+      id: "phoneNumber",
+      accessor: (u) => formatPhoneNumber(u.phoneNumber),
     },
     {
       Header: "Rol",
-      id: "rol",
-      accessor: (u) => u.rol.name,
+      id: "roleName",
+      accessor: (u) => u.roleName,
       filter: "includes",
       Filter: SelectColumnFilter,
+    },
+    {
+      Header: "Última actualización",
+      id: "lastUpdate",
+      accessor: (u) => formatDate(u.lastUpdate),
+    },
+    {
+      Header: "Fecha de registro",
+      id: "creationDate",
+      accessor: (u) => formatDate(u.creationDate),
     },
   ];
 
@@ -43,3 +54,4 @@ function generateColumns() {
 }
 
 export default Users;
+
