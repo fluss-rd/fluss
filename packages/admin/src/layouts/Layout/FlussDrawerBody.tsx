@@ -27,4 +27,3 @@ const FlussDrawerBody: FC<FlussDrawerBodyProps> = () => {
 };
 
 export default FlussDrawerBody;
-

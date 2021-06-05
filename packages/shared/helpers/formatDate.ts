@@ -1,4 +1,4 @@
-export type FormatType = "date" | "dateAndTime" | "time";
+export type FormatType = "date" | "dateAndTime" | "time" | "descriptive";
 
 export type FormatDateConfig = {
   type?: FormatType;
@@ -34,6 +34,10 @@ export default function formatDate(date?: Date, config: FormatDateConfig = {}): 
         timeSeparator +
         minutes
       );
+
+    case "descriptive":
+      // TODO: Make the timeDescription algorithm.
+      return "Hace 30 minutos";
     default:
       return "";
   }

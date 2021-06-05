@@ -1,7 +1,7 @@
-import { Grid, Typography, Card, CardContent, CardActions, Button } from "@material-ui/core";
+import { Button, Card, CardActions, CardContent, Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import React, { FC } from "react";
 import Map from "components/Map";
+import React, { FC } from "react";
 import formatDate from "shared/helpers/formatDate";
 
 interface WatershedCardProps {
@@ -75,4 +75,3 @@ const useStyles = makeStyles({
 });
 
 export default WatershedCard;
-

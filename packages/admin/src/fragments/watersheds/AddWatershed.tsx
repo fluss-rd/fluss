@@ -1,10 +1,10 @@
-import { makeStyles } from "@material-ui/core/styles";
 import { Button, Dialog, DialogActions, DialogTitle, Fab, MenuItem } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import { Add } from "@material-ui/icons";
-import React, { FC, useState } from "react";
 import useBoolean from "hooks/use-boolean";
-import ModalContent from "shared/components/ModalContent";
+import React, { FC, useState } from "react";
 import FormField from "shared/components/FormField";
+import ModalContent from "shared/components/ModalContent";
 
 interface AddWatershedProps {}
 
@@ -58,4 +58,3 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default AddWatershed;
-

@@ -1,10 +1,10 @@
-import { NextPage } from "next";
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { mockWatersheds } from "models/watershed";
-import WatershedCard from "fragments/watersheds/WatershedCard";
-import Watershed from "models/watershed";
 import AddWatershed from "fragments/watersheds/AddWatershed";
+import WatershedCard from "fragments/watersheds/WatershedCard";
+import { mockWatersheds } from "models/watershed";
+import Watershed from "models/watershed";
+import { NextPage } from "next";
 
 interface HydricResourcesProps {
   quantity: number;
@@ -57,4 +57,3 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default Watersheds;
-

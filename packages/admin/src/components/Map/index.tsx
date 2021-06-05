@@ -27,4 +27,3 @@ const Map: FC<MapProps> = (props) => {
 const useStyles = makeStyles({});
 
 export default Map;
-

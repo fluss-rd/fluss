@@ -12,4 +12,3 @@ type Module = {
 };
 
 export default Module;
-

@@ -13,4 +13,3 @@ export default function useBoolean(defaultValue = false): [boolean, () => void, 
 
   return [value, setTrue, setFalse];
 }
-
