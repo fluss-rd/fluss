@@ -2,12 +2,10 @@ import { IconButton, Typography } from "@material-ui/core";
 import { Edit } from "@material-ui/icons";
 import CreateUser from "fragments/users/CreateUser";
 import EditUser from "fragments/users/EditUser";
-import formatPhoneNumber from "helpers/formatPhoneNumber";
 import User, { mockUsers } from "models/user2";
 import { NextPage } from "next";
 import { useState } from "react";
 import { DataTableColumn, EnhancedDataTable, SelectColumnFilter } from "shared/components/Tables";
-import { formatDate } from "shared/helpers";
 
 const Users: NextPage = () => {
   const [userId, setUserId] = useState<string>("");
@@ -34,26 +32,11 @@ function generateColumns(onEdit: (userId: string) => () => void) {
     { Header: "Apellido", accessor: "surname" },
     { Header: "Email", accessor: "email" },
     {
-      Header: "Celular",
-      id: "phoneNumber",
-      accessor: (u) => formatPhoneNumber(u.phoneNumber),
-    },
-    {
       Header: "Rol",
       id: "roleName",
       accessor: (u) => u.roleName,
       filter: "includes",
       Filter: SelectColumnFilter,
-    },
-    {
-      Header: "Última actualización",
-      id: "lastUpdate",
-      accessor: (u) => formatDate(u.lastUpdate),
-    },
-    {
-      Header: "Fecha de registro",
-      id: "creationDate",
-      accessor: (u) => formatDate(u.creationDate),
     },
     {
       Header: "Editar",
@@ -70,3 +53,4 @@ function generateColumns(onEdit: (userId: string) => () => void) {
 }
 
 export default Users;
+
