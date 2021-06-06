@@ -21,7 +21,6 @@ export interface RolModalFormProps {
 }
 
 const RolModalForm: FC<RolModalFormProps> = ({ cancelForm, onSaveForm, values }) => {
-  const classes = useStyles();
   const form = useForm<Role>({
     resolver: yupResolver(formSchema),
     defaultValues: { ...values },
@@ -67,7 +66,7 @@ const RolModalForm: FC<RolModalFormProps> = ({ cancelForm, onSaveForm, values })
 
   return (
     <form noValidate autoComplete="off" onSubmit={form.handleSubmit(onSubmit)}>
-      <ModalContent className={classes.content}>
+      <ModalContent spacing={2}>
         <FormIconTitle title="Datos del nuevo rol" Icon={InfoOutlined} />
         <FormField
           name="name"
@@ -148,14 +147,6 @@ function parseToStringArray(permissions: Permission[]): string[] {
   const parsed = permissions.map((p) => p.resource);
   return parsed;
 }
-
-const useStyles = makeStyles((theme) => ({
-  content: {
-    "& > *:not(:last-child)": {
-      marginBottom: theme.spacing(2),
-    },
-  },
-}));
 
 // Rol -> Permission[] -> PermissionAction[].
 const formSchema: yup.SchemaOf<Role> = yup.object().shape({
