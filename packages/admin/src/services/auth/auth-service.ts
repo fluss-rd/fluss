@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import mockAxiosResponse from "helpers/mockAxiosResponse";
+import mockAxiosResponse from "helpers/mock-axios-response";
 
 import axiosInstance from "../axiosInstance";
 import { Credentials, LogInData, UserData } from "./models";
