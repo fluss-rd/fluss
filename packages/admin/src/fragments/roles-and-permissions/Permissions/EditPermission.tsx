@@ -1,7 +1,7 @@
 import { Button, Dialog, DialogActions, DialogTitle, IconButton } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Info } from "@material-ui/icons";
-import Permission from "models/Permission";
+import Permission from "models/permission";
 import React, { FC, useState } from "react";
 import FormField from "shared/components/FormField";
 import ModalContent from "shared/components/ModalContent";

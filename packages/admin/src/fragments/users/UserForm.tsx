@@ -1,7 +1,7 @@
 import { yupResolver } from "@hookform/resolvers";
 import { MenuItem } from "@material-ui/core";
 import { Info, Security, RadioButtonChecked } from "@material-ui/icons";
-import Role from "models/Role";
+import Role from "models/role";
 import React, { FC, ForwardedRef, forwardRef, useImperativeHandle } from "react";
 import { Controller, useForm, UseFormMethods } from "react-hook-form";
 import FormField from "shared/components/FormField";

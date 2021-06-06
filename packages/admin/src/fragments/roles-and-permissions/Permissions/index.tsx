@@ -1,10 +1,10 @@
-import Permission from "models/Permission";
+import Permission, { mockPermissions } from "models/permission";
 import { DataTableColumn, EnhancedDataTable } from "shared/components/Tables";
 
 import EditPermission from "./EditPermission";
 
 export default function Permissions() {
-  const permissions = Permission.mockData();
+  const permissions = mockPermissions();
   const columns = generateColumns();
 
   return <EnhancedDataTable data={permissions} columns={columns} />;

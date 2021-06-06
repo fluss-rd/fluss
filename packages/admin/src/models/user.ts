@@ -1,4 +1,4 @@
-import Role from "./Role";
+import Role from "./role";
 import UserStatus from "./user-status";
 
 type User = {

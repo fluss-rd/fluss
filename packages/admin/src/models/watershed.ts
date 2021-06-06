@@ -1,4 +1,4 @@
-import Location from "./Location";
+import Location from "./location";
 
 type Wqi = { value: number; rating: string };
 

@@ -7,7 +7,7 @@ import {
 } from "@material-ui/core";
 import { lighten, makeStyles, useTheme } from "@material-ui/core/styles";
 import { Close } from "@material-ui/icons";
-import PermissionAction, { actions, actionToString } from "models/PermissionAction";
+import PermissionAction, { actions, actionToString } from "models/permission-action";
 import React, { FC } from "react";
 import { Permission } from "services/auth/models";
 

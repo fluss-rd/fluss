@@ -1,6 +1,6 @@
 import { Permission as PermissionForm, Role as RoleForm } from "services/auth/models";
 
-import Permission from "./Permission";
+import Permission from "./permission";
 
 export default class Role {
   id: string;

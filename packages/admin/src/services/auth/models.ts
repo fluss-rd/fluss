@@ -1,4 +1,4 @@
-import PermissionAction from "models/PermissionAction";
+import PermissionAction from "models/permission-action";
 
 export type Credentials = {
   email: string;

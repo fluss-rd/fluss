@@ -11,7 +11,7 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Add } from "@material-ui/icons";
-import Permission from "models/Permission";
+import Permission, { mockPermissions } from "models/permission";
 import React, { ChangeEvent, FC, useEffect, useState } from "react";
 
 interface AssignPermissionsProps {
@@ -23,7 +23,7 @@ const AssignPermissions: FC<AssignPermissionsProps> = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState<Map<string, boolean>>(new Map());
   const classes = useStyles();
-  const permissions = Permission.mockData().map((p) => p.name);
+  const permissionNames = mockPermissions().map((p) => p.name);
   const labelId = "assign-permission-dialog";
 
   const openDialog = () => {
@@ -89,7 +89,7 @@ const AssignPermissions: FC<AssignPermissionsProps> = (props) => {
         <DialogTitle id={labelId}>Seleccionar permisos</DialogTitle>
         <DialogContent dividers className={classes.dialogContent}>
           <List dense>
-            {permissions.map((permission) => {
+            {permissionNames.map((permission) => {
               return (
                 <ListItem key={permission}>
                   <FormControlLabel

@@ -1,4 +1,4 @@
-import Role from "models/Role";
+import Role from "models/role";
 import { DataTableColumn, EnhancedDataTable } from "shared/components/Tables";
 import formatDate from "shared/helpers/formatDate";
 

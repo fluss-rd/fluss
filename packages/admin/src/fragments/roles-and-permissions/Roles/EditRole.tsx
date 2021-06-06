@@ -1,6 +1,6 @@
 import { Dialog, DialogTitle, IconButton } from "@material-ui/core";
 import { Edit } from "@material-ui/icons";
-import Role from "models/Role";
+import Role from "models/role";
 import React, { FC, useState } from "react";
 import { Role as RoleForm } from "services/auth/models";
 import ModalContent from "shared/components/ModalContent";
