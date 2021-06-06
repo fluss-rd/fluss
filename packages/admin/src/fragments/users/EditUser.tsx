@@ -1,11 +1,11 @@
 import { Button, Dialog, DialogActions, DialogTitle, Grid } from "@material-ui/core";
 import { mockUsers } from "models/user";
 import React, { FC } from "react";
-import ModalContent from "shared/components/ModalContent";
-import useRefCallback from "shared/hooks/useRefCallback";
-import { useMergeState } from "shared/hooks";
 import FormField from "shared/components/FormField";
+import ModalContent from "shared/components/ModalContent";
 import formatDate from "shared/helpers/formatDate";
+import { useMergeState } from "shared/hooks";
+import useRefCallback from "shared/hooks/useRefCallback";
 
 import UserForm, { UserFormModel, UserFormRef } from "./UserForm";
 
@@ -34,6 +34,7 @@ const EditUser: FC<EditUserProps> = (props) => {
       surname: match.surname || "",
       email: match.email || "",
       rolName: match.roleName || "",
+      status: match.status || "active",
     });
 
     // Fill user dates.
@@ -90,4 +91,3 @@ const EditUser: FC<EditUserProps> = (props) => {
 };
 
 export default EditUser;
-

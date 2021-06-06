@@ -22,7 +22,8 @@ interface ModuleFormProps {
 const ModuleForm: FC<ModuleFormProps> = (props) => {
   const { form, onRiverIdChange, changeLocation, riversQuery } = props.moduleForm;
   const { control, errors, register } = form;
-  const rivers = riversQuery.data?.data || [];
+  //const rivers = riversQuery.data?.data || [];
+  const rivers = River.mockData();
   const module = props.module;
 
   return (

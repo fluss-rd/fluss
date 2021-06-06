@@ -74,7 +74,6 @@ const ViewModule: FC<ViewModuleProps> = (props) => {
             <Grid item xs={12} className={classes.dates}>
               <FormField
                 disabled
-                underlined
                 fullWidth={false}
                 variant="standard"
                 value={formatDate(module.createdAt, { type: "dateAndTime" })}
@@ -82,7 +81,6 @@ const ViewModule: FC<ViewModuleProps> = (props) => {
               />
               <FormField
                 disabled
-                underlined
                 fullWidth={false}
                 variant="standard"
                 value={formatDate(new Date(module.updatedAt), { type: "dateAndTime" })}

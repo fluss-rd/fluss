@@ -31,7 +31,7 @@ const RegisterModule: FC<OpenFormButtonProps> = () => {
   return (
     <>
       <Fab variant="extended" color="primary" className={classes.fab} onClick={openModal}>
-        <Add className={classes.extendedIcon} />
+        <Add />
         Registrar módulo
       </Fab>
       <Dialog
@@ -67,18 +67,10 @@ const RegisterModule: FC<OpenFormButtonProps> = () => {
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
-  content: {
-    paddingLeft: theme.spacing(3.2),
-    paddingRight: theme.spacing(3.2),
-    paddingBottom: theme.spacing(3.2),
-  },
   fab: {
     position: "fixed",
     bottom: theme.spacing(4),
     right: theme.spacing(4),
-  },
-  extendedIcon: {
-    marginRight: theme.spacing(1),
   },
 }));
 

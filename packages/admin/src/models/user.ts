@@ -1,4 +1,5 @@
 import Role from "./Role";
+import UserStatus from "./user-status";
 
 type User = {
   id: string;
@@ -13,8 +14,6 @@ type User = {
 };
 
 export default User;
-
-export type UserStatus = "active" | "inactive" | "removed";
 
 export function mockUsers(): User[] {
   const roles = Role.mockData();
@@ -38,7 +37,7 @@ export function mockUsers(): User[] {
       phoneNumber: "8295650234",
       roleName: roles[1].name,
       email: "denys@gmail.com",
-      status: "active",
+      status: "inactive",
       creationDate: new Date(Date.now()),
       lastUpdate: new Date(Date.now()),
     },

@@ -26,6 +26,19 @@ class River {
     const rivers = data.map((d) => River.fromRiverData(d));
     return rivers;
   }
+
+  static mockData(): River[] {
+    return [
+      {
+        id: "YN-1",
+        name: "Yaque del Norte",
+        location: { latitude: 33.24, longitude: -23.14 },
+        userId: "US-1",
+        creationDate: new Date(Date.now()),
+        updateDate: new Date(Date.now()),
+      },
+    ];
+  }
 }
 
 export default River;

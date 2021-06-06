@@ -1,7 +1,8 @@
 import { yupResolver } from "@hookform/resolvers";
 import { MenuItem } from "@material-ui/core";
-import { Info, Security } from "@material-ui/icons";
+import { Info, RadioButtonChecked, Security } from "@material-ui/icons";
 import Role from "models/Role";
+import UserStatus, { userStatusList, userStatusToString } from "models/user-status";
 import React, { FC, ForwardedRef, forwardRef, useImperativeHandle } from "react";
 import { Controller, useForm, UseFormMethods } from "react-hook-form";
 import FormField from "shared/components/FormField";
@@ -71,6 +72,33 @@ const UserForm = forwardRef((props: UserFormProps, ref: ForwardedRef<UserFormRef
           </FormSelect>
         }
       />
+
+      <br />
+
+      <FormIconTitle Icon={RadioButtonChecked} title="Asignar rol" />
+
+      <Controller
+        name="status"
+        control={form.control}
+        defaultValue={"active" as UserStatus}
+        as={
+          <FormSelect
+            noneText="Sin seleccionar"
+            label="Elegir rol"
+            helperText={form.errors.status?.message}
+            error={!!form.errors.status}
+          >
+            {userStatusList.map((status) => {
+              const statusText = userStatusToString(status);
+              return (
+                <MenuItem key={status} value={status}>
+                  {statusText}
+                </MenuItem>
+              );
+            })}
+          </FormSelect>
+        }
+      />
     </>
   );
 });
@@ -81,6 +109,7 @@ const schema = yup.object().shape({
   name: yup.string().required("Debe ingresar un nombre para el usuario"),
   surname: yup.string().required("Debe ingresar un apellido para el usuario"),
   rolName: yup.string().required("Debe ingresar un nombre para el usuario"),
+  status: yup.string().required("Debe indicar el estado del usuario"),
   email: yup
     .string()
     .required("Debe ingresar un email para el usuario")
@@ -91,5 +120,6 @@ export type UserFormModel = {
   name: string;
   surname: string;
   rolName: string;
+  status: string;
   email: string;
 };

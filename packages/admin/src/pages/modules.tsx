@@ -11,10 +11,13 @@ import formatDate from "shared/helpers/formatDate";
 import useMergeState from "shared/hooks/useMergeState";
 
 export default function Modulos() {
-  const [state, setState] = useMergeState({ open: true, moduleId: "" });
+  const [state, setState] = useMergeState({ open: false, moduleId: "" });
   const classes = useStyles();
-  const modulesQuery = useGetModules();
-  const modules = Module.fromModuleDataList(modulesQuery.data?.data || []);
+
+  //const modulesQuery = useGetModules();
+  //const modules = Module.fromModuleDataList(modulesQuery.data?.data || []);
+  const modules = Module.mockData();
+
   const columns = useMemo(() => generateColumns(openViewModule), []);
 
   function closeViewModule() {
@@ -29,13 +32,15 @@ export default function Modulos() {
     <div className={classes.root}>
       <Typography variant="h4">Módulos</Typography>
       <br />
-      <EnhancedDataTable
-        withFilters
-        withColumnsSelection
-        isLoading={modulesQuery.isLoading}
-        data={modules}
-        columns={columns}
-      />
+      <EnhancedDataTable withFilters withColumnsSelection data={modules} columns={columns} />
+      {/*
+        <EnhancedDataTable
+          withFilters
+          withColumnsSelection
+          isLoading={modulesQuery.isLoading}
+            data={modules}
+            columns={columns}
+            />*/}
       <RegisterModule />
       <ViewModule moduleId={state.moduleId} open={state.open} close={closeViewModule} />
     </div>

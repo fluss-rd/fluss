@@ -53,4 +53,3 @@ function generateColumns(onEdit: (userId: string) => () => void) {
 }
 
 export default Users;
-
