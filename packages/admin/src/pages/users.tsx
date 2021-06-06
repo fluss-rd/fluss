@@ -3,6 +3,7 @@ import { Edit } from "@material-ui/icons";
 import CreateUser from "fragments/users/CreateUser";
 import EditUser from "fragments/users/EditUser";
 import User, { mockUsers } from "models/user";
+import { userStatusToString } from "models/user-status";
 import { NextPage } from "next";
 import { useState } from "react";
 import { DataTableColumn, EnhancedDataTable, SelectColumnFilter } from "shared/components/Tables";
@@ -31,6 +32,7 @@ function generateColumns(onEdit: (userId: string) => () => void) {
     { Header: "Nombre", accessor: "name" },
     { Header: "Apellido", accessor: "surname" },
     { Header: "Email", accessor: "email" },
+    { Header: "Estado", id: "status", accessor: (u) => userStatusToString(u.status) },
     {
       Header: "Rol",
       id: "roleName",
@@ -53,3 +55,4 @@ function generateColumns(onEdit: (userId: string) => () => void) {
 }
 
 export default Users;
+
