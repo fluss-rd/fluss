@@ -1,8 +1,6 @@
-export const userStatusList = ["active", "inactive", "removed"] as const;
-
 type UserStatus = typeof userStatusList[number];
 
-export default UserStatus;
+export const userStatusList = ["active", "inactive", "removed"] as const;
 
 export function userStatusToString(status: UserStatus): string {
   switch (status) {
@@ -16,3 +14,5 @@ export function userStatusToString(status: UserStatus): string {
       return "";
   }
 }
+
+export default UserStatus;

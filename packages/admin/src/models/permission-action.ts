@@ -1,3 +1,7 @@
+type PermissionAction = typeof actions[number];
+
+export const actions = ["read", "write", "update", "delete", "*"] as const;
+
 export function actionToString(action: PermissionAction): string {
   switch (action) {
     case "read":
@@ -12,9 +16,5 @@ export function actionToString(action: PermissionAction): string {
       return "Todos";
   }
 }
-
-type PermissionAction = typeof actions[number];
-
-export const actions = ["read", "write", "update", "delete", "*"] as const;
 
 export default PermissionAction;
