@@ -1,8 +1,8 @@
 import { yupResolver } from "@hookform/resolvers";
 import { MenuItem } from "@material-ui/core";
 import { Info, Security, RadioButtonChecked } from "@material-ui/icons";
-import Role from "models/role";
-import React, { FC, ForwardedRef, forwardRef, useImperativeHandle } from "react";
+import { mockRoles } from "models/role";
+import React, { ForwardedRef, forwardRef, useImperativeHandle } from "react";
 import { Controller, useForm, UseFormMethods } from "react-hook-form";
 import FormField from "shared/components/FormField";
 import FormIconTitle from "shared/components/FormIconTitle";
@@ -18,7 +18,7 @@ export interface UserFormRef {
 
 const UserForm = forwardRef((props: UserFormProps, ref: ForwardedRef<UserFormRef>) => {
   const form = useForm<UserFormModel>({ resolver: yupResolver(schema) });
-  const roles = Role.mockData();
+  const roles = mockRoles();
 
   useImperativeHandle(ref, () => ({ form }), []);
 

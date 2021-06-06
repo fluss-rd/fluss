@@ -1,4 +1,4 @@
-import Role from "./role";
+import { mockRoles } from "./role";
 import UserStatus from "./user-status";
 
 type User = {
@@ -13,10 +13,8 @@ type User = {
   creationDate: Date;
 };
 
-export default User;
-
 export function mockUsers(): User[] {
-  const roles = Role.mockData();
+  const roles = mockRoles();
 
   return [
     {
@@ -43,3 +41,5 @@ export function mockUsers(): User[] {
     },
   ];
 }
+
+export default User;

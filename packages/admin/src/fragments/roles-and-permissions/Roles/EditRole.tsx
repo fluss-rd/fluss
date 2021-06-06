@@ -1,6 +1,6 @@
 import { Dialog, DialogTitle, IconButton } from "@material-ui/core";
 import { Edit } from "@material-ui/icons";
-import Role from "models/role";
+import Role, { roleToRoleForm } from "models/role";
 import React, { FC, useState } from "react";
 import { Role as RoleForm } from "services/auth/models";
 import ModalContent from "shared/components/ModalContent";
@@ -9,10 +9,10 @@ import RegistrationAndUpdateDates from "components/RegistrarionAndUpdateDates";
 import RoleModalForm from "./RoleForm";
 
 interface EditRolProps {
-  rol: Role;
+  role: Role;
 }
 
-const EditRol: FC<EditRolProps> = ({ rol }) => {
+const EditRol: FC<EditRolProps> = ({ role: rol }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const openDialog = () => {
@@ -49,7 +49,7 @@ const EditRol: FC<EditRolProps> = ({ rol }) => {
         <RoleModalForm
           cancelForm={closeDialog}
           onSaveForm={handleSave}
-          values={Role.toRoleForm(rol)}
+          values={roleToRoleForm(rol)}
         />
       </Dialog>
     </>
@@ -57,7 +57,7 @@ const EditRol: FC<EditRolProps> = ({ rol }) => {
 };
 
 EditRol.defaultProps = {
-  rol: {
+  role: {
     id: "",
     name: "",
     description: "",

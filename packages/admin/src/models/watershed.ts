@@ -1,7 +1,5 @@
 import Location from "./location";
 
-type Wqi = { value: number; rating: string };
-
 type Watershed = {
   id: string;
   name: string;
@@ -11,6 +9,8 @@ type Watershed = {
   modulesQuantity: number;
   wqi: Wqi; // Water Quality Index.
 };
+
+export type Wqi = { value: number; rating: string };
 
 export function mockWatersheds(): Watershed[] {
   return [
