@@ -1,6 +1,6 @@
 import { getToken, getUserId, removeToken, storeToken } from "helpers/token";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import * as service from "services/auth/auth-service";
+import * as service from "services/auth/service";
 
 export function useLogin() {
   const queryClient = useQueryClient();

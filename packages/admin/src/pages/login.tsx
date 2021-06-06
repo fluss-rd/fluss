@@ -14,12 +14,11 @@ import { makeStyles, Theme } from "@material-ui/core/styles";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import { Alert } from "@material-ui/lab";
 import { AxiosResponse } from "axios";
-import { useLogin } from "hooks/auth-service";
 import Image from "next/image";
 import router from "next/router";
 import React, { FC, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Credentials } from "services/auth/models";
+import { Credentials, useLogin } from "services/auth";
 import FormField from "shared/components/FormField";
 import * as yup from "yup";
 

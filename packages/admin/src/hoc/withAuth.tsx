@@ -1,9 +1,9 @@
 import { CircularProgress } from "@material-ui/core";
-import { useGetUserData } from "hooks/auth-service";
 import LoadingLayout from "layouts/LoadingLayout";
 import LoginLayout from "layouts/LoginLayout";
 import Login from "pages/login";
 import { ComponentType, FC } from "react";
+import { useGetUserData } from "services/auth/hooks";
 
 export default function withAuth(Component: ComponentType) {
   const Auth: FC = (props) => {
