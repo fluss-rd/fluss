@@ -1,7 +1,7 @@
 import { Button, Dialog, DialogActions, DialogTitle, Fab, MenuItem } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Add } from "@material-ui/icons";
-import useBoolean from "hooks/use-boolean";
+import useBoolean from "hooks/useBoolean";
 import React, { FC, useState } from "react";
 import FormField from "shared/components/FormField";
 import ModalContent from "shared/components/ModalContent";
