@@ -9,18 +9,18 @@ import {
   Typography,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { AccountCircle, ArrowDropDown, PersonOutline } from "@material-ui/icons";
-import React, { FC, useContext } from "react";
+import { AccountCircle, ArrowDropDown } from "@material-ui/icons";
+import React, { FC } from "react";
 import theme from "shared/styles/theme";
-
-import { LayoutContext } from ".";
+import useLayoutContext from "hooks/useLayoutContext";
 
 interface FlussDrawerFooterProps {
   drawerIsOpen: boolean;
 }
 
 const FlussDrawerFooter: FC<FlussDrawerFooterProps> = ({ drawerIsOpen: open }) => {
-  const { drawerWidth } = useContext(LayoutContext);
+  const context = useLayoutContext();
+  const drawerWidth = context.values.drawerWidth;
   const classes = useStyles({ drawerWidth, open });
 
   // popover

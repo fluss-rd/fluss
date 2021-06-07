@@ -2,9 +2,10 @@ import { createMuiTheme, Divider, Drawer, IconButton, ThemeProvider } from "@mat
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import { Menu, MenuOpen } from "@material-ui/icons";
 import clsx from "clsx";
-import React, { FC, useContext, useState } from "react";
+import React, { FC, useContext } from "react";
 import FlussLogo from "shared/components/FlussLogo";
 import theme from "shared/styles/theme";
+import useBoolean from "hooks/useBoolean";
 
 import { LayoutContext } from ".";
 import FlussDrawerBody from "./FlussDrawerBody";
@@ -13,27 +14,27 @@ import FlussDrawerFooter from "./FlussDrawerFooter";
 interface FlussDrawerProps {}
 
 const FlussDrawer: FC<FlussDrawerProps> = () => {
-  const [open, setOpen] = useState(true);
-  const openDrawer = () => setOpen(true);
-  const closeDrawer = () => setOpen(false);
+  const [open, openDrawer, closeDrawer] = useBoolean();
   const context = useContext(LayoutContext);
-  const classes = useStyles({ drawerWidth: context.drawerWidth, open });
-  const drawerClassNames = clsx(classes.drawer, {
-    [classes.drawerOpen]: open,
-    [classes.drawerClose]: !open,
-  });
-  const drawerClasses = {
-    paper: clsx({
-      [classes.drawerOpen]: open,
-      [classes.drawerClose]: !open,
-      [classes.paper]: true,
-    }),
-  };
+  const classes = useStyles({ drawerWidth: context.values.drawerWidth, open });
 
   return (
     <ThemeProvider theme={drawerTheme}>
       <div>
-        <Drawer variant="permanent" className={drawerClassNames} classes={drawerClasses}>
+        <Drawer
+          variant="permanent"
+          className={clsx(classes.drawer, {
+            [classes.drawerOpen]: open,
+            [classes.drawerClose]: !open,
+          })}
+          classes={{
+            paper: clsx({
+              [classes.drawerOpen]: open,
+              [classes.drawerClose]: !open,
+              [classes.paper]: true,
+            }),
+          }}
+        >
           <div className={classes.toolbar}>
             {open ? (
               <>
@@ -104,3 +105,4 @@ const drawerTheme = createMuiTheme({
 });
 
 export default FlussDrawer;
+

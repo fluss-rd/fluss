@@ -14,7 +14,7 @@ interface WatershedProps {}
 
 const Watershed: FC<WatershedProps> = (props) => {
   const context = useLayoutContext();
-  const classes = useStyles({ drawerWidth: context.drawerWidth });
+  const classes = useStyles({ drawerWidth: context.values.drawerWidth });
   const router = useRouter();
   const [value, setValue] = React.useState(0);
   const watersheds = mockWatersheds();
