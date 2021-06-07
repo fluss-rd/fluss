@@ -1,4 +1,4 @@
-import { AppBar, Divider, Paper, Tab, Tabs, Toolbar, Typography } from "@material-ui/core";
+import { AppBar, Divider, Paper, Tab, Tabs, Toolbar, Typography, Button } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import { ChevronRight, PanoramaHorizontal } from "@material-ui/icons";
 import Center from "components/Center";
@@ -24,13 +24,19 @@ const Watershed: FC<WatershedProps> = () => {
     setValue(newValue);
   };
 
+  const navigateToWatersheds = () => {
+    router.push("/watersheds");
+  };
+
   if (!watershed) return <EmptyWatershed />;
 
   return (
     <div className={classes.container}>
       <AppBar position="fixed" color="default" elevation={0} className={classes.appBar}>
         <Toolbar>
-          <Typography variant="h5">Cuerpos hídricos</Typography>
+          <Button onClick={navigateToWatersheds} style={{ textTransform: "initial" }}>
+            <Typography variant="h5">Cuerpos hídricos</Typography>
+          </Button>
           <ChevronRight color="action" className={classes.separator} />
           <Typography variant="h6" color="secondary">
             {watershed.name}

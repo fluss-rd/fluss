@@ -15,12 +15,13 @@ import { OverridableComponent } from "@material-ui/core/OverridableComponent";
 import { ViewModule, Room, Update, ExpandMore } from "@material-ui/icons";
 import clsx from "clsx";
 import Watershed from "models/watershed";
+import formatDate from "shared/helpers/formatDate";
 
 interface WatershedDetailCardProps {
   watershed: Watershed;
 }
 
-const WatershedDetailCard: FC<WatershedDetailCardProps> = (props) => {
+const WatershedDetailCard: FC<WatershedDetailCardProps> = ({ watershed }) => {
   const classes = useStyles();
   const [isExpanded, setIsExpanded] = useState(true);
 
@@ -31,24 +32,28 @@ const WatershedDetailCard: FC<WatershedDetailCardProps> = (props) => {
   return (
     <Card className={classes.card} elevation={0} variant="outlined">
       <CardContent>
-        <Typography variant="h5">Río Yaque del Norte</Typography>
+        <Typography variant="h5">{watershed.name}</Typography>
         <Typography variant="h6" color="textSecondary">
-          WTQ 250
+          WQI {watershed.wqi.value}
         </Typography>
       </CardContent>
       <Collapse in={isExpanded} timeout="auto">
         <CardContent>
           <Grid container spacing={2}>
             <Item icon={ViewModule}>
-              <Typography>5 módulos en total</Typography>
+              <Typography>{watershed.modulesQuantity} módulos en total</Typography>
             </Item>
             <Item icon={Room}>
-              <Typography>Latitud: 34.5828</Typography>
-              <Typography>Longitud: -29.7290</Typography>
+              <Typography>Latitud: {watershed.location.latitude}</Typography>
+              <Typography>Longitud: {watershed.location.longitude}</Typography>
             </Item>
             <Item icon={Update}>
-              <Typography>Último cambio: hace 3 días</Typography>
-              <Typography>Fecha de registro: 20 de noviembre</Typography>
+              <Typography>
+                Último cambio: {formatDate(watershed.updateDate, { type: "dateAndTime" })}
+              </Typography>
+              <Typography>
+                Fecha de registro: {formatDate(watershed.creationDate, { type: "dateAndTime" })}
+              </Typography>
             </Item>
           </Grid>
         </CardContent>
@@ -105,5 +110,4 @@ const Item: FC<ItemProps> = ({ icon: Icon, children }) => (
 );
 
 export default WatershedDetailCard;
-
 
