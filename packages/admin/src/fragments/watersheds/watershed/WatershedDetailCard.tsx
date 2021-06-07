@@ -14,8 +14,11 @@ import {
 import { OverridableComponent } from "@material-ui/core/OverridableComponent";
 import { ViewModule, Room, Update, ExpandMore } from "@material-ui/icons";
 import clsx from "clsx";
+import Watershed from "models/watershed";
 
-interface WatershedDetailCardProps {}
+interface WatershedDetailCardProps {
+  watershed: Watershed;
+}
 
 const WatershedDetailCard: FC<WatershedDetailCardProps> = (props) => {
   const classes = useStyles();
@@ -50,7 +53,7 @@ const WatershedDetailCard: FC<WatershedDetailCardProps> = (props) => {
           </Grid>
         </CardContent>
       </Collapse>
-      <CardActions className={classes.actions} disableSpacing>
+      <CardActions disableSpacing>
         <Button size="small" color="primary">
           Editar registro
         </Button>
@@ -74,7 +77,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "rgba(255, 255, 255, 0.7)",
     backdropFilter: "blur(10px)",
   },
-  actions: {},
   expand: {
     transform: "rotate(0deg)",
     marginLeft: "auto",
@@ -103,4 +105,5 @@ const Item: FC<ItemProps> = ({ icon: Icon, children }) => (
 );
 
 export default WatershedDetailCard;
+
 

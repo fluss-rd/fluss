@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Map from "components/Map";
 import React, { FC } from "react";
 import formatDate from "shared/helpers/formatDate";
+import { useRouter } from "next/router";
 
 interface WatershedCardProps {
   id: string;
@@ -14,6 +15,11 @@ interface WatershedCardProps {
 
 const WatershedCard: FC<WatershedCardProps> = (props) => {
   const classes = useStyles();
+  const router = useRouter();
+
+  const goToWatershed = () => {
+    router.push({ pathname: `/watersheds/${props.id}` });
+  };
 
   return (
     <Card className={classes.root} variant="outlined">
@@ -50,7 +56,7 @@ const WatershedCard: FC<WatershedCardProps> = (props) => {
           </CardContent>
 
           <CardActions>
-            <Button size="small" color="primary">
+            <Button size="small" color="primary" onClick={goToWatershed}>
               Ver más
             </Button>
           </CardActions>
@@ -75,3 +81,4 @@ const useStyles = makeStyles({
 });
 
 export default WatershedCard;
+

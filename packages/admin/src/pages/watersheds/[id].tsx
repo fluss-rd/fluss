@@ -53,7 +53,7 @@ const Watershed: FC<WatershedProps> = () => {
       <Toolbar />
       <div className={classes.panels}>
         <TabPanel value={value} index={0} BoxProps={{ padding: 0, className: classes.general }}>
-          <General />
+          <General watershedId={watershed.id} />
         </TabPanel>
         <TabPanel value={value} index={1}>
           hey2
@@ -95,3 +95,4 @@ const useStyles = makeStyles<Theme, { drawerWidth: number }>((theme) => ({
 const tabsHeight = 40;
 
 export default Watershed;
+

@@ -2,11 +2,15 @@ import { makeStyles } from "@material-ui/core/styles";
 import Map from "components/Map";
 import React, { FC } from "react";
 import WatershedDetailCard from "./WatershedDetailCard";
+import { mockWatersheds } from "models/watershed";
 
-interface GeneralProps {}
+interface GeneralProps {
+  watershedId: string;
+}
 
 const General: FC<GeneralProps> = (props) => {
   const classes = useStyles();
+  const watershed = mockWatersheds().find((w) => w.id === props.watershedId);
 
   return (
     <div className={classes.container}>
@@ -14,7 +18,7 @@ const General: FC<GeneralProps> = (props) => {
         <Map />
       </div>
       <div className={classes.riverDetail}>
-        <WatershedDetailCard />
+        <WatershedDetailCard watershed={watershed} />
       </div>
     </div>
   );
