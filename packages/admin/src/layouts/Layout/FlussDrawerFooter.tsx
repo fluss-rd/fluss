@@ -10,9 +10,9 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { AccountCircle, ArrowDropDown } from "@material-ui/icons";
+import useLayoutContext from "hooks/useLayoutContext";
 import React, { FC } from "react";
 import theme from "shared/styles/theme";
-import useLayoutContext from "hooks/useLayoutContext";
 
 interface FlussDrawerFooterProps {
   drawerIsOpen: boolean;

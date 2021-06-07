@@ -1,14 +1,14 @@
+import { AppBar, Divider, Paper, Tab, Tabs, Toolbar, Typography } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
-import React, { FC, ChangeEvent } from "react";
-import { useRouter } from "next/router";
-import { AppBar, Toolbar, Typography, Divider, Tab, Tabs, Paper } from "@material-ui/core";
 import { ChevronRight, PanoramaHorizontal } from "@material-ui/icons";
-import { mockWatersheds } from "models/watershed";
 import Center from "components/Center";
-import TabPanel from "shared/components/TabPanel";
 import General from "fragments/watersheds/watershed/General";
-import appBarHeight from "shared/helpers/appBarHeight";
 import useLayoutContext from "hooks/useLayoutContext";
+import { mockWatersheds } from "models/watershed";
+import { useRouter } from "next/router";
+import React, { ChangeEvent, FC } from "react";
+import TabPanel from "shared/components/TabPanel";
+import appBarHeight from "shared/helpers/appBarHeight";
 
 interface WatershedProps {}
 
@@ -95,4 +95,3 @@ const useStyles = makeStyles<Theme, { drawerWidth: number }>((theme) => ({
 const tabsHeight = 40;
 
 export default Watershed;
-

@@ -33,4 +33,3 @@ export function mockPermissions(): Permission[] {
   ];
   return permissions;
 }
-

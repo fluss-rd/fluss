@@ -1,11 +1,11 @@
 import { Dialog, DialogTitle, IconButton } from "@material-ui/core";
 import { Edit } from "@material-ui/icons";
+import RegistrationAndUpdateDates from "components/RegistrarionAndUpdateDates";
 import Role, { roleToRoleForm } from "models/role";
 import React, { FC, useState } from "react";
 import { Role as RoleForm } from "services/auth/models";
 import ModalContent from "shared/components/ModalContent";
 
-import RegistrationAndUpdateDates from "components/RegistrarionAndUpdateDates";
 import RoleModalForm from "./RoleForm";
 
 interface EditRolProps {
@@ -68,4 +68,3 @@ EditRol.defaultProps = {
 };
 
 export default EditRol;
-

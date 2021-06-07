@@ -36,4 +36,3 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default Center;
-

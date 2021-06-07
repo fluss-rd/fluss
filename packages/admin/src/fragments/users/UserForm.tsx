@@ -1,13 +1,13 @@
 import { yupResolver } from "@hookform/resolvers";
 import { MenuItem } from "@material-ui/core";
-import { Info, Security, RadioButtonChecked } from "@material-ui/icons";
+import { Info, RadioButtonChecked, Security } from "@material-ui/icons";
 import { mockRoles } from "models/role";
+import UserStatus, { userStatusList, userStatusToString } from "models/user-status";
 import React, { ForwardedRef, forwardRef, useImperativeHandle } from "react";
 import { Controller, useForm, UseFormMethods } from "react-hook-form";
 import FormField from "shared/components/FormField";
 import FormIconTitle from "shared/components/FormIconTitle";
 import FormSelect from "shared/components/FormSelect";
-import UserStatus, { userStatusToString, userStatusList } from "models/user-status";
 import * as yup from "yup";
 
 interface UserFormProps {}
@@ -122,4 +122,3 @@ export type UserFormModel = {
   status: string;
   email: string;
 };
-

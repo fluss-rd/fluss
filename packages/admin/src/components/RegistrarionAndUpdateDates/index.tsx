@@ -1,5 +1,5 @@
-import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import React, { FC } from "react";
 import FormField from "shared/components/FormField";
 import formatDate from "shared/helpers/formatDate";
@@ -33,4 +33,3 @@ const RegistrationAndUpdateDates: FC<RegistrationAndUpdateDatesProps> = (props) 
 };
 
 export default RegistrationAndUpdateDates;
-
