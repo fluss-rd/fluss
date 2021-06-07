@@ -1,22 +1,34 @@
 import { createMuiTheme, Divider, Drawer, IconButton, ThemeProvider } from "@material-ui/core";
-import { makeStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, Theme, useTheme } from "@material-ui/core/styles";
 import { Menu, MenuOpen } from "@material-ui/icons";
 import clsx from "clsx";
-import React, { FC, useContext } from "react";
+import React, { FC } from "react";
 import FlussLogo from "shared/components/FlussLogo";
 import theme from "shared/styles/theme";
 import useBoolean from "hooks/useBoolean";
 
-import { LayoutContext } from ".";
 import FlussDrawerBody from "./FlussDrawerBody";
 import FlussDrawerFooter from "./FlussDrawerFooter";
+import useLayoutContext from "hooks/useLayoutContext";
+import { initialValues } from ".";
 
 interface FlussDrawerProps {}
 
 const FlussDrawer: FC<FlussDrawerProps> = () => {
-  const [open, openDrawer, closeDrawer] = useBoolean();
-  const context = useContext(LayoutContext);
+  const [open, openDrawer, closeDrawer] = useBoolean(true);
+  const context = useLayoutContext();
   const classes = useStyles({ drawerWidth: context.values.drawerWidth, open });
+  const theme = useTheme();
+
+  const onCloseDrawer = () => {
+    closeDrawer();
+    context.updateValues({ drawerWidth: theme.spacing(9) + 1 });
+  };
+
+  const onOpenDrawer = () => {
+    openDrawer();
+    context.updateValues({ drawerWidth: initialValues.drawerWidth });
+  };
 
   return (
     <ThemeProvider theme={drawerTheme}>
@@ -39,12 +51,12 @@ const FlussDrawer: FC<FlussDrawerProps> = () => {
             {open ? (
               <>
                 <FlussLogo imagePath="/images/logo_image_dark.png" />
-                <IconButton onClick={closeDrawer} style={{ color: "#ffffff" }}>
+                <IconButton onClick={onCloseDrawer} style={{ color: "#ffffff" }}>
                   <MenuOpen />
                 </IconButton>
               </>
             ) : (
-              <IconButton onClick={openDrawer}>
+              <IconButton onClick={onOpenDrawer}>
                 <Menu />
               </IconButton>
             )}

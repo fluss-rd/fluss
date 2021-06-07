@@ -43,7 +43,7 @@ const useStyles = makeStyles<Theme, { isInWatershed: boolean }>((theme: Theme) =
   },
 }));
 
-const initialValues: LayoutValues = { drawerWidth: 240 };
+export const initialValues: LayoutValues = { drawerWidth: 240 };
 
 export const LayoutContext = createContext<LayoutContextValue>({
   values: initialValues,

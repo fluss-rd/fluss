@@ -12,11 +12,11 @@ import useLayoutContext from "hooks/useLayoutContext";
 
 interface WatershedProps {}
 
-const Watershed: FC<WatershedProps> = (props) => {
+const Watershed: FC<WatershedProps> = () => {
+  const [value, setValue] = React.useState(0);
   const context = useLayoutContext();
   const classes = useStyles({ drawerWidth: context.values.drawerWidth });
   const router = useRouter();
-  const [value, setValue] = React.useState(0);
   const watersheds = mockWatersheds();
   const watershed = watersheds.find((w) => w.id === router.query?.id);
 
