@@ -1,0 +1,106 @@
+import { makeStyles } from "@material-ui/core/styles";
+import React, { FC, useState } from "react";
+import {
+  Collapse,
+  IconButton,
+  Card,
+  CardContent,
+  Typography,
+  Grid,
+  SvgIconTypeMap,
+  CardActions,
+  Button,
+} from "@material-ui/core";
+import { OverridableComponent } from "@material-ui/core/OverridableComponent";
+import { ViewModule, Room, Update, ExpandMore } from "@material-ui/icons";
+import clsx from "clsx";
+
+interface WatershedDetailCardProps {}
+
+const WatershedDetailCard: FC<WatershedDetailCardProps> = (props) => {
+  const classes = useStyles();
+  const [isExpanded, setIsExpanded] = useState(true);
+
+  const onToggleExpansion = () => {
+    setIsExpanded((prev) => !prev);
+  };
+
+  return (
+    <Card className={classes.card} elevation={0} variant="outlined">
+      <CardContent>
+        <Typography variant="h5">Río Yaque del Norte</Typography>
+        <Typography variant="h6" color="textSecondary">
+          WTQ 250
+        </Typography>
+      </CardContent>
+      <Collapse in={isExpanded} timeout="auto">
+        <CardContent>
+          <Grid container spacing={2}>
+            <Item icon={ViewModule}>
+              <Typography>5 módulos en total</Typography>
+            </Item>
+            <Item icon={Room}>
+              <Typography>Latitud: 34.5828</Typography>
+              <Typography>Longitud: -29.7290</Typography>
+            </Item>
+            <Item icon={Update}>
+              <Typography>Último cambio: hace 3 días</Typography>
+              <Typography>Fecha de registro: 20 de noviembre</Typography>
+            </Item>
+          </Grid>
+        </CardContent>
+      </Collapse>
+      <CardActions className={classes.actions} disableSpacing>
+        <Button size="small" color="primary">
+          Editar registro
+        </Button>
+        <IconButton
+          onClick={onToggleExpansion}
+          className={clsx(classes.expand, {
+            [classes.expandOpen]: isExpanded,
+          })}
+          aria-expanded={isExpanded}
+          aria-label="Mostrar más"
+        >
+          <ExpandMore />
+        </IconButton>
+      </CardActions>
+    </Card>
+  );
+};
+
+const useStyles = makeStyles((theme) => ({
+  card: {
+    backgroundColor: "rgba(255, 255, 255, 0.7)",
+    backdropFilter: "blur(10px)",
+  },
+  actions: {},
+  expand: {
+    transform: "rotate(0deg)",
+    marginLeft: "auto",
+    transition: theme.transitions.create("transform", {
+      duration: theme.transitions.duration.shortest,
+    }),
+  },
+  expandOpen: {
+    transform: "rotate(180deg)",
+  },
+}));
+
+interface ItemProps {
+  icon: OverridableComponent<SvgIconTypeMap<{}, "svg">>;
+}
+
+const Item: FC<ItemProps> = ({ icon: Icon, children }) => (
+  <Grid item xs={12}>
+    <Grid container spacing={2}>
+      <Grid item>
+        <Icon />
+      </Grid>
+      <Grid item>{children}</Grid>
+    </Grid>
+  </Grid>
+);
+
+export default WatershedDetailCard;
+
