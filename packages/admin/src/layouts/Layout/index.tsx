@@ -13,6 +13,8 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const router = useRouter();
   const isInWatershed = router.route === "/watersheds/[id]";
   const classes = useStyles({ isInWatershed });
+  //const [value, setValue] = useMergeState()
+  // TODO: Make the functions to update the drawerWidth when is closed
 
   return (
     <LayoutContext.Provider value={initialValue}>
