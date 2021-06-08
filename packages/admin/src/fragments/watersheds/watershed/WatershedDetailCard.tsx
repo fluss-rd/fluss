@@ -1,20 +1,20 @@
-import { makeStyles } from "@material-ui/core/styles";
-import React, { FC, useState } from "react";
 import {
-  Collapse,
-  IconButton,
-  Card,
-  CardContent,
-  Typography,
-  Grid,
-  SvgIconTypeMap,
-  CardActions,
   Button,
+  Card,
+  CardActions,
+  CardContent,
+  Collapse,
+  Grid,
+  IconButton,
+  SvgIconTypeMap,
+  Typography,
 } from "@material-ui/core";
 import { OverridableComponent } from "@material-ui/core/OverridableComponent";
-import { ViewModule, Room, Update, ExpandMore } from "@material-ui/icons";
+import { makeStyles } from "@material-ui/core/styles";
+import { ExpandMore, Room, Update, ViewModule } from "@material-ui/icons";
 import clsx from "clsx";
 import Watershed from "models/watershed";
+import React, { FC, useState } from "react";
 import formatDate from "shared/helpers/formatDate";
 
 interface WatershedDetailCardProps {
@@ -110,4 +110,3 @@ const Item: FC<ItemProps> = ({ icon: Icon, children }) => (
 );
 
 export default WatershedDetailCard;
-

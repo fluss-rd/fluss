@@ -1,9 +1,13 @@
 import { makeStyles } from "@material-ui/core/styles";
 import Map from "components/Map";
-import React, { FC } from "react";
-import WatershedDetailCard from "./WatershedDetailCard";
-import { mockWatersheds } from "models/watershed";
 import { mockModules } from "models/module";
+import { mockWatersheds } from "models/watershed";
+import React, { FC } from "react";
+import { Card, Typography } from "@material-ui/core";
+import { LocationOn } from "@material-ui/icons";
+import { wqiToColor } from "models/wqi";
+
+import WatershedDetailCard from "./WatershedDetailCard";
 
 interface GeneralProps {
   watershedId: string;
@@ -12,13 +16,30 @@ interface GeneralProps {
 const General: FC<GeneralProps> = (props) => {
   const classes = useStyles();
   const watershed = mockWatersheds().find((w) => w.id === props.watershedId);
-  const modules = mockModules().filter((module) => module.watershedId === props.watershedId);
-  const locations = modules.map((module) => module.location);
+  const modules = mockModules().filter((m) => m.watershedId === props.watershedId);
+  const locations = modules.map((m) => ({ value: { name: m.alias, wqi: m.wqi }, ...m.location }));
 
   return (
     <div className={classes.container}>
       <div className={classes.map}>
-        <Map locations={locations} zoom={10} />
+        <Map
+          locations={locations}
+          zoom={10}
+          render={(info) => {
+            const wqiColor = wqiToColor(info.value.wqi);
+            return (
+              <div className={classes.location}>
+                <LocationOn color="primary" style={{ color: wqiColor }} />
+                <Card variant="outlined" elevation={0} className={classes.card}>
+                  <Typography variant="body1" style={{ color: wqiColor }}>
+                    WQI <span>{info.value.wqi.value}</span>
+                  </Typography>
+                  <Typography variant="body2">{info.value.name}</Typography>
+                </Card>
+              </div>
+            );
+          }}
+        />
       </div>
       <div className={classes.riverDetail}>
         <WatershedDetailCard watershed={watershed} />
@@ -48,6 +69,17 @@ const useStyles = makeStyles((theme) => ({
     top: theme.spacing(4),
     left: theme.spacing(4),
   },
+  location: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    textAlignt: "center",
+    cursor: "pointer",
+    "& $card": {
+      padding: theme.spacing(1),
+    },
+  },
+  card: {},
 }));
 
 export default General;

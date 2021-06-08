@@ -1,5 +1,6 @@
 import ModuleState from "./module-state";
 import Location from "./location";
+import Wqi from "./wqi";
 
 type Module = {
   id: string;
@@ -11,6 +12,7 @@ type Module = {
   creationDate: Date;
   updateDate: Date;
   location: Location;
+  wqi: Wqi; // Water Quality Index.
 };
 
 export function mockModules(): Module[] {
@@ -25,6 +27,7 @@ export function mockModules(): Module[] {
       watershedId: "WS-1",
       phoneNumber: "8093453921",
       state: "active",
+      wqi: { value: 80, rating: "good" },
     },
     {
       id: "MD-2",
@@ -36,6 +39,7 @@ export function mockModules(): Module[] {
       watershedId: "WS-1",
       phoneNumber: "8493421921",
       state: "active",
+      wqi: { value: 23, rating: "good" },
     },
   ];
 }

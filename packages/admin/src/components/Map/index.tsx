@@ -1,6 +1,7 @@
+import LocationIcon from "@material-ui/icons/LocationOn";
 import React, { FC, useCallback } from "react";
 import ReactMapGL, { Marker } from "react-map-gl";
-import LocationIcon from "@material-ui/icons/LocationOn";
+import generateId from "shared/helpers/generateId";
 
 type Location = {
   latitude: number;
@@ -28,7 +29,7 @@ function Map<T>(props: MapProps<T>) {
     const rdLocation = {
       latitude: 18.483402,
       longitude: -69.929611,
-    }
+    };
     return rdLocation;
   }, [props.locations, props.focusLocation]);
 
@@ -47,7 +48,7 @@ function Map<T>(props: MapProps<T>) {
       mapboxApiAccessToken={process.env.mapboxToken}
     >
       {props.locations.map((info) => (
-        <Marker latitude={info.latitude} longitude={info.longitude}>
+        <Marker key={generateId("marker")} latitude={info.latitude} longitude={info.longitude}>
           {props.render(info)}
         </Marker>
       ))}
@@ -81,4 +82,3 @@ export function mapStyleToUrl(style: MapStyle) {
       return "mapbox://styles/mikhael1729/ckpmy16f43v7w17p81eqkytt0";
   }
 }
-

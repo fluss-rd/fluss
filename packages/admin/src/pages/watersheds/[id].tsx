@@ -1,4 +1,4 @@
-import { AppBar, Divider, Paper, Tab, Tabs, Toolbar, Typography, Button } from "@material-ui/core";
+import { AppBar, Button, Divider, Paper, Tab, Tabs, Toolbar, Typography } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import { ChevronRight, PanoramaHorizontal } from "@material-ui/icons";
 import Center from "components/Center";
@@ -101,4 +101,3 @@ const useStyles = makeStyles<Theme, { drawerWidth: number }>((theme) => ({
 const tabsHeight = 40;
 
 export default Watershed;
-
