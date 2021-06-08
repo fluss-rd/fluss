@@ -14,22 +14,22 @@ type LocationInfo<T> = Location & {
 interface MapProps<T> {
   style?: MapStyle;
   locations?: LocationInfo<T>[];
-  focusLocation?: Location; 
+  focusLocation?: Location;
   render?: (info: LocationInfo<T>) => JSX.Element;
   zoom?: number;
 }
 
 // Map shows a map with the provided locations.
 function Map<T>(props: MapProps<T>) {
-  // RD is the default. In the case there is only one element in locations, the focus is on that location.
   const computeDefaultLocation = useCallback((): Location => {
-    const useFirstLocationAsFocus = props.locations.length === 1 && !props.focusLocation;
-    if (useFirstLocationAsFocus) return props.locations[0];
+    const canUseFirstLocation = !props.focusLocation && props.locations.length >= 1;
+    if (canUseFirstLocation) return props.locations[0];
 
-    return {
+    const rdLocation = {
       latitude: 18.483402,
       longitude: -69.929611,
-    };
+    }
+    return rdLocation;
   }, [props.locations, props.focusLocation]);
 
   const [viewport, setViewport] = React.useState({
