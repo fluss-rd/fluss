@@ -4,6 +4,7 @@ import Map from "components/Map";
 import React, { FC } from "react";
 import formatDate from "shared/helpers/formatDate";
 import { useRouter } from "next/router";
+import Location from "models/location";
 
 interface WatershedCardProps {
   id: string;
@@ -11,6 +12,7 @@ interface WatershedCardProps {
   modulesQuantity: number;
   wqiValue: number;
   lastUpdate: Date;
+  location: Location;
 }
 
 const WatershedCard: FC<WatershedCardProps> = (props) => {
@@ -62,7 +64,7 @@ const WatershedCard: FC<WatershedCardProps> = (props) => {
           </CardActions>
         </Grid>
         <Grid item md={5} className={classes.map}>
-          <Map />
+          <Map locations={[props.location]} />
         </Grid>
       </Grid>
     </Card>

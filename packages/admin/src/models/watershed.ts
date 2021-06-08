@@ -17,7 +17,7 @@ export function mockWatersheds(): Watershed[] {
     {
       id: "WS-1",
       name: "Yaque del Norte",
-      location: { latitude: 23.0, longitude: -23.23 },
+      location: { latitude: 19.8401, longitude: -71.687 },
       modulesQuantity: 3,
       updateDate: new Date(Date.now()),
       creationDate: new Date(Date.now()),
@@ -26,7 +26,7 @@ export function mockWatersheds(): Watershed[] {
     {
       id: "WS-2",
       name: "Laguna Oviedo",
-      location: { latitude: 23.0, longitude: -23.23 },
+      location: { latitude: 17.75, longitude: -71.3666667 },
       modulesQuantity: 3,
       updateDate: new Date(Date.now()),
       creationDate: new Date(Date.now()),
@@ -36,3 +36,4 @@ export function mockWatersheds(): Watershed[] {
 }
 
 export default Watershed;
+

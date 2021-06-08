@@ -31,6 +31,7 @@ const Watersheds: NextPage<HydricResourcesProps> = ({ quantity, watersheds }) =>
             wqiValue={watershed.wqi.value}
             lastUpdate={new Date(watershed.updateDate)}
             modulesQuantity={watershed.modulesQuantity}
+            location={watershed.location}
           />
         ))}
       </div>
@@ -57,3 +58,4 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default Watersheds;
+

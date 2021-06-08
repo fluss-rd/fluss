@@ -1,17 +1,40 @@
-import { makeStyles } from "@material-ui/core/styles";
-import React, { FC } from "react";
-import ReactMapGL from "react-map-gl";
+import React, { FC, useCallback } from "react";
+import ReactMapGL, { Marker } from "react-map-gl";
+import LocationIcon from "@material-ui/icons/LocationOn";
 
-interface MapProps {
+type Location = {
+  latitude: number;
+  longitude: number;
+};
+
+type LocationInfo<T> = Location & {
+  value?: T;
+};
+
+interface MapProps<T> {
   style?: MapStyle;
+  locations?: LocationInfo<T>[];
+  focusLocation?: Location; 
+  render?: (info: LocationInfo<T>) => JSX.Element;
+  zoom?: number;
 }
 
-const Map: FC<MapProps> = (props) => {
-  const classes = useStyles();
+// Map shows a map with the provided locations.
+function Map<T>(props: MapProps<T>) {
+  // RD is the default. In the case there is only one element in locations, the focus is on that location.
+  const computeDefaultLocation = useCallback((): Location => {
+    const useFirstLocationAsFocus = props.locations.length === 1 && !props.focusLocation;
+    if (useFirstLocationAsFocus) return props.locations[0];
+
+    return {
+      latitude: 18.483402,
+      longitude: -69.929611,
+    };
+  }, [props.locations, props.focusLocation]);
+
   const [viewport, setViewport] = React.useState({
-    latitude: 37.7577,
-    longitude: -122.4376,
-    zoom: 8,
+    ...computeDefaultLocation(),
+    zoom: props.zoom,
   });
 
   return (
@@ -22,15 +45,23 @@ const Map: FC<MapProps> = (props) => {
       onViewportChange={(viewport) => setViewport(viewport)}
       mapStyle={mapStyleToUrl(props.style)}
       mapboxApiAccessToken={process.env.mapboxToken}
-    />
+    >
+      {props.locations.map((info) => (
+        <Marker latitude={info.latitude} longitude={info.longitude}>
+          {props.render(info)}
+        </Marker>
+      ))}
+    </ReactMapGL>
   );
-};
+}
 
-Map.defaultProps = {
+(Map as FC<MapProps<any>>).defaultProps = {
   style: "basic-customized",
+  locations: [],
+  zoom: 15,
+  render: () => <LocationIcon color="primary" />,
+  focusLocation: null,
 };
-
-const useStyles = makeStyles({});
 
 export default Map;
 
