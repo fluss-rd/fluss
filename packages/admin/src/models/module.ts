@@ -1,5 +1,5 @@
-import ModuleState from "./module-state";
 import Location from "./location";
+import ModuleState from "./module-state";
 import Wqi from "./wqi";
 
 type Module = {
@@ -44,4 +44,3 @@ export function mockModules(): Module[] {
   ];
 }
 export default Module;
-

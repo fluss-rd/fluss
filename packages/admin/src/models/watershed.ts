@@ -11,7 +11,6 @@ type Watershed = {
   wqi: Wqi; // Water Quality Index.
 };
 
-
 export function mockWatersheds(): Watershed[] {
   return [
     {
@@ -36,4 +35,3 @@ export function mockWatersheds(): Watershed[] {
 }
 
 export default Watershed;
-

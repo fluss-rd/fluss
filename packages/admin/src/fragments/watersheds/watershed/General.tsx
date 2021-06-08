@@ -1,11 +1,11 @@
+import { Card, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { LocationOn } from "@material-ui/icons";
 import Map from "components/Map";
 import { mockModules } from "models/module";
 import { mockWatersheds } from "models/watershed";
-import React, { FC } from "react";
-import { Card, Typography } from "@material-ui/core";
-import { LocationOn } from "@material-ui/icons";
 import { wqiToColor } from "models/wqi";
+import React, { FC } from "react";
 
 import WatershedDetailCard from "./WatershedDetailCard";
 
@@ -83,4 +83,3 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default General;
-

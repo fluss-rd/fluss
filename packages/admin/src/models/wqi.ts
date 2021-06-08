@@ -11,4 +11,3 @@ export function wqiToColor(wqi: Wqi): string {
 }
 
 export default Wqi;
-
