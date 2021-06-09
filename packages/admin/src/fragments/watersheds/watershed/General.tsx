@@ -30,7 +30,7 @@ const General: FC<GeneralProps> = (props) => {
             return (
               <div className={classes.location}>
                 <LocationOn color="primary" style={{ color: wqiColor }} />
-                <Card variant="outlined" elevation={0} className={classes.card}>
+                <Card  className={classes.card}>
                   <Typography variant="body1" style={{ color: wqiColor }}>
                     WQI <span>{info.value.wqi.value}</span>
                   </Typography>

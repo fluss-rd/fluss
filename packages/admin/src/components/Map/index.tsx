@@ -1,14 +1,14 @@
 import LocationIcon from "@material-ui/icons/LocationOn";
 import React, { FC, useCallback } from "react";
-import ReactMapGL, { Marker } from "react-map-gl";
+import ReactMapGL, { Marker, MapEvent } from "react-map-gl";
 import generateId from "shared/helpers/generateId";
 
-type Location = {
+export type Location = {
   latitude: number;
   longitude: number;
 };
 
-type LocationInfo<T> = Location & {
+export type LocationInfo<T> = Location & {
   value?: T;
 };
 
@@ -17,6 +17,7 @@ interface MapProps<T> {
   locations?: LocationInfo<T>[];
   focusLocation?: Location;
   render?: (info: LocationInfo<T>) => JSX.Element;
+  onClick?: (location: Location) => void;
   zoom?: number;
 }
 
@@ -38,6 +39,12 @@ function Map<T>(props: MapProps<T>) {
     zoom: props.zoom,
   });
 
+  const onMapClick = (click: MapEvent) => {
+    console.log({click})
+    const [longitude, latitude] = click.lngLat;
+    if (props.onClick) props.onClick({ latitude, longitude });
+  };
+
   return (
     <ReactMapGL
       {...viewport}
@@ -46,6 +53,7 @@ function Map<T>(props: MapProps<T>) {
       onViewportChange={(viewport) => setViewport(viewport)}
       mapStyle={mapStyleToUrl(props.style)}
       mapboxApiAccessToken={process.env.mapboxToken}
+      onClick={onMapClick}
     >
       {props.locations.map((info) => (
         <Marker key={generateId("marker")} latitude={info.latitude} longitude={info.longitude}>
@@ -82,3 +90,4 @@ export function mapStyleToUrl(style: MapStyle) {
       return "mapbox://styles/mikhael1729/ckpmy16f43v7w17p81eqkytt0";
   }
 }
+

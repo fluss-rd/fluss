@@ -24,7 +24,7 @@ const WatershedCard: FC<WatershedCardProps> = (props) => {
   };
 
   return (
-    <Card className={classes.root} variant="outlined">
+    <Card className={classes.root}>
       <Grid container spacing={2}>
         <Grid item md={7} className={classes.content}>
           <CardContent style={{ flex: 1 }}>
