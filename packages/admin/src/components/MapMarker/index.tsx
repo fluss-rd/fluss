@@ -1,9 +1,10 @@
-import React, { FC, useState } from "react";
-import { InteractiveMap, Marker, MapEvent } from "react-map-gl";
-import { Location, MapStyle, mapStyleToUrl } from "../Map";
-import useMergeState from "shared/hooks/useMergeState";
-import generateId from "shared/helpers/generateId";
 import { LocationOn } from "@material-ui/icons";
+import React, { FC, useState } from "react";
+import { InteractiveMap, MapEvent, Marker } from "react-map-gl";
+import generateId from "shared/helpers/generateId";
+import useMergeState from "shared/hooks/useMergeState";
+
+import { Location, MapStyle, mapStyleToUrl } from "../Map";
 
 interface MapMarkerProps {
   focusLocation?: Location;
@@ -61,4 +62,3 @@ MapMarker.defaultProps = {
 };
 
 export default MapMarker;
-

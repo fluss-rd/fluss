@@ -1,8 +1,9 @@
 import { Add } from "@material-ui/icons";
-import useBoolean from "hooks/useBoolean";
-import React, { FC } from "react";
 import Fab from "components/Fab";
 import FormDialog from "components/FormDialog";
+import useBoolean from "hooks/useBoolean";
+import React, { FC } from "react";
+
 import WatershedForm from "./WatershedForm";
 
 interface AddWatershedProps {}
@@ -24,4 +25,3 @@ const AddWatershed: FC<AddWatershedProps> = (props) => {
 };
 
 export default AddWatershed;
-

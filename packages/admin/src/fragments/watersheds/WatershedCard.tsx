@@ -5,6 +5,7 @@ import Location from "models/location";
 import { useRouter } from "next/router";
 import React, { FC } from "react";
 import formatDate from "shared/helpers/formatDate";
+
 import EditWatershed from "./EditWatershed";
 
 interface WatershedCardProps {
@@ -85,4 +86,3 @@ const useStyles = makeStyles({
 });
 
 export default WatershedCard;
-

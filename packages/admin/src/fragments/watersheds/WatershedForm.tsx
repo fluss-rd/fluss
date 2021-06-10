@@ -1,10 +1,10 @@
+import { Card, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { LocationOn } from "@material-ui/icons";
+import Map, { Location } from "components/Map";
 import React, { FC, useState } from "react";
 import FormField from "shared/components/FormField";
 import FormIconTitle from "shared/components/FormIconTitle";
-import { Grid, Card } from "@material-ui/core";
-import Map, { Location } from "components/Map";
-import { LocationOn } from "@material-ui/icons";
 
 interface WatershedFormProps {}
 
@@ -45,4 +45,3 @@ const WatershedForm: FC<WatershedFormProps> = (props) => {
 const useStyles = makeStyles({});
 
 export default WatershedForm;
-

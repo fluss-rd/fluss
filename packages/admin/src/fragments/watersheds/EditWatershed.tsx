@@ -1,9 +1,10 @@
-import { makeStyles } from "@material-ui/core/styles";
-import React, { FC } from "react";
 import { Button } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import FormDialog from "components/FormDialog";
-import WatershedForm from "./WatershedForm";
 import useBoolean from "hooks/useBoolean";
+import React, { FC } from "react";
+
+import WatershedForm from "./WatershedForm";
 
 interface EditWatershedProps {
   watershedId: string;
@@ -31,4 +32,3 @@ const EditWatershed: FC<EditWatershedProps> = ({ watershedId, text }) => {
 };
 
 export default EditWatershed;
-

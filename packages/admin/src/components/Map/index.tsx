@@ -1,6 +1,6 @@
 import LocationIcon from "@material-ui/icons/LocationOn";
 import React, { FC, useCallback } from "react";
-import ReactMapGL, { Marker, MapEvent } from "react-map-gl";
+import ReactMapGL, { MapEvent, Marker } from "react-map-gl";
 import generateId from "shared/helpers/generateId";
 
 export type Location = {
@@ -40,7 +40,7 @@ function Map<T>(props: MapProps<T>) {
   });
 
   const onMapClick = (click: MapEvent) => {
-    console.log({click})
+    console.log({ click });
     const [longitude, latitude] = click.lngLat;
     if (props.onClick) props.onClick({ latitude, longitude });
   };
@@ -90,4 +90,3 @@ export function mapStyleToUrl(style: MapStyle) {
       return "mapbox://styles/mikhael1729/ckpmy16f43v7w17p81eqkytt0";
   }
 }
-

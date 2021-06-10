@@ -1,5 +1,5 @@
+import { Button, Dialog, DialogActions, DialogProps, DialogTitle } from "@material-ui/core";
 import React, { FC } from "react";
-import { Dialog, DialogTitle, DialogActions, Button, DialogProps } from "@material-ui/core";
 import ModalContent from "shared/components/ModalContent";
 
 type FormDialogMode = "registrion" | "edition";
@@ -64,4 +64,3 @@ FormDialog.defaultProps = {
 };
 
 export default FormDialog;
-

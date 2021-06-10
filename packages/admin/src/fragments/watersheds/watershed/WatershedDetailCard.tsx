@@ -16,6 +16,7 @@ import clsx from "clsx";
 import Watershed from "models/watershed";
 import React, { FC, useState } from "react";
 import formatDate from "shared/helpers/formatDate";
+
 import EditWatershed from "../EditWatershed";
 
 interface WatershedDetailCardProps {
@@ -109,4 +110,3 @@ const Item: FC<ItemProps> = ({ icon: Icon, children }) => (
 );
 
 export default WatershedDetailCard;
-
