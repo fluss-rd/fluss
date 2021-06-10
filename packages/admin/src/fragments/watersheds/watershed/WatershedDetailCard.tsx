@@ -16,6 +16,7 @@ import clsx from "clsx";
 import Watershed from "models/watershed";
 import React, { FC, useState } from "react";
 import formatDate from "shared/helpers/formatDate";
+import EditWatershed from "../EditWatershed";
 
 interface WatershedDetailCardProps {
   watershed: Watershed;
@@ -59,9 +60,7 @@ const WatershedDetailCard: FC<WatershedDetailCardProps> = ({ watershed }) => {
         </CardContent>
       </Collapse>
       <CardActions disableSpacing>
-        <Button size="small" color="primary">
-          Editar registro
-        </Button>
+        <EditWatershed watershedId={watershed.id} text="Editar registro" />
         <IconButton
           onClick={onToggleExpansion}
           className={clsx(classes.expand, {
@@ -110,3 +109,4 @@ const Item: FC<ItemProps> = ({ icon: Icon, children }) => (
 );
 
 export default WatershedDetailCard;
+

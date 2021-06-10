@@ -5,6 +5,7 @@ import Location from "models/location";
 import { useRouter } from "next/router";
 import React, { FC } from "react";
 import formatDate from "shared/helpers/formatDate";
+import EditWatershed from "./EditWatershed";
 
 interface WatershedCardProps {
   id: string;
@@ -61,6 +62,7 @@ const WatershedCard: FC<WatershedCardProps> = (props) => {
             <Button size="small" color="primary" onClick={goToWatershed}>
               Ver más
             </Button>
+            <EditWatershed watershedId={props.id} text={"Editar"} />
           </CardActions>
         </Grid>
         <Grid item md={5} className={classes.map}>
@@ -83,3 +85,4 @@ const useStyles = makeStyles({
 });
 
 export default WatershedCard;
+
