@@ -15,7 +15,7 @@ import clsx from "clsx";
 import Watershed from "models/watershed";
 import React, { FC, useState } from "react";
 import formatDate from "shared/helpers/formatDate";
-import EditWatershed from "../EditWatershed";
+import EditWatershed from "fragments/watersheds/common/EditWatershed";
 
 interface WatershedDetailCardProps {
   watershed: Watershed;

@@ -2,7 +2,7 @@ import { AppBar, Button, Divider, Paper, Tab, Tabs, Toolbar, Typography } from "
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import { ChevronRight, PanoramaHorizontal } from "@material-ui/icons";
 import Center from "components/Center";
-import General from "fragments/watersheds/watershed/General";
+import General from "fragments/watersheds/id/General";
 import useLayoutContext from "hooks/useLayoutContext";
 import { mockWatersheds } from "models/watershed";
 import { useRouter } from "next/router";

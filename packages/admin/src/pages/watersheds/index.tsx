@@ -1,6 +1,6 @@
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import AddWatershed from "fragments/watersheds/AddWatershed";
+import AddWatershed from "fragments/watersheds/common/AddWatershed";
 import WatershedCard from "fragments/watersheds/WatershedCard";
 import { mockWatersheds } from "models/watershed";
 import Watershed from "models/watershed";

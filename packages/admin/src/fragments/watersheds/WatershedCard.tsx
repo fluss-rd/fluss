@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import React, { FC } from "react";
 import formatDate from "shared/helpers/formatDate";
 
-import EditWatershed from "./EditWatershed";
+import EditWatershed from "./common/EditWatershed";
 
 interface WatershedCardProps {
   id: string;
@@ -24,8 +24,6 @@ const WatershedCard: FC<WatershedCardProps> = (props) => {
   const goToWatershed = () => {
     router.push({ pathname: `/watersheds/${props.id}` });
   };
-
-  console.log({ hmm: props.location });
 
   return (
     <Card className={classes.root}>

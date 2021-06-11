@@ -2,7 +2,7 @@ import { Add } from "@material-ui/icons";
 import Fab from "components/Fab";
 import FormDialog from "components/FormDialog";
 import useBoolean from "hooks/useBoolean";
-import React, { FC, useRef } from "react";
+import React, { FC } from "react";
 
 import WatershedForm, { useWatershedForm } from "./WatershedForm";
 import { WatershedForm as WatershedFormModel } from "services/watersheds/models";
