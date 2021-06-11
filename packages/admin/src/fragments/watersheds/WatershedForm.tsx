@@ -1,7 +1,7 @@
 import { Card, Grid } from "@material-ui/core";
 import { LocationOn } from "@material-ui/icons";
 import Map, { Location } from "components/Map";
-import React, { FC, ForwardedRef, forwardRef, useImperativeHandle } from "react";
+import React, { FC } from "react";
 import FormField from "shared/components/FormField";
 import FormIconTitle from "shared/components/FormIconTitle";
 import { WatershedForm as WatershedFormModel } from "services/watersheds/models";
@@ -10,80 +10,64 @@ import { yupResolver } from "@hookform/resolvers";
 import * as yup from "yup";
 
 export interface WatershedFormProps {
-  watershed?: WatershedFormModel;
-}
-
-export interface WatershedFormRef {
   form: UseFormMethods<WatershedFormModel>;
 }
 
-const WatershedForm = forwardRef(
-  (props: WatershedFormProps, ref: ForwardedRef<WatershedFormRef>) => {
-    const form = useWatershedForm(props.watershed);
+const WatershedForm: FC<WatershedFormProps> = ({ form }) => {
+  const onNewMarker = (location: Location) => {
+    form.setValue("location.latitude", location.latitude);
+    form.setValue("location.longitude", location.longitude);
+  };
 
-    // onNewMarker
-    const onNewMarker = (location: Location) => {
-      form.setValue("location.latitude", location.latitude);
-      form.setValue("location.longitude", location.longitude);
-    };
+  return (
+    <>
+      <FormField
+        name="name"
+        label="Nombre"
+        error={!!form.errors.name}
+        helperText={form.errors.name?.message}
+        inputRef={form.register}
+      />
 
-    // Share form with consumer component.
-    useImperativeHandle(ref, () => ({ form }), []);
+      <FormIconTitle Icon={LocationOn} title="Ubicación" />
 
-    return (
-      <>
-        <FormField
-          name="name"
-          label="Nombre"
-          error={!!form.errors.name}
-          helperText={form.errors.name?.message}
-          inputRef={form.register}
-        />
-
-        <FormIconTitle Icon={LocationOn} title="Ubicación" />
-
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={6}>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <FormField
-                  name="location.latitude"
-                  label="Longitud"
-                  type="number"
-                  error={!!form.errors.location?.latitude}
-                  helperText={form.errors.location?.latitude?.message}
-                  inputRef={form.register}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <FormField
-                  name="location.longitude"
-                  type="number"
-                  label="Latitud"
-                  error={!!form.errors.location?.longitude}
-                  helperText={form.errors.location?.longitude?.message}
-                  inputRef={form.register}
-                />
-              </Grid>
+      <Grid container spacing={3}>
+        <Grid item xs={12} md={6}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <FormField
+                name="location.latitude"
+                label="Longitud"
+                type="number"
+                error={!!form.errors.location?.latitude}
+                helperText={form.errors.location?.latitude?.message}
+                inputRef={form.register}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <FormField
+                name="location.longitude"
+                type="number"
+                label="Latitud"
+                error={!!form.errors.location?.longitude}
+                helperText={form.errors.location?.longitude?.message}
+                inputRef={form.register}
+              />
             </Grid>
           </Grid>
-          <Grid item xs={12} md={6}>
-            <Card variant="outlined" style={{ width: "100%", height: 250 }}>
-              <RenderMap
-                control={form.control}
-                onNewMarker={onNewMarker}
-                defaultValue={props.watershed.location}
-              />
-            </Card>
-          </Grid>
         </Grid>
-      </>
-    );
-  }
-);
-
-WatershedForm.defaultProps = {
-  watershed: { location: { latitude: 0, longitude: 0 }, name: "" },
+        <Grid item xs={12} md={6}>
+          <Card variant="outlined" style={{ width: "100%", height: 250 }}>
+            <RenderMap
+              control={form.control}
+              onNewMarker={onNewMarker}
+              defaultValue={form.getValues().location}
+            />
+          </Card>
+        </Grid>
+      </Grid>
+    </>
+  );
 };
 
 interface RenderMapProps {
@@ -108,7 +92,9 @@ const RenderMap: FC<RenderMapProps> = ({ control, onNewMarker, defaultValue }) =
   return <Map locations={[mark]} onClick={onNewMarker} />;
 };
 
-export function useWatershedForm(defaultValues: WatershedFormModel) {
+export function useWatershedForm(
+  defaultValues: WatershedFormModel = { name: "", location: { latitude: 0, longitude: 0 } }
+) {
   const form = useForm<WatershedFormModel>({
     resolver: yupResolver(schema),
     defaultValues: { ...defaultValues },

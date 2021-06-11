@@ -4,20 +4,17 @@ import FormDialog from "components/FormDialog";
 import useBoolean from "hooks/useBoolean";
 import React, { FC, useRef } from "react";
 
-import WatershedForm, { WatershedFormRef } from "./WatershedForm";
+import WatershedForm, { useWatershedForm } from "./WatershedForm";
+import { WatershedForm as WatershedFormModel } from "services/watersheds/models";
 
 interface AddWatershedProps {}
 
 const AddWatershed: FC<AddWatershedProps> = () => {
   const [isOpen, open, close] = useBoolean();
-  const formRef = useRef<WatershedFormRef>();
+  const form = useWatershedForm();
 
-  const onSubmit = (data: WatershedFormRef) => {
+  const onSubmit = (data: WatershedFormModel) => {
     console.log({ data });
-  };
-
-  const onSave = () => {
-    formRef.current.form.handleSubmit(onSubmit)();
   };
 
   return (
@@ -31,9 +28,9 @@ const AddWatershed: FC<AddWatershedProps> = () => {
         isOpen={isOpen}
         title="Registrar cuenca"
         onClose={close}
-        onSave={onSave}
+        onSave={form.handleSubmit(onSubmit)}
       >
-        <WatershedForm ref={formRef} />
+        <WatershedForm form={form} />
       </FormDialog>
     </>
   );
