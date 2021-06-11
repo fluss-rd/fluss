@@ -1,11 +1,11 @@
 import { Card, Grid } from "@material-ui/core";
 import { LocationOn } from "@material-ui/icons";
 import Map, { Location } from "components/Map";
-import React, { useState, ForwardedRef, forwardRef, useImperativeHandle, useEffect } from "react";
+import React, { FC, ForwardedRef, forwardRef, useImperativeHandle } from "react";
 import FormField from "shared/components/FormField";
 import FormIconTitle from "shared/components/FormIconTitle";
 import { WatershedForm as WatershedFormModel } from "services/watersheds/models";
-import { useForm, UseFormMethods } from "react-hook-form";
+import { useForm, UseFormMethods, useWatch, Control } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
 import * as yup from "yup";
 
@@ -20,15 +20,16 @@ export interface WatershedFormRef {
 const WatershedForm = forwardRef(
   (props: WatershedFormProps, ref: ForwardedRef<WatershedFormRef>) => {
     const form = useWatershedForm(props.watershed);
+    const formValues = form.getValues();
 
+    // onNewMarker
     const onNewMarker = (location: Location) => {
-      console.log(location);
+      form.setValue("location.latitude", location.latitude);
+      form.setValue("location.longitude", location.longitude);
     };
 
     // Share form with consumer component.
     useImperativeHandle(ref, () => ({ form }), []);
-
-    console.log({ form });
 
     return (
       <>
@@ -49,6 +50,7 @@ const WatershedForm = forwardRef(
                 <FormField
                   name="location.latitude"
                   label="Longitud"
+                  type="number"
                   error={!!form.errors.location?.latitude}
                   helperText={form.errors.location?.latitude?.message}
                   inputRef={form.register}
@@ -57,6 +59,7 @@ const WatershedForm = forwardRef(
               <Grid item xs={12}>
                 <FormField
                   name="location.longitude"
+                  type="number"
                   label="Latitud"
                   error={!!form.errors.location?.longitude}
                   helperText={form.errors.location?.longitude?.message}
@@ -67,7 +70,7 @@ const WatershedForm = forwardRef(
           </Grid>
           <Grid item xs={12} md={6}>
             <Card variant="outlined" style={{ width: "100%", height: 250 }}>
-              <Map onClick={onNewMarker} />
+              <RenderMap control={form.control} onNewMarker={onNewMarker} />
             </Card>
           </Grid>
         </Grid>
@@ -78,6 +81,27 @@ const WatershedForm = forwardRef(
 
 WatershedForm.defaultProps = {
   watershed: { location: { latitude: 0, longitude: 0 }, name: "" },
+};
+
+interface RenderMapProps {
+  control: Control<WatershedFormModel>;
+  onNewMarker: (location: Location) => void;
+}
+
+const RenderMap: FC<RenderMapProps> = ({ control, onNewMarker }) => {
+  const { latitude, longitude } = useWatch({
+    control,
+    name: "location",
+    defaultValue: { longitude: 0, latitude: 0 },
+  });
+
+  // Convert to integer because of changing in the data type.
+  const mark = {
+    latitude: parseInt(latitude.toString(), 10),
+    longitude: parseInt(longitude.toString(), 10),
+  };
+
+  return <Map locations={[mark]} onClick={onNewMarker} />;
 };
 
 export function useWatershedForm(defaultValues: WatershedFormModel) {
