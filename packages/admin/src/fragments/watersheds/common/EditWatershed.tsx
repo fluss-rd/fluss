@@ -1,11 +1,11 @@
 import { Button } from "@material-ui/core";
 import FormDialog from "components/FormDialog";
 import useBoolean from "hooks/useBoolean";
+import Watershed, { mockWatersheds } from "models/watershed";
 import React, { FC, useRef } from "react";
+import { WatershedForm as WatershedFormModel } from "services/watersheds/models";
 
 import WatershedForm, { useWatershedForm } from "./WatershedForm";
-import Watershed, { mockWatersheds } from "models/watershed";
-import { WatershedForm as WatershedFormModel } from "services/watersheds/models";
 
 interface EditWatershedProps {
   watershedId: string;
@@ -36,4 +36,3 @@ const EditWatershed: FC<EditWatershedProps> = ({ watershedId, text }) => {
 };
 
 export default EditWatershed;
-

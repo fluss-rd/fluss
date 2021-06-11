@@ -3,9 +3,9 @@ import Fab from "components/Fab";
 import FormDialog from "components/FormDialog";
 import useBoolean from "hooks/useBoolean";
 import React, { FC } from "react";
+import { WatershedForm as WatershedFormModel } from "services/watersheds/models";
 
 import WatershedForm, { useWatershedForm } from "./WatershedForm";
-import { WatershedForm as WatershedFormModel } from "services/watersheds/models";
 
 interface AddWatershedProps {}
 
@@ -37,4 +37,3 @@ const AddWatershed: FC<AddWatershedProps> = () => {
 };
 
 export default AddWatershed;
-

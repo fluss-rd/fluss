@@ -86,4 +86,3 @@ const useStyles = makeStyles({
 });
 
 export default WatershedCard;
-

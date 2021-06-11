@@ -12,10 +12,10 @@ import { OverridableComponent } from "@material-ui/core/OverridableComponent";
 import { makeStyles } from "@material-ui/core/styles";
 import { ExpandMore, Room, Update, ViewModule } from "@material-ui/icons";
 import clsx from "clsx";
+import EditWatershed from "fragments/watersheds/common/EditWatershed";
 import Watershed from "models/watershed";
 import React, { FC, useState } from "react";
 import formatDate from "shared/helpers/formatDate";
-import EditWatershed from "fragments/watersheds/common/EditWatershed";
 
 interface WatershedDetailCardProps {
   watershed: Watershed;
@@ -108,4 +108,3 @@ const Item: FC<ItemProps> = ({ icon: Icon, children }) => (
 );
 
 export default WatershedDetailCard;
-
