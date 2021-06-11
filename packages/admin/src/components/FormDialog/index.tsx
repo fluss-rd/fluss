@@ -2,7 +2,7 @@ import { Button, Dialog, DialogActions, DialogProps, DialogTitle } from "@materi
 import React, { FC } from "react";
 import ModalContent from "shared/components/ModalContent";
 
-type FormDialogMode = "registrion" | "edition";
+type FormDialogMode = "registration" | "edition";
 
 interface FormDialogProps {
   title: string | JSX.Element;

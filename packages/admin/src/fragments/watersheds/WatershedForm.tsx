@@ -20,7 +20,6 @@ export interface WatershedFormRef {
 const WatershedForm = forwardRef(
   (props: WatershedFormProps, ref: ForwardedRef<WatershedFormRef>) => {
     const form = useWatershedForm(props.watershed);
-    const formValues = form.getValues();
 
     // onNewMarker
     const onNewMarker = (location: Location) => {
@@ -70,7 +69,11 @@ const WatershedForm = forwardRef(
           </Grid>
           <Grid item xs={12} md={6}>
             <Card variant="outlined" style={{ width: "100%", height: 250 }}>
-              <RenderMap control={form.control} onNewMarker={onNewMarker} />
+              <RenderMap
+                control={form.control}
+                onNewMarker={onNewMarker}
+                defaultValue={props.watershed.location}
+              />
             </Card>
           </Grid>
         </Grid>
@@ -86,19 +89,20 @@ WatershedForm.defaultProps = {
 interface RenderMapProps {
   control: Control<WatershedFormModel>;
   onNewMarker: (location: Location) => void;
+  defaultValue?: Location;
 }
 
-const RenderMap: FC<RenderMapProps> = ({ control, onNewMarker }) => {
-  const { latitude, longitude } = useWatch({
+const RenderMap: FC<RenderMapProps> = ({ control, onNewMarker, defaultValue }) => {
+  const location = useWatch({
     control,
-    name: "location",
-    defaultValue: { longitude: 0, latitude: 0 },
+    name: "location" as keyof WatershedFormModel,
+    defaultValue,
   });
 
   // Convert to integer because of changing in the data type.
   const mark = {
-    latitude: parseInt(latitude.toString(), 10),
-    longitude: parseInt(longitude.toString(), 10),
+    latitude: parseFloat(location.latitude.toString()),
+    longitude: parseFloat(location.longitude.toString()),
   };
 
   return <Map locations={[mark]} onClick={onNewMarker} />;

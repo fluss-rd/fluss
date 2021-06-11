@@ -8,9 +8,17 @@ import WatershedForm, { WatershedFormRef } from "./WatershedForm";
 
 interface AddWatershedProps {}
 
-const AddWatershed: FC<AddWatershedProps> = (props) => {
+const AddWatershed: FC<AddWatershedProps> = () => {
   const [isOpen, open, close] = useBoolean();
   const formRef = useRef<WatershedFormRef>();
+
+  const onSubmit = (data: WatershedFormRef) => {
+    console.log({ data });
+  };
+
+  const onSave = () => {
+    formRef.current.form.handleSubmit(onSubmit)();
+  };
 
   return (
     <>
@@ -18,7 +26,13 @@ const AddWatershed: FC<AddWatershedProps> = (props) => {
         <Add />
         Registrar cuenca
       </Fab>
-      <FormDialog mode="registrion" isOpen={isOpen} title="Registrar cuenca" onClose={close}>
+      <FormDialog
+        mode="registration"
+        isOpen={isOpen}
+        title="Registrar cuenca"
+        onClose={close}
+        onSave={onSave}
+      >
         <WatershedForm ref={formRef} />
       </FormDialog>
     </>
