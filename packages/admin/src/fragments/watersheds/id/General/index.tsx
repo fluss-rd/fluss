@@ -1,11 +1,12 @@
-import { Card, Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { Card, Typography, Grid, Avatar } from "@material-ui/core";
+import { makeStyles, Theme, useTheme } from "@material-ui/core/styles";
 import { LocationOn } from "@material-ui/icons";
 import Map from "components/Map";
 import { mockModules } from "models/module";
 import { mockWatersheds } from "models/watershed";
-import { wqiToColor } from "models/wqi";
 import React, { FC } from "react";
+import getWqiColor from "helpers/get-wqi-color";
+import { grey } from "@material-ui/core/colors";
 
 import WatershedDetailCard from "./WatershedDetailCard";
 
@@ -15,6 +16,7 @@ interface GeneralProps {
 
 const General: FC<GeneralProps> = (props) => {
   const classes = useStyles();
+  const theme = useTheme();
   const watershed = mockWatersheds().find((w) => w.id === props.watershedId);
   const modules = mockModules().filter((m) => m.watershedId === props.watershedId);
   const locations = modules.map((m) => ({ value: { name: m.alias, wqi: m.wqi }, ...m.location }));
@@ -26,13 +28,24 @@ const General: FC<GeneralProps> = (props) => {
           locations={locations}
           zoom={10}
           render={(info) => {
-            const wqiColor = wqiToColor(info.value.wqi);
+            const wqiColor = getWqiColor(info.value.wqi);
             return (
-              <div className={classes.location}>
-                <LocationOn color="primary" style={{ color: wqiColor }} />
-                <Card className={classes.card}>
-                  <Typography variant="body1" style={{ color: wqiColor }}>
-                    WQI <span>{info.value.wqi.value}</span>
+              <div className={classes.mark}>
+                <div>
+                  <Card className={classes.avatar}>
+                    <Avatar
+                      style={{
+                        color: grey[50],
+                        background: wqiColor,
+                      }}
+                    >
+                      <LocationOn />
+                    </Avatar>
+                  </Card>
+                </div>
+                <Card className={classes.wqi} style={{ background: wqiColor }}>
+                  <Typography variant="h5">
+                    <span>{info.value.wqi.value}</span>
                   </Typography>
                   <Typography variant="body2">{info.value.name}</Typography>
                 </Card>
@@ -69,17 +82,32 @@ const useStyles = makeStyles((theme) => ({
     top: theme.spacing(4),
     left: theme.spacing(4),
   },
-  location: {
+  mark: {
     display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    textAlignt: "center",
-    cursor: "pointer",
-    "& $card": {
+    alingItems: "center",
+    "&:first-child": {
+      display: "flex",
+      alignItems: "center",
+    },
+    "& $avatar": {
+      display: "flex",
+      alignItems: "center",
+      borderRadius: "50%",
+      marginRight: theme.spacing(2),
+    },
+    "& $wqi": {
+      color: grey[50],
+      display: "flex",
+      alignItems: "center",
       padding: theme.spacing(1),
+      "& > *:not(:last-child)": {
+        marginRight: theme.spacing(1),
+      },
     },
   },
-  card: {},
+  avatar: {},
+  wqi: {},
 }));
 
 export default General;
+
