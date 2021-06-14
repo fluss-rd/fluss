@@ -8,6 +8,8 @@ import formatPhoneNumber from "helpers/format-phone-nomber";
 import formatDate from "shared/helpers/formatDate";
 import { ratingToString } from "models/wqi-rating";
 import Actions from "./Actions";
+import Fab from "components/Fab";
+import { Add } from "@material-ui/icons";
 
 interface ModulesProps {}
 
@@ -19,11 +21,15 @@ const Modules: FC<ModulesProps> = (props) => {
   return (
     <div>
       <Typography variant="h4">Módulos</Typography>
-      <Typography variant="subtitle1">5 en total</Typography>
+      <Typography variant="subtitle1">{modules.length} en total</Typography>
 
       <br />
 
       <EnhancedDataTable withFilters labeledButtons data={modules} columns={columns} />
+      <Fab>
+        <Add />
+        Registrar módulo
+      </Fab>
     </div>
   );
 };
