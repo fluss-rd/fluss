@@ -6,11 +6,13 @@ import FormDialog from "components/FormDialog";
 import useBoolean from "hooks/useBoolean";
 import ModuleForm, { useModuleForm } from "./ModuleForm";
 
-interface AddModuleProps {}
+interface AddModuleProps {
+  watershedId: string;
+}
 
 const AddModule: FC<AddModuleProps> = (props) => {
   const classes = useStyles();
-  const form = useModuleForm();
+  const form = useModuleForm({ watershedId: props.watershedId, status: "active" });
   const [isOpen, open, close] = useBoolean();
 
   return (

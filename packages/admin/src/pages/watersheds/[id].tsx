@@ -63,7 +63,7 @@ const Watershed: FC<WatershedProps> = () => {
           <General watershedId={watershed.id} />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <Modules />
+          <Modules watershedId={watershed.id} />
         </TabPanel>
       </div>
     </div>

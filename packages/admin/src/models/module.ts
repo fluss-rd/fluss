@@ -22,7 +22,7 @@ export function toModuleForm(module: Module): ModuleForm {
     serial: module?.serial || "",
     phoneNumber: module?.phoneNumber || "",
     status: module?.state || "",
-    watershedName: module?.watershedId || "",
+    watershedId: module?.watershedId || "",
   };
 }
 

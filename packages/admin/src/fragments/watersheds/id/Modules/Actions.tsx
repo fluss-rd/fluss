@@ -1,14 +1,5 @@
-import {
-  Typography,
-  IconButton,
-  Popover,
-  List,
-  ListItemText,
-  ListItemIcon,
-  ListItem,
-} from "@material-ui/core";
+import { IconButton, Popover, ListItemText, ListItemIcon, ListItem } from "@material-ui/core";
 import { MoreHoriz, Edit, Equalizer } from "@material-ui/icons";
-import { makeStyles } from "@material-ui/core/styles";
 import React, { FC, useState, MouseEvent } from "react";
 
 interface ActionsProps {
@@ -17,7 +8,6 @@ interface ActionsProps {
 }
 
 const Actions: FC<ActionsProps> = (props) => {
-  const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const openPopover = Boolean(anchorEl);
   const popoverId = openPopover ? "user-menu-popover" : undefined;
@@ -69,8 +59,6 @@ const Actions: FC<ActionsProps> = (props) => {
     </>
   );
 };
-
-const useStyles = makeStyles({});
 
 export default Actions;
 

@@ -1,5 +1,4 @@
-import { Typography, IconButton } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { Typography } from "@material-ui/core";
 import Module, { mockModules } from "models/module";
 import { moduleStateToString } from "models/module-state";
 import React, { FC, useState } from "react";
@@ -10,13 +9,13 @@ import { ratingToString } from "models/wqi-rating";
 import Actions from "./Actions";
 import AddModule from "./AddModule";
 import EditModule from "./EditModule";
-import useBoolean from "hooks/useBoolean";
 
-interface ModulesProps {}
+interface ModulesProps {
+  watershedId: string;
+}
 
 const Modules: FC<ModulesProps> = (props) => {
   const [moduleId, setModuleId] = useState<string>("");
-  const classes = useStyles();
   const modules = mockModules();
   const columns = generateColumns(onEdit);
 
@@ -36,13 +35,13 @@ const Modules: FC<ModulesProps> = (props) => {
       <br />
 
       <EnhancedDataTable withFilters labeledButtons data={modules} columns={columns} />
-      <AddModule />
+      <AddModule watershedId={props.watershedId} />
       <EditModule moduleId={moduleId} isOpen={!!moduleId} onClose={closeEdit} />
     </div>
   );
 };
 
-function generateColumns(onEdit: (string) => void): DataTableColumn<Module>[] {
+function generateColumns(onEdit: (moduleId: string) => void): DataTableColumn<Module>[] {
   const columns: DataTableColumn<Module>[] = [
     { Header: "ID", accessor: "id" },
     { Header: "Alias", accessor: "alias" },
@@ -68,8 +67,6 @@ function generateColumns(onEdit: (string) => void): DataTableColumn<Module>[] {
 
   return columns;
 }
-
-const useStyles = makeStyles({});
 
 export default Modules;
 

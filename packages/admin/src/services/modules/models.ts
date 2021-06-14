@@ -18,6 +18,6 @@ export type ModuleForm = {
   alias: string;
   phoneNumber: string;
   serial: string;
-  watershedName: string;
+  watershedId: string;
   status: string;
 };
