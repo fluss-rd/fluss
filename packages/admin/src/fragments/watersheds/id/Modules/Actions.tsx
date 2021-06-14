@@ -22,6 +22,7 @@ const Actions: FC<ActionsProps> = (props) => {
 
   const onEdit = () => {
     props.onEdit(props.moduleId);
+    closeActions();
   };
 
   return (
@@ -36,7 +37,7 @@ const Actions: FC<ActionsProps> = (props) => {
         onClose={closeActions}
         anchorOrigin={{
           vertical: "center",
-          horizontal: "left",
+          horizontal: "center",
         }}
         transformOrigin={{
           vertical: "center",
@@ -61,3 +62,4 @@ const Actions: FC<ActionsProps> = (props) => {
 };
 
 export default Actions;
+

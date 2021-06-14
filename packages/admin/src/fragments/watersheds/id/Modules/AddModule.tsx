@@ -4,6 +4,7 @@ import Fab from "components/Fab";
 import FormDialog from "components/FormDialog";
 import useBoolean from "hooks/useBoolean";
 import React, { FC } from "react";
+import { ModuleForm as ModuleFormModel } from "services/modules/models";
 
 import ModuleForm, { useModuleForm } from "./ModuleForm";
 
@@ -16,13 +17,27 @@ const AddModule: FC<AddModuleProps> = (props) => {
   const form = useModuleForm({ watershedId: props.watershedId, status: "active" });
   const [isOpen, open, close] = useBoolean();
 
+  const onSubmit = (data: ModuleFormModel) => {
+    console.log({ data });
+  };
+
+  const onSave = () => {
+    form.handleSubmit(onSubmit)();
+  };
+
   return (
     <>
       <Fab onClick={open}>
         <Add />
         Registrar módulo
       </Fab>
-      <FormDialog mode="registration" isOpen={isOpen} title="Registrar cuenca" onClose={close}>
+      <FormDialog
+        mode="registration"
+        isOpen={isOpen}
+        title="Registrar cuenca"
+        onClose={close}
+        onSave={onSave}
+      >
         <ModuleForm form={form} />
       </FormDialog>
     </>
@@ -32,3 +47,4 @@ const AddModule: FC<AddModuleProps> = (props) => {
 const useStyles = makeStyles({});
 
 export default AddModule;
+

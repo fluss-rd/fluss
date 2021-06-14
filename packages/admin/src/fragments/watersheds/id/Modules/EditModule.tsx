@@ -24,6 +24,8 @@ const EditModule: FC<EditModuleProps> = (props) => {
     }
   }
 
+
+
   return (
     <FormDialog
       mode="registration"
