@@ -15,11 +15,9 @@ export type ModuleData = {
 };
 
 export type ModuleForm = {
+  alias: string;
   phoneNumber: string;
-  riverId: string;
   serial: string;
-  location: {
-    latitude: number;
-    longitude: number;
-  };
+  watershedName: string;
+  status: string;
 };

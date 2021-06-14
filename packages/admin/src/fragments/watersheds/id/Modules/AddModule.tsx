@@ -4,12 +4,13 @@ import { makeStyles } from "@material-ui/core/styles";
 import React, { FC } from "react";
 import FormDialog from "components/FormDialog";
 import useBoolean from "hooks/useBoolean";
-import ModuleForm from "./ModuleForm";
+import ModuleForm, { useModuleForm } from "./ModuleForm";
 
 interface AddModuleProps {}
 
 const AddModule: FC<AddModuleProps> = (props) => {
   const classes = useStyles();
+  const form = useModuleForm();
   const [isOpen, open, close] = useBoolean();
 
   return (
@@ -19,7 +20,7 @@ const AddModule: FC<AddModuleProps> = (props) => {
         Registrar módulo
       </Fab>
       <FormDialog mode="registration" isOpen={isOpen} title="Registrar cuenca" onClose={close}>
-        <ModuleForm />
+        <ModuleForm form={form} />
       </FormDialog>
     </>
   );

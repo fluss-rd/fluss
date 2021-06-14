@@ -2,21 +2,31 @@ import { Typography, IconButton } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Module, { mockModules } from "models/module";
 import { moduleStateToString } from "models/module-state";
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { DataTableColumn, EnhancedDataTable } from "shared/components/Tables";
 import formatPhoneNumber from "helpers/format-phone-nomber";
 import formatDate from "shared/helpers/formatDate";
 import { ratingToString } from "models/wqi-rating";
 import Actions from "./Actions";
 import AddModule from "./AddModule";
+import EditModule from "./EditModule";
+import useBoolean from "hooks/useBoolean";
 
-interface ModulesProps {
-}
+interface ModulesProps {}
 
 const Modules: FC<ModulesProps> = (props) => {
+  const [moduleId, setModuleId] = useState<string>("");
   const classes = useStyles();
   const modules = mockModules();
-  const columns = generateColumns();
+  const columns = generateColumns(onEdit);
+
+  function closeEdit() {
+    setModuleId("");
+  }
+
+  function onEdit(moduleId: string) {
+    setModuleId(moduleId);
+  }
 
   return (
     <div>
@@ -27,11 +37,12 @@ const Modules: FC<ModulesProps> = (props) => {
 
       <EnhancedDataTable withFilters labeledButtons data={modules} columns={columns} />
       <AddModule />
+      <EditModule moduleId={moduleId} isOpen={!!moduleId} onClose={closeEdit} />
     </div>
   );
 };
 
-function generateColumns(): DataTableColumn<Module>[] {
+function generateColumns(onEdit: (string) => void): DataTableColumn<Module>[] {
   const columns: DataTableColumn<Module>[] = [
     { Header: "ID", accessor: "id" },
     { Header: "Alias", accessor: "alias" },
@@ -51,7 +62,7 @@ function generateColumns(): DataTableColumn<Module>[] {
     },
     {
       Header: "Acciones",
-      accessor: (m) => <Actions />,
+      accessor: (m) => <Actions moduleId={m.id} onEdit={onEdit} />,
     },
   ];
 

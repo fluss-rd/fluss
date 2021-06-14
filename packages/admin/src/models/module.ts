@@ -1,6 +1,7 @@
 import Location from "./location";
 import ModuleState from "./module-state";
 import Wqi from "./wqi";
+import { ModuleForm } from "services/modules/models";
 
 type Module = {
   id: string;
@@ -14,6 +15,16 @@ type Module = {
   location: Location;
   wqi: Wqi; // Water Quality Index.
 };
+
+export function toModuleForm(module: Module): ModuleForm {
+  return {
+    alias: module?.alias || "",
+    serial: module?.serial || "",
+    phoneNumber: module?.phoneNumber || "",
+    status: module?.state || "",
+    watershedName: module?.watershedId || "",
+  };
+}
 
 export function mockModules(): Module[] {
   return [
@@ -44,3 +55,4 @@ export function mockModules(): Module[] {
   ];
 }
 export default Module;
+

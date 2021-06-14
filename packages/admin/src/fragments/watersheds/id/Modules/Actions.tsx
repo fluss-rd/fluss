@@ -11,7 +11,10 @@ import { MoreHoriz, Edit, Equalizer } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { FC, useState, MouseEvent } from "react";
 
-interface ActionsProps {}
+interface ActionsProps {
+  moduleId: string;
+  onEdit: (moduleId: string) => void;
+}
 
 const Actions: FC<ActionsProps> = (props) => {
   const classes = useStyles();
@@ -25,6 +28,10 @@ const Actions: FC<ActionsProps> = (props) => {
 
   const closeActions = () => {
     setAnchorEl(null);
+  };
+
+  const onEdit = () => {
+    props.onEdit(props.moduleId);
   };
 
   return (
@@ -46,7 +53,7 @@ const Actions: FC<ActionsProps> = (props) => {
           horizontal: "right",
         }}
       >
-        <ListItem button>
+        <ListItem button onClick={onEdit}>
           <ListItemIcon>
             <Edit />
           </ListItemIcon>
