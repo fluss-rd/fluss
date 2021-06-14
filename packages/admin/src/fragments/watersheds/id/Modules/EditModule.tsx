@@ -2,6 +2,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import FormDialog from "components/FormDialog";
 import { mockModules, toModuleForm } from "models/module";
 import React, { FC, useEffect } from "react";
+import { ModuleForm as ModuleFormModel } from "services/modules/models";
 
 import ModuleForm, { useModuleForm } from "./ModuleForm";
 
@@ -24,7 +25,13 @@ const EditModule: FC<EditModuleProps> = (props) => {
     }
   }
 
+  const onSubmit = (data: ModuleFormModel) => {
+    console.log({ data });
+  };
 
+  const onSave = () => {
+    form.handleSubmit(onSubmit)();
+  };
 
   return (
     <FormDialog
@@ -32,6 +39,7 @@ const EditModule: FC<EditModuleProps> = (props) => {
       isOpen={props.isOpen}
       title="Registrar cuenca"
       onClose={props.onClose}
+      onSave={onSave}
     >
       <ModuleForm form={form} />
     </FormDialog>
@@ -41,3 +49,4 @@ const EditModule: FC<EditModuleProps> = (props) => {
 const useStyles = makeStyles({});
 
 export default EditModule;
+
