@@ -1,6 +1,6 @@
-import { IconButton, Popover, ListItemText, ListItemIcon, ListItem } from "@material-ui/core";
-import { MoreHoriz, Edit, Equalizer } from "@material-ui/icons";
-import React, { FC, useState, MouseEvent } from "react";
+import { IconButton, ListItem, ListItemIcon, ListItemText, Popover } from "@material-ui/core";
+import { Edit, Equalizer, MoreHoriz } from "@material-ui/icons";
+import React, { FC, MouseEvent, useState } from "react";
 
 interface ActionsProps {
   moduleId: string;
@@ -61,4 +61,3 @@ const Actions: FC<ActionsProps> = (props) => {
 };
 
 export default Actions;
-

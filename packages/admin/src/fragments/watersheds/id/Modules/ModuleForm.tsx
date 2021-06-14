@@ -1,17 +1,17 @@
+import { yupResolver } from "@hookform/resolvers";
 import { MenuItem } from "@material-ui/core";
-import { InfoOutlined, Grain, FiberManualRecord } from "@material-ui/icons";
+import { makeStyles } from "@material-ui/core/styles";
+import { FiberManualRecord, Grain, InfoOutlined } from "@material-ui/icons";
+import ModuleState, { moduleStates, moduleStateToString } from "models/module-state";
+import { mockWatersheds } from "models/watershed";
+import React, { FC } from "react";
+import { Control, Controller, useForm, UseFormMethods, useWatch } from "react-hook-form";
+import ReactInputMask from "react-input-mask";
+import { ModuleForm as ModuleFormModel } from "services/modules/models";
 import FormField from "shared/components/FormField";
 import FormIconTitle from "shared/components/FormIconTitle";
-import ReactInputMask from "react-input-mask";
 import FormSelect from "shared/components/FormSelect";
-import { makeStyles } from "@material-ui/core/styles";
-import React, { FC } from "react";
-import { mockWatersheds } from "models/watershed";
-import ModuleState, { moduleStates, moduleStateToString } from "models/module-state";
-import { ModuleForm as ModuleFormModel } from "services/modules/models";
-import { Control, useForm, UseFormMethods, useWatch, Controller } from "react-hook-form";
 import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers";
 
 interface ModuleFormProps {
   form: UseFormMethods<ModuleFormModel>;
@@ -137,4 +137,3 @@ const schema: yup.SchemaOf<ModuleFormModel> = yup.object().shape({
 });
 
 export default ModuleForm;
-

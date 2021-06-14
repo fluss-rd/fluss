@@ -1,11 +1,12 @@
 import { Typography } from "@material-ui/core";
+import formatPhoneNumber from "helpers/format-phone-nomber";
 import Module, { mockModules } from "models/module";
 import { moduleStateToString } from "models/module-state";
+import { ratingToString } from "models/wqi-rating";
 import React, { FC, useState } from "react";
 import { DataTableColumn, EnhancedDataTable } from "shared/components/Tables";
-import formatPhoneNumber from "helpers/format-phone-nomber";
 import formatDate from "shared/helpers/formatDate";
-import { ratingToString } from "models/wqi-rating";
+
 import Actions from "./Actions";
 import AddModule from "./AddModule";
 import EditModule from "./EditModule";
@@ -69,4 +70,3 @@ function generateColumns(onEdit: (moduleId: string) => void): DataTableColumn<Mo
 }
 
 export default Modules;
-

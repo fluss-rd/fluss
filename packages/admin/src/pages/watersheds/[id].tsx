@@ -3,13 +3,13 @@ import { makeStyles, Theme } from "@material-ui/core/styles";
 import { ChevronRight, PanoramaHorizontal } from "@material-ui/icons";
 import Center from "components/Center";
 import General from "fragments/watersheds/id/General";
+import Modules from "fragments/watersheds/id/Modules";
 import useLayoutContext from "hooks/useLayoutContext";
 import { mockWatersheds } from "models/watershed";
 import { useRouter } from "next/router";
 import React, { ChangeEvent, FC } from "react";
 import TabPanel from "shared/components/TabPanel";
 import appBarHeight from "shared/helpers/appBarHeight";
-import Modules from "fragments/watersheds/id/Modules";
 
 interface WatershedProps {}
 
@@ -102,4 +102,3 @@ const useStyles = makeStyles<Theme, { drawerWidth: number }>((theme) => ({
 const tabsHeight = 40;
 
 export default Watershed;
-

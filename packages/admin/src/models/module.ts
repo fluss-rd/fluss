@@ -1,7 +1,8 @@
+import { ModuleForm } from "services/modules/models";
+
 import Location from "./location";
 import ModuleState from "./module-state";
 import Wqi from "./wqi";
-import { ModuleForm } from "services/modules/models";
 
 type Module = {
   id: string;
@@ -55,4 +56,3 @@ export function mockModules(): Module[] {
   ];
 }
 export default Module;
-
