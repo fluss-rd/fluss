@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import React, { ChangeEvent, FC } from "react";
 import TabPanel from "shared/components/TabPanel";
 import appBarHeight from "shared/helpers/appBarHeight";
+import Modules from "fragments/watersheds/id/Modules";
 
 interface WatershedProps {}
 
@@ -62,7 +63,7 @@ const Watershed: FC<WatershedProps> = () => {
           <General watershedId={watershed.id} />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          hey2
+          <Modules />
         </TabPanel>
       </div>
     </div>
@@ -101,3 +102,4 @@ const useStyles = makeStyles<Theme, { drawerWidth: number }>((theme) => ({
 const tabsHeight = 40;
 
 export default Watershed;
+
