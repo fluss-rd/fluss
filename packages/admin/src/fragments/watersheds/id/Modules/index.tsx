@@ -8,10 +8,10 @@ import formatPhoneNumber from "helpers/format-phone-nomber";
 import formatDate from "shared/helpers/formatDate";
 import { ratingToString } from "models/wqi-rating";
 import Actions from "./Actions";
-import Fab from "components/Fab";
-import { Add } from "@material-ui/icons";
+import AddModule from "./AddModule";
 
-interface ModulesProps {}
+interface ModulesProps {
+}
 
 const Modules: FC<ModulesProps> = (props) => {
   const classes = useStyles();
@@ -26,10 +26,7 @@ const Modules: FC<ModulesProps> = (props) => {
       <br />
 
       <EnhancedDataTable withFilters labeledButtons data={modules} columns={columns} />
-      <Fab>
-        <Add />
-        Registrar módulo
-      </Fab>
+      <AddModule />
     </div>
   );
 };
