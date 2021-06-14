@@ -15,6 +15,7 @@ type Module = {
   updateDate: Date;
   location: Location;
   wqi: Wqi; // Water Quality Index.
+  batteryLevel: number;
 };
 
 export function toModuleForm(module: Module): ModuleForm {
@@ -40,6 +41,7 @@ export function mockModules(): Module[] {
       phoneNumber: "8093453921",
       state: "active",
       wqi: { value: 80, rating: "good" },
+      batteryLevel: 80,
     },
     {
       id: "MD-2",
@@ -52,7 +54,9 @@ export function mockModules(): Module[] {
       phoneNumber: "8493421921",
       state: "active",
       wqi: { value: 23, rating: "good" },
+      batteryLevel: 30,
     },
   ];
 }
 export default Module;
+

@@ -1,10 +1,11 @@
-import { Card, Typography, Avatar } from "@material-ui/core";
-import { makeStyles, Theme, useTheme } from "@material-ui/core/styles";
+import { Card, Typography, Avatar, Popover, CardActionArea } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import { LocationOn } from "@material-ui/icons";
 import { grey } from "@material-ui/core/colors";
-import React, { FC } from "react";
+import React, { FC, MouseEvent, useState } from "react";
 import getWqiColor from "helpers/get-wqi-color";
 import Wqi from "models/wqi";
+import ModuleMarkerPreview from "./ModuleMarkerPreview";
 
 interface ModuleMarkerProps {
   moduleId: string;
@@ -12,37 +13,51 @@ interface ModuleMarkerProps {
   wqi: Wqi;
 }
 
-const ModuleMarker: FC<ModuleMarkerProps> = ({ name, wqi }) => {
+const ModuleMarker: FC<ModuleMarkerProps> = ({ name, wqi, moduleId }) => {
   const classes = useStyles();
-  const theme = useTheme();
   const wqiColor = getWqiColor(wqi);
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+
+  const openActions = (event: MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const closeActions = () => {
+    setAnchorEl(null);
+  };
 
   return (
-    <div className={classes.mark}>
-      <div>
-        <Card className={classes.avatar}>
-          <Avatar
-            style={{
-              color: grey[50],
-              background: wqiColor,
-            }}
-          >
-            <LocationOn />
-          </Avatar>
-        </Card>
-      </div>
-      <Card className={classes.wqi} style={{ background: wqiColor }}>
-        <Typography variant="h5">
-          <span>{wqi.value}</span>
-        </Typography>
-        <Typography variant="body2">{name}</Typography>
-      </Card>
-    </div>
+    <>
+      <CardActionArea onClick={openActions}>
+        <div className={classes.mark}>
+          <div>
+            <Card className={classes.avatar}>
+              <Avatar
+                style={{
+                  color: grey[50],
+                  background: wqiColor,
+                }}
+              >
+                <LocationOn />
+              </Avatar>
+            </Card>
+          </div>
+          <Card className={classes.wqi} style={{ background: wqiColor }}>
+            <Typography variant="h5">
+              <span>{wqi.value}</span>
+            </Typography>
+            <Typography variant="body2">{name}</Typography>
+          </Card>
+        </div>
+      </CardActionArea>
+      <ModuleMarkerPreview onClose={closeActions} anchorEl={anchorEl} moduleId={moduleId} />
+    </>
   );
 };
 
 const useStyles = makeStyles((theme) => ({
   mark: {
+    cursor: "pointer",
     display: "flex",
     alingItems: "center",
     "&:first-child": {
