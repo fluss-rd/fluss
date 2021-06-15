@@ -1,10 +1,11 @@
-import { Card, Typography, Avatar, Popover, CardActionArea } from "@material-ui/core";
+import { Avatar, Card, CardActionArea, Popover, Typography } from "@material-ui/core";
+import { grey } from "@material-ui/core/colors";
 import { makeStyles } from "@material-ui/core/styles";
 import { LocationOn } from "@material-ui/icons";
-import { grey } from "@material-ui/core/colors";
-import React, { FC, MouseEvent, useState } from "react";
 import getWqiColor from "helpers/get-wqi-color";
 import Wqi from "models/wqi";
+import React, { FC, MouseEvent, useState } from "react";
+
 import ModuleMarkerPreview from "./ModuleMarkerPreview";
 
 interface ModuleMarkerProps {
@@ -85,4 +86,3 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default ModuleMarker;
-

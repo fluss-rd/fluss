@@ -1,22 +1,23 @@
 import {
-  Dialog,
   AppBar,
-  Toolbar,
-  IconButton,
-  Typography,
   Button,
   ButtonGroup,
+  Dialog,
+  IconButton,
+  Toolbar,
+  Typography,
 } from "@material-ui/core";
+import { darken, lighten, makeStyles, useTheme } from "@material-ui/core/styles";
 import { Close, GetApp } from "@material-ui/icons";
-import { makeStyles, useTheme, lighten, darken } from "@material-ui/core/styles";
-import React, { FC, useMemo, useState } from "react";
-import { mockDayMeasures } from "models/day-measures";
-import ModalContent from "shared/components/ModalContent";
 import { ResponsiveCalendar } from "@nivo/calendar";
-import { appBarHeight } from "shared/helpers";
-import { mockModules } from "models/module";
-import ModuleDataDownload from "./ModuleDataDownload";
 import useBoolean from "hooks/useBoolean";
+import { mockDayMeasures } from "models/day-measures";
+import { mockModules } from "models/module";
+import React, { FC, useMemo, useState } from "react";
+import ModalContent from "shared/components/ModalContent";
+import { appBarHeight } from "shared/helpers";
+
+import ModuleDataDownload from "./ModuleDataDownload";
 
 interface ModuleDataProps {
   moduleId: string;
@@ -165,4 +166,3 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default ModuleData;
-

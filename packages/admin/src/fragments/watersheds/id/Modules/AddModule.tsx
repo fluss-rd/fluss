@@ -47,4 +47,3 @@ const AddModule: FC<AddModuleProps> = (props) => {
 const useStyles = makeStyles({});
 
 export default AddModule;
-

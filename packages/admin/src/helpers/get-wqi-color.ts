@@ -1,5 +1,5 @@
+import { green, orange, red } from "@material-ui/core/colors";
 import Wqi from "models/wqi";
-import { green, red, orange } from "@material-ui/core/colors";
 
 export default function getWqiColor(wqi: Wqi): string {
   const value = wqi.value;
@@ -8,4 +8,3 @@ export default function getWqiColor(wqi: Wqi): string {
   else if (value >= 40) return orange[300];
   else return red[300];
 }
-

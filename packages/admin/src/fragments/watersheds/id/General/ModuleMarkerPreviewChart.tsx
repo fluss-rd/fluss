@@ -1,8 +1,8 @@
-import { Typography, Grid } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { ResponsiveBar } from "@nivo/bar";
-import React, { FC } from "react";
 import { mockParameterMeasures } from "models/parameter-measures";
+import React, { FC } from "react";
 
 interface ModuleMarkerPreviewChartProps {}
 
@@ -61,4 +61,3 @@ const ModuleMarkerPreviewChart: FC<ModuleMarkerPreviewChartProps> = (props) => {
 const useStyles = makeStyles({});
 
 export default ModuleMarkerPreviewChart;
-

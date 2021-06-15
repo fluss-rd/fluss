@@ -1,12 +1,12 @@
 import { Typography } from "@material-ui/core";
 import formatPhoneNumber from "helpers/format-phone-nomber";
+import useBoolean from "hooks/useBoolean";
 import Module, { mockModules } from "models/module";
 import { moduleStateToString } from "models/module-state";
 import { ratingToString } from "models/wqi-rating";
 import React, { FC, useState } from "react";
 import { DataTableColumn, EnhancedDataTable } from "shared/components/Tables";
 import formatDate from "shared/helpers/formatDate";
-import useBoolean from "hooks/useBoolean";
 
 import Actions from "./Actions";
 import AddModule from "./AddModule";
@@ -85,4 +85,3 @@ function generateColumns(
 }
 
 export default Modules;
-

@@ -1,17 +1,17 @@
 import {
-  FormHelperText,
-  FormControl,
-  Checkbox,
-  FormGroup,
-  FormLabel,
-  FormControlLabel,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  Typography,
-  DialogActions,
-  Radio,
   Button,
+  Checkbox,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  FormControl,
+  FormControlLabel,
+  FormGroup,
+  FormHelperText,
+  FormLabel,
+  Radio,
+  Typography,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { FC } from "react";
@@ -64,7 +64,7 @@ const ModuleDataDownload: FC<ModuleDataDownloadProps> = ({ isOpen, close }) => {
           </FormControl>
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={onCancel} color="primary">
+          <Button onClick={onCancel} color="primary">
             Cancelar
           </Button>
           <Button onClick={onSave} color="primary">
@@ -79,4 +79,3 @@ const ModuleDataDownload: FC<ModuleDataDownloadProps> = ({ isOpen, close }) => {
 const useStyles = makeStyles({});
 
 export default ModuleDataDownload;
-

@@ -164,4 +164,3 @@ export function mockParameterMeasures(): ParameterMeasures[] {
 }
 
 export default ParameterMeasures;
-

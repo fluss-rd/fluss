@@ -1,10 +1,10 @@
-import { makeStyles} from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Map from "components/Map";
 import { mockModules } from "models/module";
 import { mockWatersheds } from "models/watershed";
 import React, { FC } from "react";
-import ModuleMarker from "./ModuleMarker";
 
+import ModuleMarker from "./ModuleMarker";
 import WatershedDetailCard from "./WatershedDetailCard";
 
 interface GeneralProps {
@@ -62,4 +62,3 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default General;
-

@@ -29,7 +29,7 @@ const Actions: FC<ActionsProps> = (props) => {
   const onViewData = () => {
     props.onViewData(props.moduleId);
     closeActions();
-  }
+  };
 
   return (
     <>
@@ -68,4 +68,3 @@ const Actions: FC<ActionsProps> = (props) => {
 };
 
 export default Actions;
-

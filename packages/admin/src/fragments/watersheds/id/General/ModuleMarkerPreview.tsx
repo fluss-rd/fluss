@@ -1,23 +1,24 @@
 import {
-  Divider,
   Button,
-  Popover,
-  Typography,
-  SvgIconTypeMap,
   Card,
-  CardContent,
   CardActions,
+  CardContent,
+  Divider,
+  Popover,
+  SvgIconTypeMap,
+  Typography,
 } from "@material-ui/core";
-import React, { FC } from "react";
-import getWqiColor from "helpers/get-wqi-color";
-import { mockModules } from "models/module";
-import { Update, BatteryFull } from "@material-ui/icons";
-import formatDate from "shared/helpers/formatDate";
 import { OverridableComponent } from "@material-ui/core/OverridableComponent";
-import { ratingToString } from "models/wqi-rating";
-import ModuleMarkerPreviewChart from "./ModuleMarkerPreviewChart";
-import EditModule from "../Modules/EditModule";
+import { BatteryFull, Update } from "@material-ui/icons";
+import getWqiColor from "helpers/get-wqi-color";
 import useBoolean from "hooks/useBoolean";
+import { mockModules } from "models/module";
+import { ratingToString } from "models/wqi-rating";
+import React, { FC } from "react";
+import formatDate from "shared/helpers/formatDate";
+
+import EditModule from "../Modules/EditModule";
+import ModuleMarkerPreviewChart from "./ModuleMarkerPreviewChart";
 
 interface ModuleMarkerPreviewProps {
   moduleId: string;
@@ -120,4 +121,3 @@ const Item: FC<ItemProps> = ({ icon: Icon, title, value }) => {
 };
 
 export default ModuleMarkerPreview;
-

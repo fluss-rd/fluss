@@ -49,4 +49,3 @@ const EditModule: FC<EditModuleProps> = (props) => {
 const useStyles = makeStyles({});
 
 export default EditModule;
-
