@@ -135,7 +135,7 @@ const ModuleStatuses: FC<ModuleStatusesProps> = (props) => {
 
 const useStyles = makeStyles({
   pie: {
-    height: 400,
+    height: 300,
   }
 });
 

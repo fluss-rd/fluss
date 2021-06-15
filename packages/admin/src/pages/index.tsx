@@ -2,6 +2,7 @@ import { Grid } from "@material-ui/core";
 import UserCard from "fragments/home/UserCard";
 import ResumeByWatershed from "fragments/home/ResumeByWatershed";
 import ModuleStatuses from "fragments/home/ModuleStatuses";
+import ModulesMap from "fragments/home/ModulesMap";
 
 export default function Home() {
   return (
@@ -11,10 +12,12 @@ export default function Home() {
           <UserCard />
           <br />
           <ResumeByWatershed />
+          <br />
+          <ModuleStatuses />
         </Grid>
 
         <Grid item xs={6}>
-          <ModuleStatuses />
+          <ModulesMap />
         </Grid>
       </Grid>
     </div>
