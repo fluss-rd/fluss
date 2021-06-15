@@ -6,10 +6,12 @@ import { ratingToString } from "models/wqi-rating";
 import React, { FC, useState } from "react";
 import { DataTableColumn, EnhancedDataTable } from "shared/components/Tables";
 import formatDate from "shared/helpers/formatDate";
+import useBoolean from "hooks/useBoolean";
 
 import Actions from "./Actions";
 import AddModule from "./AddModule";
 import EditModule from "./EditModule";
+import ModuleData from "./ModuleData";
 
 interface ModulesProps {
   watershedId: string;
@@ -17,8 +19,9 @@ interface ModulesProps {
 
 const Modules: FC<ModulesProps> = (props) => {
   const [moduleId, setModuleId] = useState<string>("");
+  const [moduleIdForData, setModuleIdForData] = useState<string>("");
   const modules = mockModules();
-  const columns = generateColumns(onEdit);
+  const columns = generateColumns(onEdit, onViewData);
 
   function closeEdit() {
     setModuleId("");
@@ -26,6 +29,14 @@ const Modules: FC<ModulesProps> = (props) => {
 
   function onEdit(moduleId: string) {
     setModuleId(moduleId);
+  }
+
+  function onViewData(moduleId: string) {
+    setModuleIdForData(moduleId);
+  }
+
+  function closeModuleData() {
+    setModuleIdForData("");
   }
 
   return (
@@ -38,11 +49,15 @@ const Modules: FC<ModulesProps> = (props) => {
       <EnhancedDataTable withFilters labeledButtons data={modules} columns={columns} />
       <AddModule watershedId={props.watershedId} />
       <EditModule moduleId={moduleId} isOpen={!!moduleId} onClose={closeEdit} />
+      <ModuleData moduleId={moduleIdForData} isOpen={!!moduleIdForData} close={closeModuleData} />
     </div>
   );
 };
 
-function generateColumns(onEdit: (moduleId: string) => void): DataTableColumn<Module>[] {
+function generateColumns(
+  onEdit: (moduleId: string) => void,
+  onViewData: (moduleId: string) => void
+): DataTableColumn<Module>[] {
   const columns: DataTableColumn<Module>[] = [
     { Header: "ID", accessor: "id" },
     { Header: "Alias", accessor: "alias" },
@@ -62,7 +77,7 @@ function generateColumns(onEdit: (moduleId: string) => void): DataTableColumn<Mo
     },
     {
       Header: "Acciones",
-      accessor: (m) => <Actions moduleId={m.id} onEdit={onEdit} />,
+      accessor: (m) => <Actions moduleId={m.id} onEdit={onEdit} onViewData={onViewData} />,
     },
   ];
 
@@ -70,3 +85,4 @@ function generateColumns(onEdit: (moduleId: string) => void): DataTableColumn<Mo
 }
 
 export default Modules;
+

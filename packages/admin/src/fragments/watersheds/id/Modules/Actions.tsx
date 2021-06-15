@@ -5,6 +5,7 @@ import React, { FC, MouseEvent, useState } from "react";
 interface ActionsProps {
   moduleId: string;
   onEdit: (moduleId: string) => void;
+  onViewData: (moduleId: string) => void;
 }
 
 const Actions: FC<ActionsProps> = (props) => {
@@ -24,6 +25,11 @@ const Actions: FC<ActionsProps> = (props) => {
     props.onEdit(props.moduleId);
     closeActions();
   };
+
+  const onViewData = () => {
+    props.onViewData(props.moduleId);
+    closeActions();
+  }
 
   return (
     <>
@@ -50,7 +56,7 @@ const Actions: FC<ActionsProps> = (props) => {
           </ListItemIcon>
           <ListItemText primary="Editar" />
         </ListItem>
-        <ListItem button>
+        <ListItem button onClick={onViewData}>
           <ListItemIcon>
             <Equalizer />
           </ListItemIcon>
