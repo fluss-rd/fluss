@@ -11,7 +11,7 @@ const UserCard: FC<UserCardProps> = (props) => {
   return (
     <Card>
       <CardContent>
-        <Typography variant="h5">Mikhael Santos Fernández</Typography>
+        <Typography variant="h6">Mikhael Santos Fernández</Typography>
         <Typography variant="subtitle1" color="textSecondary">
           Administrador
         </Typography>
@@ -23,9 +23,6 @@ const UserCard: FC<UserCardProps> = (props) => {
           <Typography variant="caption">Último acceso: Hace 1 hora</Typography>
         </div>
       </CardContent>
-      <CardActions>
-        <Button>Configuración de cuenta</Button>
-      </CardActions>
     </Card>
   );
 };

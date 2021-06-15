@@ -1,15 +1,20 @@
 import { makeStyles } from "@material-ui/core/styles";
 import { Card, Button, CardContent, Typography, Divider } from "@material-ui/core";
 import { mockDayMeasures } from "models/day-measures";
-import { KeyboardArrowRight } from "@material-ui/icons";
 import { ResponsiveCalendar } from "@nivo/calendar";
 import React, { useMemo, FC } from "react";
+import { useRouter } from "next/router";
 
 interface ResumeByWatershedProps {}
 
 const ResumeByWatershed: FC<ResumeByWatershedProps> = (props) => {
   const classes = useStyles();
+  const router = useRouter();
   const measures = useMemo(() => mockDayMeasures(), []);
+
+  const goToRiver = () => {
+    router.push("/watersheds/WS-1");
+  };
 
   return (
     <Card>
@@ -20,7 +25,7 @@ const ResumeByWatershed: FC<ResumeByWatershedProps> = (props) => {
       <Divider />
 
       <CardContent>
-        <Button color="primary" className={classes.watershedTitle}>
+        <Button color="primary" className={classes.watershedTitle} onClick={goToRiver}>
           Río Yaque del Norte
         </Button>
 
