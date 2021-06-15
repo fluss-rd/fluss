@@ -12,6 +12,8 @@ export function mockParameterMeasures(): ParameterMeasures[] {
       measures: [
         {
           day: "Lunes",
+          max: 12,
+          min: 2,
           measures: [
             { hour: 8, level: 2 },
             { hour: 11, level: 10 },
@@ -23,6 +25,8 @@ export function mockParameterMeasures(): ParameterMeasures[] {
         },
         {
           day: "Martes",
+          max: 12,
+          min: 2,
           measures: [
             { hour: 8, level: 2 },
             { hour: 11, level: 10 },
@@ -38,3 +42,4 @@ export function mockParameterMeasures(): ParameterMeasures[] {
 }
 
 export default ParameterMeasures;
+

@@ -28,7 +28,7 @@ const ModuleMarkerPreviewChart: FC<ModuleMarkerPreviewChartProps> = (props) => {
             </td>
             {measure.measures.map((m) => (
               <td key={m.day} style={{ height: 50, width: "50%" }}>
-                <ResponsiveBar data={m.measures} keys={["hour"]} indexBy="level" />
+                <ResponsiveBar data={m.measures} keys={["level"]} indexBy="hour" />
               </td>
             ))}
           </tr>
