@@ -52,7 +52,7 @@ function generateColumns(onEdit: (moduleId: string) => void): DataTableColumn<Mo
       accessor: (m) => formatPhoneNumber(m.phoneNumber),
     },
     { Header: "Estado", id: "state", accessor: (m) => moduleStateToString(m.state) },
-    { Header: "WQI", accessor: ({ wqi }) => `${ratingToString(wqi.rating)} (${wqi.value} )` },
+    { Header: "WQI", accessor: ({ wqi }) => `${ratingToString(wqi.rating)} (${wqi.value})` },
     { Header: "Calificación", accessor: (m) => ratingToString(m.wqi.rating) },
     { Header: "Última actualización", id: "updateDate", accessor: (m) => formatDate(m.updateDate) },
     {

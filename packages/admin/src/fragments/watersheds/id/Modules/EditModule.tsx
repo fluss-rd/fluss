@@ -37,7 +37,7 @@ const EditModule: FC<EditModuleProps> = (props) => {
     <FormDialog
       mode="registration"
       isOpen={props.isOpen}
-      title="Registrar cuenca"
+      title="Editar módulo"
       onClose={props.onClose}
       onSave={onSave}
     >
