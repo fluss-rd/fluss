@@ -16,6 +16,8 @@ import formatDate from "shared/helpers/formatDate";
 import { OverridableComponent } from "@material-ui/core/OverridableComponent";
 import { ratingToString } from "models/wqi-rating";
 import ModuleMarkerPreviewChart from "./ModuleMarkerPreviewChart";
+import EditModule from "../Modules/EditModule";
+import useBoolean from "hooks/useBoolean";
 
 interface ModuleMarkerPreviewProps {
   moduleId: string;
@@ -24,6 +26,7 @@ interface ModuleMarkerPreviewProps {
 }
 
 const ModuleMarkerPreview: FC<ModuleMarkerPreviewProps> = (props) => {
+  const [editIsOpen, openEdit, closeEdit] = useBoolean();
   const openPopover = Boolean(props.anchorEl);
   const popoverId = openPopover ? "module-mark-popover" : undefined;
   const module = mockModules().find((m) => m.id === props.moduleId);
@@ -34,54 +37,63 @@ const ModuleMarkerPreview: FC<ModuleMarkerPreviewProps> = (props) => {
   };
 
   return (
-    <Popover
-      id={popoverId}
-      open={openPopover}
-      anchorEl={props.anchorEl}
-      onClose={props.onClose}
-      anchorOrigin={{
-        vertical: "center",
-        horizontal: "center",
-      }}
-      transformOrigin={{
-        vertical: "center",
-        horizontal: "right",
-      }}
-    >
-      <Card>
-        <CardContent>
-          <Typography variant="caption" style={{ fontWeight: "bold" }}>
-            {module.id} — {module.alias}
-          </Typography>
-          <Typography variant="h6" style={{ color }}>
-            WQI {module.wqi.value} - {ratingToString(module.wqi.rating)}
-          </Typography>
-          <br />
-          <table>
-            <tbody>
-              <Item
-                icon={Update}
-                title="Última actualización"
-                value={formatDate(module.updateDate, { type: "dateAndTime" })}
-              />
-              <Item icon={BatteryFull} title="Nivel de batería" value={`${module.batteryLevel}%`} />
-            </tbody>
-          </table>
-        </CardContent>
-        <Divider />
-        <CardContent>
-          <ModuleMarkerPreviewChart />
-        </CardContent>
-        <CardActions style={{ flexDirection: "row-reverse" }}>
-          <Button size="small" color="primary">
-            Ver datos
-          </Button>
-          <Button size="small" color="primary">
-            Editar
-          </Button>
-        </CardActions>
-      </Card>
-    </Popover>
+    <>
+      <Popover
+        id={popoverId}
+        open={openPopover}
+        anchorEl={props.anchorEl}
+        onClose={props.onClose}
+        anchorOrigin={{
+          vertical: "center",
+          horizontal: "center",
+        }}
+        transformOrigin={{
+          vertical: "center",
+          horizontal: "right",
+        }}
+      >
+        <Card>
+          <CardContent>
+            <Typography variant="caption" style={{ fontWeight: "bold" }}>
+              {module.id} — {module.alias}
+            </Typography>
+            <Typography variant="h6" style={{ color }}>
+              WQI {module.wqi.value} - {ratingToString(module.wqi.rating)}
+            </Typography>
+            <br />
+            <table>
+              <tbody>
+                <Item
+                  icon={Update}
+                  title="Última actualización"
+                  value={formatDate(module.updateDate, { type: "dateAndTime" })}
+                />
+                <Item
+                  icon={BatteryFull}
+                  title="Nivel de batería"
+                  value={`${module.batteryLevel}%`}
+                />
+              </tbody>
+            </table>
+          </CardContent>
+          <Divider />
+          <CardContent>
+            <ModuleMarkerPreviewChart />
+          </CardContent>
+          <CardActions style={{ flexDirection: "row-reverse" }}>
+            <Button size="small" color="primary">
+              Ver datos
+            </Button>
+            <Button size="small" color="primary" onClick={openEdit}>
+              Editar
+            </Button>
+          </CardActions>
+        </Card>
+      </Popover>
+
+      {/*TODO: I think the following line es better placing it in general I placed it here just for the moment*/}
+      <EditModule isOpen={editIsOpen} onClose={closeEdit} moduleId={module.id} />
+    </>
   );
 };
 
