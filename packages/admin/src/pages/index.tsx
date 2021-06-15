@@ -1,7 +1,20 @@
-import { Typography } from "@material-ui/core";
-import InProgress from "components/InProgress";
-import React from "react";
+import { Grid } from "@material-ui/core";
+import UserCard from "fragments/home/UserCard";
+import ResumeByWatershed from "fragments/home/ResumeByWatershed";
 
 export default function Home() {
-  return <InProgress name="Inicio" />;
+  return (
+    <div>
+      <Grid container>
+        <Grid item xs={6}>
+          <UserCard />
+          <br />
+          <ResumeByWatershed />
+        </Grid>
+
+        <Grid item xs={6}></Grid>
+      </Grid>
+    </div>
+  );
 }
+
