@@ -8,14 +8,14 @@ import {
   CardContent,
   CardActions,
 } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import React, { FC, MouseEvent, useState } from "react";
+import React, { FC } from "react";
 import getWqiColor from "helpers/get-wqi-color";
-import Module, { mockModules } from "models/module";
+import { mockModules } from "models/module";
 import { Update, BatteryFull } from "@material-ui/icons";
 import formatDate from "shared/helpers/formatDate";
 import { OverridableComponent } from "@material-ui/core/OverridableComponent";
 import { ratingToString } from "models/wqi-rating";
+import ModuleMarkerPreviewChart from "./ModuleMarkerPreviewChart";
 
 interface ModuleMarkerPreviewProps {
   moduleId: string;
@@ -24,7 +24,6 @@ interface ModuleMarkerPreviewProps {
 }
 
 const ModuleMarkerPreview: FC<ModuleMarkerPreviewProps> = (props) => {
-  const classes = useStyles();
   const openPopover = Boolean(props.anchorEl);
   const popoverId = openPopover ? "module-mark-popover" : undefined;
   const module = mockModules().find((m) => m.id === props.moduleId);
@@ -49,7 +48,7 @@ const ModuleMarkerPreview: FC<ModuleMarkerPreviewProps> = (props) => {
         horizontal: "right",
       }}
     >
-      <Card className={classes.content}>
+      <Card>
         <CardContent>
           <Typography variant="caption" style={{ fontWeight: "bold" }}>
             {module.id} — {module.alias}
@@ -70,6 +69,9 @@ const ModuleMarkerPreview: FC<ModuleMarkerPreviewProps> = (props) => {
           </table>
         </CardContent>
         <Divider />
+        <CardContent>
+          <ModuleMarkerPreviewChart />
+        </CardContent>
         <CardActions style={{ flexDirection: "row-reverse" }}>
           <Button size="small" color="primary">
             Ver datos
@@ -104,10 +106,6 @@ const Item: FC<ItemProps> = ({ icon: Icon, title, value }) => {
     </tr>
   );
 };
-
-const useStyles = makeStyles((theme) => ({
-  content: {},
-}));
 
 export default ModuleMarkerPreview;
 
