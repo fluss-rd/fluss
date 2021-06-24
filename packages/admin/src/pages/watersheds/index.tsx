@@ -42,7 +42,7 @@ const Watersheds: NextPage<HydricResourcesProps> = ({ quantity, watersheds }) =>
 };
 
 Watersheds.getInitialProps = async ({ req }) => {
-  const watersheds = mockWatersheds();
+  const watersheds = [mockWatersheds()[0]];
 
   return { quantity: watersheds.length, watersheds };
 };
@@ -59,3 +59,4 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default Watersheds;
+

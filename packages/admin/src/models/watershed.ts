@@ -17,7 +17,7 @@ export function mockWatersheds(): Watershed[] {
       id: "WS-1",
       name: "Yaque del Norte",
       location: { latitude: 19.8401, longitude: -71.687 },
-      modulesQuantity: 3,
+      modulesQuantity: 2,
       updateDate: new Date(Date.now()),
       creationDate: new Date(Date.now()),
       wqi: { value: 250, rating: "moderate" },

@@ -31,7 +31,7 @@ const ResumeByWatershed: FC<ResumeByWatershedProps> = (props) => {
 
         <div className={classes.chartCalendar}>
           <ResponsiveCalendar
-            data={measures}
+            data={measures[0]}
             from="2015-03-01"
             to="2016-07-12"
             emptyColor="#eeeeee"

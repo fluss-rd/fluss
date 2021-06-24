@@ -89,7 +89,7 @@ const ModuleData: FC<ModuleDataProps> = ({ isOpen, close, moduleId }) => {
             </ButtonGroup>
           </div>
           <ResponsiveCalendar
-            data={measures}
+            data={measures[current]}
             from="2015-03-01"
             to="2016-07-12"
             emptyColor="#eeeeee"

@@ -1,4 +1,5 @@
 import {
+  Button,
   Card,
   CardActions,
   CardContent,
@@ -16,6 +17,7 @@ import EditWatershed from "fragments/watersheds/common/EditWatershed";
 import Watershed from "models/watershed";
 import React, { FC, useState } from "react";
 import formatDate from "shared/helpers/formatDate";
+import GetAppIcon from "@material-ui/icons/GetApp";
 
 interface WatershedDetailCardProps {
   watershed: Watershed;
@@ -59,7 +61,10 @@ const WatershedDetailCard: FC<WatershedDetailCardProps> = ({ watershed }) => {
         </CardContent>
       </Collapse>
       <CardActions disableSpacing>
-        <EditWatershed watershedId={watershed.id} text="Editar registro" />
+        <EditWatershed watershedId={watershed.id} text="Editar" />
+        <Button color="primary">
+          Descargar datos
+        </Button>
         <IconButton
           onClick={onToggleExpansion}
           className={clsx(classes.expand, {
@@ -108,3 +113,4 @@ const Item: FC<ItemProps> = ({ icon: Icon, children }) => (
 );
 
 export default WatershedDetailCard;
+

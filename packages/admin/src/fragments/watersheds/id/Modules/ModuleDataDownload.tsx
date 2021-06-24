@@ -47,11 +47,17 @@ const ModuleDataDownload: FC<ModuleDataDownloadProps> = ({ isOpen, close }) => {
           <FormControl component="fieldset">
             <FormLabel component="legend">Elegir parámetros</FormLabel>
             <FormGroup>
-              <FormControlLabel control={<Checkbox name="oxygen" />} label="Oxígeno" />
-              <FormControlLabel control={<Checkbox name="pH" />} label="pH" />
-              <FormControlLabel control={<Checkbox name="temperature" />} label="Temperatura" />
-              <FormControlLabel control={<Checkbox name="solids" />} label="Sólidos disueltos" />
-              <FormControlLabel control={<Checkbox name="turbidity" />} label="Turbidez" />
+              <FormControlLabel control={<Checkbox name="oxygen" checked />} label="Oxígeno" />
+              <FormControlLabel control={<Checkbox name="pH" checked />} label="pH" />
+              <FormControlLabel
+                control={<Checkbox name="temperature" checked />}
+                label="Temperatura"
+              />
+              <FormControlLabel
+                control={<Checkbox name="solids" checked />}
+                label="Sólidos disueltos"
+              />
+              <FormControlLabel control={<Checkbox name="turbidity" checked />} label="Turbidez" />
             </FormGroup>
             {/*<FormHelperText>Debes elegir al menos un parámetro para la descarga</FormHelperText>*/}
           </FormControl>
@@ -60,6 +66,7 @@ const ModuleDataDownload: FC<ModuleDataDownloadProps> = ({ isOpen, close }) => {
             <FormGroup>
               <FormControlLabel control={<Radio name="excel" />} label="Excel" />
               <FormControlLabel control={<Radio name="csv" />} label="CSV" />
+              <FormControlLabel control={<Radio name="json" />} label="JSON" />
             </FormGroup>
           </FormControl>
         </DialogContent>
@@ -79,3 +86,4 @@ const ModuleDataDownload: FC<ModuleDataDownloadProps> = ({ isOpen, close }) => {
 const useStyles = makeStyles({});
 
 export default ModuleDataDownload;
+

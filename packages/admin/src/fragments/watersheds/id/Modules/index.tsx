@@ -1,6 +1,5 @@
 import { Typography } from "@material-ui/core";
 import formatPhoneNumber from "helpers/format-phone-nomber";
-import useBoolean from "hooks/useBoolean";
 import Module, { mockModules } from "models/module";
 import { moduleStateToString } from "models/module-state";
 import { ratingToString } from "models/wqi-rating";
@@ -46,7 +45,7 @@ const Modules: FC<ModulesProps> = (props) => {
 
       <br />
 
-      <EnhancedDataTable withFilters labeledButtons data={modules} columns={columns} />
+      <EnhancedDataTable labeledButtons data={modules} columns={columns} />
       <AddModule watershedId={props.watershedId} />
       <EditModule moduleId={moduleId} isOpen={!!moduleId} onClose={closeEdit} />
       <ModuleData moduleId={moduleIdForData} isOpen={!!moduleIdForData} close={closeModuleData} />
