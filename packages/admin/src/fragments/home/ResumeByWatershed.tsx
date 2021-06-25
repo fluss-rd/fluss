@@ -1,9 +1,9 @@
+import { Button, Card, CardContent, Divider, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { Card, Button, CardContent, Typography, Divider } from "@material-ui/core";
-import { mockDayMeasures } from "models/day-measures";
 import { ResponsiveCalendar } from "@nivo/calendar";
-import React, { useMemo, FC } from "react";
+import { mockDayMeasures } from "models/day-measures";
 import { useRouter } from "next/router";
+import React, { FC, useMemo } from "react";
 
 interface ResumeByWatershedProps {}
 
@@ -82,4 +82,3 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default ResumeByWatershed;
-

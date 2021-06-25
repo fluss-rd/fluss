@@ -63,4 +63,3 @@ const ModuleMarkerPreviewChart: FC<ModuleMarkerPreviewChartProps> = (props) => {
 const useStyles = makeStyles({});
 
 export default ModuleMarkerPreviewChart;
-

@@ -63,7 +63,7 @@ const WatershedCard: FC<WatershedCardProps> = (props) => {
             <Button size="small" color="primary" onClick={goToWatershed}>
               Ver más
             </Button>
-            <EditWatershed watershedId={props.id} text={"Editar"}  />
+            <EditWatershed watershedId={props.id} text={"Editar"} />
           </CardActions>
         </Grid>
         <Grid item md={5} className={classes.map}>

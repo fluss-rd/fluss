@@ -7363,4 +7363,3 @@ export function mockDayMeasures() {
 }
 
 export default DayMeasures;
-

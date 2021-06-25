@@ -1,6 +1,6 @@
-import { Update } from "@material-ui/icons";
-import { Card, Typography, CardContent, CardActions, Button } from "@material-ui/core";
+import { Button, Card, CardActions, CardContent, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { Update } from "@material-ui/icons";
 import React, { FC } from "react";
 
 interface UserCardProps {}
@@ -39,4 +39,3 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default UserCard;
-

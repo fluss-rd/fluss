@@ -86,4 +86,3 @@ const ModuleDataDownload: FC<ModuleDataDownloadProps> = ({ isOpen, close }) => {
 const useStyles = makeStyles({});
 
 export default ModuleDataDownload;
-

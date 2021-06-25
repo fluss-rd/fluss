@@ -1,7 +1,7 @@
-import { Card, CardContent, Typography, Divider } from "@material-ui/core";
+import { Card, CardContent, Divider, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import React, { FC } from "react";
 import { ResponsivePie } from "@nivo/pie";
+import React, { FC } from "react";
 
 interface ModuleStatusesProps {}
 
@@ -136,7 +136,7 @@ const ModuleStatuses: FC<ModuleStatusesProps> = (props) => {
 const useStyles = makeStyles({
   pie: {
     height: 300,
-  }
+  },
 });
 
 const data = [
@@ -149,4 +149,3 @@ const data = [
 ];
 
 export default ModuleStatuses;
-

@@ -121,4 +121,3 @@ const Item: FC<ItemProps> = ({ icon: Icon, title, value }) => {
 };
 
 export default ModuleMarkerPreview;
-

@@ -1,8 +1,8 @@
 import { CssBaseline } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import Settings from "fragments/Settings";
-import { useRouter } from "next/router";
 import withAuth from "hoc/withAuth";
+import { useRouter } from "next/router";
 import React, { createContext, FC } from "react";
 import { useMergeState } from "shared/hooks";
 

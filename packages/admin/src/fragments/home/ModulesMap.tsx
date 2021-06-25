@@ -1,8 +1,9 @@
-import { Card, Typography, CardContent, Divider } from "@material-ui/core";
-import Map from "components/Map";
+import { Card, CardContent, Divider, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import React, { FC } from "react";
+import Map from "components/Map";
 import { mockModules } from "models/module";
+import React, { FC } from "react";
+
 import ModuleMarker from "../watersheds/id/General/ModuleMarker";
 
 interface ModulesMapProps {}
@@ -41,4 +42,3 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default ModulesMap;
-

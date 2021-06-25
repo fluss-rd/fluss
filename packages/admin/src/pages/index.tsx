@@ -1,8 +1,8 @@
 import { Grid } from "@material-ui/core";
-import UserCard from "fragments/home/UserCard";
-import ResumeByWatershed from "fragments/home/ResumeByWatershed";
-import ModuleStatuses from "fragments/home/ModuleStatuses";
 import ModulesMap from "fragments/home/ModulesMap";
+import ModuleStatuses from "fragments/home/ModuleStatuses";
+import ResumeByWatershed from "fragments/home/ResumeByWatershed";
+import UserCard from "fragments/home/UserCard";
 
 export default function Home() {
   return (
@@ -23,4 +23,3 @@ export default function Home() {
     </div>
   );
 }
-
