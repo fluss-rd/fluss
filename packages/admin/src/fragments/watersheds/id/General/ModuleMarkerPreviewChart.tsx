@@ -11,11 +11,11 @@ const ModuleMarkerPreviewChart: FC<ModuleMarkerPreviewChartProps> = (props) => {
   const measures = mockParameterMeasures();
 
   return (
-    <div style={{ width: "100%", height: "100%" }}>
+    <div>
       <Typography variant="body1" style={{ fontWeight: "bold" }}>
         Últimas 48 horas
       </Typography>
-      <table>
+      <table style={{ width: "100%" }}>
         <tr>
           <td></td>
           <td style={{ textAlign: "center" }}>Lunes</td>
@@ -29,16 +29,18 @@ const ModuleMarkerPreviewChart: FC<ModuleMarkerPreviewChartProps> = (props) => {
               <Typography variant="caption">{measure.parameterName}</Typography>
             </td>
             {measure.measures.map((m) => (
-              <td key={m.day} style={{ height: 30, width: "50%" }}>
-                <ResponsiveBar
-                  colors={measure.color}
-                  data={m.measures}
-                  keys={["level"]}
-                  indexBy="hour"
-                  innerPadding={0.4}
-                  enableLabel={false}
-                  enableGridY={false}
-                />
+              <td key={m.day}>
+                <div style={{ height: 30, minWidth: 100 }}>
+                  <ResponsiveBar
+                    colors={measure.color}
+                    data={m.measures}
+                    keys={["level"]}
+                    indexBy="hour"
+                    innerPadding={0.4}
+                    enableLabel={false}
+                    enableGridY={false}
+                  />
+                </div>
               </td>
             ))}
             <td style={{ textAlign: "center" }}>
@@ -61,3 +63,4 @@ const ModuleMarkerPreviewChart: FC<ModuleMarkerPreviewChartProps> = (props) => {
 const useStyles = makeStyles({});
 
 export default ModuleMarkerPreviewChart;
+
