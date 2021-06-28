@@ -25,6 +25,7 @@ export function toModuleForm(module: Module): ModuleForm {
     phoneNumber: module?.phoneNumber || "",
     status: module?.state || "",
     watershedId: module?.watershedId || "",
+    location: module?.location || { latitude: 0, longitude: 0 },
   };
 }
 
@@ -59,3 +60,4 @@ export function mockModules(): Module[] {
   ];
 }
 export default Module;
+

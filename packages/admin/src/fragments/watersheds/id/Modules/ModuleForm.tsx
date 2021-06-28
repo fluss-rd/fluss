@@ -1,24 +1,24 @@
 import { yupResolver } from "@hookform/resolvers";
 import { MenuItem } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import { FiberManualRecord, Grain, InfoOutlined } from "@material-ui/icons";
+import { FiberManualRecord, Grain, InfoOutlined, LocationOn } from "@material-ui/icons";
 import ModuleState, { moduleStates, moduleStateToString } from "models/module-state";
 import { mockWatersheds } from "models/watershed";
 import React, { FC } from "react";
-import { Control, Controller, useForm, UseFormMethods, useWatch } from "react-hook-form";
+import { Controller, useForm, UseFormMethods } from "react-hook-form";
 import ReactInputMask from "react-input-mask";
 import { ModuleForm as ModuleFormModel } from "services/modules/models";
 import FormField from "shared/components/FormField";
 import FormIconTitle from "shared/components/FormIconTitle";
 import FormSelect from "shared/components/FormSelect";
 import * as yup from "yup";
+import Map, { Location } from "components/Map";
+import LocationForm from "components/LocationForm";
 
 interface ModuleFormProps {
   form: UseFormMethods<ModuleFormModel>;
 }
 
 const ModuleForm: FC<ModuleFormProps> = ({ form }) => {
-  const classes = useStyles();
   const watersheds = mockWatersheds();
 
   return (
@@ -104,12 +104,12 @@ const ModuleForm: FC<ModuleFormProps> = ({ form }) => {
           </FormSelect>
         }
       />
-      {/*TODO: Establecer conexión con el módulo para obtener ubicación y confirmar número de teléfono*/}
+      <FormIconTitle Icon={LocationOn} title="Ubicación" />
+
+      <LocationForm form={form as unknown as UseFormMethods<{ location: Location }>} />
     </>
   );
 };
-
-const useStyles = makeStyles({});
 
 export function useModuleForm(
   defaultValues: Partial<ModuleFormModel> = {
@@ -118,11 +118,12 @@ export function useModuleForm(
     phoneNumber: "",
     status: "",
     watershedId: "",
+    location: { latitude: 0, longitude: 0 },
   }
 ) {
   const form = useForm<ModuleFormModel>({
     resolver: yupResolver(schema),
-    defaultValues,
+    defaultValues: { ...defaultValues },
   });
 
   return form;
@@ -134,6 +135,11 @@ const schema: yup.SchemaOf<ModuleFormModel> = yup.object().shape({
   phoneNumber: yup.string().required("Por favor, introduzca el número telefónico del módulo"),
   status: yup.string().required("Por favor, seleccione el estado del módulo"),
   watershedId: yup.string().required("Por favor seleccione el cuerpo hídrico asociado al módulo"),
+  location: yup.object().shape({
+    longitude: yup.number().required("Por favor, introduzca la longitud del módulo"),
+    latitude: yup.number().required("Por favor, introduzca la latitud del módulo"),
+  }),
 });
 
 export default ModuleForm;
+

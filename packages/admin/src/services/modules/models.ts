@@ -20,4 +20,6 @@ export type ModuleForm = {
   serial: string;
   watershedId: string;
   status: string;
+  location: { latitude: number; longitude: number };
 };
+

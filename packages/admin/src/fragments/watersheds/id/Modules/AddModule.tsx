@@ -3,8 +3,9 @@ import { Add } from "@material-ui/icons";
 import Fab from "components/Fab";
 import FormDialog from "components/FormDialog";
 import useBoolean from "hooks/useBoolean";
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { ModuleForm as ModuleFormModel } from "services/modules/models";
+import { mockWatersheds } from "models/watershed";
 
 import ModuleForm, { useModuleForm } from "./ModuleForm";
 
@@ -13,7 +14,7 @@ interface AddModuleProps {
 }
 
 const AddModule: FC<AddModuleProps> = (props) => {
-  const classes = useStyles();
+  console.log(props.watershedId);
   const form = useModuleForm({ watershedId: props.watershedId, status: "active" });
   const [isOpen, open, close] = useBoolean();
 
@@ -44,6 +45,5 @@ const AddModule: FC<AddModuleProps> = (props) => {
   );
 };
 
-const useStyles = makeStyles({});
-
 export default AddModule;
+
