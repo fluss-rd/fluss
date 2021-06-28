@@ -30,7 +30,13 @@ const EditWatershed: FC<EditWatershedProps> = ({ watershedId, text, useIcon }) =
       <Button size="small" color="primary" onClick={onClick} startIcon={useIcon && <Edit />}>
         {text}
       </Button>
-      <FormDialog mode="registration" isOpen={isOpen} title="Registrar cuenca" onClose={close}>
+      <FormDialog
+        mode="registration"
+        isOpen={isOpen}
+        title="Registrar cuenca"
+        onClose={close}
+        ModalContentProps={{ style: { overflow: "hidden" } }}
+      >
         <WatershedForm form={form} />
       </FormDialog>
     </>
@@ -42,3 +48,4 @@ EditWatershed.defaultProps = {
 };
 
 export default EditWatershed;
+

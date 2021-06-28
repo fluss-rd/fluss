@@ -35,17 +35,28 @@ const EditModule: FC<EditModuleProps> = (props) => {
 
   return (
     <FormDialog
-      mode="registration"
+      mode="edition"
       isOpen={props.isOpen}
       title="Editar módulo"
       onClose={props.onClose}
       onSave={onSave}
+      DialogProps={{
+        scroll: "body",
+      }}
+      ModalContentProps={{
+        className: classes.content,
+      }}
     >
       <ModuleForm form={form} />
     </FormDialog>
   );
 };
 
-const useStyles = makeStyles({});
+const useStyles = makeStyles({
+  content: {
+    maxHeight: 600,
+  },
+});
 
 export default EditModule;
+

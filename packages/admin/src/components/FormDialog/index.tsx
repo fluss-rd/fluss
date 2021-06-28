@@ -1,6 +1,6 @@
 import { Button, Dialog, DialogActions, DialogProps, DialogTitle } from "@material-ui/core";
 import React, { FC } from "react";
-import ModalContent from "shared/components/ModalContent";
+import ModalContent, { ModalContentProps } from "shared/components/ModalContent";
 
 type FormDialogMode = "registration" | "edition";
 
@@ -14,6 +14,7 @@ interface FormDialogProps {
   saveAction?: string | JSX.Element;
   cancelAction?: string | JSX.Element;
   DialogProps?: Partial<DialogProps>;
+  ModalContentProps?: Partial<ModalContentProps>;
 }
 
 const FormDialog: FC<FormDialogProps> = (props) => {
@@ -36,7 +37,9 @@ const FormDialog: FC<FormDialogProps> = (props) => {
       )}
 
       <form noValidate autoComplete="off">
-        <ModalContent spacing={rest.contentSpacing}>{rest.children}</ModalContent>
+        <ModalContent spacing={rest.contentSpacing} dividers {...rest.ModalContentProps}>
+          {rest.children}
+        </ModalContent>
         <DialogActions>
           {typeof cancelAction === "string" || !cancelAction ? (
             <Button onClick={onClose} color="primary">
@@ -64,3 +67,4 @@ FormDialog.defaultProps = {
 };
 
 export default FormDialog;
+
