@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { Typography } from "@material-ui/core";
 import DataTable from "shared/components/DataTable";
 import DataTableColumn from "shared/components/DataTable/DataTableColumn";
-import GeneralFilter from "shared/components/DataTable/filters/GlobalFilter";
+import GlobalFilter from "shared/components/DataTable/filters/GlobalFilter";
 
 const Test: FC = (props) => {
   return (
@@ -13,7 +13,7 @@ const Test: FC = (props) => {
         columns={columns}
         toolbar={
           <>
-            <GeneralFilter />
+            <GlobalFilter />
           </>
         }
       />

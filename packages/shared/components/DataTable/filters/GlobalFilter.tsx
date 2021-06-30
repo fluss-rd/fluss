@@ -3,17 +3,18 @@ import { Paper, InputBase, CircularProgress } from "@material-ui/core";
 import { Search } from "@material-ui/icons";
 import React, { FC, useState } from "react";
 import { useDataTable } from "../DataTableContext";
-import { useAsyncDebounce, Row } from "react-table";
+import { useAsyncDebounce } from "react-table";
 
-interface GlobalFilterProps<T extends object> {
+interface GlobalFilterProps {
   placeholder?: string;
 }
 
-function GlobalFilter<T extends object>(props: GlobalFilterProps<T>) {
+const GlobalFilter: FC<GlobalFilterProps> = (props) => {
   const { table } = useDataTable();
   const [loading, setLoading] = useState(false);
   const [value, setValue] = React.useState("");
   const classes = useStyles();
+
   const applyDebounce = useAsyncDebounce((value) => {
     table.setGlobalFilter(value || undefined);
     setLoading(false);
@@ -44,7 +45,7 @@ function GlobalFilter<T extends object>(props: GlobalFilterProps<T>) {
       </div>
     </Paper>
   );
-}
+};
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -79,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-(GlobalFilter as FC<GlobalFilterProps<any>>).defaultProps = {
+GlobalFilter.defaultProps = {
   placeholder: "Buscar",
 };
 

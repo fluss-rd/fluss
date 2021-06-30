@@ -14,7 +14,6 @@ import { useTable, useGlobalFilter, Column, usePagination } from "react-table";
 import DataTableColumn from "./DataTableColumn";
 import DataTableContext from "./DataTableContext";
 import DataTablePagination from "./DataTablePagination";
-import GlobalFilter from "./filters/GlobalFilter";
 
 interface DataTableProps<T extends object> {
   columns: DataTableColumn<T>[];
@@ -29,8 +28,6 @@ function DataTable<T extends object>(props: DataTableProps<T>) {
   const classes = useStyles();
   const table = useTableInitialization(props);
   const rows = props.paginated ? table.page : table.rows;
-
-  console.log({ globalFilter: table.state.globalFilter });
 
   return (
     <DataTableContext.Provider value={{ table }}>
