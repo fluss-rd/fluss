@@ -35,7 +35,6 @@ function EnhancedDataTableToolbar<T extends object>(props: EnhancedDataTableTool
       </div>
 
       <div className={classes.actions}>
-        <span>Hey</span>
         {props.withFilters && (
           <FilterRows
             key={1729}
