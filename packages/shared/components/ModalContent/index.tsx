@@ -1,30 +1,26 @@
 import { makeStyles, Theme } from "@material-ui/core/styles";
-import c from "clsx";
+import clsx from "clsx";
 import React, { CSSProperties, FC, ReactNode } from "react";
+import { DialogContent, DialogContentProps } from "@material-ui/core";
 
-interface ModalContentProps {
+export interface ModalContentProps extends Partial<DialogContentProps> {
   children?: ReactNode;
-  style?: CSSProperties;
   spacing?: number;
-  className?: string;
 }
 
-const ModalContent: FC<ModalContentProps> = ({ children, style, className, spacing }) => {
+const ModalContent: FC<ModalContentProps> = (props) => {
+  const { children, className, spacing, ...rest } = props;
   const classes = useStyles({ spacing });
 
   return (
-    <div className={c(classes.content, className)} style={style}>
+    <DialogContent className={clsx(classes.content, className)} {...rest}>
       {children}
-    </div>
+    </DialogContent>
   );
 };
 
 const useStyles = makeStyles<Theme, { spacing: number }>((theme) => ({
   content: {
-    paddingLeft: theme.spacing(3.2),
-    paddingRight: theme.spacing(3.2),
-    paddingBottom: theme.spacing(3.2),
-
     "& > *:not(:last-child)": {
       marginBottom: ({ spacing }) => theme.spacing(spacing),
     },
@@ -34,3 +30,4 @@ const useStyles = makeStyles<Theme, { spacing: number }>((theme) => ({
 ModalContent.defaultProps = { spacing: 0 };
 
 export default ModalContent;
+
