@@ -10,10 +10,11 @@ import {
   Paper,
   TablePaginationProps,
 } from "@material-ui/core";
-import { useTable, Column, usePagination } from "react-table";
+import { useTable, useGlobalFilter, Column, usePagination } from "react-table";
 import DataTableColumn from "./DataTableColumn";
 import DataTableContext from "./DataTableContext";
 import DataTablePagination from "./DataTablePagination";
+import GlobalFilter from "./filters/GlobalFilter";
 
 interface DataTableProps<T extends object> {
   columns: DataTableColumn<T>[];
@@ -30,6 +31,12 @@ function DataTable<T extends object>(props: DataTableProps<T>) {
 
   return (
     <DataTableContext.Provider value={{ table }}>
+      <GlobalFilter
+        globalFilter={table.preGlobalFilteredRows}
+        preGlobalFilteredRows={table.state.globalFilter}
+        setGlobalFilter={table.setGlobalFilter}
+      />
+      <br />
       <Paper style={{ width: "100%" }}>
         <TableContainer>
           <Table className={classes.table} aria-label="simple table">
@@ -98,6 +105,7 @@ function useTableInitialization<T extends object>(props: DataTableProps<T>) {
         pageSize: props.paginated ? props.pageSize : props.data ? props.data.length : 0,
       },
     },
+    useGlobalFilter,
     usePagination
   );
 
