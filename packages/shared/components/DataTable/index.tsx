@@ -10,7 +10,7 @@ import {
   Paper,
   TablePaginationProps,
 } from "@material-ui/core";
-import { useTable, useGlobalFilter, Column, usePagination } from "react-table";
+import { useTable, useGlobalFilter, useFilters, Column, usePagination } from "react-table";
 import DataTableColumn from "./DataTableColumn";
 import DataTableContext from "./DataTableContext";
 import DataTablePagination from "./DataTablePagination";
@@ -101,6 +101,7 @@ function useTableInitialization<T extends object>(props: DataTableProps<T>) {
         pageSize: props.paginated ? props.pageSize : props.data ? props.data.length : 0,
       },
     },
+    useFilters,
     useGlobalFilter,
     usePagination
   );

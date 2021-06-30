@@ -3,6 +3,8 @@ import { Typography } from "@material-ui/core";
 import DataTable from "shared/components/DataTable";
 import DataTableColumn from "shared/components/DataTable/DataTableColumn";
 import GlobalFilter from "shared/components/DataTable/filters/GlobalFilter";
+import SelectColumnFilter from "shared/components/DataTable/filters/SelectColumnFilter";
+import DataTableFilters from "shared/components/DataTable/DataTableFilters";
 
 const Test: FC = (props) => {
   return (
@@ -14,6 +16,7 @@ const Test: FC = (props) => {
         toolbar={
           <>
             <GlobalFilter />
+            <DataTableFilters />
           </>
         }
       />
@@ -60,6 +63,8 @@ const columns: DataTableColumn<Data>[] = [
   {
     Header: "Column 2",
     accessor: "col2",
+    Filter: SelectColumnFilter,
+    filter: "includes",
   },
 ];
 
