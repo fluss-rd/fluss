@@ -1,5 +1,5 @@
 import { makeStyles, withStyles, Theme } from "@material-ui/core/styles";
-import React from "react";
+import React, { FC } from "react";
 import {
   Table,
   TableBody,
@@ -8,51 +8,62 @@ import {
   TableHead,
   TableRow,
   Paper,
+  TablePaginationProps,
 } from "@material-ui/core";
-import { useTable, Column } from "react-table";
+import { useTable, Column, usePagination } from "react-table";
 import DataTableColumn from "./DataTableColumn";
+import DataTableContext from "./DataTableContext";
+import DataTablePagination from "./DataTablePagination";
 
 interface DataTableProps<T extends object> {
   columns: DataTableColumn<T>[];
   data?: T[];
+  paginated?: boolean;
+  pageSize?: number;
+  TablePaginationProps?: TablePaginationProps;
 }
 
 function DataTable<T extends object>(props: DataTableProps<T>) {
-  const { columns, data } = props;
   const classes = useStyles();
-  const table = useTable({ columns: columns as Column<T>[], data });
+  const table = useTableInitialization(props);
+  const rows = props.paginated ? table.page : table.rows;
 
   return (
-    <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="simple table">
-        <TableHead>
-          {table.headerGroups.map((headerGroup) => (
-            <TableRow {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <TableCell {...column.getHeaderProps()}>{column.render("Header")}</TableCell>
+    <DataTableContext.Provider value={{ table }}>
+      <Paper style={{ width: "100%" }}>
+        <TableContainer>
+          <Table className={classes.table} aria-label="simple table">
+            <TableHead>
+              {table.headerGroups.map((headerGroup) => (
+                <TableRow {...headerGroup.getHeaderGroupProps()}>
+                  {headerGroup.headers.map((column) => (
+                    <TableCell {...column.getHeaderProps()}>{column.render("Header")}</TableCell>
+                  ))}
+                </TableRow>
               ))}
-            </TableRow>
-          ))}
-        </TableHead>
+            </TableHead>
 
-        <TableBody>
-          {table.rows.map((row) => {
-            table.prepareRow(row);
-            return (
-              <StyledTableRow {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return (
-                    <TableCell {...cell.getCellProps()} style={{ width: "5%" }}>
-                      {cell.render("Cell")}
-                    </TableCell>
-                  );
-                })}
-              </StyledTableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-    </TableContainer>
+            <TableBody>
+              {rows.map((row) => {
+                table.prepareRow(row);
+                return (
+                  <StyledTableRow {...row.getRowProps()}>
+                    {row.cells.map((cell) => {
+                      return (
+                        <TableCell {...cell.getCellProps()} style={{ width: "5%" }}>
+                          {cell.render("Cell")}
+                        </TableCell>
+                      );
+                    })}
+                  </StyledTableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <DataTablePagination />
+      </Paper>
+    </DataTableContext.Provider>
   );
 }
 
@@ -69,6 +80,29 @@ const useStyles = makeStyles({
     minWidth: 650,
   },
 });
+
+(DataTable as FC<DataTableProps<any>>).defaultProps = {
+  pageSize: 5,
+  paginated: true,
+};
+
+function useTableInitialization<T extends object>(props: DataTableProps<T>) {
+  const { data, columns } = props;
+
+  const table = useTable(
+    {
+      columns: columns as Column<object>[],
+      data,
+      initialState: {
+        pageIndex: 0,
+        pageSize: props.paginated ? props.pageSize : props.data ? props.data.length : 0,
+      },
+    },
+    usePagination
+  );
+
+  return table;
+}
 
 export default DataTable;
 
