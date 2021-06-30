@@ -21,6 +21,7 @@ interface DataTableProps<T extends object> {
   data?: T[];
   paginated?: boolean;
   pageSize?: number;
+  toolbar?: JSX.Element;
   TablePaginationProps?: TablePaginationProps;
 }
 
@@ -29,14 +30,12 @@ function DataTable<T extends object>(props: DataTableProps<T>) {
   const table = useTableInitialization(props);
   const rows = props.paginated ? table.page : table.rows;
 
+  console.log({ globalFilter: table.state.globalFilter });
+
   return (
     <DataTableContext.Provider value={{ table }}>
-      <GlobalFilter
-        globalFilter={table.preGlobalFilteredRows}
-        preGlobalFilteredRows={table.state.globalFilter}
-        setGlobalFilter={table.setGlobalFilter}
-      />
-      <br />
+      {props.toolbar}
+      {props.toolbar && <br />}
       <Paper style={{ width: "100%" }}>
         <TableContainer>
           <Table className={classes.table} aria-label="simple table">

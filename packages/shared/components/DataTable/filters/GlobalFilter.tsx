@@ -6,15 +6,13 @@ import { useDataTable } from "../DataTableContext";
 import { useAsyncDebounce, Row } from "react-table";
 
 interface GlobalFilterProps<T extends object> {
-  preGlobalFilteredRows: Row<T>[];
-  globalFilter: any;
-  setGlobalFilter: (value: any) => void;
+  placeholder?: string;
 }
 
 function GlobalFilter<T extends object>(props: GlobalFilterProps<T>) {
   const { table } = useDataTable();
   const [loading, setLoading] = useState(false);
-  const [value, setValue] = React.useState(props.globalFilter);
+  const [value, setValue] = React.useState("");
   const classes = useStyles();
   const applyDebounce = useAsyncDebounce((value) => {
     table.setGlobalFilter(value || undefined);
@@ -28,25 +26,23 @@ function GlobalFilter<T extends object>(props: GlobalFilterProps<T>) {
   };
 
   return (
-    <>
-      <Paper className={classes.card}>
-        <div className={classes.search}>
-          <div className={classes.searchIcon}>
-            {loading ? <CircularProgress color="secondary" size={16} /> : <Search color="action" />}
-          </div>
-          <InputBase
-            placeholder={"Buscar"}
-            onChange={onChange}
-            value={value || ""}
-            classes={{
-              root: classes.inputRoot,
-              input: classes.inputInput,
-            }}
-            inputProps={{ "aria-label": "search" }}
-          />
+    <Paper className={classes.card}>
+      <div className={classes.search}>
+        <div className={classes.searchIcon}>
+          {loading ? <CircularProgress color="secondary" size={16} /> : <Search color="action" />}
         </div>
-      </Paper>
-    </>
+        <InputBase
+          placeholder={props.placeholder}
+          onChange={onChange}
+          value={value || ""}
+          classes={{
+            root: classes.inputRoot,
+            input: classes.inputInput,
+          }}
+          inputProps={{ "aria-label": "search" }}
+        />
+      </div>
+    </Paper>
   );
 }
 
@@ -82,6 +78,10 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
   },
 }));
+
+(GlobalFilter as FC<GlobalFilterProps<any>>).defaultProps = {
+  placeholder: "Buscar",
+};
 
 export default GlobalFilter;
 

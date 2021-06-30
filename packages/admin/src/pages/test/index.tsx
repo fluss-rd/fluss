@@ -2,12 +2,21 @@ import React, { FC } from "react";
 import { Typography } from "@material-ui/core";
 import DataTable from "shared/components/DataTable";
 import DataTableColumn from "shared/components/DataTable/DataTableColumn";
+import GeneralFilter from "shared/components/DataTable/filters/GlobalFilter";
 
 const Test: FC = (props) => {
   return (
     <div>
       <Typography variant="h5"></Typography>
-      <DataTable data={data} columns={columns}  />
+      <DataTable
+        data={data}
+        columns={columns}
+        toolbar={
+          <>
+            <GeneralFilter />
+          </>
+        }
+      />
     </div>
   );
 };
