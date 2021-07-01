@@ -14,12 +14,14 @@ import { makeStyles, Theme, withStyles } from "@material-ui/core/styles";
 import React, { FC } from "react";
 import {
   Column,
+  Row,
   useFilters,
   useGlobalFilter,
   usePagination,
   useSortBy,
   useTable,
 } from "react-table";
+import generateId from "../../helpers/generateId";
 
 import DataTableColumn from "./DataTableColumn";
 import DataTableContext from "./DataTableContext";
@@ -34,6 +36,8 @@ interface DataTableProps<T extends object> {
   sortBy?: keyof T;
   sortDirection?: "asc" | "desc";
   TablePaginationProps?: TablePaginationProps;
+  beforeRowRender?: (row: Row<T>) => JSX.Element;
+  afterRowRender?: (row: Row<T>) => JSX.Element;
 }
 
 function DataTable<T extends object>(props: DataTableProps<T>) {
@@ -79,16 +83,31 @@ function DataTable<T extends object>(props: DataTableProps<T>) {
             <TableBody>
               {rows.map((row) => {
                 table.prepareRow(row);
+                const before = props.beforeRowRender && props.beforeRowRender(row as any);
+                const after = props.afterRowRender && props.afterRowRender(row as any);
+                console.log({ row });
                 return (
-                  <StyledTableRow {...row.getRowProps()}>
-                    {row.cells.map((cell) => {
-                      return (
-                        <TableCell {...cell.getCellProps()} style={{ width: "5%" }}>
-                          {cell.render("Cell")}
-                        </TableCell>
-                      );
-                    })}
-                  </StyledTableRow>
+                  <>
+                    {before && (
+                      <StyledTableRow key={generateId("prev-row")}>
+                        <TableCell colSpan={table.allColumns.length}>{before}</TableCell>
+                      </StyledTableRow>
+                    )}
+                    <StyledTableRow {...row.getRowProps()}>
+                      {row.cells.map((cell) => {
+                        return (
+                          <TableCell {...cell.getCellProps()} style={{ width: "5%" }}>
+                            {cell.render("Cell")}
+                          </TableCell>
+                        );
+                      })}
+                    </StyledTableRow>
+                    {after && (
+                      <StyledTableRow key={generateId("prev-row")}>
+                        <TableCell colSpan={table.allColumns.length}>{after}</TableCell>
+                      </StyledTableRow>
+                    )}
+                  </>
                 );
               })}
             </TableBody>
@@ -159,3 +178,4 @@ function useTableInitialization<T extends object>(props: DataTableProps<T>) {
 }
 
 export default DataTable;
+

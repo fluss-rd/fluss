@@ -12,7 +12,11 @@ const Test: FC = (props) => {
     <div>
       <Typography variant="h4">Página determinada</Typography>
       <br />
-      <DataTable data={data} columns={columns} />
+      <DataTable
+        data={data}
+        columns={columns}
+        beforeRowRender={(row) => <Typography>{row.id}</Typography>}
+      />
     </div>
   );
 };
@@ -70,3 +74,4 @@ const columns: DataTableColumn<Data>[] = [
 ];
 
 export default Test;
+
