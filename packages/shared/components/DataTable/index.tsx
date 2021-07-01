@@ -31,8 +31,11 @@ function DataTable<T extends object>(props: DataTableProps<T>) {
 
   return (
     <DataTableContext.Provider value={{ table }}>
-      {props.toolbar}
-      {props.toolbar && <br />}
+      {props.toolbar && (
+        <Paper>
+          <div className={classes.toolbar}>{props.toolbar}</div>
+        </Paper>
+      )}
       <Paper style={{ width: "100%" }}>
         <TableContainer>
           <Table className={classes.table} aria-label="simple table">
@@ -78,11 +81,18 @@ const StyledTableRow = withStyles((theme: Theme) => ({
   },
 }))(TableRow);
 
-const useStyles = makeStyles({
-  table: {
-    minWidth: 650,
+const useStyles = makeStyles((theme) => ({
+  table: {},
+  toolbar: {
+    padding: theme.spacing(1),
+    display: "flex",
+    alignItems: "center",
+    "& > *:not(:last-child)": {
+      marginRight: theme.spacing(2),
+    },
+    marginBottom: theme.spacing(2),
   },
-});
+}));
 
 (DataTable as FC<DataTableProps<any>>).defaultProps = {
   pageSize: 5,

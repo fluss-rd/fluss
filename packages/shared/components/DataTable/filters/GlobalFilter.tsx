@@ -1,12 +1,16 @@
-import { makeStyles } from "@material-ui/core/styles";
-import { Paper, InputBase, CircularProgress } from "@material-ui/core";
-import { Search } from "@material-ui/icons";
-import React, { FC, useState } from "react";
+import { makeStyles, fade } from "@material-ui/core/styles";
+import { Paper, InputBase, CircularProgress, PaperProps, IconButton } from "@material-ui/core";
+import { Search as SearchIcon } from "@material-ui/icons";
+import React, { FC, useState, CSSProperties } from "react";
 import { useDataTable } from "../DataTableContext";
 import { useAsyncDebounce } from "react-table";
+import clsx from "clsx";
 
 interface GlobalFilterProps {
   placeholder?: string;
+  className?: string;
+  style?: CSSProperties;
+  PaperProps?: Partial<PaperProps>;
 }
 
 const GlobalFilter: FC<GlobalFilterProps> = (props) => {
@@ -27,38 +31,38 @@ const GlobalFilter: FC<GlobalFilterProps> = (props) => {
   };
 
   return (
-    <Paper className={classes.card}>
-      <div className={classes.search}>
-        <div className={classes.searchIcon}>
-          {loading ? <CircularProgress color="secondary" size={16} /> : <Search color="action" />}
-        </div>
-        <InputBase
-          placeholder={props.placeholder}
-          onChange={onChange}
-          value={value || ""}
-          classes={{
-            root: classes.inputRoot,
-            input: classes.inputInput,
-          }}
-          inputProps={{ "aria-label": "search" }}
-        />
+    <div className={classes.search}>
+      <div className={classes.searchIcon}>
+        {loading ? <CircularProgress color="secondary" size={16} /> : <SearchIcon color="action" />}
       </div>
-    </Paper>
+      <InputBase
+        placeholder={props.placeholder}
+        value={value}
+        onChange={onChange}
+        classes={{
+          root: classes.inputRoot,
+          input: classes.inputInput,
+        }}
+        inputProps={{ "aria-label": "search" }}
+      />
+    </div>
   );
 };
 
 const useStyles = makeStyles((theme) => ({
-  card: {
-    width: "100%",
-    height: `calc(${theme.mixins.toolbar.minHeight}px - 15px)`,
-    display: "flex",
-    alignItems: "center",
-    borderRadius: theme.shape.borderRadius,
-  },
   search: {
     position: "relative",
     borderRadius: theme.shape.borderRadius,
+    backgroundColor: fade(theme.palette.common.black, 0.05),
+    "&:hover": {
+      backgroundColor: fade(theme.palette.common.black, 0.08),
+    },
+    marginLeft: 0,
     width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: theme.spacing(1),
+      width: "auto",
+    },
   },
   searchIcon: {
     padding: theme.spacing(0, 2),
@@ -70,13 +74,24 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
   inputRoot: {
-    width: "100%",
+    color: "inherit",
   },
   inputInput: {
-    padding: theme.spacing(2, 2, 2, 0),
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create("width"),
     width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      width: "12ch",
+      "&:focus": {
+        width: "20ch",
+      },
+    },
+  },
+  divider: {
+    height: 28,
+    margin: 4,
   },
 }));
 

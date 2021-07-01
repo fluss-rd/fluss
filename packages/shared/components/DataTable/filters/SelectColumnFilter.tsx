@@ -1,20 +1,35 @@
 import { makeStyles } from "@material-ui/core/styles";
-import React, { useMemo } from "react";
-import { ColumnInstance } from "react-table";
-import { FormControl, InputLabel, Select, MenuItem, OutlinedInput } from "@material-ui/core";
+import React, { useMemo, ChangeEvent, CSSProperties } from "react";
+import {
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  OutlinedInput,
+  FormControlProps,
+} from "@material-ui/core";
 import generateId from "../../../helpers/generateId";
+import { useDataTable } from "../DataTableContext";
 
-interface SelectColumnFilterProps<T extends object> {
-  column: ColumnInstance<T>;
+interface SelectColumnFilterProps<T> {
+  columnId: keyof T;
+  size?: "small" | "medium";
+  style?: CSSProperties;
+  className?: string;
+  FormControlProps?: Partial<FormControlProps>;
+  label?: string;
+  placeholder?: string;
 }
 
-function SelectColumnFilter<T extends object>(props: SelectColumnFilterProps<T>) {
-  const { filterValue, setFilter, preFilteredRows, id, Header } = props.column;
+function SelectColumnFilter<T>(props: SelectColumnFilterProps<T>) {
+  const { table } = useDataTable();
+  const column = table.allColumns.find((column) => column.id === props.columnId);
+  const { filterValue, setFilter, preFilteredRows, id, Header } = column;
   const classes = useStyles();
   const selectId = useMemo(() => generateId("select"), []);
   const options = useMemo(computeOptions, [id, preFilteredRows]);
 
-  function onChange(e: React.ChangeEvent<{ name?: string; value: string }>) {
+  function onChange(e: ChangeEvent<{ name?: string; value: string }>) {
     setFilter(e.target.value || undefined);
   }
 
@@ -37,8 +52,8 @@ function SelectColumnFilter<T extends object>(props: SelectColumnFilterProps<T>)
   }
 
   return (
-    <div style={{ width: "100%" }}>
-      <FormControl fullWidth variant="outlined">
+    <div style={props.style} className={props.className}>
+      <FormControl fullWidth variant="outlined" size={props.size} {...props.FormControlProps}>
         <InputLabel shrink id={`${selectId}-label`}>
           {Header}
         </InputLabel>
@@ -51,7 +66,7 @@ function SelectColumnFilter<T extends object>(props: SelectColumnFilterProps<T>)
           input={<OutlinedInput notched label={Header} />}
         >
           <MenuItem value="">
-            <span className={classes.none}>Todos</span>
+            <span className={classes.none}>{props.placeholder || "TODOS"}</span>
           </MenuItem>
           {options.map((option: string, i: number) => {
             return (
@@ -71,6 +86,10 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.grey[500],
   },
 }));
+
+SelectColumnFilter.defaultProps = {
+  size: "medium",
+};
 
 export default SelectColumnFilter;
 
