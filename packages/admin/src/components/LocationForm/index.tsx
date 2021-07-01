@@ -1,8 +1,9 @@
-import { Grid, Card } from "@material-ui/core";
-import FormField from "shared/components/FormField";
+import { Card, Grid } from "@material-ui/core";
+import Location from "models/location";
 import React, { FC } from "react";
 import { Control, UseFormMethods, useWatch } from "react-hook-form";
-import Location from "models/location";
+import FormField from "shared/components/FormField";
+
 import Map from "../Map";
 
 interface LocationFormProps {
@@ -77,4 +78,3 @@ const RenderMap: FC<RenderMapProps> = ({ control, onNewMarker, defaultValue }) =
 };
 
 export default LocationForm;
-

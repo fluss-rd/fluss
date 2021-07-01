@@ -60,4 +60,3 @@ export function mockModules(): Module[] {
   ];
 }
 export default Module;
-

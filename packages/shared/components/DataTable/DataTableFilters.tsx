@@ -1,5 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 import React, { FC, Fragment } from "react";
+
 import { useDataTable } from "./DataTableContext";
 
 interface DataTableFiltersProps {}
@@ -21,4 +22,3 @@ const DataTableFilters: FC<DataTableFiltersProps> = (props) => {
 const useStyles = makeStyles({});
 
 export default DataTableFilters;
-

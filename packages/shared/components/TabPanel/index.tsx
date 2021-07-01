@@ -42,4 +42,3 @@ TabPanel.defaultProps = {
 
 export default TabPanel;
 export { AntTab, AntTabs, HorizontalIconTab };
-

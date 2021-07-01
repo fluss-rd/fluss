@@ -1,24 +1,26 @@
-import { makeStyles, withStyles, Theme } from "@material-ui/core/styles";
-import React, { FC } from "react";
+/* eslint-disable react/jsx-key */
 import {
-  TableSortLabel,
+  Paper,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
-  TableRow,
-  Paper,
   TablePaginationProps,
+  TableRow,
+  TableSortLabel,
 } from "@material-ui/core";
+import { makeStyles, Theme, withStyles } from "@material-ui/core/styles";
+import React, { FC } from "react";
 import {
-  useTable,
-  useGlobalFilter,
-  useFilters,
   Column,
+  useFilters,
+  useGlobalFilter,
   usePagination,
   useSortBy,
+  useTable,
 } from "react-table";
+
 import DataTableColumn from "./DataTableColumn";
 import DataTableContext from "./DataTableContext";
 import DataTablePagination from "./DataTablePagination";
@@ -55,22 +57,20 @@ function DataTable<T extends object>(props: DataTableProps<T>) {
               {table.headerGroups.map((headerGroup) => (
                 <TableRow {...headerGroup.getHeaderGroupProps()}>
                   {headerGroup.headers.map((column) => (
-                    <>
-                      <TableCell
-                        {...column.getHeaderProps(column.getSortByToggleProps())}
-                        className={classes.tableHeader}
-                        align="left"
-                        padding="default"
-                        sortDirection={props.sortDirection}
+                    <TableCell
+                      {...column.getHeaderProps(column.getSortByToggleProps())}
+                      className={classes.tableHeader}
+                      align="left"
+                      padding="default"
+                      sortDirection={props.sortDirection}
+                    >
+                      <TableSortLabel
+                        active={sortingColumnId === column.id}
+                        direction={column.isSortedDesc ? "desc" : "asc"}
                       >
-                        <TableSortLabel
-                          active={sortingColumnId === column.id}
-                          direction={column.isSortedDesc ? "desc" : "asc"}
-                        >
-                          {column.render("Header")}
-                        </TableSortLabel>
-                      </TableCell>
-                    </>
+                        {column.render("Header")}
+                      </TableSortLabel>
+                    </TableCell>
                   ))}
                 </TableRow>
               ))}
@@ -159,4 +159,3 @@ function useTableInitialization<T extends object>(props: DataTableProps<T>) {
 }
 
 export default DataTable;
-

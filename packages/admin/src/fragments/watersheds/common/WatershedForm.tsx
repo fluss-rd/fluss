@@ -1,5 +1,6 @@
 import { yupResolver } from "@hookform/resolvers";
-import { LocationOn, InfoOutlined } from "@material-ui/icons";
+import { InfoOutlined, LocationOn } from "@material-ui/icons";
+import LocationForm from "components/LocationForm";
 import { Location } from "components/Map";
 import React, { FC } from "react";
 import { useForm, UseFormMethods } from "react-hook-form";
@@ -7,7 +8,6 @@ import { WatershedForm as WatershedFormModel } from "services/watersheds/models"
 import FormField from "shared/components/FormField";
 import FormIconTitle from "shared/components/FormIconTitle";
 import * as yup from "yup";
-import LocationForm from "components/LocationForm";
 
 export interface WatershedFormProps {
   form: UseFormMethods<WatershedFormModel>;
@@ -50,4 +50,3 @@ const schema: yup.SchemaOf<WatershedFormModel> = yup.object().shape({
 });
 
 export default WatershedForm;
-

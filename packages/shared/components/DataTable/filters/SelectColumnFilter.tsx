@@ -1,13 +1,14 @@
-import { makeStyles } from "@material-ui/core/styles";
-import React, { useMemo, ChangeEvent, CSSProperties } from "react";
 import {
   FormControl,
+  FormControlProps,
   InputLabel,
-  Select,
   MenuItem,
   OutlinedInput,
-  FormControlProps,
+  Select,
 } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import React, { ChangeEvent, CSSProperties, useMemo } from "react";
+
 import generateId from "../../../helpers/generateId";
 import { useDataTable } from "../DataTableContext";
 
@@ -92,4 +93,3 @@ SelectColumnFilter.defaultProps = {
 };
 
 export default SelectColumnFilter;
-

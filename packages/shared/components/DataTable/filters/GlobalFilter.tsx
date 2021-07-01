@@ -1,10 +1,11 @@
-import { makeStyles, fade } from "@material-ui/core/styles";
-import { Paper, InputBase, CircularProgress, PaperProps, IconButton } from "@material-ui/core";
+import { CircularProgress, IconButton, InputBase, Paper, PaperProps } from "@material-ui/core";
+import { fade, makeStyles } from "@material-ui/core/styles";
 import { Search as SearchIcon } from "@material-ui/icons";
-import React, { FC, useState, CSSProperties } from "react";
-import { useDataTable } from "../DataTableContext";
-import { useAsyncDebounce } from "react-table";
 import clsx from "clsx";
+import React, { CSSProperties, FC, useState } from "react";
+import { useAsyncDebounce } from "react-table";
+
+import { useDataTable } from "../DataTableContext";
 
 interface GlobalFilterProps {
   placeholder?: string;
@@ -100,4 +101,3 @@ GlobalFilter.defaultProps = {
 };
 
 export default GlobalFilter;
-

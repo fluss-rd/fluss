@@ -1,5 +1,6 @@
-import React, { FC, MouseEvent, ChangeEvent } from "react";
 import { TablePagination } from "@material-ui/core";
+import React, { ChangeEvent, FC, MouseEvent } from "react";
+
 import { useDataTable } from "./DataTableContext";
 
 type DataTablePaginationProps = {
@@ -39,4 +40,3 @@ DataTablePagination.defaultProps = {
 };
 
 export default DataTablePagination;
-

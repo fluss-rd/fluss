@@ -1,5 +1,6 @@
 import "@fontsource/nunito";
 import "mapbox-gl/dist/mapbox-gl.css";
+import "regenerator-runtime/runtime";
 
 import DateFnsUtils from "@date-io/date-fns";
 import { ThemeProvider } from "@material-ui/core/styles";
@@ -10,7 +11,6 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { initialState, StateContext } from "store/state";
 import theme, { GlobalCss } from "styles/theme";
-import "regenerator-runtime/runtime";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -42,4 +42,3 @@ function MyApp({ Component, pageProps }) {
 }
 
 export default MyApp;
-

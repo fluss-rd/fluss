@@ -22,4 +22,3 @@ export type ModuleForm = {
   status: string;
   location: { latitude: number; longitude: number };
 };
-

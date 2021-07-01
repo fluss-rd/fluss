@@ -1,6 +1,8 @@
 import { yupResolver } from "@hookform/resolvers";
 import { MenuItem } from "@material-ui/core";
 import { FiberManualRecord, Grain, InfoOutlined, LocationOn } from "@material-ui/icons";
+import LocationForm from "components/LocationForm";
+import Map, { Location } from "components/Map";
 import ModuleState, { moduleStates, moduleStateToString } from "models/module-state";
 import { mockWatersheds } from "models/watershed";
 import React, { FC } from "react";
@@ -11,8 +13,6 @@ import FormField from "shared/components/FormField";
 import FormIconTitle from "shared/components/FormIconTitle";
 import FormSelect from "shared/components/FormSelect";
 import * as yup from "yup";
-import Map, { Location } from "components/Map";
-import LocationForm from "components/LocationForm";
 
 interface ModuleFormProps {
   form: UseFormMethods<ModuleFormModel>;
@@ -142,4 +142,3 @@ const schema: yup.SchemaOf<ModuleFormModel> = yup.object().shape({
 });
 
 export default ModuleForm;
-
