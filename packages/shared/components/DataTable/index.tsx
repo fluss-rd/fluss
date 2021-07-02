@@ -23,7 +23,6 @@ import {
   useTable,
 } from "react-table";
 import GlobalFilter from "./filters/GlobalFilter";
-import SelectColumnFilter from "./filters/SelectColumnFilter";
 
 import generateId from "../../helpers/generateId";
 import DataTableColumn from "./DataTableColumn";

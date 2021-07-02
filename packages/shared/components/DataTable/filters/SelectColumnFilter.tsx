@@ -91,4 +91,3 @@ SelectColumnFilter.defaultProps = {
 };
 
 export default SelectColumnFilter;
-

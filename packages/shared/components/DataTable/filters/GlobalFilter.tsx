@@ -95,4 +95,3 @@ GlobalFilter.defaultProps = {
 };
 
 export default GlobalFilter;
-
