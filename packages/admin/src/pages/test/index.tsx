@@ -1,32 +1,29 @@
-import { Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { Typography, Divider } from "@material-ui/core";
 import React, { FC } from "react";
 import DataTable from "shared/components/DataTable";
 import DataTableColumn from "shared/components/DataTable/DataTableColumn";
 import SelectColumnFilter from "shared/components/DataTable/filters/SelectColumnFilter";
+import GlobalFilter from "shared/components/DataTable/filters/GlobalFilter";
 
-const Test: FC = (props) => {
-  const classes = useStyles();
-
-  return (
-    <div>
-      <Typography variant="h4">Página determinada</Typography>
-      <br />
-      <DataTable
-        data={data}
-        columns={columns}
-        beforeRowRender={(row) => <Typography>{row.id}</Typography>}
-      />
-    </div>
-  );
-};
-
-const useStyles = makeStyles((theme) => ({
-  divider: {
-    height: 28,
-    margin: 4,
-  },
-}));
+const Test: FC = () => (
+  <div>
+    <Typography variant="h4">Página determinada</Typography>
+    <br />
+    <DataTable
+      data={data}
+      columns={columns}
+      toolbar={
+        <>
+          <GlobalFilter />
+          <div>
+            <Divider orientation="vertical" style={{ height: 28, margin: 10 }} />
+          </div>
+          <SelectColumnFilter<Data> columnId="col1" placeholder="Columna 2" />
+        </>
+      }
+    />
+  </div>
+);
 
 type Data = {
   col1: string;
@@ -68,8 +65,6 @@ const columns: DataTableColumn<Data>[] = [
   {
     Header: "Column 2",
     accessor: "col2",
-    Filter: SelectColumnFilter,
-    filter: "includes",
   },
 ];
 

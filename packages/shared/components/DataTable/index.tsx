@@ -21,8 +21,8 @@ import {
   useSortBy,
   useTable,
 } from "react-table";
-import generateId from "../../helpers/generateId";
 
+import generateId from "../../helpers/generateId";
 import DataTableColumn from "./DataTableColumn";
 import DataTableContext from "./DataTableContext";
 import DataTablePagination from "./DataTablePagination";
@@ -49,12 +49,8 @@ function DataTable<T extends object>(props: DataTableProps<T>) {
 
   return (
     <DataTableContext.Provider value={{ table }}>
-      {props.toolbar && (
-        <Paper>
-          <div className={classes.toolbar}>{props.toolbar}</div>
-        </Paper>
-      )}
       <Paper style={{ width: "100%" }}>
+        {props.toolbar && <div className={classes.toolbar}>{props.toolbar}</div>}
         <TableContainer>
           <Table className={classes.table} aria-label="simple table">
             <TableHead>
@@ -103,7 +99,7 @@ function DataTable<T extends object>(props: DataTableProps<T>) {
                       })}
                     </StyledTableRow>
                     {after && (
-                      <StyledTableRow key={generateId("prev-row")}>
+                      <StyledTableRow key={generateId("after-row")}>
                         <TableCell colSpan={table.allColumns.length}>{after}</TableCell>
                       </StyledTableRow>
                     )}
@@ -178,4 +174,3 @@ function useTableInitialization<T extends object>(props: DataTableProps<T>) {
 }
 
 export default DataTable;
-

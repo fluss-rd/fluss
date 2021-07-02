@@ -61,7 +61,6 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 0,
     width: "100%",
     [theme.breakpoints.up("sm")]: {
-      marginLeft: theme.spacing(1),
       width: "auto",
     },
   },
@@ -90,10 +89,6 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
-  divider: {
-    height: 28,
-    margin: 4,
-  },
 }));
 
 GlobalFilter.defaultProps = {
@@ -101,3 +96,4 @@ GlobalFilter.defaultProps = {
 };
 
 export default GlobalFilter;
+

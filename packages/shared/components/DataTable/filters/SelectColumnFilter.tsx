@@ -37,14 +37,6 @@ function SelectColumnFilter<T>(props: SelectColumnFilterProps<T>) {
   function computeOptions() {
     const options = new Set();
 
-    console.log({
-      filterValue,
-      setFilter,
-      preFilteredRows,
-      id,
-      Header,
-    });
-
     preFilteredRows?.forEach((row) => {
       options.add(row.values[id]);
     });
@@ -54,20 +46,17 @@ function SelectColumnFilter<T>(props: SelectColumnFilterProps<T>) {
 
   return (
     <div style={props.style} className={props.className}>
-      <FormControl fullWidth variant="outlined" size={props.size} {...props.FormControlProps}>
-        <InputLabel shrink id={`${selectId}-label`}>
-          {Header}
-        </InputLabel>
+      <FormControl fullWidth size={props.size} {...props.FormControlProps}>
         <Select
           displayEmpty
           labelId={`${selectId}-label`}
           id={selectId}
           value={filterValue || ""}
           onChange={onChange}
-          input={<OutlinedInput notched label={Header} />}
+          disableUnderline
         >
           <MenuItem value="">
-            <span className={classes.none}>{props.placeholder || "TODOS"}</span>
+            <span className={classes.none}>{props.placeholder || "Todos"}</span>
           </MenuItem>
           {options.map((option: string, i: number) => {
             return (
@@ -86,6 +75,14 @@ const useStyles = makeStyles((theme) => ({
   none: {
     color: theme.palette.grey[500],
   },
+  noUnderline: {
+    "&&&:before": {
+      borderBottom: "none",
+    },
+    "&&:after": {
+      borderBottom: "none",
+    },
+  },
 }));
 
 SelectColumnFilter.defaultProps = {
@@ -93,3 +90,4 @@ SelectColumnFilter.defaultProps = {
 };
 
 export default SelectColumnFilter;
+
