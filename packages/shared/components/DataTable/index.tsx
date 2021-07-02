@@ -85,7 +85,7 @@ function DataTable<T extends object>(props: DataTableProps<T>) {
                 table.prepareRow(row);
                 const before = props.beforeRowRender && props.beforeRowRender(row as any);
                 const after = props.afterRowRender && props.afterRowRender(row as any);
-                console.log({ row });
+
                 return (
                   <>
                     {before && (
