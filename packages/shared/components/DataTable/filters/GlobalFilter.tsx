@@ -1,7 +1,6 @@
-import { CircularProgress, IconButton, InputBase, Paper, PaperProps } from "@material-ui/core";
+import { CircularProgress, InputBase, PaperProps } from "@material-ui/core";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import { Search as SearchIcon } from "@material-ui/icons";
-import clsx from "clsx";
 import React, { CSSProperties, FC, useState } from "react";
 import { useAsyncDebounce } from "react-table";
 

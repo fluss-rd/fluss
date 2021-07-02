@@ -1,30 +1,31 @@
-import {
-  FormControl,
-  FormControlProps,
-  InputLabel,
-  MenuItem,
-  OutlinedInput,
-  Select,
-} from "@material-ui/core";
+import { FormControl, FormControlProps, MenuItem, Select } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { ChangeEvent, CSSProperties, useMemo } from "react";
+import { ColumnInstance } from "react-table";
 
 import generateId from "../../../helpers/generateId";
 import { useDataTable } from "../DataTableContext";
 
-interface SelectColumnFilterProps<T> {
-  columnId: keyof T;
+type CommonProps<T extends object> = {
   size?: "small" | "medium";
   style?: CSSProperties;
   className?: string;
   FormControlProps?: Partial<FormControlProps>;
-  label?: string;
   placeholder?: string;
-}
+  columnId?: keyof T;
+  column?: Partial<ColumnInstance<T>>;
+};
 
-function SelectColumnFilter<T>(props: SelectColumnFilterProps<T>) {
+// If columnId is provided, not use column, otherwise, use it.
+type ColumnProps<T extends Object> =
+  | { columnId: keyof T; column?: never }
+  | { column: Partial<ColumnProps<T>>; columnId?: never };
+
+export type SelectColumnFilterProps<T extends object> = CommonProps<T> & ColumnProps<T>;
+
+function SelectColumnFilter<T extends object>(props: SelectColumnFilterProps<T>) {
   const { table } = useDataTable();
-  const column = table.allColumns.find((column) => column.id === props.columnId);
+  const column = props.column || table.allColumns.find((column) => column.id === props.columnId);
   const { filterValue, setFilter, preFilteredRows, id, Header } = column;
   const classes = useStyles();
   const selectId = useMemo(() => generateId("select"), []);
@@ -56,7 +57,7 @@ function SelectColumnFilter<T>(props: SelectColumnFilterProps<T>) {
           disableUnderline
         >
           <MenuItem value="">
-            <span className={classes.none}>{props.placeholder || "Todos"}</span>
+            <span className={classes.none}>{Header || props.placeholder || "Todos"}</span>
           </MenuItem>
           {options.map((option: string, i: number) => {
             return (

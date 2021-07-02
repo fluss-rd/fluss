@@ -9,6 +9,7 @@ import {
   TablePaginationProps,
   TableRow,
   TableSortLabel,
+  Divider,
 } from "@material-ui/core";
 import { makeStyles, Theme, withStyles } from "@material-ui/core/styles";
 import React, { FC } from "react";
@@ -21,6 +22,8 @@ import {
   useSortBy,
   useTable,
 } from "react-table";
+import GlobalFilter from "./filters/GlobalFilter";
+import SelectColumnFilter from "./filters/SelectColumnFilter";
 
 import generateId from "../../helpers/generateId";
 import DataTableColumn from "./DataTableColumn";
@@ -33,6 +36,8 @@ interface DataTableProps<T extends object> {
   paginated?: boolean;
   pageSize?: number;
   toolbar?: JSX.Element;
+  showGlobalFilter?: boolean;
+  showFilters?: boolean;
   sortBy?: keyof T;
   sortDirection?: "asc" | "desc";
   TablePaginationProps?: TablePaginationProps;
@@ -46,11 +51,32 @@ function DataTable<T extends object>(props: DataTableProps<T>) {
   const rows = props.paginated ? table.page : table.rows;
   const sortBy = table.state.sortBy;
   const sortingColumnId = sortBy?.length > 0 ? sortBy[0].id : "";
+  const showToolbar = props.showGlobalFilter || props.toolbar || props.showFilters;
 
   return (
     <DataTableContext.Provider value={{ table }}>
       <Paper style={{ width: "100%" }}>
-        {props.toolbar && <div className={classes.toolbar}>{props.toolbar}</div>}
+        {showToolbar && (
+          <div className={classes.toolbar}>
+            {props.showGlobalFilter && <GlobalFilter />}
+            {props.showGlobalFilter && (props.toolbar || props.showFilters) && (
+              <div>
+                <Divider
+                  orientation="vertical"
+                  style={{ height: 28, marginLeft: 4, marginRight: 4 }}
+                />
+              </div>
+            )}
+
+            {props.toolbar}
+
+            {props.showFilters &&
+              table.allColumns.map((column) => {
+                if (!(column.canFilter && column.Filter)) return null;
+                return column.render("Filter");
+              })}
+          </div>
+        )}
         <TableContainer>
           <Table className={classes.table} aria-label="simple table">
             <TableHead>
@@ -120,6 +146,7 @@ const useStyles = makeStyles((theme) => ({
   tableHeader: {
     fontWeight: "bold",
   },
+  separate: {},
   toolbar: {
     padding: theme.spacing(1),
     display: "flex",
@@ -127,7 +154,6 @@ const useStyles = makeStyles((theme) => ({
     "& > *:not(:last-child)": {
       marginRight: theme.spacing(2),
     },
-    marginBottom: theme.spacing(2),
   },
 }));
 
@@ -174,3 +200,4 @@ function useTableInitialization<T extends object>(props: DataTableProps<T>) {
 }
 
 export default DataTable;
+
