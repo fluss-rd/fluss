@@ -16,7 +16,7 @@ const Test: FC = () => (
         <>
           <GlobalFilter />
           <div>
-            <Divider orientation="vertical" style={{ height: 28, margin: 10 }} />
+            <Divider orientation="vertical" style={{ height: 28, marginLeft: 4, marginRight: 4 }} />
           </div>
           <SelectColumnFilter<Data> columnId="col1" placeholder="Columna 2" />
         </>
