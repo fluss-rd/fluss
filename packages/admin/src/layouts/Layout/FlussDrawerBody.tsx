@@ -5,9 +5,11 @@ import React, { FC } from "react";
 
 import DrawerItem from "./DrawerItem";
 
-interface FlussDrawerBodyProps {}
+interface FlussDrawerBodyProps {
+  openSettings: () => void;
+}
 
-const FlussDrawerBody: FC<FlussDrawerBodyProps> = () => {
+const FlussDrawerBody: FC<FlussDrawerBodyProps> = ({ openSettings }) => {
   const router = useRouter();
   return (
     <div>
@@ -20,10 +22,11 @@ const FlussDrawerBody: FC<FlussDrawerBodyProps> = () => {
       <Divider />
       <List>
         <DrawerItem title="Notificaciones" icon={Notifications} to="/notifications" />
-        <DrawerItem title="Ajustes" icon={Settings} to={router.pathname} as="/settings" />
+        <DrawerItem title="Ajustes" icon={Settings} onClick={openSettings} />
       </List>
     </div>
   );
 };
 
 export default FlussDrawerBody;
+

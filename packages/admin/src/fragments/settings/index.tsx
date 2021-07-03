@@ -1,7 +1,6 @@
 import { Dialog, ListItem, ListItemText, makeStyles, Theme } from "@material-ui/core";
 import { Tab, Tabs } from "@material-ui/core";
 import { AccountCircle, Notifications as NotificationsIcon } from "@material-ui/icons";
-import { NextRouter, useRouter } from "next/router";
 import React, { ChangeEvent, FC, useEffect, useState } from "react";
 import TabPanel, { HorizontalIconTab } from "shared/components/TabPanel";
 import { appBarHeight } from "shared/helpers";
@@ -9,29 +8,31 @@ import { appBarHeight } from "shared/helpers";
 import Notifications from "./Notifications";
 import UserInfo from "./UserInfo";
 
-const Settings: FC = () => {
-  const classes = useStyles();
-  const router = useRouter();
-  const settingsRoute = "/settings";
-  const [isOpen, activeIndex] = computeOpening(router, settingsRoute);
+interface SettingsProps {
+  open?: boolean;
+  close?: () => void;
+  view?: "account" | "notifications";
+}
 
-  const [activeTab, setActiveTab] = useState(activeIndex);
+const Settings: FC<SettingsProps> = ({ open, view, close }) => {
+  const classes = useStyles();
+  const [activeTab, setActiveTab] = useState(view === "notifications" ? 1 : 2);
 
   // Select the active tab for the opened settings dialog.
-  useEffect(() => setActiveTab(activeIndex), [isOpen, activeIndex]);
+  useEffect(() => {
+    if (open) setActiveTab(view === "notifications" ? 1 : 2);
+  }, [open, activeTab, view]);
 
   function changeActiveTab(_: ChangeEvent<{}>, newValue: number) {
     if (newValue !== 0) setActiveTab(newValue);
   }
 
   function closeDialog() {
-    if (router.asPath == settingsRoute && router.pathname !== settingsRoute)
-      router.push(router.pathname);
-    else router.push("/");
+    close();
   }
 
   return (
-    <Dialog fullWidth open={isOpen} onClose={closeDialog} maxWidth="lg">
+    <Dialog fullWidth open={open} onClose={closeDialog} maxWidth="lg">
       <div className={classes.root}>
         <Tabs
           orientation="vertical"
@@ -67,18 +68,10 @@ const Settings: FC = () => {
   );
 };
 
-function computeOpening(router: NextRouter, settingsRoute: string): [boolean, number] {
-  const settingsName = settingsRoute.split("/")[1];
-  const parts = router.asPath.split("/");
-  const isOpen = parts[1] === settingsName;
-  const userInfoIsActive = parts[2] === "account";
-
-  let activeIndex = 1;
-
-  if (userInfoIsActive) activeIndex = 2;
-
-  return [isOpen, activeIndex];
-}
+Settings.defaultProps = {
+  open: false,
+  view: "account",
+};
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -95,3 +88,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 export default Settings;
+

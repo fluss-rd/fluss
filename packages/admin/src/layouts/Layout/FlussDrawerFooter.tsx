@@ -13,15 +13,19 @@ import { AccountCircle, ArrowDropDown } from "@material-ui/icons";
 import useLayoutContext from "hooks/useLayoutContext";
 import React, { FC } from "react";
 import theme from "shared/styles/theme";
+import { useRouter } from "next/router";
 
 interface FlussDrawerFooterProps {
   drawerIsOpen: boolean;
+  openAccount: () => void;
 }
 
-const FlussDrawerFooter: FC<FlussDrawerFooterProps> = ({ drawerIsOpen: open }) => {
+const FlussDrawerFooter: FC<FlussDrawerFooterProps> = (props) => {
+  const { drawerIsOpen: open, openAccount } = props;
   const context = useLayoutContext();
   const drawerWidth = context.values.drawerWidth;
   const classes = useStyles({ drawerWidth, open });
+  const router = useRouter();
 
   // popover
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
@@ -31,6 +35,10 @@ const FlussDrawerFooter: FC<FlussDrawerFooterProps> = ({ drawerIsOpen: open }) =
 
   const openPopover = Boolean(anchorEl);
   const popoverId = openPopover ? "user-menu-popover" : undefined;
+
+  const goTo = (path: string) => {
+    return () => router.push(path);
+  };
 
   return (
     <div className={classes.drawerFooter}>
@@ -64,7 +72,13 @@ const FlussDrawerFooter: FC<FlussDrawerFooterProps> = ({ drawerIsOpen: open }) =
             </Typography>
           </div>
           <Divider />
-          <ListItem button>
+          <ListItem
+            button
+            onClick={() => {
+              openAccount();
+              closeUserMenu();
+            }}
+          >
             <ListItemText primary="Ver perfil" />
           </ListItem>
           <ListItem button>
@@ -104,3 +118,4 @@ const useStyles = makeStyles<Theme, { drawerWidth: number; open: boolean }>({
 });
 
 export default FlussDrawerFooter;
+

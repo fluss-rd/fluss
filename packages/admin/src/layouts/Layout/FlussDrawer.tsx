@@ -4,18 +4,27 @@ import { Menu, MenuOpen } from "@material-ui/icons";
 import clsx from "clsx";
 import useBoolean from "hooks/useBoolean";
 import useLayoutContext from "hooks/useLayoutContext";
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import FlussLogo from "shared/components/FlussLogo";
 import theme from "shared/styles/theme";
 
 import { initialValues } from ".";
 import FlussDrawerBody from "./FlussDrawerBody";
 import FlussDrawerFooter from "./FlussDrawerFooter";
+import Settings from "fragments/settings";
+import useMergeState from "shared/hooks/useMergeState";
 
 interface FlussDrawerProps {}
 
 const FlussDrawer: FC<FlussDrawerProps> = () => {
   const [open, openDrawer, closeDrawer] = useBoolean(true);
+  const [settings, setSettings] = useMergeState<{
+    isOpen: boolean;
+    tab: "notifications" | "account";
+  }>({
+    isOpen: false,
+    tab: "notifications",
+  });
   const context = useLayoutContext();
   const classes = useStyles({ drawerWidth: context.values.drawerWidth, open });
   const theme = useTheme();
@@ -31,45 +40,57 @@ const FlussDrawer: FC<FlussDrawerProps> = () => {
   };
 
   return (
-    <ThemeProvider theme={drawerTheme}>
-      <div>
-        <Drawer
-          variant="permanent"
-          className={clsx(classes.drawer, {
-            [classes.drawerOpen]: open,
-            [classes.drawerClose]: !open,
-          })}
-          classes={{
-            paper: clsx({
+    <>
+      <ThemeProvider theme={drawerTheme}>
+        <div>
+          <Drawer
+            variant="permanent"
+            className={clsx(classes.drawer, {
               [classes.drawerOpen]: open,
               [classes.drawerClose]: !open,
-              [classes.paper]: true,
-            }),
-          }}
-        >
-          <div className={classes.toolbar}>
-            {open ? (
-              <>
-                <FlussLogo imagePath="/images/logo_image_dark.png" />
-                <IconButton onClick={onCloseDrawer} style={{ color: "#ffffff" }}>
-                  <MenuOpen />
+            })}
+            classes={{
+              paper: clsx({
+                [classes.drawerOpen]: open,
+                [classes.drawerClose]: !open,
+                [classes.paper]: true,
+              }),
+            }}
+          >
+            <div className={classes.toolbar}>
+              {open ? (
+                <>
+                  <FlussLogo imagePath="/images/logo_image_dark.png" />
+                  <IconButton onClick={onCloseDrawer} style={{ color: "#ffffff" }}>
+                    <MenuOpen />
+                  </IconButton>
+                </>
+              ) : (
+                <IconButton onClick={onOpenDrawer}>
+                  <Menu />
                 </IconButton>
-              </>
-            ) : (
-              <IconButton onClick={onOpenDrawer}>
-                <Menu />
-              </IconButton>
-            )}
-          </div>
-          <Divider />
-          <div className={classes.drawerBody}>
-            <FlussDrawerBody />
-          </div>
-          <Divider />
-          <FlussDrawerFooter drawerIsOpen={open} />
-        </Drawer>
-      </div>
-    </ThemeProvider>
+              )}
+            </div>
+            <Divider />
+            <div className={classes.drawerBody}>
+              <FlussDrawerBody
+                openSettings={() => setSettings({ isOpen: true, tab: "notifications" })}
+              />
+            </div>
+            <Divider />
+            <FlussDrawerFooter
+              drawerIsOpen={open}
+              openAccount={() => setSettings({ isOpen: true, tab: "account" })}
+            />
+          </Drawer>
+        </div>
+      </ThemeProvider>
+      <Settings
+        open={settings.isOpen}
+        view={settings.tab}
+        close={() => setSettings({ isOpen: false })}
+      />
+    </>
   );
 };
 
@@ -117,3 +138,4 @@ const drawerTheme = createMuiTheme({
 });
 
 export default FlussDrawer;
+
