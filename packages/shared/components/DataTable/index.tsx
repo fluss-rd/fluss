@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-key */
 import {
+  Typography,
   Paper,
   Table,
   TableBody,
@@ -10,9 +11,10 @@ import {
   TableRow,
   TableSortLabel,
   Divider,
+  LinearProgress,
 } from "@material-ui/core";
 import { makeStyles, Theme, withStyles } from "@material-ui/core/styles";
-import React, { FC } from "react";
+import React, { FC, Fragment } from "react";
 import {
   Column,
   Row,
@@ -23,8 +25,8 @@ import {
   useTable,
 } from "react-table";
 import GlobalFilter from "./filters/GlobalFilter";
+import PanoramaHorizontalIcon from "@material-ui/icons/PanoramaHorizontal";
 
-import generateId from "../../helpers/generateId";
 import DataTableColumn from "./DataTableColumn";
 import DataTableContext from "./DataTableContext";
 import DataTablePagination from "./DataTablePagination";
@@ -42,6 +44,7 @@ interface DataTableProps<T extends object> {
   TablePaginationProps?: TablePaginationProps;
   beforeRowRender?: (row: Row<T>) => JSX.Element;
   afterRowRender?: (row: Row<T>) => JSX.Element;
+  loading?: boolean;
 }
 
 function DataTable<T extends object>(props: DataTableProps<T>) {
@@ -51,6 +54,7 @@ function DataTable<T extends object>(props: DataTableProps<T>) {
   const sortBy = table.state.sortBy;
   const sortingColumnId = sortBy?.length > 0 ? sortBy[0].id : "";
   const showToolbar = props.showGlobalFilter || props.toolbar || props.showFilters;
+  const emptySearch = table.data?.length > 0 && table.page.length === 0;
 
   return (
     <DataTableContext.Provider value={{ table }}>
@@ -73,7 +77,7 @@ function DataTable<T extends object>(props: DataTableProps<T>) {
               {props.showFilters &&
                 table.allColumns.map((column) => {
                   if (!(column.canFilter && column.Filter)) return null;
-                  return column.render("Filter");
+                  return <Fragment key={column.id}>{column.render("Filter")}</Fragment>;
                 })}
             </div>
 
@@ -81,6 +85,7 @@ function DataTable<T extends object>(props: DataTableProps<T>) {
           </>
         )}
         <TableContainer>
+          {props.loading && <LinearProgress color="secondary" />}
           <Table className={classes.table} aria-label="simple table">
             <TableHead>
               {table.headerGroups.map((headerGroup) => (
@@ -106,15 +111,27 @@ function DataTable<T extends object>(props: DataTableProps<T>) {
             </TableHead>
 
             <TableBody>
+              {rows?.length === 0 && (
+                <StyledTableRow>
+                  <TableCell colSpan={table.allColumns.length} style={{ textAlign: "center" }}>
+                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                      <PanoramaHorizontalIcon fontSize="large" color="disabled" />
+                      <Typography variant="caption" color="textSecondary">
+                        {emptySearch ? "No se encontraron resultados" : "Tabla vacía"}
+                      </Typography>
+                    </div>
+                  </TableCell>
+                </StyledTableRow>
+              )}
               {rows.map((row) => {
                 table.prepareRow(row);
                 const before = props.beforeRowRender && props.beforeRowRender(row as any);
                 const after = props.afterRowRender && props.afterRowRender(row as any);
 
                 return (
-                  <>
+                  <Fragment key={row.id}>
                     {before && (
-                      <StyledTableRow key={generateId("prev-row")}>
+                      <StyledTableRow>
                         <TableCell colSpan={table.allColumns.length}>{before}</TableCell>
                       </StyledTableRow>
                     )}
@@ -128,11 +145,11 @@ function DataTable<T extends object>(props: DataTableProps<T>) {
                       })}
                     </StyledTableRow>
                     {after && (
-                      <StyledTableRow key={generateId("after-row")}>
+                      <StyledTableRow>
                         <TableCell colSpan={table.allColumns.length}>{after}</TableCell>
                       </StyledTableRow>
                     )}
-                  </>
+                  </Fragment>
                 );
               })}
             </TableBody>
