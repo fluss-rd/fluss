@@ -14,6 +14,7 @@ import useLayoutContext from "hooks/useLayoutContext";
 import React, { FC } from "react";
 import theme from "shared/styles/theme";
 import { useRouter } from "next/router";
+import { useLogOut } from "services/auth/hooks";
 
 interface FlussDrawerFooterProps {
   drawerIsOpen: boolean;
@@ -22,6 +23,7 @@ interface FlussDrawerFooterProps {
 
 const FlussDrawerFooter: FC<FlussDrawerFooterProps> = (props) => {
   const { drawerIsOpen: open, openAccount } = props;
+  const logout = useLogOut();
   const context = useLayoutContext();
   const drawerWidth = context.values.drawerWidth;
   const classes = useStyles({ drawerWidth, open });
@@ -81,7 +83,7 @@ const FlussDrawerFooter: FC<FlussDrawerFooterProps> = (props) => {
           >
             <ListItemText primary="Ver perfil" />
           </ListItem>
-          <ListItem button>
+          <ListItem button onClick={() => logout.mutate()}>
             <ListItemText primary="Cerrar sesión" />
           </ListItem>
         </Popover>

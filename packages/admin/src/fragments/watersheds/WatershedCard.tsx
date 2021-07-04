@@ -25,6 +25,8 @@ const WatershedCard: FC<WatershedCardProps> = (props) => {
     router.push({ pathname: `/watersheds/${props.id}` });
   };
 
+  console.log(formatDate(new Date(2021, 6, 11)));
+
   return (
     <Card className={classes.root}>
       <Grid container spacing={2}>
@@ -86,3 +88,4 @@ const useStyles = makeStyles({
 });
 
 export default WatershedCard;
+

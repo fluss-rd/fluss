@@ -25,8 +25,8 @@ export function mockUsers(): User[] {
       phoneNumber: "8098045201",
       email: "Mikhael1729@gmail.com",
       status: "active",
-      creationDate: new Date(Date.now()),
-      lastUpdate: new Date(Date.now()),
+      creationDate: new Date(2021, 6, 11),
+      lastUpdate: new Date(2021, 6, 11),
     },
     {
       id: "US-2",
@@ -36,8 +36,8 @@ export function mockUsers(): User[] {
       roleName: roles[1].name,
       email: "denys@gmail.com",
       status: "inactive",
-      creationDate: new Date(Date.now()),
-      lastUpdate: new Date(Date.now()),
+      creationDate: new Date(2021, 6, 11),
+      lastUpdate: new Date(2021, 6, 11),
     },
   ];
 }

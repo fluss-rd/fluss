@@ -18,8 +18,8 @@ export function mockPermissions(): Permission[] {
       name: "Módulos",
       description: "Permite el acceso al manejo de módulos del sistema",
       actions: ["*"],
-      creationDate: new Date(Date.now()),
-      updatedAt: new Date(Date.now()),
+      creationDate: new Date(2021, 6, 11),
+      updatedAt: new Date(2021, 6, 11),
     },
     {
       id: "p2",
@@ -27,8 +27,8 @@ export function mockPermissions(): Permission[] {
       actions: ["*"],
       description:
         "Permite manejar los usuarios dentro de la aplicación. Solo existe un superadmin",
-      creationDate: new Date(Date.now()),
-      updatedAt: new Date(Date.now()),
+      creationDate: new Date(2021, 6, 11),
+      updatedAt: new Date(2021, 6, 11),
     },
   ];
   return permissions;

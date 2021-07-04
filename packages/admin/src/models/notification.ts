@@ -19,7 +19,7 @@ export function mockNotifications(): Notification[] {
       riverId: "RV-1",
       message: "Porcentaje de batería al 10% en módulo YN-1, Río Yaque del Norte",
       category: "battery",
-      date: new Date(Date.now()),
+      date: new Date(2021, 6, 11),
     },
     {
       id: "N-02",
@@ -27,7 +27,7 @@ export function mockNotifications(): Notification[] {
       riverId: "RV-1",
       message: "Cambio inesperado de ubicación en módulo YN-1, Río Yaque del norte",
       category: "unexpectedLocation",
-      date: new Date(Date.now()),
+      date: new Date(2021, 6, 11),
     },
   ];
 }
