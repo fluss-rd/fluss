@@ -4,6 +4,7 @@ import withAuth from "hoc/withAuth";
 import { useRouter } from "next/router";
 import React, { createContext, FC } from "react";
 import { useMergeState } from "shared/hooks";
+import LayoutContext, { initialValues, LayoutValues } from "./LayoutContext";
 
 import FlussDrawer from "./FlussDrawer";
 
@@ -41,19 +42,6 @@ const useStyles = makeStyles<Theme, { isInWatershed: boolean }>((theme: Theme) =
   },
 }));
 
-export const initialValues: LayoutValues = { drawerWidth: 240 };
-
-export const LayoutContext = createContext<LayoutContextValue>({
-  values: initialValues,
-  updateValues: () => {},
-});
-
-export type LayoutContextValue = {
-  values: LayoutValues;
-  updateValues: (newValues: LayoutValues) => void;
-};
-
-export type LayoutValues = { drawerWidth: number };
-
 //export default withAuth(Layout);
 export default Layout;
+

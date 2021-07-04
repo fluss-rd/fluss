@@ -18,13 +18,13 @@ const Settings: FC<SettingsProps> = ({ open, view, close }) => {
   const classes = useStyles();
   const [activeTab, setActiveTab] = useState(view === "notifications" ? 1 : 2);
 
-  useEffect(selectActiveTabOnPropsChanges, [open, view]);
+  useEffect(selectActiveTab, [open, view]);
 
   const closeDialog = () => {
     close();
   };
 
-  function selectActiveTabOnPropsChanges() {
+  function selectActiveTab() {
     if (open) setActiveTab(view === "notifications" ? 1 : 2);
   }
 
