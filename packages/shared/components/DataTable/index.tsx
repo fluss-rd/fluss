@@ -56,25 +56,29 @@ function DataTable<T extends object>(props: DataTableProps<T>) {
     <DataTableContext.Provider value={{ table }}>
       <Paper style={{ width: "100%" }}>
         {showToolbar && (
-          <div className={classes.toolbar}>
-            {props.showGlobalFilter && <GlobalFilter />}
-            {props.showGlobalFilter && (props.toolbar || props.showFilters) && (
-              <div>
-                <Divider
-                  orientation="vertical"
-                  style={{ height: 28, marginLeft: 4, marginRight: 4 }}
-                />
-              </div>
-            )}
+          <>
+            <div className={classes.toolbar}>
+              {props.showGlobalFilter && <GlobalFilter />}
+              {props.showGlobalFilter && (props.toolbar || props.showFilters) && (
+                <div>
+                  <Divider
+                    orientation="vertical"
+                    style={{ height: 28, marginLeft: 4, marginRight: 4 }}
+                  />
+                </div>
+              )}
 
-            {props.toolbar}
+              {props.toolbar}
 
-            {props.showFilters &&
-              table.allColumns.map((column) => {
-                if (!(column.canFilter && column.Filter)) return null;
-                return column.render("Filter");
-              })}
-          </div>
+              {props.showFilters &&
+                table.allColumns.map((column) => {
+                  if (!(column.canFilter && column.Filter)) return null;
+                  return column.render("Filter");
+                })}
+            </div>
+
+            <Divider />
+          </>
         )}
         <TableContainer>
           <Table className={classes.table} aria-label="simple table">
