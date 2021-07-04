@@ -21,7 +21,7 @@ const Settings: FC<SettingsProps> = ({ open, view, close }) => {
   // Select the active tab for the opened settings dialog.
   useEffect(() => {
     if (open) setActiveTab(view === "notifications" ? 1 : 2);
-  }, [open, activeTab, view]);
+  }, [open, view]);
 
   function changeActiveTab(_: ChangeEvent<{}>, newValue: number) {
     if (newValue !== 0) setActiveTab(newValue);
