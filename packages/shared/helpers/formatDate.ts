@@ -41,4 +41,3 @@ export function getDateParts(date: Date) {
   const { day, month, year } = formatedDate.formatToParts().reduce(formatFunction, {});
   return { day, month, year, hours: date.getHours(), minutes: date.getMinutes() };
 }
-

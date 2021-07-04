@@ -11,10 +11,10 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import { AccountCircle, ArrowDropDown } from "@material-ui/icons";
 import useLayoutContext from "hooks/useLayoutContext";
-import React, { FC } from "react";
-import theme from "shared/styles/theme";
 import { useRouter } from "next/router";
+import React, { FC } from "react";
 import { useLogOut } from "services/auth/hooks";
+import theme from "shared/styles/theme";
 
 interface FlussDrawerFooterProps {
   drawerIsOpen: boolean;
@@ -120,4 +120,3 @@ const useStyles = makeStyles<Theme, { drawerWidth: number; open: boolean }>({
 });
 
 export default FlussDrawerFooter;
-

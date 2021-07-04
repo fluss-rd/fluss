@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-key */
 import {
-  Typography,
+  Divider,
+  LinearProgress,
   Paper,
   Table,
   TableBody,
@@ -10,10 +11,10 @@ import {
   TablePaginationProps,
   TableRow,
   TableSortLabel,
-  Divider,
-  LinearProgress,
+  Typography,
 } from "@material-ui/core";
 import { makeStyles, Theme, withStyles } from "@material-ui/core/styles";
+import PanoramaHorizontalIcon from "@material-ui/icons/PanoramaHorizontal";
 import React, { FC, Fragment } from "react";
 import {
   Column,
@@ -24,12 +25,11 @@ import {
   useSortBy,
   useTable,
 } from "react-table";
-import GlobalFilter from "./filters/GlobalFilter";
-import PanoramaHorizontalIcon from "@material-ui/icons/PanoramaHorizontal";
 
 import DataTableColumn from "./DataTableColumn";
 import DataTableContext from "./DataTableContext";
 import DataTablePagination from "./DataTablePagination";
+import GlobalFilter from "./filters/GlobalFilter";
 
 interface DataTableProps<T extends object> {
   columns: DataTableColumn<T>[];
@@ -220,4 +220,3 @@ function useTableInitialization<T extends object>(props: DataTableProps<T>) {
 }
 
 export default DataTable;
-
