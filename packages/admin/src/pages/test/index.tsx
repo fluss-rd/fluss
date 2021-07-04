@@ -1,16 +1,35 @@
 import { Typography, Divider } from "@material-ui/core";
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import DataTable from "shared/components/DataTable";
 import SelectColumnFilter from "shared/components/DataTable/filters/SelectColumnFilter";
 import DataTableColumn from "shared/components/DataTable/DataTableColumn";
 
-const Test: FC = () => (
-  <div>
-    <Typography variant="h4">Página determinada</Typography>
-    <br />
-    <DataTable data={data} columns={columns} showGlobalFilter showFilters />
-  </div>
-);
+const Test: FC = () => {
+  //const [list, setList] = useState([]);
+  //const [loading, setLoading] = useState(false);
+
+  //useEffect(changeLoading, []);
+
+  //function changeLoading() {
+    //const timer = setTimeout(callback, 3000);
+
+    //function callback() {
+      //console.log("hey");
+      //setLoading(false);
+      //setList(data);
+    //}
+
+    //return () => clearTimeout(timer);
+  //}
+
+  return (
+    <div>
+      <Typography variant="h4">Página determinada</Typography>
+      <br />
+      <DataTable data={data} columns={columns} showGlobalFilter showFilters />
+    </div>
+  );
+};
 
 type Data = {
   col1: string;
