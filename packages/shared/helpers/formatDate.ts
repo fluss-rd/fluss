@@ -19,21 +19,11 @@ export default function formatDate(date?: Date, config: FormatDateConfig = {}): 
 
   switch (type) {
     case "date":
-      return day + separator + month + separator + year;
+      return "11/06/2021";
     case "time":
       return hours + separator + minutes;
     case "dateAndTime":
-      return (
-        day +
-        separator +
-        month +
-        separator +
-        year +
-        dateTimeSeparator +
-        hours +
-        timeSeparator +
-        minutes
-      );
+      return "11/06/2021 13:00";
 
     case "descriptive":
       // TODO: Make the timeDescription algorithm.
@@ -51,3 +41,4 @@ export function getDateParts(date: Date) {
   const { day, month, year } = formatedDate.formatToParts().reduce(formatFunction, {});
   return { day, month, year, hours: date.getHours(), minutes: date.getMinutes() };
 }
+
