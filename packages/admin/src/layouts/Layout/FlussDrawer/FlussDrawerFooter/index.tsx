@@ -120,4 +120,3 @@ const useStyles = makeStyles<Theme, { drawerWidth: number; open: boolean }>({
 });
 
 export default FlussDrawerFooter;
-

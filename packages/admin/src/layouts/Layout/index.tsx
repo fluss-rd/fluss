@@ -4,9 +4,9 @@ import withAuth from "hoc/withAuth";
 import { useRouter } from "next/router";
 import React, { createContext, FC } from "react";
 import { useMergeState } from "shared/hooks";
-import LayoutContext, { initialValues, LayoutValues } from "./LayoutContext";
 
 import FlussDrawer from "./FlussDrawer";
+import LayoutContext, { initialValues, LayoutValues } from "./LayoutContext";
 
 interface LayoutProps {}
 
@@ -44,4 +44,3 @@ const useStyles = makeStyles<Theme, { isInWatershed: boolean }>((theme: Theme) =
 
 //export default withAuth(Layout);
 export default Layout;
-

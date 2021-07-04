@@ -19,5 +19,4 @@ export type LayoutContextValue = {
 
 export type LayoutValues = { drawerWidth: number };
 
-
 export default LayoutContext;

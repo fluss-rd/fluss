@@ -102,4 +102,3 @@ const useStyles = makeStyles<Theme, { drawerWidth: number }>((theme) => ({
 const tabsHeight = 40;
 
 export default Watershed;
-
