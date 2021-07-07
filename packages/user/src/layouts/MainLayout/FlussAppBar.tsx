@@ -32,9 +32,9 @@ const FlussAppBar: FC = () => {
             color="primary"
             variant="outlined"
             className={classes.reportsButton}
-            onClick={push("/datos-y-reportes")}
+            onClick={push("/monitor")}
           >
-            Datos y reportes
+            Monitor
           </Button>
         </div>
         <div className={classes.endButtons}>
@@ -101,3 +101,4 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export default FlussAppBar;
+

@@ -15,8 +15,23 @@ module.exports = withPlugins([withTM], {
       config.plugins.push(new ForkTsCheckerWebpackPlugin());
     }
 
+    // Add ts-loader config.
+    //config.module.rules.push({
+      //test: /\.(ts)x?$/, // Just `tsx?` file only
+      //use: [
+        //// options.defaultLoaders.babel, I don't think it's necessary to have this loader too
+        //{
+          //loader: "ts-loader",
+          //options: {
+            //transpileOnly: true,
+            //experimentalWatchApi: true,
+            //onlyCompileBundledFiles: true,
+          //},
+        //},
+      //],
+    //});
+
     return config;
   },
 });
-
 
