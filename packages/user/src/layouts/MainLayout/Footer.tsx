@@ -5,7 +5,9 @@ import Image from "next/image";
 import React, { FC } from "react";
 import TextField from "shared/components/FormField";
 
-const Footer = () => {
+interface FooterProps {}
+
+const Footer: FC<FooterProps> = (props) => {
   const { root, curved, secondLevel, suscription, contact, footer, ...styles } = useStyles();
 
   return (
@@ -121,3 +123,4 @@ const textFieldConfig = {
 const CssTextField = withStyles(textFieldConfig)(TextField);
 
 export default Footer;
+

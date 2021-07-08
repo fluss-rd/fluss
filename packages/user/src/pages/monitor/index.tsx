@@ -25,8 +25,11 @@ const DataAndReports: FC = () => {
 
 const useStyles = makeStyles((theme) => ({
   map: {
-    width: "100%",
     height: `100vh`,
+    position: "absolute",
+    width: "100%",
+    top: 0,
+    left: 0,
   },
 }));
 

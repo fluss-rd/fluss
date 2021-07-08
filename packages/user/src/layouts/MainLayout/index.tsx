@@ -29,7 +29,7 @@ const MainLayout: FC = ({ children }) => {
             children
           ))}
       </div>
-      <Footer />
+      {!isInMonitor && <Footer />}
     </div>
   );
 };
