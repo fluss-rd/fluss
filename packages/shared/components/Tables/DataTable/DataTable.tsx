@@ -10,6 +10,7 @@ import {
 } from "@material-ui/core";
 import PanoramaHorizontalIcon from "@material-ui/icons/PanoramaHorizontal";
 import React, {
+  FC,
   ForwardedRef,
   forwardRef,
   MutableRefObject,
@@ -108,7 +109,7 @@ const useStyles = makeStyles<Theme, DataTableProps<any>>((theme) => ({
 
 const ForwardedDataTable = forwardRef(DataTable);
 
-ForwardedDataTable.defaultProps = {
+(ForwardedDataTable as FC).defaultProps = {
   sortDirection: "asc",
   minWidth: "720px",
   paginated: true,

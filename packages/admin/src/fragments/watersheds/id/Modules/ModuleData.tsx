@@ -11,7 +11,7 @@ import { darken, lighten, makeStyles, useTheme } from "@material-ui/core/styles"
 import { Close, GetApp } from "@material-ui/icons";
 import { ResponsiveCalendar } from "@nivo/calendar";
 import useBoolean from "hooks/useBoolean";
-import { mockDayMeasures } from "models/day-measures";
+import { mockDateMeasures } from "models/date-measure";
 import { mockModules } from "models/module";
 import React, { FC, useMemo, useState } from "react";
 import ModalContent from "shared/components/ModalContent";
@@ -29,7 +29,7 @@ const ModuleData: FC<ModuleDataProps> = ({ isOpen, close, moduleId }) => {
   const [downloadDataIsOpen, openDownloadData, closeDownloadData] = useBoolean();
   const [current, setCurrent] = useState(0);
   const classes = useStyles();
-  const measures = useMemo(() => mockDayMeasures(), []);
+  const measures = useMemo(() => mockDateMeasures(), []);
   const module = mockModules().find((m) => m.id === moduleId);
 
   const onParameterChange = (index: number) => {
@@ -166,3 +166,4 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default ModuleData;
+

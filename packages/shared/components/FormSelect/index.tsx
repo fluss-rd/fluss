@@ -51,7 +51,7 @@ const FormSelect = forwardRef((props: FormSelectProps, ref: ForwardedRef<any>) =
   );
 });
 
-FormSelect.defaultProps = {
+(FormSelect as FC).defaultProps = {
   noneText: "Todos",
   FormControlProps: {},
 };

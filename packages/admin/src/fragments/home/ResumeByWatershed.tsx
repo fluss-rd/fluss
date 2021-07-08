@@ -1,7 +1,7 @@
 import { Button, Card, CardContent, Divider, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { ResponsiveCalendar } from "@nivo/calendar";
-import { mockDayMeasures } from "models/day-measures";
+import { mockDateMeasures } from "models/date-measure";
 import { useRouter } from "next/router";
 import React, { FC, useMemo } from "react";
 
@@ -10,7 +10,7 @@ interface ResumeByWatershedProps {}
 const ResumeByWatershed: FC<ResumeByWatershedProps> = (props) => {
   const classes = useStyles();
   const router = useRouter();
-  const measures = useMemo(() => mockDayMeasures(), []);
+  const measures = useMemo(() => mockDateMeasures(), []);
 
   const goToRiver = () => {
     router.push("/watersheds/WS-1");

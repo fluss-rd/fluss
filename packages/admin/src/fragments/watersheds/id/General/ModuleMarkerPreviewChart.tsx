@@ -34,7 +34,7 @@ const ModuleMarkerPreviewChart: FC<ModuleMarkerPreviewChartProps> = (props) => {
                   <ResponsiveBar
                     colors={measure.color}
                     data={m.measures}
-                    keys={["level"]}
+                    keys={["value"]}
                     indexBy="hour"
                     innerPadding={0.4}
                     enableLabel={false}

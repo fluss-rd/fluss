@@ -1,6 +1,6 @@
 import { TextField, TextFieldProps } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import React, { ForwardedRef, forwardRef } from "react";
+import React, { ForwardedRef, forwardRef, FC } from "react";
 
 export type FormFieldProps = TextFieldProps & {
   underlined?: boolean;
@@ -36,7 +36,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-FormField.defaultProps = {
+(FormField as FC).defaultProps = {
   fullWidth: true,
   variant: "outlined",
   name: "latitude",
