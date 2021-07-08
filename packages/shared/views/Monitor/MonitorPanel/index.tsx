@@ -1,7 +1,7 @@
 import { Card, CardContent, Divider, MenuItem, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { FC } from "react";
-import FormSelect from "shared/components/FormSelect";
+import FormSelect from "../../../components/FormSelect";
 
 import Leyend2 from "./WqiLegend";
 import WqiPieChart from "./WqiPieChart";

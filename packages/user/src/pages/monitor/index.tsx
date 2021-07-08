@@ -1,52 +1,7 @@
-import { makeStyles } from "@material-ui/core/styles";
-import MonitorPanel from "fragments/monitor/MonitorPanel";
-import React, { FC } from "react";
-import Map from "shared/components/Map";
-import { appBarHeight } from "shared/helpers";
+import MonitorView from "shared/views/Monitor";
 
-const Monitor: FC = () => {
-  const classes = useStyles();
-  return (
-    <div className={classes.container}>
-      <div className={classes.map}>
-        <Map zoom={10} />
-      </div>
-      <div className={classes.card}>
-        <MonitorPanel />
-      </div>
-    </div>
-  );
+const Monitor = () => {
+  return <MonitorView />
 };
-
-const useStyles = makeStyles((theme) => ({
-  container: {
-    width: "100%",
-    height: "100%",
-    position: "relative",
-  },
-  map: {
-    height: `100vh`,
-    position: "absolute",
-    width: "100%",
-    top: 0,
-    left: 0,
-  },
-  card: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    position: "absolute",
-    top: appBarHeight(theme) + theme.spacing(3),
-    right: theme.spacing(3),
-  },
-  leyend: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    position: "fixed",
-    bottom: theme.spacing(2),
-    right: theme.spacing(3),
-  },
-}));
 
 export default Monitor;
