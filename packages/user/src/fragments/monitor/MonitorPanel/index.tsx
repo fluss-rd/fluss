@@ -1,9 +1,10 @@
+import { Card, CardContent, Divider, MenuItem, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { FC } from "react";
-import { CardContent, Card, MenuItem, Typography, Divider } from "@material-ui/core";
 import FormSelect from "shared/components/FormSelect";
-import WqiPieChart from "./WqiPieChart";
+
 import Leyend2 from "./WqiLegend";
+import WqiPieChart from "./WqiPieChart";
 
 interface WatershedsSelectCardProps {}
 
@@ -85,4 +86,3 @@ const data = [
     color: "hsl(89, 70%, 50%)",
   },
 ];
-

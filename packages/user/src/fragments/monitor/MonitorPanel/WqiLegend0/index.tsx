@@ -1,7 +1,7 @@
-import React, { FC } from "react";
-import { makeStyles, styled } from "@material-ui/core/styles";
 import { Button, ButtonProps, Typography } from "@material-ui/core";
+import { makeStyles, styled } from "@material-ui/core/styles";
 import clsx from "clsx";
+import React, { FC } from "react";
 
 const Leyend: FC = () => {
   const classes = useStyles();
@@ -58,4 +58,3 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default Leyend;
-

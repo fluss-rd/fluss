@@ -123,4 +123,3 @@ const textFieldConfig = {
 const CssTextField = withStyles(textFieldConfig)(TextField);
 
 export default Footer;
-

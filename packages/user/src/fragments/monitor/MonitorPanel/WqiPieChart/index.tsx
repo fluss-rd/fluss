@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
-import React, { FC } from "react";
 import { ResponsivePie } from "@nivo/pie";
+import React, { FC } from "react";
 
 interface IcaChartProps<T> {
   data: T;
@@ -96,8 +96,7 @@ function IcaChart<T>(props: IcaChartProps<T>) {
           id: "lines",
         },
       ]}
-      legends={[
-      ]}
+      legends={[]}
     />
   );
 }
@@ -105,4 +104,3 @@ function IcaChart<T>(props: IcaChartProps<T>) {
 const useStyles = makeStyles({});
 
 export default IcaChart;
-

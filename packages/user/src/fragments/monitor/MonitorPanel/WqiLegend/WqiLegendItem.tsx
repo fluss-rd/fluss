@@ -1,6 +1,6 @@
+import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { FC } from "react";
-import { Typography } from "@material-ui/core";
 
 interface WqiLegendItemProps {
   category: WqiCategory;
@@ -14,7 +14,9 @@ const WqiLegendItem: FC<WqiLegendItemProps> = ({ category }) => {
   return (
     <div className={classes.container}>
       <div className={classes.avatar} style={{ background: color }} />
-      <Typography className={classes.text} variant="caption">{text}</Typography>
+      <Typography className={classes.text} variant="caption">
+        {text}
+      </Typography>
     </div>
   );
 };
@@ -70,4 +72,3 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default WqiLegendItem;
-

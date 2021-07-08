@@ -1,8 +1,8 @@
 import { makeStyles } from "@material-ui/core/styles";
+import MonitorPanel from "fragments/monitor/MonitorPanel";
 import React, { FC } from "react";
 import Map from "shared/components/Map";
 import { appBarHeight } from "shared/helpers";
-import MonitorPanel from "fragments/monitor/MonitorPanel";
 
 const Monitor: FC = () => {
   const classes = useStyles();
@@ -50,4 +50,3 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default Monitor;
-
