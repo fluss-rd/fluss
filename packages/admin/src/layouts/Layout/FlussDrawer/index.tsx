@@ -3,21 +3,24 @@ import { makeStyles, Theme, useTheme } from "@material-ui/core/styles";
 import { Menu, MenuOpen } from "@material-ui/icons";
 import clsx from "clsx";
 import useBoolean from "hooks/useBoolean";
-import useLayoutContext from "hooks/useLayoutContext";
-import React, { FC, useState } from "react";
+import { useLayoutContext } from "layouts/Layout/LayoutContext";
+import React, { FC } from "react";
 import FlussLogo from "shared/components/FlussLogo";
+import useMergeState from "shared/hooks/useMergeState";
 import theme from "shared/styles/theme";
 
-import { initialValues } from ".";
+import { initialValues } from "../../Layout/LayoutContext";
 import FlussDrawerBody from "./FlussDrawerBody";
 import FlussDrawerFooter from "./FlussDrawerFooter";
-import Settings from "fragments/settings";
-import useMergeState from "shared/hooks/useMergeState";
+import Settings from "./Settings";
 
 interface FlussDrawerProps {}
 
 const FlussDrawer: FC<FlussDrawerProps> = () => {
   const [open, openDrawer, closeDrawer] = useBoolean(true);
+  const context = useLayoutContext();
+  const classes = useStyles({ drawerWidth: context.values.drawerWidth, open });
+  const theme = useTheme();
   const [settings, setSettings] = useMergeState<{
     isOpen: boolean;
     tab: "notifications" | "account";
@@ -25,9 +28,6 @@ const FlussDrawer: FC<FlussDrawerProps> = () => {
     isOpen: false,
     tab: "notifications",
   });
-  const context = useLayoutContext();
-  const classes = useStyles({ drawerWidth: context.values.drawerWidth, open });
-  const theme = useTheme();
 
   const onCloseDrawer = () => {
     closeDrawer();
@@ -138,4 +138,3 @@ const drawerTheme = createMuiTheme({
 });
 
 export default FlussDrawer;
-

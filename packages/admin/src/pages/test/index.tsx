@@ -1,8 +1,8 @@
-import { Typography, Divider } from "@material-ui/core";
+import { Divider, Typography } from "@material-ui/core";
 import React, { FC, useEffect, useState } from "react";
 import DataTable from "shared/components/DataTable";
-import SelectColumnFilter from "shared/components/DataTable/filters/SelectColumnFilter";
 import DataTableColumn from "shared/components/DataTable/DataTableColumn";
+import SelectColumnFilter from "shared/components/DataTable/filters/SelectColumnFilter";
 
 const Test: FC = () => {
   //const [list, setList] = useState([]);
@@ -11,15 +11,15 @@ const Test: FC = () => {
   //useEffect(changeLoading, []);
 
   //function changeLoading() {
-    //const timer = setTimeout(callback, 3000);
+  //const timer = setTimeout(callback, 3000);
 
-    //function callback() {
-      //console.log("hey");
-      //setLoading(false);
-      //setList(data);
-    //}
+  //function callback() {
+  //console.log("hey");
+  //setLoading(false);
+  //setList(data);
+  //}
 
-    //return () => clearTimeout(timer);
+  //return () => clearTimeout(timer);
   //}
 
   return (
@@ -77,4 +77,3 @@ const columns: DataTableColumn<Data>[] = [
 ];
 
 export default Test;
-

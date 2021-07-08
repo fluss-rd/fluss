@@ -4,7 +4,7 @@ import { ChevronRight, PanoramaHorizontal } from "@material-ui/icons";
 import Center from "components/Center";
 import General from "fragments/watersheds/id/General";
 import Modules from "fragments/watersheds/id/Modules";
-import useLayoutContext from "hooks/useLayoutContext";
+import { useLayoutContext } from "layouts/Layout/LayoutContext";
 import { mockWatersheds } from "models/watershed";
 import { useRouter } from "next/router";
 import React, { ChangeEvent, FC } from "react";

@@ -1,8 +1,8 @@
 import { Card, CardContent, Divider, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import Map from "components/Map";
 import { mockModules } from "models/module";
 import React, { FC } from "react";
+import Map from "shared/components/Map"
 
 import ModuleMarker from "../watersheds/id/General/ModuleMarker";
 

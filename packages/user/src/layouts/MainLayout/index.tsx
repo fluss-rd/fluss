@@ -10,13 +10,14 @@ const MainLayout: FC = ({ children }) => {
   const classes = useStyles();
   const router = useRouter();
   const isInHome = router.pathname === "/";
+  const isInMonitor = router.pathname === "/monitor";
 
   return (
     <div className={classes.root}>
       <CssBaseline />
       <FlussAppBar />
       <div style={{ flexGrow: 1 }}>
-        {children ? (
+        {children && (
           <>
             <Toolbar />
             {!isInHome ? (
@@ -27,8 +28,6 @@ const MainLayout: FC = ({ children }) => {
               children
             )}
           </>
-        ) : (
-          children
         )}
       </div>
       <Footer />
@@ -47,3 +46,4 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export default MainLayout;
+

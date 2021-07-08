@@ -6,6 +6,7 @@ import React, { createContext, FC } from "react";
 import { useMergeState } from "shared/hooks";
 
 import FlussDrawer from "./FlussDrawer";
+import LayoutContext, { initialValues, LayoutValues } from "./LayoutContext";
 
 interface LayoutProps {}
 
@@ -40,20 +41,6 @@ const useStyles = makeStyles<Theme, { isInWatershed: boolean }>((theme: Theme) =
     padding: ({ isInWatershed }) => (isInWatershed ? 0 : theme.spacing(3)),
   },
 }));
-
-export const initialValues: LayoutValues = { drawerWidth: 240 };
-
-export const LayoutContext = createContext<LayoutContextValue>({
-  values: initialValues,
-  updateValues: () => {},
-});
-
-export type LayoutContextValue = {
-  values: LayoutValues;
-  updateValues: (newValues: LayoutValues) => void;
-};
-
-export type LayoutValues = { drawerWidth: number };
 
 //export default withAuth(Layout);
 export default Layout;
