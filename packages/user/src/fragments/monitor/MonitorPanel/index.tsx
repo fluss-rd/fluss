@@ -2,12 +2,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import React, { FC } from "react";
 import { CardContent, Card, MenuItem, Typography, Divider } from "@material-ui/core";
 import FormSelect from "shared/components/FormSelect";
-import IcaChart from "./IcaChart";
-import Leyend2 from "fragments/monitor/Leyend2";
+import WqiPieChart from "./WqiPieChart";
+import Leyend2 from "./WqiLegend";
 
 interface WatershedsSelectCardProps {}
 
-const WatershedsSelectCard: FC<WatershedsSelectCardProps> = (props) => {
+const MonitorPanel: FC<WatershedsSelectCardProps> = (props) => {
   const classes = useStyles();
   const rivers = ["Yaque del Norte", "Otro Determinado"];
 
@@ -30,7 +30,7 @@ const WatershedsSelectCard: FC<WatershedsSelectCardProps> = (props) => {
             Índice de Calidad del Agua (ICA)
           </Typography>
           <div style={{ width: "100%", height: 300, marginBottom: -40 }}>
-            <IcaChart data={data} />
+            <WqiPieChart data={data} />
           </div>
         </CardContent>
         <Divider />
@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default WatershedsSelectCard;
+export default MonitorPanel;
 
 const data = [
   {

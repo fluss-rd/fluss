@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/core/styles";
 import React, { FC } from "react";
 import { Typography } from "@material-ui/core";
-import WqiCategoryItem from "./WqiCategoryItem";
+import WqiLegendItem from "./WqiLegendItem";
 
 interface Leyend2Props {}
 
@@ -10,11 +10,11 @@ const Leyend2: FC<Leyend2Props> = (props) => {
 
   return (
     <div className={classes.content}>
-      <WqiCategoryItem category="excellent" />
-      <WqiCategoryItem category="good" />
-      <WqiCategoryItem category="moderate" />
-      <WqiCategoryItem category="bad" />
-      <WqiCategoryItem category="veryBad" />
+      <WqiLegendItem category="excellent" />
+      <WqiLegendItem category="good" />
+      <WqiLegendItem category="moderate" />
+      <WqiLegendItem category="bad" />
+      <WqiLegendItem category="veryBad" />
     </div>
   );
 };

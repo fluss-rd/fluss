@@ -2,11 +2,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import React, { FC } from "react";
 import { Typography } from "@material-ui/core";
 
-interface WaiCategoryItemProps {
+interface WqiLegendItemProps {
   category: WqiCategory;
 }
 
-const WqiCategoryItem: FC<WaiCategoryItemProps> = ({ category }) => {
+const WqiLegendItem: FC<WqiLegendItemProps> = ({ category }) => {
   const classes = useStyles();
   const color = categoryToColor(category);
   const text = categoryToText(category);
@@ -69,5 +69,5 @@ const useStyles = makeStyles((theme) => ({
   text: {},
 }));
 
-export default WqiCategoryItem;
+export default WqiLegendItem;
 

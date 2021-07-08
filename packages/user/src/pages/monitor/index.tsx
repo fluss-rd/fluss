@@ -2,9 +2,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import React, { FC } from "react";
 import Map from "shared/components/Map";
 import { appBarHeight } from "shared/helpers";
-import WatershedsSelectCard from "fragments/monitor/WatershedsSelectCard";
+import MonitorPanel from "fragments/monitor/MonitorPanel";
 
-const DataAndReports: FC = () => {
+const Monitor: FC = () => {
   const classes = useStyles();
   return (
     <div className={classes.container}>
@@ -12,13 +12,8 @@ const DataAndReports: FC = () => {
         <Map zoom={10} />
       </div>
       <div className={classes.card}>
-        <WatershedsSelectCard />
+        <MonitorPanel />
       </div>
-      {/*
-        <div className={classes.leyend}>
-          <Leyend />
-            </div>
-          */}
     </div>
   );
 };
@@ -54,5 +49,5 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default DataAndReports;
+export default Monitor;
 
