@@ -1813,7 +1813,7 @@
     react-motion "^0.5.2"
     recompose "^0.30.0"
 
-"@nivo/bar@^0.70.1":
+"@nivo/bar@0.70.1":
   version "0.70.1"
   resolved "https://registry.yarnpkg.com/@nivo/bar/-/bar-0.70.1.tgz#1aea339dfb29c0dc777544be25c6de3427ea5985"
   integrity sha512-BT9UmXSTCSQWXj904eUSj4+GcG45Q5IbRFYhDpsDja3SW2yocyGCEy1zLqGP6y9GtX9MFmGQrmP6CEkY5ddQ7w==
@@ -1830,7 +1830,7 @@
     lodash "^4.17.11"
     react-motion "^0.5.2"
 
-"@nivo/calendar@^0.70.1":
+"@nivo/calendar@0.70.1":
   version "0.70.1"
   resolved "https://registry.yarnpkg.com/@nivo/calendar/-/calendar-0.70.1.tgz#d8224e2562ac26c691dafe0a436666a2519f2c5e"
   integrity sha512-iTgEFdC7+Uo+J08B/iNfZe0QOTXLs4OjXwSkzafK3g8sOtjM6b40k6I8gLoDkiGXL8zFS+7BcBV7U4r8RD8l0A==
@@ -1884,7 +1884,7 @@
     recompose "^0.30.0"
     resize-observer-polyfill "^1.5.1"
 
-"@nivo/core@^0.70.1":
+"@nivo/core@0.70.1":
   version "0.70.1"
   resolved "https://registry.yarnpkg.com/@nivo/core/-/core-0.70.1.tgz#001c235ab1deafcca1f817c263f2613938041752"
   integrity sha512-j+SCOCR5TdXrpy25gnNoWjyU4p3nCupEJDhJsfNF+VeIDm84Zpzk9bT8DGlXKSKHKHql4Cg+9urxx8Sm61D23w==
@@ -1915,7 +1915,7 @@
   resolved "https://registry.yarnpkg.com/@nivo/legends/-/legends-0.70.1.tgz#78d4eb6f4257f14d5a4fc4981e3b72305977a2d4"
   integrity sha512-a+syic9S/PcnnGgeNCjgxgdnsXJ6tXEDrk+rTpOgFVRHBlqVa1TPT+HUGaDixqLv458RoVIbZmsr2RPTHvFF7Q==
 
-"@nivo/pie@^0.70.1":
+"@nivo/pie@0.70.1":
   version "0.70.1"
   resolved "https://registry.yarnpkg.com/@nivo/pie/-/pie-0.70.1.tgz#474cc66ec9d1834e4c80007dcdc74d18850d2f4c"
   integrity sha512-YiRbyk/VC6c63JGPOWdxSaBgu5VEPVoAyuDh+w0/KACxk05yhY/mOdegi+/CNIVUfLbXMGUDhTVIehL+jvgsIw==
@@ -12042,6 +12042,10 @@ sha.js@^2.4.0, sha.js@^2.4.8:
     "@material-ui/core" "^4.11.4"
     "@material-ui/icons" "^4.11.2"
     "@material-ui/pickers" "^3.3.10"
+    "@nivo/bar" "0.70.1"
+    "@nivo/calendar" "0.70.1"
+    "@nivo/core" "0.70.1"
+    "@nivo/pie" "0.70.1"
     "@testing-library/jest-dom" "^5.11.4"
     "@testing-library/react" "^11.1.0"
     "@testing-library/user-event" "^12.1.10"

@@ -1,35 +1,56 @@
-import {
-  Avatar,
-  Card,
-  CardActions,
-  CardContent,
-  ListItem,
-  ListItemText,
-  Typography,
-} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import FolderIcon from "@material-ui/icons/Folder";
-import MeasureReport from "fragments/datos-y-reportes/MeasureReport";
 import React, { FC } from "react";
 import Map from "shared/components/Map";
 import { appBarHeight } from "shared/helpers";
+import WatershedsSelectCard from "fragments/monitor/WatershedsSelectCard";
 
 const DataAndReports: FC = () => {
   const classes = useStyles();
   return (
-    <div className={classes.map}>
-      <Map />
+    <div className={classes.container}>
+      <div className={classes.map}>
+        <Map zoom={10} />
+      </div>
+      <div className={classes.card}>
+        <WatershedsSelectCard />
+      </div>
+      {/*
+        <div className={classes.leyend}>
+          <Leyend />
+            </div>
+          */}
     </div>
   );
 };
 
 const useStyles = makeStyles((theme) => ({
+  container: {
+    width: "100%",
+    height: "100%",
+    position: "relative",
+  },
   map: {
     height: `100vh`,
     position: "absolute",
     width: "100%",
     top: 0,
     left: 0,
+  },
+  card: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    position: "absolute",
+    top: appBarHeight(theme) + theme.spacing(3),
+    right: theme.spacing(3),
+  },
+  leyend: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    position: "fixed",
+    bottom: theme.spacing(2),
+    right: theme.spacing(3),
   },
 }));
 
