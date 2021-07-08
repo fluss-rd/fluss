@@ -12,29 +12,23 @@ import FolderIcon from "@material-ui/icons/Folder";
 import MeasureReport from "fragments/datos-y-reportes/MeasureReport";
 import React, { FC } from "react";
 import Map from "shared/components/Map";
+import { appBarHeight } from "shared/helpers";
 
 const DataAndReports: FC = () => {
   const classes = useStyles();
   return (
-    <div>
+    <div className={classes.map}>
       <Map />
     </div>
   );
 };
 
 const useStyles = makeStyles((theme) => ({
-  card: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  content: {
-    display: "flex",
-    alignItems: "center",
-    "& > *:not(:last-child)": {
-      marginRight: theme.spacing(2),
-    },
+  map: {
+    width: "100%",
+    height: `calc(100vh - ${appBarHeight(theme)}px)`,
   },
 }));
 
 export default DataAndReports;
+
