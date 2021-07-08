@@ -17,18 +17,17 @@ const MainLayout: FC = ({ children }) => {
       <CssBaseline />
       <FlussAppBar />
       <div style={{ flexGrow: 1 }}>
-        {children && (
-          <>
-            <Toolbar />
-            {!isInHome ? (
+        {children &&
+          (!isInHome && !isInMonitor ? (
+            <>
+              <Toolbar />
               <Container maxWidth="lg" className={classes.container}>
                 {children}
               </Container>
-            ) : (
-              children
-            )}
-          </>
-        )}
+            </>
+          ) : (
+            children
+          ))}
       </div>
       <Footer />
     </div>

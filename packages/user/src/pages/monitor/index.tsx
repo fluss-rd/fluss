@@ -26,7 +26,7 @@ const DataAndReports: FC = () => {
 const useStyles = makeStyles((theme) => ({
   map: {
     width: "100%",
-    height: `calc(100vh - ${appBarHeight(theme)}px)`,
+    height: `100vh`,
   },
 }));
 
