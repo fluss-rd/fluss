@@ -14,7 +14,7 @@ import { wqiToColor } from "../../../models/Wqi";
 import { mockModules } from "shared/models/Module";
 import React, { FC } from "react";
 import formatDate from "shared/helpers/formatDate";
-import { ratingToText } from "shared/models/WqiRating";
+import { ratingToText, ratingToColor } from "shared/models/WqiRating";
 
 import ModuleLast24HoursChart from "./ModuleLast24HoursChart";
 
@@ -28,11 +28,7 @@ const ModuleMarkerPreview: FC<ModuleMarkerPreviewProps> = (props) => {
   const openPopover = Boolean(props.anchorEl);
   const popoverId = openPopover ? "module-mark-popover" : undefined;
   const module = mockModules().find((m) => m.id === props.moduleId);
-  const color = wqiToColor(module?.wqi);
-
-  const onEdit = () => {
-    props.onClose;
-  };
+  const color = ratingToColor(module?.wqi?.rating);
 
   return (
     <>

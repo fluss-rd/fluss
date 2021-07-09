@@ -14,12 +14,10 @@ import React, { FC, ChangeEvent, useState } from "react";
 import FormSelect from "../../../components/FormSelect";
 import clsx from "clsx";
 import { ExpandMore } from "@material-ui/icons";
-import hexToHsl from "../../../helpers/hexToHsl";
 
 import Leyend2 from "./WqiLegend";
 import WqiPieChart, { PieChartData } from "./WqiPieChart";
 import { mockWatersheds } from "../../../models/Watershed";
-import { ratingToColor } from "../../../models/WqiRating";
 
 interface WatershedsSelectCardProps {
   watershedId: string;
@@ -42,8 +40,6 @@ const MonitorPanel: FC<WatershedsSelectCardProps> = (props) => {
   const onToggleExpansion = () => {
     setIsExpanded((prev) => !prev);
   };
-
-  console.log(hexToHsl(ratingToColor("excellent")));
 
   return (
     <div>
@@ -120,6 +116,14 @@ export default MonitorPanel;
 const data: Array<PieChartData> = [
   {
     id: "excellent",
+    value: 2,
+  },
+  {
+    id: "moderate",
+    value: 2,
+  },
+  {
+    id: "bad",
     value: 2,
   },
 ];

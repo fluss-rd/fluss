@@ -1,7 +1,8 @@
 import LocationIcon from "@material-ui/icons/LocationOn";
-import React, { FC, useCallback } from "react";
+import React, { FC, useCallback, useEffect } from "react";
 import ReactMapGL, { MapEvent, Marker } from "react-map-gl";
 import generateId from "../../helpers/generateId";
+import useMergeState from "../../hooks/useMergeState";
 
 export type Location = {
   latitude: number;
@@ -27,23 +28,32 @@ function Map<T>(props: MapProps<T>) {
     const canUseFirstLocation = !props.focusLocation && props.locations.length >= 1;
     if (canUseFirstLocation) return props.locations[0];
 
-    const rdLocation = {
-      latitude: 18.483402,
-      longitude: -69.929611,
-    };
+    const rdLocation = props.focusLocation || defaultFocus;
     return rdLocation;
   }, [props.locations, props.focusLocation]);
 
-  const [viewport, setViewport] = React.useState({
+  const [viewport, setViewport] = useMergeState({
     ...computeDefaultLocation(),
     zoom: props.zoom,
   });
+
+  useEffect(updateZoom, [props.zoom]);
+  useEffect(updateFocus, [props.focusLocation]);
 
   const onMapClick = (click: MapEvent) => {
     console.log({ click });
     const [longitude, latitude] = click.lngLat;
     if (props.onClick) props.onClick({ latitude, longitude });
   };
+
+  function updateZoom() {
+    setViewport({ zoom: props.zoom || 0 });
+  }
+
+  function updateFocus() {
+    const { latitude, longitude } = props.focusLocation || defaultFocus;
+    setViewport({ latitude, longitude });
+  }
 
   return (
     <ReactMapGL
@@ -64,10 +74,15 @@ function Map<T>(props: MapProps<T>) {
   );
 }
 
+const defaultFocus = {
+  latitude: 18.85846056967344,
+  longitude: -69.33857437339129,
+};
+
 (Map as FC<MapProps<any>>).defaultProps = {
   style: "basic-customized",
   locations: [],
-  zoom: 15,
+  zoom: 7.7,
   render: () => <LocationIcon color="primary" />,
   focusLocation: null,
 };

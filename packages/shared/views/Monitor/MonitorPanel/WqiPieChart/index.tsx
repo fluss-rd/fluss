@@ -15,12 +15,13 @@ interface IcaChartProps {
 
 function IcaChart<T>(props: IcaChartProps) {
   const { data } = props;
+  const sideMargin = data.length === 1 ? 0 : data.length === 2 ? 100 : 80;
 
   return (
     <ResponsivePie
       data={data as any}
       arcLinkLabel={(item) => ratingToText(item.id as WqiRating)}
-      margin={{ bottom: 30,}}
+      margin={{ bottom: 30, left: sideMargin, right: sideMargin }}
       innerRadius={0.5}
       padAngle={0.7}
       cornerRadius={3}
@@ -34,77 +35,6 @@ function IcaChart<T>(props: IcaChartProps) {
       colors={(item) => ratingToColor(item.id as WqiRating)}
       arcLabelsSkipAngle={10}
       arcLabelsTextColor={{ from: "color", modifiers: [["darker", 2]] }}
-      defs={[
-        {
-          id: "dots",
-          type: "patternDots",
-          background: "inherit",
-          color: "rgba(255, 255, 255, 0.3)",
-          size: 4,
-          padding: 1,
-          stagger: true,
-        },
-        {
-          id: "lines",
-          type: "patternLines",
-          background: "inherit",
-          color: "rgba(255, 255, 255, 0.3)",
-          rotation: -45,
-          lineWidth: 6,
-          spacing: 10,
-        },
-      ]}
-      fill={[
-        {
-          match: {
-            id: "ruby",
-          },
-          id: "dots",
-        },
-        {
-          match: {
-            id: "c",
-          },
-          id: "dots",
-        },
-        {
-          match: {
-            id: "go",
-          },
-          id: "dots",
-        },
-        {
-          match: {
-            id: "python",
-          },
-          id: "dots",
-        },
-        {
-          match: {
-            id: "scala",
-          },
-          id: "lines",
-        },
-        {
-          match: {
-            id: "lisp",
-          },
-          id: "lines",
-        },
-        {
-          match: {
-            id: "elixir",
-          },
-          id: "lines",
-        },
-        {
-          match: {
-            id: "javascript",
-          },
-          id: "lines",
-        },
-      ]}
-      legends={[]}
     />
   );
 }

@@ -33,8 +33,8 @@ const Monitor: FC = () => {
     <div>
       <div className={classes.map}>
         <Map
-          zoom={10}
           locations={locations}
+          onClick={(l) => console.log(l)}
           render={({ value }) => (
             <ModuleMarker wqi={value.wqi} name={value.name} moduleId={value.id} />
           )}
