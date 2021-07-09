@@ -12,7 +12,7 @@ export default function hexToHSL(hex: string) {
   if (max == min) {
     h = s = 0; // achromatic
   } else {
-    let d = max - min;
+    const d = max - min;
     s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
     switch (max) {
       case r:
@@ -36,4 +36,3 @@ export default function hexToHSL(hex: string) {
 
   return `hsl(${h}, ${s}%, ${l}%)`;
 }
-

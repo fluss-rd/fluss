@@ -3,7 +3,6 @@ import { MenuItem } from "@material-ui/core";
 import { FiberManualRecord, Grain, InfoOutlined, LocationOn } from "@material-ui/icons";
 import LocationForm from "components/LocationForm";
 import Map, { Location } from "components/Map";
-import ModuleState, { moduleStates, moduleStateToString } from "shared/models/ModuleState";
 import React, { FC } from "react";
 import { Controller, useForm, UseFormMethods } from "react-hook-form";
 import ReactInputMask from "react-input-mask";
@@ -11,6 +10,7 @@ import { ModuleForm as ModuleFormModel } from "services/modules/models";
 import FormField from "shared/components/FormField";
 import FormIconTitle from "shared/components/FormIconTitle";
 import FormSelect from "shared/components/FormSelect";
+import ModuleState, { moduleStates, moduleStateToString } from "shared/models/ModuleState";
 import { mockWatersheds } from "shared/models/Watershed";
 import * as yup from "yup";
 

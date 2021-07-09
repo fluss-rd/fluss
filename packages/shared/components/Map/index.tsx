@@ -1,6 +1,7 @@
 import LocationIcon from "@material-ui/icons/LocationOn";
 import React, { FC, useCallback, useEffect } from "react";
 import ReactMapGL, { MapEvent, Marker } from "react-map-gl";
+
 import generateId from "../../helpers/generateId";
 import useMergeState from "../../hooks/useMergeState";
 
@@ -105,4 +106,3 @@ export function mapStyleToUrl(style: MapStyle) {
       return "mapbox://styles/mikhael1729/ckpmy16f43v7w17p81eqkytt0";
   }
 }
-

@@ -11,11 +11,11 @@ import { darken, lighten, makeStyles, useTheme } from "@material-ui/core/styles"
 import { Close, GetApp } from "@material-ui/icons";
 import { ResponsiveCalendar } from "@nivo/calendar";
 import useBoolean from "hooks/useBoolean";
-import { mockModules } from "shared/models/Module";
 import React, { FC, useMemo, useState } from "react";
 import ModalContent from "shared/components/ModalContent";
 import { appBarHeight } from "shared/helpers";
 import { mockDateMeasures } from "shared/models/DateMeasure";
+import { mockModules } from "shared/models/Module";
 
 import ModuleDataDownload from "./ModuleDataDownload";
 

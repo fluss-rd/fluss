@@ -3,9 +3,9 @@ import { Add } from "@material-ui/icons";
 import Fab from "components/Fab";
 import FormDialog from "components/FormDialog";
 import useBoolean from "hooks/useBoolean";
-import { mockWatersheds } from "shared/models/Watershed";
 import React, { FC, useEffect } from "react";
 import { ModuleForm as ModuleFormModel } from "services/modules/models";
+import { mockWatersheds } from "shared/models/Watershed";
 
 import ModuleForm, { useModuleForm } from "./ModuleForm";
 

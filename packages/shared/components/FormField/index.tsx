@@ -1,6 +1,6 @@
 import { TextField, TextFieldProps } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import React, { ForwardedRef, forwardRef, FC } from "react";
+import React, { FC, ForwardedRef, forwardRef } from "react";
 
 export type FormFieldProps = TextFieldProps & {
   underlined?: boolean;
