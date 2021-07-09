@@ -1,19 +1,26 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { ResponsivePie } from "@nivo/pie";
+import { ResponsivePie, ComputedDatum } from "@nivo/pie";
 import React, { FC } from "react";
+import WqiRating, { ratingToColor, ratingToText } from "../../../../models/WqiRating";
 
-interface IcaChartProps<T> {
-  data: T;
+export interface PieChartData {
+  id: WqiRating;
+  label?: string;
+  value: number;
 }
 
-function IcaChart<T>(props: IcaChartProps<T>) {
-  const classes = useStyles();
+interface IcaChartProps {
+  data: Array<PieChartData>;
+}
+
+function IcaChart<T>(props: IcaChartProps) {
   const { data } = props;
 
   return (
     <ResponsivePie
       data={data as any}
-      margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
+      arcLinkLabel={(item) => ratingToText(item.id as WqiRating)}
+      margin={{ bottom: 30,}}
       innerRadius={0.5}
       padAngle={0.7}
       cornerRadius={3}
@@ -24,6 +31,7 @@ function IcaChart<T>(props: IcaChartProps<T>) {
       arcLinkLabelsTextColor="#333333"
       arcLinkLabelsThickness={2}
       arcLinkLabelsColor={{ from: "color" }}
+      colors={(item) => ratingToColor(item.id as WqiRating)}
       arcLabelsSkipAngle={10}
       arcLabelsTextColor={{ from: "color", modifiers: [["darker", 2]] }}
       defs={[
@@ -104,3 +112,4 @@ function IcaChart<T>(props: IcaChartProps<T>) {
 const useStyles = makeStyles({});
 
 export default IcaChart;
+

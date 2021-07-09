@@ -14,7 +14,7 @@ import { wqiToColor } from "../../../models/Wqi";
 import { mockModules } from "shared/models/Module";
 import React, { FC } from "react";
 import formatDate from "shared/helpers/formatDate";
-import { ratingToString } from "shared/models/WqiRating";
+import { ratingToText } from "shared/models/WqiRating";
 
 import ModuleLast24HoursChart from "./ModuleLast24HoursChart";
 
@@ -56,7 +56,7 @@ const ModuleMarkerPreview: FC<ModuleMarkerPreviewProps> = (props) => {
               {/*TODO: Only for admins: {module.id}*/} {/*TODO: Only for admins: —*/} {module.alias}
             </Typography>
             <Typography variant="h6" style={{ color }}>
-              WQI {module.wqi.value} - {ratingToString(module.wqi.rating)}
+              WQI {module.wqi.value} - {ratingToText(module.wqi.rating)}
             </Typography>
             {/* TODO: only for admins
             <br />

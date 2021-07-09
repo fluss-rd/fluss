@@ -2,7 +2,7 @@ import { Avatar, Card, CardActionArea, Popover, Typography } from "@material-ui/
 import { grey } from "@material-ui/core/colors";
 import { makeStyles } from "@material-ui/core/styles";
 import { LocationOn } from "@material-ui/icons";
-import { wqiToColor } from "../../../models/Wqi";
+import { ratingToColor } from "../../../models/WqiRating";
 import React, { FC, MouseEvent, useState } from "react";
 import Wqi from "shared/models/Wqi";
 
@@ -16,7 +16,7 @@ interface ModuleMarkerProps {
 
 const ModuleMarker: FC<ModuleMarkerProps> = ({ name, wqi, moduleId }) => {
   const classes = useStyles();
-  const wqiColor = wqiToColor(wqi);
+  const wqiColor = ratingToColor(wqi.rating);
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
   const openActions = (event: MouseEvent<HTMLButtonElement>) => {

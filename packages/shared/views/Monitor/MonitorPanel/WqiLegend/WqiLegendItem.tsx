@@ -1,15 +1,16 @@
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { FC } from "react";
+import WqiRating, { ratingToText, ratingToColor } from "../../../../models/WqiRating";
 
 interface WqiLegendItemProps {
-  category: WqiCategory;
+  category: WqiRating;
 }
 
 const WqiLegendItem: FC<WqiLegendItemProps> = ({ category }) => {
   const classes = useStyles();
-  const color = categoryToColor(category);
-  const text = categoryToText(category);
+  const color = ratingToColor(category);
+  const text = ratingToText(category);
 
   return (
     <div className={classes.container}>
@@ -20,40 +21,6 @@ const WqiLegendItem: FC<WqiLegendItemProps> = ({ category }) => {
     </div>
   );
 };
-function categoryToColor(category: WqiCategory) {
-  switch (category) {
-    case "excellent":
-      return "#219653";
-    case "good":
-      return "#27AE60";
-    case "moderate":
-      return "#2D9CDB";
-    case "bad":
-      return "#F2994A";
-    case "veryBad":
-      return "#EB5757";
-    default:
-      return "";
-  }
-}
-function categoryToText(category: WqiCategory) {
-  switch (category) {
-    case "excellent":
-      return "Excelente";
-    case "good":
-      return "Buena";
-    case "moderate":
-      return "Moderada";
-    case "bad":
-      return "Mala";
-    case "veryBad":
-      return "Muy mala";
-    default:
-      return "";
-  }
-}
-
-type WqiCategory = "excellent" | "good" | "moderate" | "bad" | "veryBad";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -72,3 +39,4 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default WqiLegendItem;
+

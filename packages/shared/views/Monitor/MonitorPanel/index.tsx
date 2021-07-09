@@ -14,10 +14,12 @@ import React, { FC, ChangeEvent, useState } from "react";
 import FormSelect from "../../../components/FormSelect";
 import clsx from "clsx";
 import { ExpandMore } from "@material-ui/icons";
+import hexToHsl from "../../../helpers/hexToHsl";
 
 import Leyend2 from "./WqiLegend";
-import WqiPieChart from "./WqiPieChart";
+import WqiPieChart, { PieChartData } from "./WqiPieChart";
 import { mockWatersheds } from "../../../models/Watershed";
+import { ratingToColor } from "../../../models/WqiRating";
 
 interface WatershedsSelectCardProps {
   watershedId: string;
@@ -40,6 +42,8 @@ const MonitorPanel: FC<WatershedsSelectCardProps> = (props) => {
   const onToggleExpansion = () => {
     setIsExpanded((prev) => !prev);
   };
+
+  console.log(hexToHsl(ratingToColor("excellent")));
 
   return (
     <div>
@@ -66,7 +70,7 @@ const MonitorPanel: FC<WatershedsSelectCardProps> = (props) => {
             <Typography variant="subtitle1" color="textSecondary" style={{ fontWeight: "bold" }}>
               Índice de Calidad del Agua (ICA)
             </Typography>
-            <div style={{ width: "100%", height: 300, marginBottom: -40 }}>
+            <div style={{ width: "100%", height: 300, padding: 20 }}>
               <WqiPieChart data={data} />
             </div>
             <Leyend2 />
@@ -113,36 +117,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default MonitorPanel;
 
-const data = [
+const data: Array<PieChartData> = [
   {
-    id: "elixir",
-    label: "elixir",
-    value: 268,
-    color: "hsl(282, 70%, 50%)",
-  },
-  {
-    id: "stylus",
-    label: "stylus",
-    value: 54,
-    color: "hsl(49, 70%, 50%)",
-  },
-  {
-    id: "erlang",
-    label: "erlang",
-    value: 224,
-    color: "hsl(92, 70%, 50%)",
-  },
-  {
-    id: "scala",
-    label: "scala",
-    value: 162,
-    color: "hsl(196, 70%, 50%)",
-  },
-  {
-    id: "go",
-    label: "go",
-    value: 539,
-    color: "hsl(89, 70%, 50%)",
+    id: "excellent",
+    value: 2,
   },
 ];
 
