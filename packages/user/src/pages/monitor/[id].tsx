@@ -9,13 +9,17 @@ import {
   Container,
   IconButton,
   Hidden,
+  Card,
+  Divider,
+  CardContent,
+  Grid,
 } from "@material-ui/core";
 import { createStyles, fade, Theme } from "@material-ui/core/styles";
-import MenuIcon from "@material-ui/icons/Menu";
-import SearchIcon from "@material-ui/icons/Search";
 import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import { mockModules } from "shared/models/Module";
+import ModuleLast24HoursChart from "shared/components/ModuleLast24HoursChart";
+import Map from "shared/components/Map";
 
 interface ModuleDataProps {}
 
@@ -52,6 +56,37 @@ const ModuleData: FC<ModuleDataProps> = (props) => {
       <br />
       <Container maxWidth="lg">
         <Typography variant="h4">{module?.alias}</Typography>
+        <br />
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={7}>
+            <Card variant="outlined">
+              <CardContent>
+                <Typography variant="subtitle1" style={{ fontWeight: "bold" }}>
+                  Últimas 48 horas
+                </Typography>
+              </CardContent>
+              <Divider />
+              <CardContent>
+                <ModuleLast24HoursChart barHeight={40} />
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <Card variant="outlined" style={{ height: "100%", minHeight: 300 }}>
+              <CardContent>
+                <Typography variant="subtitle1" style={{ fontWeight: "bold" }}>
+                  Ubicación
+                </Typography>
+              </CardContent>
+              <Divider />
+              <Map
+                focusLocation={module?.location}
+                zoom={10}
+                locations={[module?.location || { latitude: 0, longitude: 0 }]}
+              />
+            </Card>
+          </Grid>
+        </Grid>
       </Container>
     </div>
   );

@@ -16,7 +16,7 @@ import React, { FC } from "react";
 import formatDate from "shared/helpers/formatDate";
 import { ratingToText, ratingToColor } from "shared/models/WqiRating";
 
-import ModuleLast24HoursChart from "./ModuleLast24HoursChart";
+import ModuleLast24HoursChart from "../../../components/ModuleLast24HoursChart";
 
 interface ModuleMarkerPreviewProps {
   moduleId: string;
@@ -81,6 +81,11 @@ const ModuleMarkerPreview: FC<ModuleMarkerPreviewProps> = (props) => {
           </CardContent>
           <Divider />
           <CardContent>
+            <Typography variant="body1" style={{ fontWeight: "bold" }}>
+              Últimas 48 horas
+            </Typography>
+            <br />
+
             <ModuleLast24HoursChart />
           </CardContent>
           <Divider />

@@ -3,17 +3,15 @@ import { ResponsiveBar } from "@nivo/bar";
 import React, { FC } from "react";
 import { mockParameterMeasures } from "shared/models/ParameterMeasures";
 
-interface ModuleLast24HoursChartProps {}
+interface ModuleLast24HoursChartProps {
+  barHeight?: number;
+}
 
 const ModuleLast24HoursChart: FC<ModuleLast24HoursChartProps> = (props) => {
   const measures = mockParameterMeasures();
 
   return (
     <div>
-      <Typography variant="body1" style={{ fontWeight: "bold" }}>
-        Últimas 48 horas
-      </Typography>
-      <br />
       <table style={{ width: "100%" }}>
         <tr>
           <td></td>
@@ -29,7 +27,7 @@ const ModuleLast24HoursChart: FC<ModuleLast24HoursChartProps> = (props) => {
             </td>
             {measure.measures.map((m) => (
               <td key={m.day}>
-                <div style={{ height: 30, minWidth: 100 }}>
+                <div style={{ height: props.barHeight, minWidth: 100 }}>
                   <ResponsiveBar
                     colors={measure.color}
                     data={m.measures}
@@ -59,5 +57,8 @@ const ModuleLast24HoursChart: FC<ModuleLast24HoursChartProps> = (props) => {
   );
 };
 
+ModuleLast24HoursChart.defaultProps = {
+  barHeight: 30,
+}
 export default ModuleLast24HoursChart;
 
