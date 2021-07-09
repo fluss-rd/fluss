@@ -3,7 +3,7 @@ import { MenuItem } from "@material-ui/core";
 import { FiberManualRecord, Grain, InfoOutlined, LocationOn } from "@material-ui/icons";
 import LocationForm from "components/LocationForm";
 import Map, { Location } from "components/Map";
-import ModuleState, { moduleStates, moduleStateToString } from "models/ModuleState";
+import ModuleState, { moduleStates, moduleStateToString } from "shared/models/ModuleState";
 import React, { FC } from "react";
 import { Controller, useForm, UseFormMethods } from "react-hook-form";
 import ReactInputMask from "react-input-mask";

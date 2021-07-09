@@ -12,7 +12,7 @@ import { OverridableComponent } from "@material-ui/core/OverridableComponent";
 import { BatteryFull, Update } from "@material-ui/icons";
 import getWqiColor from "helpers/get-wqi-color";
 import useBoolean from "hooks/useBoolean";
-import { mockModules } from "models/Module";
+import { mockModules } from "shared/models/Module";
 import React, { FC } from "react";
 import formatDate from "shared/helpers/formatDate";
 import { ratingToString } from "shared/models/WqiRating";

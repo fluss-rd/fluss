@@ -1,8 +1,9 @@
 import { makeStyles } from "@material-ui/core/styles";
 import FormDialog from "components/FormDialog";
-import { mockModules, toModuleForm } from "models/Module";
 import React, { FC, useEffect } from "react";
 import { ModuleForm as ModuleFormModel } from "services/modules/models";
+import { toModuleForm } from "services/modules/models";
+import { mockModules } from "shared/models/Module";
 
 import ModuleForm, { useModuleForm } from "./ModuleForm";
 

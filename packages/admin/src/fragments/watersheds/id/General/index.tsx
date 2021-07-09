@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 import Map from "components/Map";
-import { mockModules } from "models/Module";
+import { mockModules } from "shared/models/Module";
 import React, { FC } from "react";
 import { mockWatersheds } from "shared/models/Watershed";
 

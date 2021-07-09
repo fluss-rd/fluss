@@ -1,8 +1,8 @@
 import { Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { ResponsiveBar } from "@nivo/bar";
-import { mockParameterMeasures } from "models/ParameterMeasures";
 import React, { FC } from "react";
+import { mockParameterMeasures } from "shared/models/ParameterMeasures";
 
 interface ModuleMarkerPreviewChartProps {}
 

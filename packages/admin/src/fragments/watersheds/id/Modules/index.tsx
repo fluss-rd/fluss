@@ -1,7 +1,7 @@
 import { Typography } from "@material-ui/core";
 import formatPhoneNumber from "helpers/format-phone-nomber";
-import Module, { mockModules } from "models/Module";
-import { moduleStateToString } from "models/ModuleState";
+import Module, { mockModules } from "shared/models/Module";
+import { moduleStateToString } from "shared/models/ModuleState";
 import React, { FC, useState } from "react";
 import { DataTableColumn, EnhancedDataTable } from "shared/components/Tables";
 import formatDate from "shared/helpers/formatDate";

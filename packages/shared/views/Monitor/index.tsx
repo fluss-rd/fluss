@@ -3,9 +3,18 @@ import MonitorPanel from "./MonitorPanel";
 import React, { FC } from "react";
 import Map from "../../components/Map";
 import { appBarHeight } from "shared/helpers";
+import { mockWatersheds } from "../../models/Watershed";
 
 const Monitor: FC = () => {
   const classes = useStyles();
+  const watershed = mockWatersheds().find((w) => w.id === props.watershedId);
+  const modules = mockModules().filter((m) => m.watershedId === props.watershedId);
+  const locations = modules.map(({ wqi, id, alias: name, location }) => ({
+    value: { wqi, id, name },
+    latitude: location.latitude,
+    longitude: location.longitude,
+  }));
+
   return (
     <div>
       <div className={classes.map}>
