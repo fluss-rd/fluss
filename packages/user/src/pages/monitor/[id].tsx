@@ -33,14 +33,18 @@ const ModuleData: FC<ModuleDataProps> = (props) => {
   const module = modules.find((module) => module.id === moduleId);
   const summary = mockDateMeasures()[0];
 
-  console.log({ module });
+  const toMonitor = () => {
+    router.push("/monitor");
+  };
 
   return (
     <div className={classes.root}>
       <AppBar position="static" color="transparent" elevation={0} variant="outlined">
         <Toolbar>
           <div className={classes.title}>
-            <Button startIcon={<KeyboardArrowLeftIcon />}>Volver al mapa</Button>
+            <Button startIcon={<KeyboardArrowLeftIcon />} onClick={toMonitor}>
+              Volver al mapa
+            </Button>
           </div>
           <div className={classes.search}>
             <Hidden smUp>
