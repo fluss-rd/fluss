@@ -80,7 +80,7 @@ const ModuleMarkerPreview: FC<ModuleMarkerPreviewProps> = (props) => {
           <CardContent>
             <ModuleLast24HoursChart />
           </CardContent>
-    <Divider />
+          <Divider />
           <CardActions style={{ flexDirection: "row-reverse" }}>
             <Button size="small" color="primary">
               Ver datos

@@ -29,8 +29,6 @@ const Monitor: FC = () => {
     };
   }
 
-  console.log({ modules, locations });
-
   return (
     <div>
       <div className={classes.map}>
