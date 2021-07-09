@@ -3,23 +3,31 @@ import MonitorPanel from "./MonitorPanel";
 import React, { FC, useState } from "react";
 import Map from "../../components/Map";
 import { appBarHeight } from "shared/helpers";
-import { mockModules } from "../../models/Module";
+import Module, { mockModules } from "../../models/Module";
 import ModuleMarker from "./ModuleMarker";
 
 const Monitor: FC = () => {
   const classes = useStyles();
   const [watershedId, setWatershedId] = useState("Todos");
-  const modules = mockModules().filter(
-    (m) => m.watershedId === (watershedId === "Todos" ? m.watershedId : watershedId)
-  );
-  const locations = modules.map(({ wqi, id, alias: name, location }) => ({
-    value: { wqi, id, name },
-    latitude: location.latitude,
-    longitude: location.longitude,
-  }));
+  const modules = mockModules().filter(filterModules);
+  const locations = modules.map(mapToLocations);
+
   const onWatershedChange = (id: string) => {
     setWatershedId(id);
   };
+
+  function filterModules(module: Module) {
+    const selection = watershedId === "Todos" ? module.watershedId : watershedId;
+    return module.watershedId === selection;
+  }
+
+  function mapToLocations({ wqi, id, alias: name, location }: Module) {
+    return {
+      value: { wqi, id, name },
+      latitude: location.latitude,
+      longitude: location.longitude,
+    };
+  }
 
   console.log({ modules, locations });
 

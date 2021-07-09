@@ -47,10 +47,10 @@ const ModuleMarkerPreview: FC<ModuleMarkerPreviewProps> = (props) => {
         }}
         transformOrigin={{
           vertical: "center",
-          horizontal: "right",
+          horizontal: "center",
         }}
       >
-        <Card>
+        <Card onMouseLeave={props.onClose}>
           <CardContent>
             <Typography variant="caption" style={{ fontWeight: "bold" }}>
               {module.id} — {module.alias}

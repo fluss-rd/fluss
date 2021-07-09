@@ -43,12 +43,6 @@ const ModuleMarker: FC<ModuleMarkerProps> = ({ name, wqi, moduleId }) => {
               </Avatar>
             </Card>
           </div>
-          <Card className={classes.wqi} style={{ background: wqiColor }}>
-            <Typography variant="h5">
-              <span>{wqi.value}</span>
-            </Typography>
-            <Typography variant="body2">{name}</Typography>
-          </Card>
         </div>
       </CardActionArea>
       <ModuleMarkerPreview onClose={closeActions} anchorEl={anchorEl} moduleId={moduleId} />
