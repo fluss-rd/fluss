@@ -6,9 +6,13 @@ import { appBarHeight } from "shared/helpers";
 import Module, { mockModules } from "../../models/Module";
 import ModuleMarker from "./ModuleMarker";
 
-const Monitor: FC = () => {
-  const classes = useStyles();
+interface MonitorProps {
+  onViewData?: (moduleId: string) => void;
+}
+
+const Monitor: FC<MonitorProps> = (props) => {
   const [watershedId, setWatershedId] = useState("Todos");
+  const classes = useStyles();
   const modules = mockModules().filter(filterModules);
   const locations = modules.map(mapToLocations);
 
@@ -36,7 +40,12 @@ const Monitor: FC = () => {
           locations={locations}
           onClick={(l) => console.log(l)}
           render={({ value }) => (
-            <ModuleMarker wqi={value.wqi} name={value.name} moduleId={value.id} />
+            <ModuleMarker
+              wqi={value.wqi}
+              name={value.name}
+              moduleId={value.id}
+              onModuleData={props.onViewData}
+            />
           )}
         />
       </div>

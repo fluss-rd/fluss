@@ -12,9 +12,10 @@ interface ModuleMarkerProps {
   moduleId: string;
   name: string;
   wqi: Wqi;
+  onModuleData?: (moduleId: string) => void;
 }
 
-const ModuleMarker: FC<ModuleMarkerProps> = ({ name, wqi, moduleId }) => {
+const ModuleMarker: FC<ModuleMarkerProps> = ({ name, wqi, moduleId, ...props }) => {
   const classes = useStyles();
   const wqiColor = ratingToColor(wqi.rating);
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
@@ -45,7 +46,12 @@ const ModuleMarker: FC<ModuleMarkerProps> = ({ name, wqi, moduleId }) => {
           </div>
         </div>
       </CardActionArea>
-      <ModuleMarkerPreview onClose={closeActions} anchorEl={anchorEl} moduleId={moduleId} />
+      <ModuleMarkerPreview
+        onClose={closeActions}
+        anchorEl={anchorEl}
+        moduleId={moduleId}
+        onModuleData={props.onModuleData}
+      />
     </>
   );
 };

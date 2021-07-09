@@ -20,6 +20,7 @@ import ModuleLast24HoursChart from "./ModuleLast24HoursChart";
 
 interface ModuleMarkerPreviewProps {
   moduleId: string;
+  onModuleData?: (moduleId: string) => void;
   onClose: () => void;
   anchorEl: HTMLButtonElement;
 }
@@ -29,6 +30,12 @@ const ModuleMarkerPreview: FC<ModuleMarkerPreviewProps> = (props) => {
   const popoverId = openPopover ? "module-mark-popover" : undefined;
   const module = mockModules().find((m) => m.id === props.moduleId);
   const color = ratingToColor(module?.wqi?.rating);
+
+  const onModuleData = () => {
+    if (props.onModuleData) {
+      props.onModuleData(props.moduleId);
+    }
+  };
 
   return (
     <>
@@ -78,7 +85,7 @@ const ModuleMarkerPreview: FC<ModuleMarkerPreviewProps> = (props) => {
           </CardContent>
           <Divider />
           <CardActions style={{ flexDirection: "row-reverse" }}>
-            <Button size="small" color="primary">
+            <Button size="small" color="primary" onClick={onModuleData}>
               Ver datos
             </Button>
             {/*TODO: This can only be visible for admins:
