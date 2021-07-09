@@ -1,6 +1,6 @@
 import { Grid, Typography } from "@material-ui/core";
 import NotificationItem from "fragments/notifications/NotificationItem";
-import { mockNotifications } from "models/notification";
+import { mockNotifications } from "models/Notification";
 import { NextPage } from "next";
 
 const Notifications: NextPage = () => {

@@ -1,8 +1,8 @@
 import { yupResolver } from "@hookform/resolvers";
 import { MenuItem } from "@material-ui/core";
 import { Info, RadioButtonChecked, Security } from "@material-ui/icons";
-import { mockRoles } from "models/role";
-import UserStatus, { userStatusList, userStatusToString } from "models/user-status";
+import { mockRoles } from "models/Role";
+import UserStatus, { userStatusList, userStatusToString } from "models/UserStatus";
 import React, { ForwardedRef, forwardRef, useImperativeHandle } from "react";
 import { Controller, useForm, UseFormMethods } from "react-hook-form";
 import FormField from "shared/components/FormField";

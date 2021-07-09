@@ -1,11 +1,11 @@
 import { Typography } from "@material-ui/core";
 import formatPhoneNumber from "helpers/format-phone-nomber";
-import Module, { mockModules } from "models/module";
-import { moduleStateToString } from "models/module-state";
-import { ratingToString } from "models/wqi-rating";
+import Module, { mockModules } from "models/Module";
+import { moduleStateToString } from "models/ModuleState";
 import React, { FC, useState } from "react";
 import { DataTableColumn, EnhancedDataTable } from "shared/components/Tables";
 import formatDate from "shared/helpers/formatDate";
+import { ratingToString } from "shared/models/WqiRating";
 
 import Actions from "./Actions";
 import AddModule from "./AddModule";

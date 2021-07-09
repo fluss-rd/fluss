@@ -2,9 +2,9 @@ import { Button } from "@material-ui/core";
 import { Edit } from "@material-ui/icons";
 import FormDialog from "components/FormDialog";
 import useBoolean from "hooks/useBoolean";
-import Watershed, { mockWatersheds } from "models/watershed";
 import React, { FC, useRef } from "react";
 import { WatershedForm as WatershedFormModel } from "services/watersheds/models";
+import Watershed, { mockWatersheds } from "shared/models/Watershed";
 
 import WatershedForm, { useWatershedForm } from "./WatershedForm";
 

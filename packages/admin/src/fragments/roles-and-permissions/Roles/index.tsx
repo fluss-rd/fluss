@@ -1,4 +1,4 @@
-import Role, { mockRoles } from "models/role";
+import Role, { mockRoles } from "models/Role";
 import { DataTableColumn, EnhancedDataTable } from "shared/components/Tables";
 import formatDate from "shared/helpers/formatDate";
 

@@ -1,9 +1,9 @@
 import { Button, Card, CardContent, Divider, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { ResponsiveCalendar } from "@nivo/calendar";
-import { mockDateMeasures } from "models/date-measure";
 import { useRouter } from "next/router";
 import React, { FC, useMemo } from "react";
+import { mockDateMeasures } from "shared/models/DateMeasure";
 
 interface ResumeByWatershedProps {}
 

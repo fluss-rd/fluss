@@ -2,8 +2,8 @@ import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import AddWatershed from "fragments/watersheds/common/AddWatershed";
 import WatershedCard from "fragments/watersheds/WatershedCard";
-import { mockWatersheds } from "models/watershed";
-import Watershed from "models/watershed";
+import { mockWatersheds } from "shared/models/Watershed";
+import Watershed from "shared/models/Watershed";
 import { NextPage } from "next";
 
 interface HydricResourcesProps {

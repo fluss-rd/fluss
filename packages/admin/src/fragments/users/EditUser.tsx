@@ -1,5 +1,5 @@
 import { Button, Dialog, DialogActions, DialogTitle, Grid } from "@material-ui/core";
-import { mockUsers } from "models/user";
+import { mockUsers } from "models/User";
 import React, { FC } from "react";
 import FormField from "shared/components/FormField";
 import ModalContent from "shared/components/ModalContent";

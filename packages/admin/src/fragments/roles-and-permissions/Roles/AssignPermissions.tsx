@@ -11,7 +11,7 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Add } from "@material-ui/icons";
-import Permission, { mockPermissions } from "models/permission";
+import Permission, { mockPermissions } from "models/Permission";
 import React, { ChangeEvent, FC, useEffect, useState } from "react";
 
 interface AssignPermissionsProps {

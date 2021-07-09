@@ -1,4 +1,4 @@
-import DayMeasures from "./day-measures";
+import DayMeasures from "shared/models/DayMeasures";
 
 type ParameterMeasures = {
   parameterName: string;
@@ -164,4 +164,3 @@ export function mockParameterMeasures(): ParameterMeasures[] {
 }
 
 export default ParameterMeasures;
-

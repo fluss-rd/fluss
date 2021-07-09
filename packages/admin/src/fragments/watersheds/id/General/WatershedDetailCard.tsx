@@ -15,7 +15,7 @@ import { ExpandMore, Room, Update, ViewModule } from "@material-ui/icons";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import clsx from "clsx";
 import EditWatershed from "fragments/watersheds/common/EditWatershed";
-import Watershed from "models/watershed";
+import Watershed from "shared/models/Watershed";
 import React, { FC, useState } from "react";
 import formatDate from "shared/helpers/formatDate";
 

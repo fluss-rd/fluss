@@ -1,5 +1,5 @@
-import { mockRoles } from "./role";
-import UserStatus from "./user-status";
+import { mockRoles } from "./Role";
+import UserStatus from "./UserStatus";
 
 type User = {
   id: string;

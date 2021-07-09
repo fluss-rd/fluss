@@ -1,4 +1,4 @@
-import PermissionAction from "./permission-action";
+import PermissionAction from "./PermissionAction";
 
 type Permission = {
   id: string;

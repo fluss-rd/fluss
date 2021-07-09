@@ -1,8 +1,8 @@
 import { makeStyles } from "@material-ui/core/styles";
 import Map from "components/Map";
-import { mockModules } from "models/module";
-import { mockWatersheds } from "models/watershed";
+import { mockModules } from "models/Module";
 import React, { FC } from "react";
+import { mockWatersheds } from "shared/models/Watershed";
 
 import ModuleMarker from "./ModuleMarker";
 import WatershedDetailCard from "./WatershedDetailCard";

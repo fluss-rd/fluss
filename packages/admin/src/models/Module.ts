@@ -1,8 +1,8 @@
 import { ModuleForm } from "services/modules/models";
+import Location from "shared/models/Location";
+import Wqi from "shared/models/Wqi";
 
-import Location from "./location";
-import ModuleState from "./module-state";
-import Wqi from "./wqi";
+import ModuleState from "./ModuleState";
 
 type Module = {
   id: string;

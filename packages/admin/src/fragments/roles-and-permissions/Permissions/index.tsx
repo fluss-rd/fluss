@@ -1,4 +1,4 @@
-import Permission, { mockPermissions } from "models/permission";
+import Permission, { mockPermissions } from "models/Permission";
 import { DataTableColumn, EnhancedDataTable } from "shared/components/Tables";
 
 import EditPermission from "./EditPermission";

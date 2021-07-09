@@ -3,8 +3,8 @@ import { grey } from "@material-ui/core/colors";
 import { makeStyles } from "@material-ui/core/styles";
 import { LocationOn } from "@material-ui/icons";
 import getWqiColor from "helpers/get-wqi-color";
-import Wqi from "models/wqi";
 import React, { FC, MouseEvent, useState } from "react";
+import Wqi from "shared/models/Wqi";
 
 import ModuleMarkerPreview from "./ModuleMarkerPreview";
 

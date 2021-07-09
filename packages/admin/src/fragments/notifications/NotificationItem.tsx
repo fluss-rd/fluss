@@ -10,7 +10,7 @@ import {
 import { red } from "@material-ui/core/colors";
 import { makeStyles } from "@material-ui/core/styles";
 import { Battery20, KeyboardArrowRight, LocationOff, Notifications } from "@material-ui/icons";
-import { NotificationCategory } from "models/notification";
+import { NotificationCategory } from "models/Notification";
 import React, { FC } from "react";
 import formatDate from "shared/helpers/formatDate";
 

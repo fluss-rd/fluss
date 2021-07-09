@@ -1,5 +1,5 @@
 import { green, orange, red } from "@material-ui/core/colors";
-import Wqi from "models/wqi";
+import Wqi from "shared/models/Wqi";
 
 export default function getWqiColor(wqi: Wqi): string {
   const value = wqi.value;
