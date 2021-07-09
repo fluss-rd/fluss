@@ -1,27 +1,41 @@
 import { makeStyles } from "@material-ui/core/styles";
 import MonitorPanel from "./MonitorPanel";
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import Map from "../../components/Map";
 import { appBarHeight } from "shared/helpers";
-import { mockWatersheds } from "../../models/Watershed";
+import { mockModules } from "../../models/Module";
+import ModuleMarker from "./ModuleMarker";
 
 const Monitor: FC = () => {
   const classes = useStyles();
-  const watershed = mockWatersheds().find((w) => w.id === props.watershedId);
-  const modules = mockModules().filter((m) => m.watershedId === props.watershedId);
+  const [watershedId, setWatershedId] = useState("Todos");
+  const modules = mockModules().filter(
+    (m) => m.watershedId === (watershedId === "Todos" ? m.watershedId : watershedId)
+  );
   const locations = modules.map(({ wqi, id, alias: name, location }) => ({
     value: { wqi, id, name },
     latitude: location.latitude,
     longitude: location.longitude,
   }));
+  const onWatershedChange = (id: string) => {
+    setWatershedId(id);
+  };
+
+  console.log({ modules, locations });
 
   return (
     <div>
       <div className={classes.map}>
-        <Map zoom={10} />
+        <Map
+          zoom={10}
+          locations={locations}
+          render={({ value }) => (
+            <ModuleMarker wqi={value.wqi} name={value.name} moduleId={value.id} />
+          )}
+        />
       </div>
       <div className={classes.card}>
-        <MonitorPanel />
+        <MonitorPanel watershedId={watershedId} onWatershedChange={onWatershedChange} />
       </div>
     </div>
   );

@@ -25,7 +25,7 @@ interface FormSelectProps extends Omit<SelectProps, "ref"> {
 const FormSelect = forwardRef((props: FormSelectProps, ref: ForwardedRef<any>) => {
   const classes = useStyles();
   const selectId = useMemo(() => generateId("select"), []);
-  const { noneText, FormControlProps, selectRef, helperText, ...rest } = props;
+  const { noneText, noneValue, FormControlProps, selectRef, helperText, ...rest } = props;
 
   return (
     <FormControl fullWidth variant="outlined" {...FormControlProps} ref={ref}>
@@ -41,7 +41,7 @@ const FormSelect = forwardRef((props: FormSelectProps, ref: ForwardedRef<any>) =
         ref={selectRef}
         {...rest}
       >
-        <MenuItem value={props.noneValue ? props.noneValue : ""}>
+        <MenuItem value={noneValue}>
           <span className={classes.none}>{noneText}</span>
         </MenuItem>
         {props.children}
@@ -51,8 +51,9 @@ const FormSelect = forwardRef((props: FormSelectProps, ref: ForwardedRef<any>) =
   );
 });
 
-(FormSelect as FC).defaultProps = {
+(FormSelect as FC<FormSelectProps>).defaultProps = {
   noneText: "Todos",
+  noneValue: "",
   FormControlProps: {},
 };
 
@@ -63,3 +64,5 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default FormSelect;
+
+
