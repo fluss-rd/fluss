@@ -53,31 +53,34 @@ const ModuleMarkerPreview: FC<ModuleMarkerPreviewProps> = (props) => {
         <Card onMouseLeave={props.onClose}>
           <CardContent>
             <Typography variant="caption" style={{ fontWeight: "bold" }}>
-              {module.id} — {module.alias}
+              {/*TODO: Only for admins: {module.id}*/} {/*TODO: Only for admins: —*/} {module.alias}
             </Typography>
             <Typography variant="h6" style={{ color }}>
               WQI {module.wqi.value} - {ratingToString(module.wqi.rating)}
             </Typography>
+            {/* TODO: only for admins
             <br />
-            <table>
-              <tbody>
-                <Item
-                  icon={Update}
-                  title="Última actualización"
-                  value={formatDate(module.updateDate, { type: "dateAndTime" })}
-                />
-                <Item
-                  icon={BatteryFull}
-                  title="Nivel de batería"
-                  value={`${module.batteryLevel}%`}
-                />
-              </tbody>
-            </table>
+      <table>
+      <tbody>
+      <Item
+      icon={Update}
+      title="Última actualización"
+      value={formatDate(module.updateDate, { type: "dateAndTime" })}
+      />
+      <Item
+      icon={BatteryFull}
+      title="Nivel de batería"
+      value={`${module.batteryLevel}%`}
+      />
+      </tbody>
+      </table>
+      */}
           </CardContent>
           <Divider />
           <CardContent>
             <ModuleLast24HoursChart />
           </CardContent>
+    <Divider />
           <CardActions style={{ flexDirection: "row-reverse" }}>
             <Button size="small" color="primary">
               Ver datos

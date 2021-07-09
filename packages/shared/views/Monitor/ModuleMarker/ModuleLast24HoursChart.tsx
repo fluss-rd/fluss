@@ -13,6 +13,7 @@ const ModuleLast24HoursChart: FC<ModuleLast24HoursChartProps> = (props) => {
       <Typography variant="body1" style={{ fontWeight: "bold" }}>
         Últimas 48 horas
       </Typography>
+      <br />
       <table style={{ width: "100%" }}>
         <tr>
           <td></td>
