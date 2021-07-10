@@ -60,20 +60,26 @@ const MonitorPanel: FC<WatershedsSelectCardProps> = (props) => {
           </FormSelect>
         </CardContent>
 
-        {isExpanded && <Divider />}
+        <Divider />
+
+        <CardContent>
+          <Leyend2 />
+        </CardContent>
+
+        <Divider />
+
         <Collapse in={isExpanded} timeout="auto">
           <CardContent style={{ textAlign: "center" }}>
             <Typography variant="subtitle1" color="textSecondary" style={{ fontWeight: "bold" }}>
               Índice de Calidad del Agua (ICA)
             </Typography>
-            <div style={{ width: "100%", height: 300, padding: 20 }}>
+            <div style={{ width: "100%", height: 300 }}>
               <WqiPieChart data={data} />
             </div>
-            <Leyend2 />
           </CardContent>
         </Collapse>
 
-        <Divider />
+        {isExpanded && <Divider />}
         <CardActions disableSpacing>
           <Button color="primary">Descargar datos</Button>
           <IconButton

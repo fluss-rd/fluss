@@ -21,7 +21,7 @@ function IcaChart<T>(props: IcaChartProps) {
     <ResponsivePie
       data={data as any}
       arcLinkLabel={(item) => ratingToText(item.id as WqiRating)}
-      margin={{ bottom: 30, left: sideMargin, right: sideMargin }}
+      margin={{ top: 0, bottom: 0, left: sideMargin, right: sideMargin }}
       innerRadius={0.5}
       padAngle={0.7}
       cornerRadius={3}
