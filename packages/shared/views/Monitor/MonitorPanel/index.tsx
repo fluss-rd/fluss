@@ -15,7 +15,7 @@ import FormSelect from "../../../components/FormSelect";
 import clsx from "clsx";
 import { ExpandMore } from "@material-ui/icons";
 
-import Leyend2 from "./WqiLegend";
+import WqiLegend from "./WqiLegend";
 import WqiPieChart, { PieChartData } from "./WqiPieChart";
 import { mockWatersheds } from "../../../models/Watershed";
 
@@ -63,7 +63,7 @@ const MonitorPanel: FC<WatershedsSelectCardProps> = (props) => {
         <Divider />
 
         <CardContent>
-          <Leyend2 />
+          <WqiLegend />
         </CardContent>
 
         <Divider />
