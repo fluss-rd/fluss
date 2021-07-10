@@ -16,8 +16,10 @@ import clsx from "clsx";
 import { ExpandMore } from "@material-ui/icons";
 
 import WqiLegend from "./WqiLegend";
+import useBoolean from "../../../hooks/useBoolean";
 import WqiPieChart, { PieChartData } from "./WqiPieChart";
 import { mockWatersheds } from "../../../models/Watershed";
+import ModuleDataDownload from "../../../components/ModuleDataDownload";
 
 interface WatershedsSelectCardProps {
   watershedId: string;
@@ -26,6 +28,7 @@ interface WatershedsSelectCardProps {
 
 const MonitorPanel: FC<WatershedsSelectCardProps> = (props) => {
   const [isExpanded, setIsExpanded] = useState(true);
+  const [downloadIsOpen, openDownload, closeDownload] = useBoolean();
   const classes = useStyles();
   const watersheds = mockWatersheds();
 
@@ -81,7 +84,9 @@ const MonitorPanel: FC<WatershedsSelectCardProps> = (props) => {
 
         {isExpanded && <Divider />}
         <CardActions disableSpacing>
-          <Button color="primary">Descargar datos</Button>
+          <Button color="primary" onClick={openDownload}>
+            Descargar datos
+          </Button>
           <IconButton
             onClick={onToggleExpansion}
             className={clsx(classes.expand, {
@@ -94,6 +99,7 @@ const MonitorPanel: FC<WatershedsSelectCardProps> = (props) => {
           </IconButton>
         </CardActions>
       </Card>
+      <ModuleDataDownload close={closeDownload} isOpen={downloadIsOpen} />
     </div>
   );
 };
