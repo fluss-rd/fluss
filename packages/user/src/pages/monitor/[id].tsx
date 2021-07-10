@@ -22,10 +22,13 @@ import ModuleLast24HoursChart from "shared/components/ModuleLast24HoursChart";
 import Map from "shared/components/Map";
 import ModuleAnnualSummary from "shared/components/ModuleAnnualSummary";
 import { mockDateMeasures } from "shared/models/DateMeasure";
+import ModuleDataDownload from "shared/components/ModuleDataDownload";
+import useBoolean from "shared/hooks/useBoolean";
 
 interface ModuleDataProps {}
 
 const ModuleData: FC<ModuleDataProps> = (props) => {
+  const [isOpen, open, close] = useBoolean();
   const classes = useStyles();
   const router = useRouter();
   const modules = mockModules();
@@ -48,12 +51,12 @@ const ModuleData: FC<ModuleDataProps> = (props) => {
           </div>
           <div className={classes.search}>
             <Hidden smUp>
-              <IconButton color="primary">
+              <IconButton color="primary" onClick={open}>
                 <GetAppIcon />
               </IconButton>
             </Hidden>
             <Hidden smDown>
-              <Button color="primary" startIcon={<GetAppIcon />}>
+              <Button color="primary" startIcon={<GetAppIcon />} onClick={open}>
                 <span className={classes.downloadText}>Descargar datos</span>
               </Button>
             </Hidden>
@@ -113,6 +116,7 @@ const ModuleData: FC<ModuleDataProps> = (props) => {
           </Grid>
         </Grid>
       </Container>
+      <ModuleDataDownload close={close} isOpen={isOpen} moduleId="hey" />
     </div>
   );
 };
