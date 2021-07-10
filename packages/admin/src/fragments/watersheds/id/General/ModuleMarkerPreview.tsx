@@ -15,7 +15,7 @@ import useBoolean from "hooks/useBoolean";
 import React, { FC } from "react";
 import formatDate from "shared/helpers/formatDate";
 import { mockModules } from "shared/models/Module";
-import { ratingToString } from "shared/models/WqiRating";
+import { ratingToText } from "shared/models/WqiRating";
 
 import EditModule from "../Modules/EditModule";
 import ModuleMarkerPreviewChart from "./ModuleMarkerPreviewChart";
@@ -59,7 +59,7 @@ const ModuleMarkerPreview: FC<ModuleMarkerPreviewProps> = (props) => {
               {module.id} — {module.alias}
             </Typography>
             <Typography variant="h6" style={{ color }}>
-              WQI {module.wqi.value} - {ratingToString(module.wqi.rating)}
+              WQI {module.wqi.value} - {ratingToText(module.wqi.rating)}
             </Typography>
             <br />
             <table>
@@ -121,3 +121,4 @@ const Item: FC<ItemProps> = ({ icon: Icon, title, value }) => {
 };
 
 export default ModuleMarkerPreview;
+

@@ -5,7 +5,7 @@ import { DataTableColumn, EnhancedDataTable } from "shared/components/Tables";
 import formatDate from "shared/helpers/formatDate";
 import Module, { mockModules } from "shared/models/Module";
 import { moduleStateToString } from "shared/models/ModuleState";
-import { ratingToString } from "shared/models/WqiRating";
+import { ratingToText } from "shared/models/WqiRating";
 
 import Actions from "./Actions";
 import AddModule from "./AddModule";
@@ -66,8 +66,8 @@ function generateColumns(
       accessor: (m) => formatPhoneNumber(m.phoneNumber),
     },
     { Header: "Estado", id: "state", accessor: (m) => moduleStateToString(m.state) },
-    { Header: "WQI", accessor: ({ wqi }) => `${ratingToString(wqi.rating)} (${wqi.value})` },
-    { Header: "Calificación", accessor: (m) => ratingToString(m.wqi.rating) },
+    { Header: "WQI", accessor: ({ wqi }) => `${ratingToText(wqi.rating)} (${wqi.value})` },
+    { Header: "Calificación", accessor: (m) => ratingToText(m.wqi.rating) },
     { Header: "Última actualización", id: "updateDate", accessor: (m) => formatDate(m.updateDate) },
     {
       Header: "Fecha de registro",
