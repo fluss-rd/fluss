@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React, { FC } from "react";
-import EmptyLayout from "./EmptyLayout";
 
+import EmptyLayout from "./EmptyLayout";
 import MainLayout from "./MainLayout";
 
 const Layout: FC = ({ children }) => {
@@ -14,4 +14,3 @@ const Layout: FC = ({ children }) => {
 };
 
 export default Layout;
-

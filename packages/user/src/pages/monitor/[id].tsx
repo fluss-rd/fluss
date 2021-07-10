@@ -1,29 +1,29 @@
-import { makeStyles } from "@material-ui/core/styles";
-import React, { FC } from "react";
-import { useRouter } from "next/router";
 import {
   AppBar,
-  Toolbar,
   Button,
-  Typography,
-  Container,
-  IconButton,
-  Hidden,
   Card,
-  Divider,
   CardContent,
+  Container,
+  Divider,
   Grid,
+  Hidden,
+  IconButton,
+  Toolbar,
+  Typography,
 } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import { createStyles, fade, Theme } from "@material-ui/core/styles";
-import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
 import GetAppIcon from "@material-ui/icons/GetApp";
-import { mockModules } from "shared/models/Module";
-import ModuleLast24HoursChart from "shared/components/ModuleLast24HoursChart";
+import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
+import { useRouter } from "next/router";
+import React, { FC } from "react";
 import Map from "shared/components/Map";
 import ModuleAnnualSummary from "shared/components/ModuleAnnualSummary";
-import { mockDateMeasures } from "shared/models/DateMeasure";
 import ModuleDataDownload from "shared/components/ModuleDataDownload";
+import ModuleLast24HoursChart from "shared/components/ModuleLast24HoursChart";
 import useBoolean from "shared/hooks/useBoolean";
+import { mockDateMeasures } from "shared/models/DateMeasure";
+import { mockModules } from "shared/models/Module";
 
 interface ModuleDataProps {}
 
@@ -141,4 +141,3 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export default ModuleData;
-

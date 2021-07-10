@@ -11,4 +11,3 @@ const EmptyLayout: FC = ({ children }) => {
 };
 
 export default EmptyLayout;
-

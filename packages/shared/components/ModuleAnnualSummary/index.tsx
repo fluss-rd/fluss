@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
+import { CalendarDatum, ResponsiveCalendar } from "@nivo/calendar";
 import React, { FC } from "react";
-import { ResponsiveCalendar, CalendarDatum } from "@nivo/calendar";
 
 interface ModuleAnnualSummaryProps {
   summary: Array<CalendarDatum>;
@@ -42,4 +42,3 @@ const ModuleAnnualSummary: FC<ModuleAnnualSummaryProps> = (props) => {
 const useStyles = makeStyles({});
 
 export default ModuleAnnualSummary;
-

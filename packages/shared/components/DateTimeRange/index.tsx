@@ -1,10 +1,10 @@
 import DateFnsUtils from "@date-io/date-fns";
+import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { KeyboardDatePicker, KeyboardDatePickerProps } from "@material-ui/pickers";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import clsx from "clsx";
 import React, { FC, useState } from "react";
-import { Grid } from "@material-ui/core";
 
 interface DateTimeRangeProps {
   title?: string;
@@ -79,4 +79,3 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default DateTimeRange;
-

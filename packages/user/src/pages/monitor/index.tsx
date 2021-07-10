@@ -1,5 +1,5 @@
-import MonitorView from "shared/views/Monitor";
 import { useRouter } from "next/router";
+import MonitorView from "shared/views/Monitor";
 
 const Monitor = () => {
   const router = useRouter();
@@ -13,4 +13,3 @@ const Monitor = () => {
 };
 
 export default Monitor;
-

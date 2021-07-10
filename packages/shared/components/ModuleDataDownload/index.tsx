@@ -1,7 +1,5 @@
 import {
-  Grid,
   Button,
-  MenuItem,
   Checkbox,
   Dialog,
   DialogActions,
@@ -12,15 +10,18 @@ import {
   FormGroup,
   FormHelperText,
   FormLabel,
+  Grid,
+  MenuItem,
   Radio,
   Typography,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import React, { FC, useState, ChangeEvent } from "react";
-import FormSelect from "../FormSelect";
-import { mockWatersheds } from "../../models/Watershed";
 import { DatePicker, KeyboardDatePicker } from "@material-ui/pickers";
+import React, { ChangeEvent, FC, useState } from "react";
+
+import { mockWatersheds } from "../../models/Watershed";
 import DateTimeRange from "../DateTimeRange";
+import FormSelect from "../FormSelect";
 
 interface ModuleDataDownloadProps {
   isOpen: boolean;
@@ -132,4 +133,3 @@ ModuleDataDownload.defaultProps = {
 };
 
 export default ModuleDataDownload;
-

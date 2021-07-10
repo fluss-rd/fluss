@@ -59,6 +59,5 @@ const ModuleLast24HoursChart: FC<ModuleLast24HoursChartProps> = (props) => {
 
 ModuleLast24HoursChart.defaultProps = {
   barHeight: 30,
-}
+};
 export default ModuleLast24HoursChart;
-
