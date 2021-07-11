@@ -1,7 +1,7 @@
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import MonitorPanel from "./MonitorPanel";
 import React, { FC, useState } from "react";
-import Map from "../../components/Map";
+import Map, { defaultZoom } from "../../components/Map";
 import { appBarHeight } from "shared/helpers";
 import Module, { mockModules } from "../../models/Module";
 import ModuleMarker from "./ModuleMarker";
@@ -37,23 +37,21 @@ const Monitor: FC<MonitorProps> = (props) => {
   }
 
   return (
-    <div>
-      <div className={classes.map}>
-        <Map
-          locations={locations}
-          onClick={(l) => console.log(l)}
-          render={({ value }) => (
-            <ModuleMarker
-              wqi={value.wqi}
-              name={value.name}
-              moduleId={value.id}
-              onModuleData={props.onViewData}
-            />
-          )}
-        />
-        <div className={classes.card}>
-          <MonitorPanel watershedId={watershedId} onWatershedChange={onWatershedChange} />
-        </div>
+    <div className={classes.map}>
+      <Map
+        zoom={props.mode === "admin" ? defaultZoom - 0.22 : undefined}
+        locations={locations}
+        render={({ value }) => (
+          <ModuleMarker
+            wqi={value.wqi}
+            name={value.name}
+            moduleId={value.id}
+            onModuleData={props.onViewData}
+          />
+        )}
+      />
+      <div className={classes.card}>
+        <MonitorPanel watershedId={watershedId} onWatershedChange={onWatershedChange} />
       </div>
     </div>
   );
@@ -64,8 +62,6 @@ const useStyles = makeStyles<Theme, { mode: MonitorMode }>((theme) => ({
     height: `100vh`,
     position: ({ mode }) => (mode === "user" ? "absolute" : "relative"),
     width: "100%",
-    top: 0,
-    left: 0,
   },
   card: {
     display: "flex",
@@ -74,14 +70,6 @@ const useStyles = makeStyles<Theme, { mode: MonitorMode }>((theme) => ({
     position: "absolute",
     top: ({ mode }) =>
       mode === "user" ? appBarHeight(theme) + theme.spacing(3) : theme.spacing(3),
-    right: theme.spacing(3),
-  },
-  leyend: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    position: "fixed",
-    bottom: theme.spacing(2),
     right: theme.spacing(3),
   },
 }));

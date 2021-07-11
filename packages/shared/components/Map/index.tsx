@@ -82,7 +82,8 @@ function Map<T>(props: MapProps<T>) {
   );
 }
 
-const defaultFocus = {
+export const defaultZoom = 7.7;
+export const defaultFocus = {
   latitude: 18.85846056967344,
   longitude: -69.33857437339129,
 };
@@ -90,7 +91,7 @@ const defaultFocus = {
 (Map as FC<MapProps<any>>).defaultProps = {
   style: "basic-customized",
   locations: [],
-  zoom: 7.7,
+  zoom: defaultZoom,
   render: () => <LocationIcon color="primary" />,
   focusLocation: null,
 };
