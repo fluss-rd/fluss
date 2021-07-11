@@ -1,4 +1,4 @@
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, Theme } from "@material-ui/core/styles";
 import MonitorPanel from "./MonitorPanel";
 import React, { FC, useState } from "react";
 import Map from "../../components/Map";
@@ -6,13 +6,16 @@ import { appBarHeight } from "shared/helpers";
 import Module, { mockModules } from "../../models/Module";
 import ModuleMarker from "./ModuleMarker";
 
+type MonitorMode = "user" | "admin";
+
 interface MonitorProps {
   onViewData?: (moduleId: string) => void;
+  mode: MonitorMode;
 }
 
 const Monitor: FC<MonitorProps> = (props) => {
   const [watershedId, setWatershedId] = useState("Todos");
-  const classes = useStyles();
+  const classes = useStyles({ mode: props.mode });
   const modules = mockModules().filter(filterModules);
   const locations = modules.map(mapToLocations);
 
@@ -48,18 +51,18 @@ const Monitor: FC<MonitorProps> = (props) => {
             />
           )}
         />
-      </div>
-      <div className={classes.card}>
-        <MonitorPanel watershedId={watershedId} onWatershedChange={onWatershedChange} />
+        <div className={classes.card}>
+          <MonitorPanel watershedId={watershedId} onWatershedChange={onWatershedChange} />
+        </div>
       </div>
     </div>
   );
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles<Theme, { mode: MonitorMode }>((theme) => ({
   map: {
     height: `100vh`,
-    position: "absolute",
+    position: ({ mode }) => (mode === "user" ? "absolute" : "relative"),
     width: "100%",
     top: 0,
     left: 0,
@@ -69,7 +72,8 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
     position: "absolute",
-    top: appBarHeight(theme) + theme.spacing(3),
+    top: ({ mode }) =>
+      mode === "user" ? appBarHeight(theme) + theme.spacing(3) : theme.spacing(3),
     right: theme.spacing(3),
   },
   leyend: {
@@ -81,6 +85,10 @@ const useStyles = makeStyles((theme) => ({
     right: theme.spacing(3),
   },
 }));
+
+Monitor.defaultProps = {
+  mode: "user",
+};
 
 export default Monitor;
 

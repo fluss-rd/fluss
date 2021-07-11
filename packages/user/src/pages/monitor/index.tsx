@@ -9,7 +9,7 @@ const Monitor = () => {
     router.push(`/monitor/${moduleId}`);
   };
 
-  return <MonitorView onViewData={toModuleData} />;
+  return <MonitorView onViewData={toModuleData} mode="user"  />;
 };
 
 export default Monitor;
