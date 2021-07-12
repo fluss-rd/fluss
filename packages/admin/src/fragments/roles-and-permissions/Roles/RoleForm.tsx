@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { AssignmentIndOutlined, InfoOutlined } from "@material-ui/icons";
 import PermissionAction from "models/PermissionAction";
 import React, { FC, Fragment, useEffect } from "react";
-import { Control, useForm, useWatch } from "react-hook-form";
+import { Control, useForm, UseFormMethods, useWatch } from "react-hook-form";
 import { Permission, Role } from "services/auth/models";
 import FormField from "shared/components/FormField";
 import FormIconTitle from "shared/components/FormIconTitle";
@@ -15,24 +15,11 @@ import AssignPermissions from "./AssignPermissions";
 import PermissionActions from "./PermissionActions";
 
 export interface RolModalFormProps {
-  cancelForm?: () => void;
-  onSaveForm?: (data: Role) => void;
-  values?: Role;
+  form: UseFormMethods<Role>;
 }
 
-const RolModalForm: FC<RolModalFormProps> = ({ cancelForm, onSaveForm, values }) => {
-  const form = useForm<Role>({
-    resolver: yupResolver(formSchema),
-    defaultValues: { ...values },
-  });
+const RolModalForm: FC<RolModalFormProps> = ({ form }) => {
   const assignedPermissions = form.getValues().permissions || [];
-
-  const onSubmit = (role: Role) => {
-    if (!onSaveForm) return;
-
-    console.log({ role });
-    //onSaveForm(role);
-  };
 
   const setPermissions = (permissions: Permission[]) => {
     form.setValue("permissions", permissions);
@@ -65,50 +52,56 @@ const RolModalForm: FC<RolModalFormProps> = ({ cancelForm, onSaveForm, values })
   }, [form.register]);
 
   return (
-    <form noValidate autoComplete="off" onSubmit={form.handleSubmit(onSubmit)}>
-      <ModalContent spacing={2}>
-        <FormIconTitle title="Datos del nuevo rol" Icon={InfoOutlined} />
-        <FormField
-          name="name"
-          label="Nombre"
-          placeholder="Nombre del rol"
-          error={!!form.errors.name}
-          helperText={form.errors.name?.message}
-          inputRef={form.register}
-        />
-        <FormField
-          multiline
-          rows={5}
-          name="description"
-          label="Descripción"
-          placeholder="Breve descripción del rol"
-          error={!!form.errors.description}
-          helperText={form.errors.description?.message}
-          inputRef={form.register}
-        />
+    <>
+      <FormIconTitle title="Datos del nuevo rol" Icon={InfoOutlined} />
+      <FormField
+        name="name"
+        label="Nombre"
+        placeholder="Nombre del rol"
+        error={!!form.errors.name}
+        helperText={form.errors.name?.message}
+        inputRef={form.register}
+      />
+      <FormField
+        multiline
+        rows={5}
+        name="description"
+        label="Descripción"
+        placeholder="Breve descripción del rol"
+        error={!!form.errors.description}
+        helperText={form.errors.description?.message}
+        inputRef={form.register}
+      />
 
-        <FormIconTitle title="Asignar permisos al rol" Icon={AssignmentIndOutlined} />
+      <FormIconTitle title="Asignar permisos al rol" Icon={AssignmentIndOutlined} />
 
-        <AssignPermissions
-          onSave={assignPermissions}
-          defaultSelected={parseToStringArray(assignedPermissions)}
-        />
+      <AssignPermissions
+        onSave={assignPermissions}
+        defaultSelected={parseToStringArray(assignedPermissions)}
+      />
 
-        <List>
-          <AssignedPermissions control={form.control} onAction={onAction} onRemove={onRemove} />
-        </List>
-      </ModalContent>
-      <DialogActions>
-        <Button onClick={cancelForm} color="primary">
-          Cancelar
-        </Button>
-        <Button color="primary" type="submit">
-          Registrar
-        </Button>
-      </DialogActions>
-    </form>
+      <List>
+        <AssignedPermissions control={form.control} onAction={onAction} onRemove={onRemove} />
+      </List>
+    </>
   );
 };
+
+export function useRoleForm(
+  onSubmit: (data: Role) => void,
+  values: Role = { name: "", description: "", permissions: [] }
+): [UseFormMethods<Role>, () => void] {
+  const form = useForm<Role>({
+    resolver: yupResolver(formSchema),
+    defaultValues: { ...values },
+  });
+
+  const onSave = () => {
+    form.handleSubmit(onSubmit)();
+  };
+
+  return [form, onSave];
+}
 
 interface AssignedPermissionsProps {
   control: Control<Role>;
@@ -137,12 +130,6 @@ const AssignedPermissions: FC<AssignedPermissionsProps> = (props) => {
   );
 };
 
-RolModalForm.defaultProps = {
-  values: { name: "", description: "", permissions: [] },
-  cancelForm: () => {},
-  onSaveForm: () => {},
-};
-
 function parseToStringArray(permissions: Permission[]): string[] {
   const parsed = permissions.map((p) => p.resource);
   return parsed;
@@ -156,3 +143,4 @@ const formSchema: yup.SchemaOf<Role> = yup.object().shape({
 });
 
 export default RolModalForm;
+
