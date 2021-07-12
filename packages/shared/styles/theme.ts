@@ -1,9 +1,11 @@
+import { red } from "@material-ui/core/colors";
 import { createMuiTheme, withStyles } from "@material-ui/core/styles";
 
 const theme = createMuiTheme({
   palette: {
     primary: { main: "#1f6485" },
     secondary: { main: "#7db6d1" },
+    error: { main: red[600] },
   },
   typography: {
     fontFamily: ["Nunito", "Roboto", "Calibri", "Arial"].join(","),
@@ -25,3 +27,4 @@ export const GlobalCss = withStyles((theme) => ({
 }))(() => null);
 
 export default theme;
+
