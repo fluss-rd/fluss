@@ -6,8 +6,6 @@ import React, { FC } from "react";
 import formatDate from "shared/helpers/formatDate";
 import Location from "shared/models/Location";
 
-import EditWatershed from "./common/EditWatershed";
-
 interface WatershedCardProps {
   id: string;
   name: string;
@@ -15,14 +13,22 @@ interface WatershedCardProps {
   wqiValue: number;
   lastUpdate: Date;
   location: Location;
+  onViewMore?: (watershedId: string) => void;
+  onEdit?: (watershedId: string) => void;
 }
 
 const WatershedCard: FC<WatershedCardProps> = (props) => {
   const classes = useStyles();
   const router = useRouter();
 
-  const goToWatershed = () => {
-    router.push({ pathname: `/watersheds/${props.id}` });
+  const onViewMore = () => {
+    if (props.onViewMore) {
+      props.onViewMore(props.id);
+    }
+  };
+
+  const onEdit = () => {
+    if (props.onEdit) props.onEdit(props.id);
   };
 
   console.log(formatDate(new Date(2021, 6, 11)));
@@ -62,10 +68,12 @@ const WatershedCard: FC<WatershedCardProps> = (props) => {
           </CardContent>
 
           <CardActions>
-            <Button size="small" color="primary" onClick={goToWatershed}>
+            <Button size="small" color="primary" onClick={onViewMore}>
               Ver más
             </Button>
-            <EditWatershed watershedId={props.id} text={"Editar"} />
+            <Button size="small" color="primary" onClick={onEdit}>
+              Editar
+            </Button>
           </CardActions>
         </Grid>
         <Grid item md={5} className={classes.map}>

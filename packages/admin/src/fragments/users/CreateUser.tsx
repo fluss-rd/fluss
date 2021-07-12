@@ -30,22 +30,17 @@ const CreateUser: FC = () => {
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">Registrar usuario</DialogTitle>
-        <form noValidate autoComplete="off">
-          <ModalContent spacing={2}>
-            <UserForm ref={userFormRef} />
-          </ModalContent>
-          <DialogActions>
-            <Button onClick={closeDialog} color="primary">
-              Cancelar
-            </Button>
-            <Button
-              color="primary"
-              onClick={() => userFormRef.current.form.handleSubmit(onSubmit)()}
-            >
-              Registrar
-            </Button>
-          </DialogActions>
-        </form>
+        <ModalContent spacing={2} dividers>
+          <UserForm ref={userFormRef} />
+        </ModalContent>
+        <DialogActions>
+          <Button onClick={closeDialog} color="primary">
+            Cancelar
+          </Button>
+          <Button color="primary" onClick={() => userFormRef.current.form.handleSubmit(onSubmit)()}>
+            Registrar
+          </Button>
+        </DialogActions>
       </Dialog>
     </>
   );

@@ -1,6 +1,6 @@
 import { createContext, useContext } from "react";
 
-export const initialValues: LayoutValues = { drawerWidth: 240 };
+export const initialValues: LayoutValues = { drawerWidth: 240, pagePadding: 0 };
 
 const LayoutContext = createContext<LayoutContextValue>({
   values: initialValues,
@@ -14,9 +14,9 @@ export function useLayoutContext() {
 
 export type LayoutContextValue = {
   values: LayoutValues;
-  updateValues: (newValues: LayoutValues) => void;
+  updateValues: (newValues: Partial<LayoutValues>) => void;
 };
 
-export type LayoutValues = { drawerWidth: number };
+export type LayoutValues = { drawerWidth: number; pagePadding: number };
 
 export default LayoutContext;

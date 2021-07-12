@@ -1,7 +1,8 @@
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { FC } from "react";
-import WqiRating, { ratingToText, ratingToColor } from "../../../../models/WqiRating";
+
+import WqiRating, { ratingToColor, ratingToText } from "../../models/WqiRating";
 
 interface WqiLegendItemProps {
   category: WqiRating;
@@ -39,4 +40,3 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default WqiLegendItem;
-

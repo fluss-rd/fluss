@@ -1,9 +1,9 @@
-import { Card, CardContent, Typography, Divider } from "@material-ui/core";
+import { Card, CardContent, Divider, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { FC, useState } from "react";
 import ModuleAnnualSummary from "shared/components/ModuleAnnualSummary";
-import ParameterName from "shared/models/ParameterName";
 import { mockDateMeasures } from "shared/models/DateMeasure";
+import ParameterName from "shared/models/ParameterName";
 
 interface ParameterAnnualSummaryProps {}
 
@@ -41,4 +41,3 @@ const ParameterAnnualSummary: FC<ParameterAnnualSummaryProps> = (props) => {
 const useStyles = makeStyles({});
 
 export default ParameterAnnualSummary;
-

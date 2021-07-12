@@ -1,17 +1,18 @@
-import { Dialog, DialogContentText, DialogTitle, Fab } from "@material-ui/core";
+import { DialogContentText, Fab } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Add } from "@material-ui/icons";
+import FormDialog from "components/FormDialog";
 import React, { FC, useState } from "react";
 import { Role } from "services/auth/models";
-import ModalContent from "shared/components/ModalContent";
 
-import RoleForm from "./RoleForm";
+import RoleForm, { useRoleForm } from "./RoleForm";
 
 interface CreateRolProps {}
 
-const CreateRol: FC<CreateRolProps> = (props) => {
+const CreateRol: FC<CreateRolProps> = () => {
   const [isOpen, setIsOpen] = useState(false);
   const classes = useStyles();
+  const [form, onSave] = useRoleForm(onSubmit);
 
   const openDialog = () => {
     setIsOpen(true);
@@ -21,9 +22,9 @@ const CreateRol: FC<CreateRolProps> = (props) => {
     setIsOpen(false);
   };
 
-  const saveNewRol = (data: Role) => {
-    console.log(data);
-  };
+  function onSubmit(data: Role) {
+    console.log({ data });
+  }
 
   return (
     <>
@@ -31,23 +32,20 @@ const CreateRol: FC<CreateRolProps> = (props) => {
         <Add className={classes.extendedIcon} />
         Agregar rol
       </Fab>
-      <Dialog
-        fullWidth
-        open={isOpen}
-        maxWidth="md"
+
+      <FormDialog
+        mode="registration"
+        isOpen={isOpen}
+        title="Registrar módulo"
         onClose={closeDialog}
-        aria-labelledby="form-dialog-title"
+        onSave={onSave}
       >
-        <DialogTitle id="form-dialog-title">Agregar rol</DialogTitle>
-        <ModalContent style={{ height: "0px" }}>
-          <DialogContentText>
-            Indique el nombre y descripción del nuevo rol. La asignación de permisos al rol es
-            opcional
-          </DialogContentText>
-        </ModalContent>
-        <br />
-        <RoleForm cancelForm={closeDialog} onSaveForm={saveNewRol} />
-      </Dialog>
+        <DialogContentText>
+          Indique el nombre y descripción del nuevo rol. La asignación de permisos al rol es
+          opcional
+        </DialogContentText>
+        <RoleForm form={form} />
+      </FormDialog>
     </>
   );
 };

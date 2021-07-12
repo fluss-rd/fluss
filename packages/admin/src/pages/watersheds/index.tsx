@@ -1,8 +1,13 @@
-import { Typography } from "@material-ui/core";
+import { Card, CardContent, Divider, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import AddWatershed from "fragments/watersheds/common/AddWatershed";
+import EditWatershed from "fragments/watersheds/common/EditWatershed";
 import WatershedCard from "fragments/watersheds/WatershedCard";
+import WatershedDetail from "fragments/watersheds/WatershedDetail";
+import { useLayoutContext } from "layouts/Layout/LayoutContext";
 import { NextPage } from "next";
+import { useState } from "react";
+import useBoolean from "shared/hooks/useBoolean";
 import { mockWatersheds } from "shared/models/Watershed";
 import Watershed from "shared/models/Watershed";
 
@@ -13,31 +18,50 @@ interface HydricResourcesProps {
 
 const Watersheds: NextPage<HydricResourcesProps> = ({ quantity, watersheds }) => {
   const classes = useStyles();
+  const context = useLayoutContext();
+  const [selectedDetail, setSelectedDetail] = useState("");
+  const [selected, setSelected] = useState("");
+
+  const closeEditWatershed = () => {
+    setSelected("");
+  };
+
+  const closeDetail = () => {
+    setSelectedDetail("");
+  };
 
   return (
-    <div>
-      <Typography variant="h4">Cuerpos hídricos</Typography>
-      <Typography variant="subtitle1" color="textSecondary" className={classes.subtitle}>
-        {quantity} en total
-      </Typography>
+    <>
+      <div style={{ display: "flex", height: "100%" }}>
+        <div style={{ padding: context.values.pagePadding, flex: 1, position: "relative" }}>
+          <Typography variant="h4">Cuerpos hídricos</Typography>
 
-      <br />
-      <div className={classes.watershedCards}>
-        {watersheds.map((watershed) => (
-          <WatershedCard
-            key={watershed.id}
-            id={watershed.id}
-            name={watershed.name}
-            wqiValue={watershed.wqi.value}
-            lastUpdate={new Date(watershed.updateDate)}
-            modulesQuantity={watershed.modulesQuantity}
-            location={watershed.location}
-          />
-        ))}
+          <Typography variant="subtitle1" color="textSecondary" className={classes.subtitle}>
+            {quantity} en total
+          </Typography>
+
+          <br />
+          <div className={classes.watershedCards}>
+            {watersheds.map((watershed) => (
+              <WatershedCard
+                key={watershed.id}
+                id={watershed.id}
+                name={watershed.name}
+                wqiValue={watershed.wqi.value}
+                lastUpdate={new Date(watershed.updateDate)}
+                modulesQuantity={watershed.modulesQuantity}
+                location={watershed.location}
+                onViewMore={(id) => setSelectedDetail(id)}
+              />
+            ))}
+          </div>
+          <AddWatershed />
+        </div>
+
+        <WatershedDetail isOpen={!!selectedDetail} close={closeDetail} />
+        <EditWatershed isOpen={!!selected} watershedId={selected} close={closeEditWatershed} />
       </div>
-
-      <AddWatershed />
-    </div>
+    </>
   );
 };
 

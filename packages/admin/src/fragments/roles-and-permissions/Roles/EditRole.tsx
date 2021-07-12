@@ -1,19 +1,20 @@
-import { Dialog, DialogTitle, IconButton } from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
 import { Edit } from "@material-ui/icons";
+import FormDialog from "components/FormDialog";
 import RegistrationAndUpdateDates from "components/RegistrarionAndUpdateDates";
 import Role, { roleToRoleForm } from "models/Role";
 import React, { FC, useState } from "react";
 import { Role as RoleForm } from "services/auth/models";
-import ModalContent from "shared/components/ModalContent";
 
-import RoleModalForm from "./RoleForm";
+import RoleModalForm, { useRoleForm } from "./RoleForm";
 
 interface EditRolProps {
   role: Role;
 }
 
-const EditRol: FC<EditRolProps> = ({ role: rol }) => {
+const EditRol: FC<EditRolProps> = ({ role }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [form, onSave] = useRoleForm(onSubmit, roleToRoleForm(role));
 
   const openDialog = () => {
     setIsOpen(true);
@@ -23,35 +24,27 @@ const EditRol: FC<EditRolProps> = ({ role: rol }) => {
     setIsOpen(false);
   };
 
-  const handleSave = (data: RoleForm) => {
-    console.log(data);
-  };
+  function onSubmit(data: RoleForm) {
+    console.log({ data });
+  }
 
   return (
     <>
       <IconButton onClick={openDialog}>
         <Edit />
       </IconButton>
-      <Dialog
-        fullWidth
-        disableBackdropClick
-        disableEscapeKeyDown
-        open={isOpen}
-        maxWidth="md"
-        aria-labelledby="form-dialog-title"
+
+      <FormDialog
+        mode="edition"
+        isOpen={isOpen}
+        title="Editar rol"
+        onClose={closeDialog}
+        onSave={onSave}
       >
-        <DialogTitle id="form-dialog-title">Detalle del rol</DialogTitle>
+        <RegistrationAndUpdateDates registration={role.creationDate} lastUpdate={role.lastUpdate} />
 
-        <ModalContent spacing={2}>
-          <RegistrationAndUpdateDates registration={rol.creationDate} lastUpdate={rol.lastUpdate} />
-        </ModalContent>
-
-        <RoleModalForm
-          cancelForm={closeDialog}
-          onSaveForm={handleSave}
-          values={roleToRoleForm(rol)}
-        />
-      </Dialog>
+        <RoleModalForm form={form} />
+      </FormDialog>
     </>
   );
 };

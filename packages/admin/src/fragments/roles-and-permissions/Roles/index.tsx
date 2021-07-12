@@ -1,5 +1,5 @@
 import Role, { mockRoles } from "models/Role";
-import { DataTableColumn, EnhancedDataTable } from "shared/components/Tables";
+import DataTable, { DataTableColumn } from "shared/components/DataTable";
 import formatDate from "shared/helpers/formatDate";
 
 import CreateRol from "./CreateRole";
@@ -8,7 +8,7 @@ import EditRol from "./EditRole";
 export default function Roles() {
   return (
     <>
-      <EnhancedDataTable data={mockRoles()} columns={columns} />
+      <DataTable showGlobalFilter data={mockRoles()} columns={columns} />
       <CreateRol />
     </>
   );

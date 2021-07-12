@@ -1,7 +1,7 @@
-import { Card, CardContent, Typography, Divider } from "@material-ui/core";
+import { Card, CardContent, Divider, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import ModuleLast24HoursChart from "shared/components/ModuleLast24HoursChart";
 import React, { FC } from "react";
+import ModuleLast24HoursChart from "shared/components/ModuleLast24HoursChart";
 
 interface Last24HoursProps {}
 
@@ -26,4 +26,3 @@ const Last24Hours: FC<Last24HoursProps> = (props) => {
 const useStyles = makeStyles({});
 
 export default Last24Hours;
-

@@ -15,9 +15,9 @@ import FormSelect from "../../../components/FormSelect";
 import clsx from "clsx";
 import { ExpandMore } from "@material-ui/icons";
 
-import WqiLegend from "./WqiLegend";
+import WqiLegend from "../../../components/WqiLegend";
 import useBoolean from "../../../hooks/useBoolean";
-import WqiPieChart, { PieChartData } from "./WqiPieChart";
+import WqiPieChart, { PieChartData } from "../../../components/WqiPieChart";
 import { mockWatersheds } from "../../../models/Watershed";
 import ModuleDataDownload from "../../../components/ModuleDataDownload";
 

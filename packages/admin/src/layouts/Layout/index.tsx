@@ -1,5 +1,5 @@
 import { CssBaseline } from "@material-ui/core";
-import { makeStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, Theme, useTheme } from "@material-ui/core/styles";
 import withAuth from "hoc/withAuth";
 import { useRouter } from "next/router";
 import React, { createContext, FC } from "react";
@@ -12,10 +12,11 @@ interface LayoutProps {}
 
 const Layout: FC<LayoutProps> = ({ children }) => {
   const router = useRouter();
-  const isInWatershed = router.route === "/watersheds/[id]";
+  const theme = useTheme();
+  const isInWatershed = router.route === "/watersheds/[id]" || router.route === "/watersheds";
   const isInHome = router.route === "/";
   const classes = useStyles({ isInWatershed, isInHome });
-  const [values, setValue] = useMergeState({ ...initialValues });
+  const [values, setValue] = useMergeState({ ...initialValues, pagePadding: theme.spacing(3) });
 
   const updateValues = (newValues: LayoutValues) => {
     setValue({ ...newValues });
@@ -32,16 +33,18 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   );
 };
 
-const useStyles = makeStyles<Theme, { isInWatershed: boolean, isInHome: boolean }>((theme: Theme) => ({
-  root: {
-    display: "flex",
-    minHeight: "100vh",
-  },
-  content: {
-    flexGrow: 1,
-    padding: ({ isInWatershed, isInHome }) => (isInWatershed || isInHome ? 0 : theme.spacing(3)),
-  },
-}));
+const useStyles = makeStyles<Theme, { isInWatershed: boolean; isInHome: boolean }>(
+  (theme: Theme) => ({
+    root: {
+      display: "flex",
+      minHeight: "100vh",
+    },
+    content: {
+      flexGrow: 1,
+      padding: ({ isInWatershed, isInHome }) => (isInWatershed || isInHome ? 0 : theme.spacing(3)),
+    },
+  })
+);
 
-//export default withAuth(Layout);
-export default Layout;
+export default withAuth(Layout);
+//export default Layout;
