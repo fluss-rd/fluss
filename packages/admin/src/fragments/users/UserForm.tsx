@@ -1,5 +1,5 @@
 import { yupResolver } from "@hookform/resolvers";
-import { MenuItem, Button, Divider } from "@material-ui/core";
+import { MenuItem } from "@material-ui/core";
 import { Info, RadioButtonChecked, Security } from "@material-ui/icons";
 import { mockRoles } from "models/Role";
 import UserStatus, { userStatusList, userStatusToString } from "models/UserStatus";
@@ -8,9 +8,6 @@ import { Controller, useForm, UseFormMethods } from "react-hook-form";
 import FormField from "shared/components/FormField";
 import FormIconTitle from "shared/components/FormIconTitle";
 import FormSelect from "shared/components/FormSelect";
-import { makeStyles } from "@material-ui/core/styles";
-import { red } from "@material-ui/core/colors";
-import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import * as yup from "yup";
 
 interface UserFormProps {}
@@ -20,7 +17,6 @@ export interface UserFormRef {
 }
 
 const UserForm = forwardRef((props: UserFormProps, ref: ForwardedRef<UserFormRef>) => {
-  const classes = useStyles();
   const form = useForm<UserFormModel>({ resolver: yupResolver(schema) });
   const roles = mockRoles();
 
@@ -101,26 +97,9 @@ const UserForm = forwardRef((props: UserFormProps, ref: ForwardedRef<UserFormRef
           </FormSelect>
         }
       />
-
-      <br />
-      <br />
-
-      <Button startIcon={<DeleteForeverIcon />} variant="outlined" className={classes.deleteUser}>
-        Eliminar Usuario
-      </Button>
     </>
   );
 });
-
-const useStyles = makeStyles((theme) => ({
-  deleteUser: {
-    color: red[600],
-    borderColor: red[600],
-    "&:hover": {
-      backgroundColor: red[50],
-    },
-  },
-}));
 
 export default UserForm;
 

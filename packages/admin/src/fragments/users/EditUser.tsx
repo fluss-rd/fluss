@@ -1,3 +1,5 @@
+import { red } from "@material-ui/core/colors";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import { Button, Dialog, DialogActions, DialogTitle, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { mockUsers } from "models/User";
@@ -51,7 +53,6 @@ const EditUser: FC<EditUserProps> = (props) => {
     <Dialog
       fullWidth
       onClose={props.close}
-      classes={{ paper: classes.paper, paperScrollPaper: classes.paperScrollPaper }}
       open={props.isOpen}
       maxWidth="md"
     >
@@ -76,6 +77,12 @@ const EditUser: FC<EditUserProps> = (props) => {
           </div>
         </div>
         <UserForm ref={setUserFormRef} />
+        <br />
+        <br />
+
+        <Button startIcon={<DeleteForeverIcon />} variant="outlined" className={classes.deleteUser}>
+          Eliminar Usuario
+        </Button>
       </ModalContent>
       <DialogActions>
         <Button onClick={props.close} color="primary">
@@ -90,9 +97,13 @@ const EditUser: FC<EditUserProps> = (props) => {
 };
 
 const useStyles = makeStyles({
-  form: {},
-  paper: {},
-  paperScrollPaper: {},
+  deleteUser: {
+    color: red[600],
+    borderColor: red[600],
+    "&:hover": {
+      backgroundColor: red[50],
+    },
+  },
 });
 
 export default EditUser;
