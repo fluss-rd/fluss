@@ -3,7 +3,7 @@ import React, { ChangeEvent, FC, MouseEvent } from "react";
 
 import { useDataTable } from "./DataTableContext";
 
-type DataTablePaginationProps = {
+export type DataTablePaginationProps = {
   labelRowsPerPage?: string;
   rowsPerPageOptions?: number[];
 };
