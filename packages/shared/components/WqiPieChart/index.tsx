@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { ResponsivePie, ComputedDatum } from "@nivo/pie";
+import { ResponsivePie } from "@nivo/pie";
 import React, { FC } from "react";
-import WqiRating, { ratingToColor, ratingToText } from "../../../../models/WqiRating";
+import WqiRating, { ratingToColor, ratingToText } from "../../models/WqiRating";
 
 export interface PieChartData {
   id: WqiRating;
@@ -9,11 +9,11 @@ export interface PieChartData {
   value: number;
 }
 
-interface IcaChartProps {
+interface WqiPieChartProps {
   data: Array<PieChartData>;
 }
 
-function IcaChart<T>(props: IcaChartProps) {
+function WqiPieChart<T>(props: WqiPieChartProps) {
   const { data } = props;
   const sideMargin = data.length === 1 ? 0 : data.length === 2 ? 100 : 80;
 
@@ -41,5 +41,6 @@ function IcaChart<T>(props: IcaChartProps) {
 
 const useStyles = makeStyles({});
 
-export default IcaChart;
+export default WqiPieChart;
+
 

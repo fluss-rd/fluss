@@ -61,7 +61,6 @@ const WatershedDetailCard: FC<WatershedDetailCardProps> = ({ watershed }) => {
         </CardContent>
       </Collapse>
       <CardActions disableSpacing>
-        <EditWatershed watershedId={watershed.id} text="Editar" />
         <Button color="primary">Descargar datos</Button>
         <IconButton
           onClick={onToggleExpansion}

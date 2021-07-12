@@ -19,7 +19,7 @@ const AddWatershed: FC<AddWatershedProps> = () => {
 
   return (
     <>
-      <Fab onClick={open}>
+      <Fab onClick={open} position="absolute">
         <Add />
         Registrar cuenca
       </Fab>
