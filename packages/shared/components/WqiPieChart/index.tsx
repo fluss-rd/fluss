@@ -1,6 +1,7 @@
 import { makeStyles } from "@material-ui/core/styles";
 import { ResponsivePie } from "@nivo/pie";
 import React, { FC } from "react";
+
 import WqiRating, { ratingToColor, ratingToText } from "../../models/WqiRating";
 
 export interface PieChartData {
@@ -42,5 +43,3 @@ function WqiPieChart<T>(props: WqiPieChartProps) {
 const useStyles = makeStyles({});
 
 export default WqiPieChart;
-
-

@@ -1,17 +1,17 @@
 import {
-  Typography,
-  CardContent,
-  Card,
-  Divider,
-  CardHeader,
-  IconButton,
   Box,
+  Card,
+  CardContent,
+  CardHeader,
+  Divider,
+  IconButton,
+  Typography,
 } from "@material-ui/core";
-import { Close } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
+import { Close } from "@material-ui/icons";
 import React, { FC } from "react";
-import WqiPieChart, { PieChartData } from "shared/components/WqiPieChart";
 import WqiLegend from "shared/components/WqiLegend";
+import WqiPieChart, { PieChartData } from "shared/components/WqiPieChart";
 import useBoolean from "shared/hooks/useBoolean";
 
 interface WatershedDetailProps {
@@ -84,4 +84,3 @@ const useStyles = makeStyles({
 });
 
 export default WatershedDetail;
-

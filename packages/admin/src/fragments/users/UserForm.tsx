@@ -121,4 +121,3 @@ export type UserFormModel = {
   status: string;
   email: string;
 };
-

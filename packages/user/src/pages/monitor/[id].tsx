@@ -1,13 +1,13 @@
 import { Container, Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Theme } from "@material-ui/core/styles";
+import Last24Hours from "fragments/monitor/id/Last24Hours";
+import ModuleLocation from "fragments/monitor/id/ModuleLocation";
+import ParameterAnnualSummary from "fragments/monitor/id/ParameterAnnualSummary";
+import PreviewToolbar from "fragments/monitor/id/PreviewToolbar";
 import { useRouter } from "next/router";
 import React, { FC } from "react";
 import { mockModules } from "shared/models/Module";
-import ParameterAnnualSummary from "fragments/monitor/id/ParameterAnnualSummary";
-import PreviewToolbar from "fragments/monitor/id/PreviewToolbar";
-import ModuleLocation from "fragments/monitor/id/ModuleLocation";
-import Last24Hours from "fragments/monitor/id/Last24Hours";
 
 interface ModuleDataProps {}
 
@@ -56,4 +56,3 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export default ModuleData;
-

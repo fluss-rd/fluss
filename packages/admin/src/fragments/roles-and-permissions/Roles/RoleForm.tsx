@@ -143,4 +143,3 @@ const formSchema: yup.SchemaOf<Role> = yup.object().shape({
 });
 
 export default RolModalForm;
-

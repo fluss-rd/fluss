@@ -1,9 +1,9 @@
 import { DialogContentText, Fab } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Add } from "@material-ui/icons";
+import FormDialog from "components/FormDialog";
 import React, { FC, useState } from "react";
 import { Role } from "services/auth/models";
-import FormDialog from "components/FormDialog";
 
 import RoleForm, { useRoleForm } from "./RoleForm";
 
@@ -67,4 +67,3 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default CreateRol;
-

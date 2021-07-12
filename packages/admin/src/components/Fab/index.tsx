@@ -32,4 +32,3 @@ const useStyles = makeStyles<Theme, { position: string }>((theme) => ({
 }));
 
 export default Fab;
-

@@ -1,9 +1,10 @@
 import { ButtonGroup } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { CalendarDatum, ResponsiveCalendar } from "@nivo/calendar";
-import React, { FC, useState, DetailedHTMLProps } from "react";
-import SelectButton from "./SelectButton";
+import React, { DetailedHTMLProps, FC, useState } from "react";
+
 import ParameterName, { parameters, toString } from "../../models/ParameterName";
+import SelectButton from "./SelectButton";
 
 export interface ModuleAnnualSummaryProps {
   selected: ParameterName;
@@ -87,4 +88,3 @@ ModuleAnnualSummary.defaultProps = {
 };
 
 export default ModuleAnnualSummary;
-

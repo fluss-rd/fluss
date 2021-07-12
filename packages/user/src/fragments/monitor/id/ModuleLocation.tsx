@@ -1,7 +1,7 @@
-import { Card, CardContent, Typography, Divider } from "@material-ui/core";
-import Map from "shared/components/Map";
+import { Card, CardContent, Divider, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { FC } from "react";
+import Map from "shared/components/Map";
 import Location from "shared/models/Location";
 
 interface ModuleLocationProps {
@@ -31,4 +31,3 @@ const ModuleLocation: FC<ModuleLocationProps> = ({ location }) => {
 const useStyles = makeStyles({});
 
 export default ModuleLocation;
-

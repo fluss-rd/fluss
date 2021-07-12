@@ -1,4 +1,4 @@
-import { IconButton, Typography, Tooltip } from "@material-ui/core";
+import { IconButton, Tooltip, Typography } from "@material-ui/core";
 import { Edit } from "@material-ui/icons";
 import CreateUser from "fragments/users/CreateUser";
 import EditUser from "fragments/users/EditUser";
@@ -64,4 +64,3 @@ function generateColumns(onEdit: (userId: string) => () => void) {
 }
 
 export default Users;
-

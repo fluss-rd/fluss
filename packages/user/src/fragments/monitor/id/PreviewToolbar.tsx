@@ -1,11 +1,11 @@
-import { AppBar, Button, Hidden, Toolbar, IconButton } from "@material-ui/core";
+import { AppBar, Button, Hidden, IconButton, Toolbar } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
-import { makeStyles } from "@material-ui/core/styles";
-import React, { FC } from "react";
-import useBoolean from "shared/hooks/useBoolean";
-import ModuleDataDownload from "shared/components/ModuleDataDownload";
 import { useRouter } from "next/router";
+import React, { FC } from "react";
+import ModuleDataDownload from "shared/components/ModuleDataDownload";
+import useBoolean from "shared/hooks/useBoolean";
 
 interface PreviewToolbarProps {}
 
@@ -16,7 +16,7 @@ const PreviewToolbar: FC<PreviewToolbarProps> = (props) => {
 
   const toMonitor = () => {
     router.push("/monitor");
-  }
+  };
 
   return (
     <>
@@ -61,4 +61,3 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default PreviewToolbar;
-

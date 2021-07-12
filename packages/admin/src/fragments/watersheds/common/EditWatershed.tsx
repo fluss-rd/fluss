@@ -34,4 +34,3 @@ const EditWatershed: FC<EditWatershedProps> = ({ watershedId, isOpen, close }) =
 EditWatershed.defaultProps = {};
 
 export default EditWatershed;
-

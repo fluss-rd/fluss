@@ -1,15 +1,15 @@
-import { Typography, CardContent, Card, Divider } from "@material-ui/core";
+import { Card, CardContent, Divider, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import AddWatershed from "fragments/watersheds/common/AddWatershed";
+import EditWatershed from "fragments/watersheds/common/EditWatershed";
 import WatershedCard from "fragments/watersheds/WatershedCard";
+import WatershedDetail from "fragments/watersheds/WatershedDetail";
+import { useLayoutContext } from "layouts/Layout/LayoutContext";
 import { NextPage } from "next";
+import { useState } from "react";
+import useBoolean from "shared/hooks/useBoolean";
 import { mockWatersheds } from "shared/models/Watershed";
 import Watershed from "shared/models/Watershed";
-import { useLayoutContext } from "layouts/Layout/LayoutContext";
-import WatershedDetail from "fragments/watersheds/WatershedDetail";
-import useBoolean from "shared/hooks/useBoolean";
-import EditWatershed from "fragments/watersheds/common/EditWatershed";
-import { useState } from "react";
 
 interface HydricResourcesProps {
   quantity: number;
@@ -83,4 +83,3 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default Watersheds;
-
