@@ -1,4 +1,5 @@
 import { Button, Dialog, DialogActions, DialogTitle, Grid } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import { mockUsers } from "models/User";
 import React, { FC } from "react";
 import FormField from "shared/components/FormField";
@@ -16,6 +17,7 @@ interface EditUserProps {
 }
 
 const EditUser: FC<EditUserProps> = (props) => {
+  const classes = useStyles();
   const [userFormRef, setUserFormRef] = useRefCallback(initializeForm, [props.id]);
   const [dates, setDates] = useMergeState({
     registration: new Date(Date.now()),
@@ -48,46 +50,50 @@ const EditUser: FC<EditUserProps> = (props) => {
   return (
     <Dialog
       fullWidth
-      disableBackdropClick
-      disableEscapeKeyDown
+      onClose={props.close}
+      classes={{ paper: classes.paper, paperScrollPaper: classes.paperScrollPaper }}
       open={props.isOpen}
       maxWidth="md"
-      aria-labelledby="form-dialog-title"
     >
-      <DialogTitle id="form-dialog-title">Editar información de usuario</DialogTitle>
-      <form noValidate autoComplete="off">
-        <ModalContent spacing={2}>
-          <Grid container spacing={2}>
-            <Grid item>
-              <FormField
-                disabled
-                variant="standard"
-                label="Fecha de registro"
-                value={formatDate(dates.registration)}
-              />
-            </Grid>
-            <Grid item>
-              <FormField
-                disabled
-                variant="standard"
-                label="Última actualización"
-                value={formatDate(dates.update)}
-              />
-            </Grid>
-          </Grid>
-          <UserForm ref={setUserFormRef} />
-        </ModalContent>
-        <DialogActions>
-          <Button onClick={props.close} color="primary">
-            Cancelar
-          </Button>
-          <Button color="primary" onClick={() => userFormRef.current.form.handleSubmit(onSubmit)()}>
-            Guardar cambios
-          </Button>
-        </DialogActions>
-      </form>
+      <DialogTitle>Editar información de usuario</DialogTitle>
+      <ModalContent spacing={2} dividers>
+        <div style={{ display: "flex", flexWrap: "wrap" }}>
+          <div>
+            <FormField
+              disabled
+              variant="standard"
+              label="Fecha de registro"
+              value={formatDate(dates.registration)}
+            />
+          </div>
+          <div>
+            <FormField
+              disabled
+              variant="standard"
+              label="Última actualización"
+              value={formatDate(dates.update)}
+            />
+          </div>
+        </div>
+        <UserForm ref={setUserFormRef} />
+      </ModalContent>
+      <DialogActions>
+        <Button onClick={props.close} color="primary">
+          Cancelar
+        </Button>
+        <Button color="primary" onClick={() => userFormRef.current.form.handleSubmit(onSubmit)()}>
+          Guardar cambios
+        </Button>
+      </DialogActions>
     </Dialog>
   );
 };
 
+const useStyles = makeStyles({
+  form: {},
+  paper: {},
+  paperScrollPaper: {},
+});
+
 export default EditUser;
+

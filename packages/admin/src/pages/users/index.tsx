@@ -1,4 +1,4 @@
-import { IconButton, Typography } from "@material-ui/core";
+import { IconButton, Typography, Tooltip } from "@material-ui/core";
 import { Edit } from "@material-ui/icons";
 import CreateUser from "fragments/users/CreateUser";
 import EditUser from "fragments/users/EditUser";
@@ -6,21 +6,28 @@ import User, { mockUsers } from "models/User";
 import { userStatusToString } from "models/UserStatus";
 import { NextPage } from "next";
 import { useState } from "react";
-import { DataTableColumn, EnhancedDataTable, SelectColumnFilter } from "shared/components/Tables";
+import DataTable, { DataTableColumn, SelectColumnFilter } from "shared/components/DataTable";
 
 const Users: NextPage = () => {
   const [userId, setUserId] = useState<string>("");
   const users = mockUsers();
-  const onEdit = (id: string) => () => setUserId(id);
-  const close = () => setUserId("");
   const columns = generateColumns(onEdit);
+
+  function close() {
+    setUserId("");
+  }
+
+  function onEdit(id: string) {
+    return () => setUserId(id);
+  }
 
   return (
     <div>
       <Typography variant="h4">Usuarios</Typography>
-      <br />
-      <EnhancedDataTable withFilters labeledButtons data={users} columns={columns} />
 
+      <br />
+
+      <DataTable showGlobalFilter showFilters data={users} columns={columns} />
       <CreateUser />
       <EditUser isOpen={!!userId} close={close} id={userId} />
     </div>
@@ -44,9 +51,11 @@ function generateColumns(onEdit: (userId: string) => () => void) {
       Header: "Editar",
       id: "edit",
       accessor: (u) => (
-        <IconButton onClick={onEdit(u.id)}>
-          <Edit />
-        </IconButton>
+        <Tooltip title="Editar">
+          <IconButton onClick={onEdit(u.id)}>
+            <Edit />
+          </IconButton>
+        </Tooltip>
       ),
     },
   ];
@@ -55,3 +64,4 @@ function generateColumns(onEdit: (userId: string) => () => void) {
 }
 
 export default Users;
+

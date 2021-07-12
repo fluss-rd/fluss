@@ -38,14 +38,21 @@ function Map<T>(props: MapProps<T>) {
     zoom: props.zoom,
   });
 
+  const onMapClick = useCallback(
+    (click: MapEvent) => {
+      console.log({ click });
+      const [longitude, latitude] = click.lngLat;
+      if (props.onClick) props.onClick({ latitude, longitude });
+    },
+    [props.onClick]
+  );
+
+  const onViewPortChange = useCallback((viewport: any) => {
+    setViewport(viewport);
+  }, []);
+
   useEffect(updateZoom, [props.zoom]);
   useEffect(updateFocus, [props.focusLocation]);
-
-  const onMapClick = (click: MapEvent) => {
-    console.log({ click });
-    const [longitude, latitude] = click.lngLat;
-    if (props.onClick) props.onClick({ latitude, longitude });
-  };
 
   function updateZoom() {
     setViewport({ zoom: props.zoom || 0 });
@@ -61,7 +68,7 @@ function Map<T>(props: MapProps<T>) {
       {...viewport}
       width="100%"
       height="100%"
-      onViewportChange={(viewport) => setViewport(viewport)}
+      onViewportChange={onViewPortChange}
       mapStyle={mapStyleToUrl(props.style)}
       mapboxApiAccessToken={process.env.mapboxToken}
       onClick={onMapClick}
@@ -75,7 +82,8 @@ function Map<T>(props: MapProps<T>) {
   );
 }
 
-const defaultFocus = {
+export const defaultZoom = 7.7;
+export const defaultFocus = {
   latitude: 18.85846056967344,
   longitude: -69.33857437339129,
 };
@@ -83,7 +91,7 @@ const defaultFocus = {
 (Map as FC<MapProps<any>>).defaultProps = {
   style: "basic-customized",
   locations: [],
-  zoom: 7.7,
+  zoom: defaultZoom,
   render: () => <LocationIcon color="primary" />,
   focusLocation: null,
 };
@@ -106,3 +114,4 @@ export function mapStyleToUrl(style: MapStyle) {
       return "mapbox://styles/mikhael1729/ckpmy16f43v7w17p81eqkytt0";
   }
 }
+

@@ -13,7 +13,8 @@ interface LayoutProps {}
 const Layout: FC<LayoutProps> = ({ children }) => {
   const router = useRouter();
   const isInWatershed = router.route === "/watersheds/[id]";
-  const classes = useStyles({ isInWatershed });
+  const isInHome = router.route === "/";
+  const classes = useStyles({ isInWatershed, isInHome });
   const [values, setValue] = useMergeState({ ...initialValues });
 
   const updateValues = (newValues: LayoutValues) => {
@@ -31,16 +32,16 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   );
 };
 
-const useStyles = makeStyles<Theme, { isInWatershed: boolean }>((theme: Theme) => ({
+const useStyles = makeStyles<Theme, { isInWatershed: boolean, isInHome: boolean }>((theme: Theme) => ({
   root: {
     display: "flex",
     minHeight: "100vh",
   },
   content: {
     flexGrow: 1,
-    padding: ({ isInWatershed }) => (isInWatershed ? 0 : theme.spacing(3)),
+    padding: ({ isInWatershed, isInHome }) => (isInWatershed || isInHome ? 0 : theme.spacing(3)),
   },
 }));
 
-export default withAuth(Layout);
-//export default Layout;
+//export default withAuth(Layout);
+export default Layout;
