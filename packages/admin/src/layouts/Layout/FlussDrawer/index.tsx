@@ -1,8 +1,7 @@
 import { createMuiTheme, Divider, Drawer, IconButton, ThemeProvider } from "@material-ui/core";
-import { makeStyles, Theme, useTheme } from "@material-ui/core/styles";
+import { makeStyles, Theme } from "@material-ui/core/styles";
 import { Menu, MenuOpen } from "@material-ui/icons";
 import clsx from "clsx";
-import useBoolean from "hooks/useBoolean";
 import { useLayoutContext } from "layouts/Layout/LayoutContext";
 import React, { FC } from "react";
 import FlussLogo from "shared/components/FlussLogo";
