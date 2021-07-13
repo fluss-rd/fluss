@@ -19,9 +19,8 @@ const AddWatershed: FC<AddWatershedProps> = () => {
 
   return (
     <>
-      <Fab onClick={open} position="absolute">
+    <Fab onClick={open} position="absolute" variant="round">
         <Add />
-        Registrar cuenca
       </Fab>
       <FormDialog
         mode="registration"
@@ -37,3 +36,4 @@ const AddWatershed: FC<AddWatershedProps> = () => {
 };
 
 export default AddWatershed;
+

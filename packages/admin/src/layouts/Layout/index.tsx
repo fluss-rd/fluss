@@ -16,7 +16,16 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const isInWatershed = router.route === "/watersheds/[id]" || router.route === "/watersheds";
   const isInHome = router.route === "/";
   const classes = useStyles({ isInWatershed, isInHome });
-  const [values, setValue] = useMergeState({ ...initialValues, pagePadding: theme.spacing(3) });
+  const [values, setValue] = useMergeState({
+    ...initialValues,
+    pagePadding: theme.spacing(3),
+    expandSidebar: () => {
+      setValue({ drawerWidth: initialValues.drawerWidth, sidebarIsExpandedBySidebar: true });
+    },
+    collapseSideBar: () => {
+      setValue({ drawerWidth: theme.spacing(9) + 1, sidebarIsExpandedBySidebar: false });
+    },
+  });
 
   const updateValues = (newValues: LayoutValues) => {
     setValue({ ...newValues });
@@ -48,3 +57,4 @@ const useStyles = makeStyles<Theme, { isInWatershed: boolean; isInHome: boolean 
 
 //export default withAuth(Layout);
 export default Layout;
+

@@ -1,4 +1,4 @@
-import { Card, CardContent, Divider, Typography, Slide, duration } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import AddWatershed from "fragments/watersheds/common/AddWatershed";
 import EditWatershed from "fragments/watersheds/common/EditWatershed";
@@ -6,10 +6,9 @@ import WatershedCard from "fragments/watersheds/WatershedCard";
 import WatershedDetail from "fragments/watersheds/WatershedDetail";
 import { useLayoutContext } from "layouts/Layout/LayoutContext";
 import { NextPage } from "next";
-import { useState } from "react";
-import useBoolean from "shared/hooks/useBoolean";
 import { mockWatersheds } from "shared/models/Watershed";
 import Watershed from "shared/models/Watershed";
+import { useMergeState } from "shared/hooks";
 
 interface HydricResourcesProps {
   quantity: number;
@@ -19,15 +18,24 @@ interface HydricResourcesProps {
 const Watersheds: NextPage<HydricResourcesProps> = ({ quantity, watersheds }) => {
   const classes = useStyles();
   const context = useLayoutContext();
-  const [selectedDetail, setSelectedDetail] = useState("");
-  const [selected, setSelected] = useState("");
+  const [state, setState] = useMergeState({ detail: "", edition: "" });
 
-  const closeEditWatershed = () => {
-    setSelected("");
+  const onEditWatershed = (watershedId: string) => {
+    setState({ edition: watershedId });
   };
 
-  const closeDetail = () => {
-    setSelectedDetail("");
+  const closeWatershedEdition = () => {
+    setState({ edition: "" });
+  };
+
+  const onViewWatershedDetail = (watershedId: string) => {
+    setState({ detail: watershedId });
+    context.values.collapseSideBar();
+  };
+
+  const closeWatershedDetail = () => {
+    setState({ detail: "" });
+    context.values.expandSidebar();
   };
 
   return (
@@ -51,15 +59,20 @@ const Watersheds: NextPage<HydricResourcesProps> = ({ quantity, watersheds }) =>
                 lastUpdate={new Date(watershed.updateDate)}
                 modulesQuantity={watershed.modulesQuantity}
                 location={watershed.location}
-                onViewMore={(id) => setSelectedDetail(id)}
+                onViewMore={onViewWatershedDetail}
+                onEdit={onEditWatershed}
               />
             ))}
           </div>
           <AddWatershed />
         </div>
 
-        <WatershedDetail isOpen={!!selectedDetail} close={closeDetail} />
-        <EditWatershed isOpen={!!selected} watershedId={selected} close={closeEditWatershed} />
+        <WatershedDetail isOpen={!!state.detail} close={closeWatershedDetail} />
+        <EditWatershed
+          isOpen={!!state.edition}
+          watershedId={state.edition}
+          close={closeWatershedEdition}
+        />
       </div>
     </>
   );

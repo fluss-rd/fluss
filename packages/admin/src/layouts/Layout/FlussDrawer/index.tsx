@@ -17,10 +17,9 @@ import Settings from "./Settings";
 interface FlussDrawerProps {}
 
 const FlussDrawer: FC<FlussDrawerProps> = () => {
-  const [open, openDrawer, closeDrawer] = useBoolean(true);
   const context = useLayoutContext();
+  const open = context.values.drawerWidth === initialValues.drawerWidth;
   const classes = useStyles({ drawerWidth: context.values.drawerWidth, open });
-  const theme = useTheme();
   const [settings, setSettings] = useMergeState<{
     isOpen: boolean;
     tab: "notifications" | "account";
@@ -30,13 +29,11 @@ const FlussDrawer: FC<FlussDrawerProps> = () => {
   });
 
   const onCloseDrawer = () => {
-    closeDrawer();
-    context.updateValues({ drawerWidth: theme.spacing(9) + 1 });
+    context.values.collapseSideBar();
   };
 
   const onOpenDrawer = () => {
-    openDrawer();
-    context.updateValues({ drawerWidth: initialValues.drawerWidth });
+    context.values.expandSidebar();
   };
 
   return (
