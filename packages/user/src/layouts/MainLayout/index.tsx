@@ -15,7 +15,7 @@ const MainLayout: FC = ({ children }) => {
     <div className={classes.root}>
       <CssBaseline />
       <FlussAppBar />
-      <Toolbar />
+      {isInHome && <Toolbar />}
       <div style={{ flexGrow: 1 }}>{children}</div>
       {isInHome && <Footer />}
     </div>
@@ -33,3 +33,4 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export default MainLayout;
+
