@@ -4,6 +4,7 @@ export const initialValues = {
   drawerWidth: 240,
   pagePadding: 0,
   sidebarIsExpandedBySidebar: true,
+  sidebarIsOpen: () => true,
   expandSidebar: () => {},
   collapseSideBar: () => {},
 };

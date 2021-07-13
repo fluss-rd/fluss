@@ -19,11 +19,12 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const [values, setValue] = useMergeState({
     ...initialValues,
     pagePadding: theme.spacing(3),
+    sidebarIsOpen: () => values.drawerWidth === initialValues.drawerWidth,
     expandSidebar: () => {
-      setValue({ drawerWidth: initialValues.drawerWidth, sidebarIsExpandedBySidebar: true });
+      setValue({ drawerWidth: initialValues.drawerWidth });
     },
     collapseSideBar: () => {
-      setValue({ drawerWidth: theme.spacing(9) + 1, sidebarIsExpandedBySidebar: false });
+      setValue({ drawerWidth: theme.spacing(9) + 1 });
     },
   });
 
