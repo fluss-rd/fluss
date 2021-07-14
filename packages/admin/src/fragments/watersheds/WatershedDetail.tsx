@@ -4,17 +4,17 @@ import {
   CardContent,
   CardHeader,
   Divider,
-  IconButton,
-  Typography,
-  Slide,
   duration,
+  IconButton,
+  Slide,
+  Typography,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Close } from "@material-ui/icons";
 import React, { FC } from "react";
-import WqiLegend from "shared/components/WqiLegend";
 import PieChart, { PieChartData } from "shared/components/PieChart";
-import WqiRating, { ratingToText, ratingToColor } from "shared/models/WqiRating";
+import WqiLegend from "shared/components/WqiLegend";
+import WqiRating, { ratingToColor, ratingToText } from "shared/models/WqiRating";
 
 interface WatershedDetailProps {
   isOpen?: boolean;
@@ -92,4 +92,3 @@ const useStyles = makeStyles({
 });
 
 export default WatershedDetail;
-

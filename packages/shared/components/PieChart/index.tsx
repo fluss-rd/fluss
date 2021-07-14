@@ -1,7 +1,8 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { ResponsivePie, ComputedDatum } from "@nivo/pie";
-import React from "react";
 import { Margin } from "@nivo/core";
+import { ComputedDatum, ResponsivePie } from "@nivo/pie";
+import React from "react";
+
 import ResponsivePieProps from "./ResponsivePieProps";
 
 export interface PieChartProps<T = void> {
@@ -75,4 +76,3 @@ function PieChart<T>(props: PieChartProps<T>) {
 const useStyles = makeStyles({});
 
 export default PieChart;
-

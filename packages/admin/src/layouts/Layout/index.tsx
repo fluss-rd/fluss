@@ -58,4 +58,3 @@ const useStyles = makeStyles<Theme, { isInWatershed: boolean; isInHome: boolean 
 
 //export default withAuth(Layout);
 export default Layout;
-

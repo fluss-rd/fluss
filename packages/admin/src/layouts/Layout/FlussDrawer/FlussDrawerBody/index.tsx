@@ -1,5 +1,5 @@
 import { Divider, List } from "@material-ui/core";
-import { Grain, Lock, Notifications, People, Settings, GpsFixed } from "@material-ui/icons";
+import { GpsFixed, Grain, Lock, Notifications, People, Settings } from "@material-ui/icons";
 import React, { FC } from "react";
 
 import DrawerItem from "./DrawerItem";

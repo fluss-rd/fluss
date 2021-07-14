@@ -1,4 +1,4 @@
-import { PieSvgProps, DefaultRawDatum } from "@nivo/pie";
+import { DefaultRawDatum, PieSvgProps } from "@nivo/pie";
 
 type ResponsivePieProps = Pick<
   PieSvgProps<DefaultRawDatum>,
@@ -56,4 +56,3 @@ type ResponsivePieProps = Pick<
 >;
 
 export default ResponsivePieProps;
-

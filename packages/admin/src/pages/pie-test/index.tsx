@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
-import PieChart, { PieChartData } from "shared/components/PieChart";
 import React, { FC } from "react";
+import PieChart, { PieChartData } from "shared/components/PieChart";
 
 interface PieTestProps {}
 
@@ -29,4 +29,3 @@ const useStyles = makeStyles({
 });
 
 export default PieTest;
-

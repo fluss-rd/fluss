@@ -6,9 +6,9 @@ import WatershedCard from "fragments/watersheds/WatershedCard";
 import WatershedDetail from "fragments/watersheds/WatershedDetail";
 import { useLayoutContext } from "layouts/Layout/LayoutContext";
 import { NextPage } from "next";
+import { useMergeState } from "shared/hooks";
 import { mockWatersheds } from "shared/models/Watershed";
 import Watershed from "shared/models/Watershed";
-import { useMergeState } from "shared/hooks";
 
 interface HydricResourcesProps {
   quantity: number;
@@ -96,4 +96,3 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default Watersheds;
-

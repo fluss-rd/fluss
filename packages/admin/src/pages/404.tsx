@@ -1,8 +1,8 @@
 import { Typography } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
+import clsx from "clsx";
 import { NextPage } from "next";
 import React from "react";
-import clsx from "clsx";
 
 const Fluss404: NextPage = () => {
   const classes = useStyles();
@@ -25,4 +25,3 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export default Fluss404;
-
