@@ -4,32 +4,30 @@ import React from "react";
 import { Margin } from "@nivo/core";
 import ResponsivePieProps from "./ResponsivePieProps";
 
-export interface PieChartProps<T = void> {
+export interface PieChartProps<T> {
   data: PieChartData<T>[];
-  margin?: Partial<Margin> | number;
-  formatOutsideLabel?: (item: PieChartData<T>, parameters: Omit<PieChartData<T>, "data">) => string; // External label.
-  formatInnerLabel?: (item: PieChartData<T>, parameters: Omit<PieChartData<T>, "data">) => string; // External label.
-  applyColor?: (item: PieChartData<T>, parameters: Omit<PieChartData<T>, "data">) => string;
+  margin?: Margin | number;
+  formatOutsideLabel?: (item: PieChartData<T>) => string; // External label.
+  formatInnerLabel?: (item: PieChartData<T>) => string; // External label.
+  applyColor?: (item: PieChartData<T>) => string;
   style?: React.CSSProperties;
   className?: string;
   width?: number | string;
   height?: number | string;
-  ResponsivePieProps?: Partial<ResponsivePieProps>;
+  ResponsivePieProps?: Partial<ResponsivePieProps>
 }
 
-export type PieChartData<T = void> = Omit<Partial<ComputedDatum<T>>, "id"> & {
-  id: string | number;
-};
+export type PieChartData<T> = Partial<ComputedDatum<T>>;
 
 function PieChart<T>(props: PieChartProps<T>) {
-  const computeMargin = (): Partial<Margin> => {
+  const computeMargin = (): Margin => {
     const { margin } = props;
     if (typeof margin === "number") {
       return { top: margin, bottom: margin, right: margin, left: margin };
     }
 
     return margin;
-  };
+  }
 
   return (
     <div
@@ -38,22 +36,11 @@ function PieChart<T>(props: PieChartProps<T>) {
     >
       <ResponsivePie
         data={props.data as any}
-        arcLabel={
-          props.formatInnerLabel
-            ? ({ data, ...rest }) => props.formatInnerLabel(data as PieChartData<T>, rest)
-            : undefined
-        }
-        arcLinkLabel={
-          props.formatOutsideLabel
-            ? ({ data, ...rest }) => props.formatOutsideLabel(data as PieChartData<T>, rest)
-            : undefined
-        }
-        colors={
-          props.applyColor
-            ? ({ data, ...rest }) => props.applyColor(data as PieChartData<T>, rest)
-            : undefined
-        }
+        enableArcLabels={false}
+        arcLabel={props.formatInnerLabel}
+        arcLinkLabel={props.formatOutsideLabel}
         margin={computeMargin()}
+        colors={props.applyColor}
         innerRadius={0.5}
         padAngle={0.7}
         cornerRadius={3}
@@ -66,7 +53,7 @@ function PieChart<T>(props: PieChartProps<T>) {
         arcLinkLabelsColor={{ from: "color" }}
         arcLabelsSkipAngle={10}
         arcLabelsTextColor={{ from: "color", modifiers: [["darker", 2]] }}
-        {...(props.ResponsivePieProps as any)}
+        {...props.ResponsivePieProps as any}
       />
     </div>
   );

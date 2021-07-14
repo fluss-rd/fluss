@@ -13,7 +13,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Close } from "@material-ui/icons";
 import React, { FC } from "react";
 import WqiLegend from "shared/components/WqiLegend";
-import WqiPieChart, { PieChartData } from "shared/components/WqiPieChart";
+import PieChart, { PieChartData } from "shared/components/PieChart";
+import WqiRating, { ratingToText, ratingToColor } from "shared/models/WqiRating";
 
 interface WatershedDetailProps {
   isOpen?: boolean;
@@ -29,12 +30,13 @@ const WatershedDetail: FC<WatershedDetailProps> = ({ isOpen, close }) => {
         <Card elevation={0} className={classes.card}>
           <CardHeader
             title="Río Yaque del Norte"
+            subHeader="Resumen gráfico"
             action={
               <IconButton aria-label="settings" onClick={close}>
                 <Close />
               </IconButton>
             }
-          ></CardHeader>
+          />
           <Divider />
           <CardContent>
             <Card variant="outlined">
@@ -44,8 +46,15 @@ const WatershedDetail: FC<WatershedDetailProps> = ({ isOpen, close }) => {
                 </Typography>
               </CardContent>
               <Divider />
-              <CardContent style={{ height: 300, width: 400 }}>
-                <WqiPieChart data={data} />
+              <CardContent>
+                <PieChart
+                  data={data}
+                  formatOutsideLabel={({ data }) => ratingToText(data)}
+                  applyColor={({ data }) => ratingToColor(data)}
+                  margin={{ left: 110, right: 110 }}
+                  width="100%"
+                  height={200}
+                />
               </CardContent>
               <Divider />
               <CardContent>
@@ -59,18 +68,16 @@ const WatershedDetail: FC<WatershedDetailProps> = ({ isOpen, close }) => {
   );
 };
 
-const data: Array<PieChartData> = [
+const data: Array<PieChartData<WqiRating>> = [
   {
     id: "excellent",
     value: 2,
+    data: "excellent",
   },
   {
     id: "moderate",
     value: 2,
-  },
-  {
-    id: "bad",
-    value: 2,
+    data: "moderate",
   },
 ];
 
