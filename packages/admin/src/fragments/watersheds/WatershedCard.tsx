@@ -1,10 +1,12 @@
 import { Button, Card, CardActions, CardContent, Grid, Typography } from "@material-ui/core";
+import { ViewModule, Update } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 import Map from "components/Map";
 import { useRouter } from "next/router";
 import React, { FC } from "react";
 import formatDate from "shared/helpers/formatDate";
 import Location from "shared/models/Location";
+import IconLabel from "shared/components/IconLabel";
 
 interface WatershedCardProps {
   id: string;
@@ -36,7 +38,7 @@ const WatershedCard: FC<WatershedCardProps> = (props) => {
   return (
     <Card className={classes.root}>
       <Grid container spacing={2}>
-        <Grid item md={7} className={classes.content}>
+        <Grid item xs={12} sm={6} className={classes.content}>
           <CardContent style={{ flex: 1 }}>
             <Typography variant="h5">{props.name}</Typography>
             <Typography variant="h6" color="secondary">
@@ -45,26 +47,22 @@ const WatershedCard: FC<WatershedCardProps> = (props) => {
 
             <br />
 
-            <table>
-              <tbody>
-                <tr>
-                  <td>
-                    <Typography>Módulos registrados:</Typography>
-                  </td>
-                  <td>
-                    <Typography>{props.modulesQuantity}</Typography>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <Typography>Última actualización:</Typography>
-                  </td>
-                  <td>
-                    <Typography>{formatDate(props.lastUpdate)}</Typography>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <IconLabel
+              icon={<ViewModule />}
+              title="Módulos registrados:"
+              value={props.modulesQuantity}
+            />
+
+            <IconLabel
+              icon={<Update />}
+              alignIcon="flex-start"
+              title={
+                <div>
+                  <Typography>Última actualización: {formatDate(props.lastUpdate)}</Typography>
+                  <Typography>Fecha de registro: {formatDate(props.lastUpdate)}</Typography>
+                </div>
+              }
+            />
           </CardContent>
 
           <CardActions>
@@ -76,7 +74,7 @@ const WatershedCard: FC<WatershedCardProps> = (props) => {
             </Button>
           </CardActions>
         </Grid>
-        <Grid item md={5} className={classes.map}>
+        <Grid item xs={12} sm={6} className={classes.map}>
           <Map locations={[props.location]} />
         </Grid>
       </Grid>
@@ -93,6 +91,13 @@ const useStyles = makeStyles({
   map: {
     minHeight: 250,
   },
+  table: {
+    "& td": {
+      background: "red",
+      verticalAlign: "center",
+    },
+  },
 });
 
 export default WatershedCard;
+
