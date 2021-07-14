@@ -41,11 +41,11 @@ const useStyles = makeStyles<Theme, { spacing: number; alignIcon: string; margin
       display: "flex",
       alignItems: "center",
       flexWrap: "wrap",
-      margin: typeof margin === "number" ? theme.spacing(margin) : 0,
-      marginTop: typeof margin === "object" ? theme.spacing(margin.top) : 0,
-      marginBottom: typeof margin === "object" ? theme.spacing(margin.bottom) : 0,
-      marginLeft: typeof margin === "object" ? theme.spacing(margin.left) : 0,
-      marginRight: typeof margin === "object" ? theme.spacing(margin.right) : 0,
+      margin: typeof margin === "number" && theme.spacing(margin),
+      marginTop: typeof margin === "object" && theme.spacing(margin.top || 0),
+      marginBottom: typeof margin === "object" && theme.spacing(margin.bottom || 0),
+      marginLeft: typeof margin === "object" && theme.spacing(margin.left || 0),
+      marginRight: typeof margin === "object" && theme.spacing(margin.right || 0),
 
       "& :not(:last-child)": {
         marginRight: theme.spacing(spacing),
