@@ -1,9 +1,18 @@
 import LocationIcon from "@material-ui/icons/LocationOn";
-import React, { FC, useCallback, useEffect, useRef } from "react";
-import ReactMapGL, { MapEvent, Marker, Layer, Source } from "react-map-gl";
+import React, {
+  FC,
+  useCallback,
+  useEffect,
+  useRef,
+  useImperativeHandle,
+  ForwardedRef,
+  forwardRef,
+} from "react";
+import { easeCubic } from "d3-ease"
+import ReactMapGL, { FlyToInterpolator, MapEvent, Marker, ViewportProps } from "react-map-gl";
 
 import generateId from "../../helpers/generateId";
-import useMergeState from "../../hooks/useMergeState";
+import useMergeState, { Prev } from "../../hooks/useMergeState";
 import MapArea, { MapAreaProps } from "../MapArea";
 import Location from "../../models/Location";
 import GeoJsonArea from "../../models/GeoJsonArea";
@@ -12,7 +21,7 @@ export type LocationInfo<T> = Location & {
   value?: T;
 };
 
-interface MapProps<T> {
+export interface MapProps<T> {
   style?: MapStyle;
   locations?: LocationInfo<T>[];
   areas?: GeoJsonArea[];
@@ -22,8 +31,14 @@ interface MapProps<T> {
   zoom?: number;
 }
 
+export interface MapRef {
+  viewport: ViewportProps;
+  setViewport: (newState: Partial<ViewportProps> | Prev<ViewportProps>) => void;
+  flyTo: (location: Location, config?: Omit<ViewportProps, "latitude" | "longitude">) => void;
+}
+
 // Map shows a map with the provided locations.
-function Map<T>(props: MapProps<T>) {
+function Map<T>(props: MapProps<T>, ref: ForwardedRef<MapRef>) {
   const mapRef = useRef();
   const computeDefaultLocation = useCallback((): Location => {
     const canUseFirstLocation = !props.focusLocation && props.locations.length >= 1;
@@ -33,7 +48,7 @@ function Map<T>(props: MapProps<T>) {
     return rdLocation;
   }, [props.locations, props.focusLocation]);
 
-  const [viewport, setViewport] = useMergeState({
+  const [viewport, setViewport] = useMergeState<ViewportProps>({
     ...computeDefaultLocation(),
     zoom: props.zoom,
   });
@@ -51,8 +66,35 @@ function Map<T>(props: MapProps<T>) {
     setViewport(viewport);
   }, []);
 
+  const flyTo = (
+    location: Location,
+    config: Omit<ViewportProps, "latitude" | "longitude"> = {
+      zoom: 5,
+      transitionDuration: 5000,
+      transitionInterpolator: new FlyToInterpolator(),
+      transitionEasing: easeCubic,
+    }
+  ) => {
+    setViewport({
+      ...viewport,
+      ...location,
+      ...config,
+    });
+  };
+
+  useImperativeHandle(ref, returnReferences, [viewport, setViewport]);
+
   useEffect(updateZoom, [props.zoom]);
+
   useEffect(updateFocus, [props.focusLocation]);
+
+  function returnReferences(): MapRef {
+    return {
+      viewport,
+      setViewport,
+      flyTo,
+    };
+  }
 
   function updateZoom() {
     setViewport({ zoom: props.zoom || 0 });
@@ -92,7 +134,9 @@ export const defaultFocus = {
   longitude: -69.33857437339129,
 };
 
-(Map as FC<MapProps<any>>).defaultProps = {
+const ForwardedMap = forwardRef(Map);
+
+(ForwardedMap as FC<MapProps<any>>).defaultProps = {
   style: "basic-customized",
   locations: [],
   areas: [],
@@ -101,7 +145,7 @@ export const defaultFocus = {
   focusLocation: null,
 };
 
-export default Map;
+export default ForwardedMap;
 
 export type MapStyle = typeof mapStyles[number];
 

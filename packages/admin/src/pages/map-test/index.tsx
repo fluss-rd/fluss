@@ -1,13 +1,23 @@
-import React, { FC } from "react";
-import Map from "shared/components/Map";
+import React, { FC, useRef } from "react";
+import Map, { MapRef } from "shared/components/Map";
 import GeoJsonArea from "shared/models/GeoJsonArea";
-import Location from "shared/models/Location";
+import { Button } from "@material-ui/core";
+import useMergeState from "shared/hooks/useMergeState";
 
 const MapTest: FC = (props) => {
-  const location: Location = { longitude: -60.0, latitude: 30.0 };
+  const [location, setLocation] = useMergeState({ longitude: -60.0, latitude: 30.0 });
+  const mapRef = useRef<MapRef>(null);
+
   return (
     <div style={{ height: 300, width: "100%" }}>
-      <Map zoom={5} focusLocation={location} areas={[geoJson]} />
+      <Map ref={mapRef} zoom={5} focusLocation={location} areas={[geoJson]} />
+      <Button
+        onClick={() => {
+          mapRef.current.flyTo({ longitude: -68.137343, latitude: 45.137451 });
+        }}
+      >
+        Go To
+      </Button>
     </div>
   );
 };
