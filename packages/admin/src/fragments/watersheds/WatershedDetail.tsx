@@ -15,6 +15,8 @@ import React, { FC } from "react";
 import PieChart, { PieChartData } from "shared/components/PieChart";
 import WqiLegend from "shared/components/WqiLegend";
 import WqiRating, { ratingToColor, ratingToText } from "shared/models/WqiRating";
+import PieChartLegends from "shared/components/PieChartLegends";
+import ModuleState, { moduleStateToColor, moduleStateToString } from "shared/models/ModuleState";
 
 interface WatershedDetailProps {
   isOpen?: boolean;
@@ -61,6 +63,24 @@ const WatershedDetail: FC<WatershedDetailProps> = ({ isOpen, close }) => {
                 <WqiLegend />
               </CardContent>
             </Card>
+            <br />
+            <Card variant="outlined">
+              <CardContent>
+                <Typography style={{ fontWeight: "bold" }}>Total de módulos</Typography>
+              </CardContent>
+              <Divider />
+              <CardContent>
+                <PieChart data={modulesTotal} margin={50} width="100%" height={200} />
+              </CardContent>
+              <Divider />
+              <CardContent>
+                <PieChartLegends
+                  data={modulesTotal}
+                  label={({ data }) => moduleStateToString(data)}
+                  color={({ data }) => moduleStateToColor(data)}
+                />
+              </CardContent>
+            </Card>
           </CardContent>
         </Card>
       </Box>
@@ -81,6 +101,24 @@ const data: Array<PieChartData<WqiRating>> = [
   },
 ];
 
+const modulesTotal: Array<PieChartData<ModuleState>> = [
+  {
+    id: "1",
+    data: "active",
+    value: 2,
+  },
+  {
+    id: "2",
+    data: "inactive",
+    value: 2,
+  },
+  {
+    id: "3",
+    data: "broken",
+    value: 2,
+  },
+];
+
 const useStyles = makeStyles({
   root: {
     height: "100vh",
@@ -92,3 +130,4 @@ const useStyles = makeStyles({
 });
 
 export default WatershedDetail;
+
