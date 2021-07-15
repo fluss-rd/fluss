@@ -1,8 +1,8 @@
+import { Button } from "@material-ui/core";
 import React, { FC, useRef } from "react";
 import Map, { MapRef } from "shared/components/Map";
-import GeoJsonArea from "shared/models/GeoJsonArea";
-import { Button } from "@material-ui/core";
 import useMergeState from "shared/hooks/useMergeState";
+import GeoJsonArea from "shared/models/GeoJsonArea";
 
 const MapTest: FC = (props) => {
   const [location, setLocation] = useMergeState({ longitude: -60.0, latitude: 30.0 });
@@ -61,4 +61,3 @@ const geoJson: GeoJsonArea = {
 };
 
 export default MapTest;
-

@@ -1,21 +1,21 @@
 import LocationIcon from "@material-ui/icons/LocationOn";
+import { easeCubic } from "d3-ease";
 import React, {
   FC,
-  useCallback,
-  useEffect,
-  useRef,
-  useImperativeHandle,
   ForwardedRef,
   forwardRef,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useRef,
 } from "react";
-import { easeCubic } from "d3-ease"
 import ReactMapGL, { FlyToInterpolator, MapEvent, Marker, ViewportProps } from "react-map-gl";
 
 import generateId from "../../helpers/generateId";
 import useMergeState, { Prev } from "../../hooks/useMergeState";
-import MapArea, { MapAreaProps } from "../MapArea";
-import Location from "../../models/Location";
 import GeoJsonArea from "../../models/GeoJsonArea";
+import Location from "../../models/Location";
+import MapArea, { MapAreaProps } from "../MapArea";
 
 export type LocationInfo<T> = Location & {
   value?: T;
@@ -163,4 +163,3 @@ export function mapStyleToUrl(style: MapStyle) {
       return "mapbox://styles/mikhael1729/ckpmy16f43v7w17p81eqkytt0";
   }
 }
-

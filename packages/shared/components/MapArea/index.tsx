@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/core/styles";
+import { Feature, Geometry } from "geojson";
 import React, { FC } from "react";
 import { Layer, Source } from "react-map-gl";
-import { Feature, Geometry } from "geojson";
 
 export interface MapAreaProps {
   id: string;
@@ -36,4 +36,3 @@ const MapArea: FC<MapAreaProps> = ({ id, geoJson }) => {
 const useStyles = makeStyles({});
 
 export default MapArea;
-
