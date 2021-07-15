@@ -70,13 +70,20 @@ const WatershedDetail: FC<WatershedDetailProps> = ({ isOpen, close }) => {
               </CardContent>
               <Divider />
               <CardContent>
-                <PieChart data={modulesTotal} margin={50} width="100%" height={200} />
+                <PieChart
+                  data={modulesTotal}
+                  margin={20}
+                  width="100%"
+                  height={200}
+                  formatOutsideLabel={({ data }) => moduleStateToString(data)}
+                  applyColor={({ data }) => moduleStateToColor(data)}
+                />
               </CardContent>
               <Divider />
               <CardContent>
                 <PieChartLegends
                   data={modulesTotal}
-                  label={({ data }) => moduleStateToString(data)}
+                  label={({ data, ...rest }) => moduleStateToString(data)}
                   color={({ data }) => moduleStateToColor(data)}
                 />
               </CardContent>
@@ -122,11 +129,15 @@ const modulesTotal: Array<PieChartData<ModuleState>> = [
 const useStyles = makeStyles({
   root: {
     height: "100vh",
+    overflow: "auto",
   },
   card: {
     borderRadius: 0,
     height: "100%",
+
+    overflow: "auto",
   },
 });
 
 export default WatershedDetail;
+
