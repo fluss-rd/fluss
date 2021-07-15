@@ -1,14 +1,12 @@
 import LocationIcon from "@material-ui/icons/LocationOn";
-import React, { FC, useCallback, useEffect } from "react";
-import ReactMapGL, { MapEvent, Marker } from "react-map-gl";
+import React, { FC, useCallback, useEffect, useRef } from "react";
+import ReactMapGL, { MapEvent, Marker, Layer, Source } from "react-map-gl";
 
 import generateId from "../../helpers/generateId";
 import useMergeState from "../../hooks/useMergeState";
-
-export type Location = {
-  latitude: number;
-  longitude: number;
-};
+import MapArea, { MapAreaProps } from "../MapArea";
+import Location from "../../models/Location";
+import GeoJsonArea from "../../models/GeoJsonArea";
 
 export type LocationInfo<T> = Location & {
   value?: T;
@@ -17,6 +15,7 @@ export type LocationInfo<T> = Location & {
 interface MapProps<T> {
   style?: MapStyle;
   locations?: LocationInfo<T>[];
+  areas?: GeoJsonArea[];
   focusLocation?: Location;
   render?: (info: LocationInfo<T>) => JSX.Element;
   onClick?: (location: Location) => void;
@@ -25,6 +24,7 @@ interface MapProps<T> {
 
 // Map shows a map with the provided locations.
 function Map<T>(props: MapProps<T>) {
+  const mapRef = useRef();
   const computeDefaultLocation = useCallback((): Location => {
     const canUseFirstLocation = !props.focusLocation && props.locations.length >= 1;
     if (canUseFirstLocation) return props.locations[0];
@@ -72,11 +72,15 @@ function Map<T>(props: MapProps<T>) {
       mapStyle={mapStyleToUrl(props.style)}
       mapboxApiAccessToken={process.env.mapboxToken}
       onClick={onMapClick}
+      ref={mapRef}
     >
       {props.locations.map((info) => (
         <Marker key={generateId("marker")} latitude={info.latitude} longitude={info.longitude}>
           {props.render(info)}
         </Marker>
+      ))}
+      {props.areas.map((areaLayer) => (
+        <MapArea key={areaLayer.id} id={areaLayer.id} geoJson={areaLayer.geoJson} />
       ))}
     </ReactMapGL>
   );
@@ -91,6 +95,7 @@ export const defaultFocus = {
 (Map as FC<MapProps<any>>).defaultProps = {
   style: "basic-customized",
   locations: [],
+  areas: [],
   zoom: defaultZoom,
   render: () => <LocationIcon color="primary" />,
   focusLocation: null,
@@ -114,3 +119,4 @@ export function mapStyleToUrl(style: MapStyle) {
       return "mapbox://styles/mikhael1729/ckpmy16f43v7w17p81eqkytt0";
   }
 }
+
