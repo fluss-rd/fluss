@@ -1,6 +1,6 @@
+import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
-import { Typography } from "@material-ui/core";
 
 interface PieChartLegendsProps<T> {
   data: T[];
@@ -19,7 +19,7 @@ function PieChartLegends<T>(props: PieChartLegendsProps<T>) {
         const itemLabel: any = typeof label !== "function" ? item[label] : label(item);
 
         return (
-          <div className={classes.container}>
+          <div className={classes.container} key={itemColor}>
             <div className={classes.avatar} style={{ background: itemColor }} />
             <Typography className={classes.text} variant="caption">
               {itemLabel}
@@ -57,4 +57,3 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default PieChartLegends;
-

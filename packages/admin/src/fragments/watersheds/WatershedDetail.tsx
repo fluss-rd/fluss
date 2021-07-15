@@ -13,10 +13,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Close } from "@material-ui/icons";
 import React, { FC } from "react";
 import PieChart, { PieChartData } from "shared/components/PieChart";
-import WqiLegend from "shared/components/WqiLegend";
-import WqiRating, { ratingToColor, ratingToText } from "shared/models/WqiRating";
 import PieChartLegends from "shared/components/PieChartLegends";
+import WqiLegend from "shared/components/WqiLegend";
 import ModuleState, { moduleStateToColor, moduleStateToString } from "shared/models/ModuleState";
+import WqiRating, { ratingToColor, ratingToText } from "shared/models/WqiRating";
 
 interface WatershedDetailProps {
   isOpen?: boolean;
@@ -130,4 +130,3 @@ const useStyles = makeStyles({
 });
 
 export default WatershedDetail;
-
