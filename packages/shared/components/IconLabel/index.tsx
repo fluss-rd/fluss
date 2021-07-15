@@ -1,6 +1,6 @@
+import { Typography } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import React, { FC } from "react";
-import { Typography } from "@material-ui/core";
 
 type Margin = Partial<{ top: number; bottom: number; left: number; right: number }> | number;
 
@@ -13,7 +13,14 @@ interface IconLabelProps {
   themeSpacing?: Margin;
 }
 
-const IconLabel: FC<IconLabelProps> = ({ icon, title, value, spacing, alignIcon, themeSpacing: margin }) => {
+const IconLabel: FC<IconLabelProps> = ({
+  icon,
+  title,
+  value,
+  spacing,
+  alignIcon,
+  themeSpacing: margin,
+}) => {
   const classes = useStyles({ spacing, alignIcon, margin });
   const selectedTitle = selectFormat(title);
   const selectedValue = selectFormat(value);
@@ -65,4 +72,3 @@ IconLabel.defaultProps = {
 };
 
 export default IconLabel;
-
