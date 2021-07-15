@@ -21,7 +21,6 @@ interface WatershedCardProps {
 
 const WatershedCard: FC<WatershedCardProps> = (props) => {
   const classes = useStyles();
-  const router = useRouter();
 
   const onViewMore = () => {
     if (props.onViewMore) {
@@ -32,8 +31,6 @@ const WatershedCard: FC<WatershedCardProps> = (props) => {
   const onEdit = () => {
     if (props.onEdit) props.onEdit(props.id);
   };
-
-  console.log(formatDate(new Date(2021, 6, 11)));
 
   return (
     <Card className={classes.root}>

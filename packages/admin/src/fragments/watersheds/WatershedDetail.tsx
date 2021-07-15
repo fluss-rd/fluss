@@ -30,7 +30,7 @@ const WatershedDetail: FC<WatershedDetailProps> = ({ isOpen, close }) => {
         <Card elevation={0} className={classes.card}>
           <CardHeader
             title="Río Yaque del Norte"
-            subHeader="Resumen gráfico"
+            subheader="Resumen gráfico"
             action={
               <IconButton aria-label="settings" onClick={close}>
                 <Close />

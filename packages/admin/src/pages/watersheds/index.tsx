@@ -10,12 +10,12 @@ import { useMergeState } from "shared/hooks";
 import { mockWatersheds } from "shared/models/Watershed";
 import Watershed from "shared/models/Watershed";
 
-interface HydricResourcesProps {
+interface WatershedsProps {
   quantity: number;
   watersheds: Watershed[];
 }
 
-const Watersheds: NextPage<HydricResourcesProps> = ({ quantity, watersheds }) => {
+const Watersheds: NextPage<WatershedsProps> = ({ quantity, watersheds }) => {
   const classes = useStyles();
   const context = useLayoutContext();
   const [state, setState] = useMergeState({ detail: "", edition: "" });
@@ -68,6 +68,7 @@ const Watersheds: NextPage<HydricResourcesProps> = ({ quantity, watersheds }) =>
         </div>
 
         <WatershedDetail isOpen={!!state.detail} close={closeWatershedDetail} />
+
         <EditWatershed
           isOpen={!!state.edition}
           watershedId={state.edition}

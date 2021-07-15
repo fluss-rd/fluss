@@ -10,10 +10,10 @@ interface IconLabelProps {
   value?: number | string | JSX.Element;
   spacing?: number;
   alignIcon?: string;
-  margin?: Margin;
+  themeSpacing?: Margin;
 }
 
-const IconLabel: FC<IconLabelProps> = ({ icon, title, value, spacing, alignIcon, margin }) => {
+const IconLabel: FC<IconLabelProps> = ({ icon, title, value, spacing, alignIcon, themeSpacing: margin }) => {
   const classes = useStyles({ spacing, alignIcon, margin });
   const selectedTitle = selectFormat(title);
   const selectedValue = selectFormat(value);
@@ -61,7 +61,7 @@ const useStyles = makeStyles<Theme, { spacing: number; alignIcon: string; margin
 IconLabel.defaultProps = {
   spacing: 1,
   alignIcon: "center",
-  margin: { bottom: 1 },
+  themeSpacing: { bottom: 1.5 },
 };
 
 export default IconLabel;
