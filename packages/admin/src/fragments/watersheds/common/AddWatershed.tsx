@@ -25,7 +25,7 @@ const AddWatershed: FC<AddWatershedProps> = () => {
       <FormDialog
         mode="registration"
         isOpen={isOpen}
-        title="Registrar cuenca"
+        title="Registrar cuerpo hídrico"
         onClose={close}
         onSave={form.handleSubmit(onSubmit)}
       >
@@ -36,3 +36,4 @@ const AddWatershed: FC<AddWatershedProps> = () => {
 };
 
 export default AddWatershed;
+

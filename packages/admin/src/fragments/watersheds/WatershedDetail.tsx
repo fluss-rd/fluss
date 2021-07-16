@@ -43,9 +43,7 @@ const WatershedDetail: FC<WatershedDetailProps> = ({ isOpen, close }) => {
           <CardContent>
             <Card variant="outlined">
               <CardContent>
-                <Typography style={{ fontWeight: "bold" }}>
-                  Niveles de contaminación del agua
-                </Typography>
+                <Typography style={{ fontWeight: "bold" }}>Niveles de calidad del agua</Typography>
               </CardContent>
               <Divider />
               <CardContent>
