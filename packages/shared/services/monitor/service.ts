@@ -1,11 +1,11 @@
 import axiosInstance from "../axiosInstance";
-import ModuleModel, { fromModuleResponse } from "../../models/Module";
-import { WatershedsMapData, Waterbody, Module } from "./models";
+import ModuleModel, { fromModuleResponse, fromModuleReport } from "../../models/Module";
+import { WatershedsMapData, Waterbody, Module, ModuleReport } from "./models";
 import { fromWaterbodyResponse } from "../../models/Watershed";
 
 export async function getWatershedsMapData(): Promise<WatershedsMapData> {
   const waterBodiesResponse = await axiosInstance.get<Waterbody[]>(`/rivers`);
-  const modulesResponse = await axiosInstance.get<Module[]>(`/modules`);
+  const modulesResponse = await axiosInstance.get<ModuleReport[]>(`/reports/modules`);
 
   const data: WatershedsMapData = { modules: [], watersheds: [] };
 
@@ -13,7 +13,7 @@ export async function getWatershedsMapData(): Promise<WatershedsMapData> {
     waterBodiesResponse.data.forEach((w) => data.watersheds.push(fromWaterbodyResponse(w)));
 
   if (modulesResponse?.data)
-    modulesResponse.data.forEach((m) => data.modules.push(fromModuleResponse(m)));
+    modulesResponse.data.forEach((m) => data.modules.push(fromModuleReport(m)));
 
   return data;
 }

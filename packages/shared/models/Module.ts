@@ -1,6 +1,7 @@
-import { Module as ModuleResponse } from "../services/monitor/models";
+import { Module as ModuleResponse, ModuleReport } from "../services/monitor/models";
 import Location from "./Location";
 import Wqi from "./Wqi";
+import { toPaperClasification } from "./WqiRating";
 
 import ModuleState from "./ModuleState";
 
@@ -32,6 +33,42 @@ export function fromModuleResponse(moduleResponse: ModuleResponse): Module {
     watershedId: moduleResponse.riverID,
     batteryLevel: 20,
   };
+}
+
+export function fromModuleReport(moduleReport: ModuleReport): Module {
+  try {
+    const data = moduleReport.data[0];
+    return {
+      location: data.location,
+      wqi: { rating: toPaperClasification(data.wqiClassification), value: 20 },
+      id: moduleReport.moduleID,
+      creationDate: new Date(moduleReport.lastUpdated),
+      updateDate: new Date(moduleReport.lastUpdated),
+      serial: "",
+      state: "deactivated",
+      alias: "",
+      phoneNumber: "",
+      watershedId: moduleReport.riverID,
+      batteryLevel: 0,
+    };
+  } catch (e) {
+    return {
+      id: "MD-1",
+      alias: "Estación sureste",
+      location: {
+        latitude: 17.738521,
+        longitude: -71.364997,
+      },
+      updateDate: new Date(2021, 6, 11),
+      creationDate: new Date(2021, 6, 11),
+      serial: "ABCD230492",
+      watershedId: "WS-1",
+      phoneNumber: "8093453921",
+      state: "active",
+      wqi: { value: 80, rating: "good" },
+      batteryLevel: 80,
+    };
+  }
 }
 
 export function mockModules(): Module[] {
