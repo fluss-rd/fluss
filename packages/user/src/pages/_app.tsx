@@ -32,7 +32,7 @@ function MyApp({ Component, pageProps }) {
         <ThemeProvider theme={theme}>
           <GlobalCss />
           <ServiceProvider>
-            <QueryClientProvider client={queryClient} contextSharing={true}>
+            <QueryClientProvider client={queryClient}>
               <Layout>
                 <Component {...pageProps} />
               </Layout>
