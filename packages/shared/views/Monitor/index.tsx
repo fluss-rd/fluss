@@ -6,8 +6,7 @@ import { appBarHeight } from "shared/helpers";
 import Module, { mockModules } from "../../models/Module";
 import Watershed, { mockWatersheds } from "../../models/Watershed";
 import ModuleMarker from "./ModuleMarker";
-import lagunaOviedo from "./laguna_oviedo";
-import yaqueDelNorte from "./yaque_del_norte";
+import { useWatershedsMapData } from "../../services/monitor/hooks";
 
 type MonitorMode = "user" | "admin";
 
@@ -18,11 +17,13 @@ interface MonitorProps {
 
 const Monitor: FC<MonitorProps> = (props) => {
   const [watershedId, setWatershedId] = useState("Todos");
-  const classes = useStyles({ mode: props.mode });
-  const modules = mockModules().filter(filterModules);
-  const watersheds = mockWatersheds().filter(filterWatersheds);
+  const { data } = useWatershedsMapData();
+  const modules = (data?.modules || []).filter(filterModules);
+  const watersheds = (data?.watersheds || []).filter(filterWatersheds);
+
   const locations = modules.map(mapToLocations);
   const areas = watersheds.map((watershed) => watershed.area);
+  const classes = useStyles({ mode: props.mode });
 
   const onWatershedChange = (id: string) => {
     setWatershedId(id);
