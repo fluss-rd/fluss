@@ -1,17 +1,7 @@
 import { Theme, makeStyles } from "@material-ui/core/styles";
 import Image from "next/image";
 import { CssBaseline } from "@material-ui/core";
-import {
-  Button,
-  CircularProgress,
-  Container,
-  Grid,
-  Hidden,
-  IconButton,
-  InputAdornment,
-  Link,
-  Typography,
-} from "@material-ui/core";
+import { Container, Grid, Hidden } from "@material-ui/core";
 import React, { FC } from "react";
 
 const LoginLayout: FC = ({ children }) => {
