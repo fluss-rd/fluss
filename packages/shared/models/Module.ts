@@ -1,3 +1,4 @@
+import { Module as ModuleResponse } from "../services/monitor/models";
 import Location from "./Location";
 import Wqi from "./Wqi";
 
@@ -17,12 +18,31 @@ type Module = {
   batteryLevel: number;
 };
 
+export function fromModuleResponse(moduleResponse: ModuleResponse): Module {
+  return {
+    location: moduleResponse.location,
+    wqi: { rating: "moderate", value: 20 },
+    id: moduleResponse.moduleID,
+    creationDate: new Date(moduleResponse.creationDate),
+    updateDate: new Date(moduleResponse.updateDate),
+    serial: moduleResponse.serial,
+    state: moduleResponse.state as ModuleState,
+    alias: moduleResponse.alias,
+    phoneNumber: moduleResponse.phoneNumber,
+    watershedId: moduleResponse.riverID,
+    batteryLevel: 20,
+  };
+}
+
 export function mockModules(): Module[] {
   return [
     {
       id: "MD-1",
-      alias: "Río Mao",
-      location: { latitude: 19.412994, longitude: -71.11003 },
+      alias: "Estación sureste",
+      location: {
+        latitude: 17.738521,
+        longitude: -71.364997,
+      },
       updateDate: new Date(2021, 6, 11),
       creationDate: new Date(2021, 6, 11),
       serial: "ABCD230492",
@@ -34,18 +54,22 @@ export function mockModules(): Module[] {
     },
     {
       id: "MD-2",
-      alias: "Río Maguá",
-      location: { latitude: 19.356815, longitude: -71.119494 },
+      alias: "Hispaniola",
+      location: {
+        latitude: 19.827039,
+        longitude: -71.679716,
+      },
       updateDate: new Date(2021, 6, 11),
       creationDate: new Date(2021, 6, 11),
       serial: "ABCD230493",
-      watershedId: "WS-1",
+      watershedId: "WS-2",
       phoneNumber: "8493421921",
       state: "active",
-      wqi: { value: 23, rating: "good" },
+      wqi: { rating: "moderate", value: 23 },
       batteryLevel: 30,
     },
   ];
 }
+
 export default Module;
 

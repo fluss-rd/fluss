@@ -17,9 +17,10 @@ import { ExpandMore } from "@material-ui/icons";
 
 import WqiLegend from "../../../components/WqiLegend";
 import useBoolean from "../../../hooks/useBoolean";
-import WqiPieChart, { PieChartData } from "../../../components/WqiPieChart";
 import { mockWatersheds } from "../../../models/Watershed";
 import ModuleDataDownload from "../../../components/ModuleDataDownload";
+import PieChart, { PieChartData } from "../../../components/PieChart";
+import WqiRating, { ratingToText, ratingToColor } from "../../../models/WqiRating";
 
 interface WatershedsSelectCardProps {
   watershedId: string;
@@ -76,9 +77,14 @@ const MonitorPanel: FC<WatershedsSelectCardProps> = (props) => {
             <Typography variant="subtitle1" color="textSecondary" style={{ fontWeight: "bold" }}>
               Índice de Calidad del Agua (ICA)
             </Typography>
-            <div style={{ width: "100%", height: 300 }}>
-              <WqiPieChart data={data} />
-            </div>
+            <PieChart
+              data={data}
+              height={200}
+              margin={{ left: 110, right: 110 }}
+              width="100%"
+              formatOutsideLabel={({ data }) => ratingToText(data)}
+              applyColor={({ data }) => ratingToColor(data)}
+            />
           </CardContent>
         </Collapse>
 
@@ -123,20 +129,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default MonitorPanel;
-
-const data: Array<PieChartData> = [
+const data: Array<PieChartData<WqiRating>> = [
   {
     id: "excellent",
     value: 2,
+    data: "excellent",
   },
   {
     id: "moderate",
     value: 2,
-  },
-  {
-    id: "bad",
-    value: 2,
+    data: "moderate",
   },
 ];
+
+export default MonitorPanel;
 

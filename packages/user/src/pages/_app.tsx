@@ -12,6 +12,9 @@ import React, { useEffect } from "react";
 import { ServiceProvider } from "services/service";
 import { initialState, StateContext } from "store/state";
 import theme, { GlobalCss } from "styles/theme";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
 
 function MyApp({ Component, pageProps }) {
   useEffect(removeServerSideInjectedCss, []);
@@ -29,9 +32,11 @@ function MyApp({ Component, pageProps }) {
         <ThemeProvider theme={theme}>
           <GlobalCss />
           <ServiceProvider>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
+            <QueryClientProvider client={queryClient} contextSharing={true}>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </QueryClientProvider>
           </ServiceProvider>
         </ThemeProvider>
       </MuiPickersUtilsProvider>
@@ -40,3 +45,4 @@ function MyApp({ Component, pageProps }) {
 }
 
 export default MyApp;
+

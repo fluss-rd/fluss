@@ -6,16 +6,16 @@ import WatershedCard from "fragments/watersheds/WatershedCard";
 import WatershedDetail from "fragments/watersheds/WatershedDetail";
 import { useLayoutContext } from "layouts/Layout/LayoutContext";
 import { NextPage } from "next";
+import { useMergeState } from "shared/hooks";
 import { mockWatersheds } from "shared/models/Watershed";
 import Watershed from "shared/models/Watershed";
-import { useMergeState } from "shared/hooks";
 
-interface HydricResourcesProps {
+interface WatershedsProps {
   quantity: number;
   watersheds: Watershed[];
 }
 
-const Watersheds: NextPage<HydricResourcesProps> = ({ quantity, watersheds }) => {
+const Watersheds: NextPage<WatershedsProps> = ({ quantity, watersheds }) => {
   const classes = useStyles();
   const context = useLayoutContext();
   const [state, setState] = useMergeState({ detail: "", edition: "" });
@@ -68,6 +68,7 @@ const Watersheds: NextPage<HydricResourcesProps> = ({ quantity, watersheds }) =>
         </div>
 
         <WatershedDetail isOpen={!!state.detail} close={closeWatershedDetail} />
+
         <EditWatershed
           isOpen={!!state.edition}
           watershedId={state.edition}
@@ -96,4 +97,3 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default Watersheds;
-
