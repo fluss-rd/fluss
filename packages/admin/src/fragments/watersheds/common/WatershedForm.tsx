@@ -37,7 +37,7 @@ const WatershedForm: FC<WatershedFormProps> = ({ form }) => {
         inputRef={form.register}
       />
       <FormIconTitle Icon={LocationOn} title="Ubicación" />
-      <Card style={{ width: "100%", height: 400 }} elevation={0} variant="outlined">
+      <Card style={{ width: "100%", height: 500 }} elevation={0} variant="outlined">
         <Map enableDraw onSelectArea={onSelectedArea} onDeleteArea={onDeleteSelectedArea} />
       </Card>
     </>

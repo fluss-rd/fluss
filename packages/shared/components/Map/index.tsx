@@ -13,10 +13,11 @@ import ReactMapGL, { FlyToInterpolator, MapEvent, Marker, ViewportProps } from "
 
 import generateId from "../../helpers/generateId";
 import useMergeState, { Prev } from "../../hooks/useMergeState";
-import GeoJsonArea from "../../models/GeoJsonArea";
 import Location from "../../models/Location";
 import MapArea from "../MapArea";
 import DrawEditor from "./DrawEditor";
+import MapStyle, { mapStyleToUrl } from "./MapStyle";
+import computeCoordinatesCenter from "./computeCoordinatesCenter";
 
 export type LocationInfo<T> = Location & {
   value?: T;
@@ -25,8 +26,8 @@ export type LocationInfo<T> = Location & {
 export interface MapProps<T> {
   style?: MapStyle;
   locations?: LocationInfo<T>[];
-  areas?: GeoJsonArea[];
-  focusLocation?: Location;
+  areas?: Array<Location>[];
+  focusLocation?: Location | Array<Location>;
   render?: (info: LocationInfo<T>) => JSX.Element;
   onClick?: (location: Location) => void;
   zoom?: number;
@@ -38,7 +39,11 @@ export interface MapProps<T> {
 export interface MapRef {
   viewport: ViewportProps;
   setViewport: (newState: Partial<ViewportProps> | Prev<ViewportProps>) => void;
-  flyTo: (location: Location, config?: Omit<ViewportProps, "latitude" | "longitude">) => void;
+  flyTo: (
+    location: Location | Array<Location>,
+    config?: Omit<ViewportProps, "latitude" | "longitude">
+  ) => void;
+  mapRef: React.MutableRefObject<undefined>;
 }
 
 // Map shows a map with the provided locations.
@@ -48,7 +53,10 @@ function Map<T>(props: MapProps<T>, ref: ForwardedRef<MapRef>) {
     const canUseFirstLocation = !props.focusLocation && props.locations.length >= 1;
     if (canUseFirstLocation) return props.locations[0];
 
-    const rdLocation = props.focusLocation || defaultFocus;
+    const rdLocation = Array.isArray(props.focusLocation)
+      ? computeCoordinatesCenter(props.focusLocation)
+      : props.focusLocation || defaultFocus;
+
     return rdLocation;
   }, [props.locations, props.focusLocation]);
 
@@ -70,7 +78,7 @@ function Map<T>(props: MapProps<T>, ref: ForwardedRef<MapRef>) {
   }, []);
 
   const flyTo = (
-    location: Location,
+    location: Location | Array<Location>,
     config: Omit<ViewportProps, "latitude" | "longitude"> = {
       zoom: 5,
       transitionDuration: 5000,
@@ -78,12 +86,18 @@ function Map<T>(props: MapProps<T>, ref: ForwardedRef<MapRef>) {
       transitionEasing: easeCubic,
     }
   ) => {
+    const coordinates = Array.isArray(location) ? computeCoordinatesCenter(location) : location;
+
     setViewport({
       ...viewport,
-      ...location,
+      ...coordinates,
       ...config,
     });
   };
+
+  const coordinates = props.areas.map((area) =>
+    area.map(({ longitude, latitude }) => [longitude, latitude])
+  );
 
   useImperativeHandle(ref, returnReferences, [viewport, setViewport]);
 
@@ -96,6 +110,7 @@ function Map<T>(props: MapProps<T>, ref: ForwardedRef<MapRef>) {
       viewport,
       setViewport,
       flyTo,
+      mapRef,
     };
   }
 
@@ -104,8 +119,17 @@ function Map<T>(props: MapProps<T>, ref: ForwardedRef<MapRef>) {
   }
 
   function updateFocus() {
-    const { latitude, longitude } = props.focusLocation || defaultFocus;
-    setViewport({ latitude, longitude });
+    const coordinates = Array.isArray(props.focusLocation)
+      ? computeCoordinatesCenter(props.focusLocation)
+      : props.focusLocation || defaultFocus;
+
+    setViewport({
+      ...coordinates,
+      zoom: props.zoom,
+      transitionDuration: 5000,
+      transitionInterpolator: new FlyToInterpolator(),
+      transitionEasing: easeCubic,
+    });
   }
 
   return (
@@ -124,9 +148,21 @@ function Map<T>(props: MapProps<T>, ref: ForwardedRef<MapRef>) {
           {props.render(info)}
         </Marker>
       ))}
-      {props.areas.map((areaLayer) => (
-        <MapArea key={areaLayer.id} id={areaLayer.id} geoJson={areaLayer.geoJson} />
-      ))}
+      {props.areas && (
+        <MapArea
+          key={"areas"}
+          id={"areas"}
+          geoJson={{
+            type: "Feature",
+            properties: {},
+            geometry: {
+              type: "Polygon",
+              // These coordinates outline Maine.
+              coordinates,
+            },
+          }}
+        />
+      )}
       {props.enableDraw && (
         <DrawEditor onRemove={props.onDeleteArea} onSelect={props.onSelectArea} />
       )}
@@ -134,13 +170,14 @@ function Map<T>(props: MapProps<T>, ref: ForwardedRef<MapRef>) {
   );
 }
 
+const ForwardedMap = forwardRef(Map);
+
 export const defaultZoom = 7.7;
+
 export const defaultFocus = {
   latitude: 18.85846056967344,
   longitude: -69.33857437339129,
 };
-
-const ForwardedMap = forwardRef(Map);
 
 (ForwardedMap as FC<MapProps<any>>).defaultProps = {
   style: "basic-customized",
@@ -154,19 +191,3 @@ const ForwardedMap = forwardRef(Map);
 
 export default ForwardedMap;
 
-export type MapStyle = typeof mapStyles[number];
-
-export const mapStyles = ["decimal", "outdoors", "streets", "basic-customized"] as const;
-
-export function mapStyleToUrl(style: MapStyle) {
-  switch (style) {
-    case "streets":
-      return "mapbox://styles/mikhael1729/ckpmxdd8u0tli18r6nab32jpx";
-    case "decimal":
-      return "mapbox://styles/mikhael1729/ckmlfocjh0aee17qlh7uun9di";
-    case "outdoors":
-      return "mapbox://styles/mikhael1729/ckpmx6jmf0dnq18r0ynxmrscr";
-    default:
-      return "mapbox://styles/mikhael1729/ckpmy16f43v7w17p81eqkytt0";
-  }
-}

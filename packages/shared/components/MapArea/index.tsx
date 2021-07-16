@@ -17,7 +17,7 @@ const MapArea: FC<MapAreaProps> = ({ id, geoJson }) => {
         id={`${id}-area-layer`}
         type="fill"
         paint={{
-          "fill-color": "#0080ff",
+          "fill-color": "#E1D437",
           "fill-opacity": 0.5,
         }}
       />
@@ -25,8 +25,8 @@ const MapArea: FC<MapAreaProps> = ({ id, geoJson }) => {
         id={`${id}-line-layer`}
         type="line"
         paint={{
-          "line-color": "#000",
-          "line-width": 3,
+          "line-color": "#99912E",
+          "line-width": 1,
         }}
       />
     </Source>

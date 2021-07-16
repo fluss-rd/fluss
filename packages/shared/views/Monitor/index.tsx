@@ -5,6 +5,8 @@ import Map, { defaultZoom } from "../../components/Map";
 import { appBarHeight } from "shared/helpers";
 import Module, { mockModules } from "../../models/Module";
 import ModuleMarker from "./ModuleMarker";
+import lagunaOviedo from "./laguna_oviedo";
+import yaqueDelNorte from "./yaque_del_norte";
 
 type MonitorMode = "user" | "admin";
 
@@ -41,6 +43,7 @@ const Monitor: FC<MonitorProps> = (props) => {
       <Map
         zoom={props.mode === "admin" ? defaultZoom - 0.22 : undefined}
         locations={locations}
+        areas={[lagunaOviedo.points, yaqueDelNorte.points]}
         render={({ value }) => (
           <ModuleMarker
             wqi={value.wqi}
