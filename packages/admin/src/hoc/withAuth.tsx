@@ -27,6 +27,7 @@ export default function withAuth(Component: ComponentType) {
         </LoginLayout>
       );
 
+    if (router.pathname === "/login") router.push("/");
     return <Component {...props} />;
   };
 
