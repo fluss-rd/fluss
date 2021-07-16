@@ -13,38 +13,6 @@ const Footer: FC<FooterProps> = (props) => {
   return (
     <div className={root}>
       <div className={curved}></div>
-      <Grid container className={secondLevel}>
-        <Grid item xs={12} md={6}>
-          <div className={clsx(styles.center, suscription)}>
-            <div className={styles.imageBox}>
-              <Image src="/images/logo-2.png" alt="Gráficos" layout="fill" objectFit="contain" />
-            </div>
-            <br />
-            <div>
-              <CssTextField
-                id="outlined-basic"
-                placeholder="Correo Electronico"
-                label=""
-                size="small"
-                InputProps={{ classes: { root: styles.whiteTextField } }}
-              />
-            </div>
-            <Button
-              variant="contained"
-              size="medium"
-              color="primary"
-              style={{ fontWeight: "bold" }}
-            >
-              Suscribete!
-            </Button>
-          </div>
-        </Grid>
-        <Grid item xs={12} md={6} className={styles.center}>
-          <Typography variant="body1" style={{ color: "white" }}>
-            <strong>Email:</strong> fluss.contact@gmail.com
-          </Typography>
-        </Grid>
-      </Grid>
       <div className={clsx(styles.center, footer)}>
         <br></br>
         <p>Copyright © 2020, Fluss Inc.</p>
