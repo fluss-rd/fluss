@@ -1,8 +1,8 @@
+import { Button, ButtonGroup, Tooltip } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import React, { FC } from "react";
 import CropFreeIcon from "@material-ui/icons/CropFree";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
-import { ButtonGroup, Button, Tooltip } from "@material-ui/core";
+import React, { FC } from "react";
 
 interface DrawEditorToolbarProps {
   onDrawMode: () => void;
@@ -49,4 +49,3 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default DrawEditorToolbar;
-

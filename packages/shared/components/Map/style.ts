@@ -47,4 +47,3 @@ export function getFeatureStyle({ feature, index, state }: any) {
       };
   }
 }
-

@@ -1,7 +1,8 @@
-import { Editor, DrawPolygonMode, EditingMode } from "react-map-gl-draw";
-import React, { FC, useState, useRef, useCallback } from "react";
-import { getFeatureStyle, getEditHandleStyle } from "./style";
+import React, { FC, useCallback, useRef, useState } from "react";
+import { DrawPolygonMode, EditingMode, Editor } from "react-map-gl-draw";
+
 import DrawEditorToolbar from "./DrawEditorToolbar";
+import { getEditHandleStyle, getFeatureStyle } from "./style";
 
 interface DrawEditorProps {
   onSelect?: (area: Array<[number, number]>) => void;
@@ -68,4 +69,3 @@ const DrawEditor: FC<DrawEditorProps> = (props) => {
 };
 
 export default DrawEditor;
-
