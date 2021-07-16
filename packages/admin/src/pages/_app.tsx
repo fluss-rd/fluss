@@ -8,7 +8,6 @@ import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import Layout from "layouts/Layout";
 import React, { useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { ReactQueryDevtools } from "react-query/devtools";
 import { initialState, StateContext } from "store/state";
 import theme, { GlobalCss } from "styles/theme";
 
@@ -26,19 +25,18 @@ function MyApp({ Component, pageProps }) {
   }
 
   return (
-    <StateContext.Provider value={initialState}>
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <ThemeProvider theme={theme}>
-          <GlobalCss />
-          <QueryClientProvider client={queryClient}>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          </QueryClientProvider>
-        </ThemeProvider>
-      </MuiPickersUtilsProvider>
-    </StateContext.Provider>
+    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      <ThemeProvider theme={theme}>
+        <GlobalCss />
+        <QueryClientProvider client={queryClient} contextSharing={true}>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </QueryClientProvider>
+      </ThemeProvider>
+    </MuiPickersUtilsProvider>
   );
 }
 
 export default MyApp;
+
