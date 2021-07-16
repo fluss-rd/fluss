@@ -1,4 +1,5 @@
 import Location from "./Location";
+import { Waterbody as WaterbodyResponse } from "../services/monitor/models";
 import Wqi from "./Wqi";
 
 type Watershed = {
@@ -11,6 +12,19 @@ type Watershed = {
   wqi: Wqi; // Water Quality Index.
   area: Array<Location>;
 };
+
+export function fromWaterbodyResponse(waterbodyResponse: WaterbodyResponse): Watershed {
+  return {
+    updateDate: new Date(waterbodyResponse.updateDate),
+    creationDate: new Date(waterbodyResponse.creationDate),
+    location: { longitude: 0, latitude: 0 },
+    name: waterbodyResponse.name,
+    id: waterbodyResponse.riverID,
+    wqi: { value: 80, rating: "excellent" },
+    area: waterbodyResponse.location,
+    modulesQuantity: 3,
+  };
+}
 
 export function mockWatersheds(): Watershed[] {
   return [

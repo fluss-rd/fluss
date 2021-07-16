@@ -3,8 +3,8 @@ import MonitorPanel from "./MonitorPanel";
 import React, { FC, useState } from "react";
 import Map, { defaultZoom } from "../../components/Map";
 import { appBarHeight } from "shared/helpers";
-import Module, { mockModules } from "../../models/Module";
-import Watershed, { mockWatersheds } from "../../models/Watershed";
+import Module from "../../models/Module";
+import Watershed from "../../models/Watershed";
 import ModuleMarker from "./ModuleMarker";
 import { useWatershedsMapData } from "../../services/monitor/hooks";
 

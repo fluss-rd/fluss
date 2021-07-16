@@ -1,3 +1,4 @@
+import { Module as ModuleResponse } from "../services/monitor/models";
 import Location from "./Location";
 import Wqi from "./Wqi";
 
@@ -16,6 +17,22 @@ type Module = {
   wqi: Wqi; // Water Quality Index.
   batteryLevel: number;
 };
+
+export function fromModuleResponse(moduleResponse: ModuleResponse): Module {
+  return {
+    location: moduleResponse.location,
+    wqi: { rating: "moderate", value: 20 },
+    id: moduleResponse.moduleID,
+    creationDate: new Date(moduleResponse.creationDate),
+    updateDate: new Date(moduleResponse.updateDate),
+    serial: moduleResponse.serial,
+    state: moduleResponse.state as ModuleState,
+    alias: moduleResponse.alias,
+    phoneNumber: moduleResponse.phoneNumber,
+    watershedId: moduleResponse.riverID,
+    batteryLevel: 20,
+  };
+}
 
 export function mockModules(): Module[] {
   return [
@@ -53,5 +70,6 @@ export function mockModules(): Module[] {
     },
   ];
 }
+
 export default Module;
 
