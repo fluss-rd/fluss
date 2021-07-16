@@ -15,7 +15,8 @@ import generateId from "../../helpers/generateId";
 import useMergeState, { Prev } from "../../hooks/useMergeState";
 import GeoJsonArea from "../../models/GeoJsonArea";
 import Location from "../../models/Location";
-import MapArea, { MapAreaProps } from "../MapArea";
+import MapArea from "../MapArea";
+import DrawEditor from "./DrawEditor";
 
 export type LocationInfo<T> = Location & {
   value?: T;
@@ -29,6 +30,9 @@ export interface MapProps<T> {
   render?: (info: LocationInfo<T>) => JSX.Element;
   onClick?: (location: Location) => void;
   zoom?: number;
+  enableDraw?: boolean;
+  onSelectArea?: (area: Array<[number, number]>) => void;
+  onDeleteArea?: () => void;
 }
 
 export interface MapRef {
@@ -55,7 +59,6 @@ function Map<T>(props: MapProps<T>, ref: ForwardedRef<MapRef>) {
 
   const onMapClick = useCallback(
     (click: MapEvent) => {
-      console.log({ click });
       const [longitude, latitude] = click.lngLat;
       if (props.onClick) props.onClick({ latitude, longitude });
     },
@@ -124,6 +127,9 @@ function Map<T>(props: MapProps<T>, ref: ForwardedRef<MapRef>) {
       {props.areas.map((areaLayer) => (
         <MapArea key={areaLayer.id} id={areaLayer.id} geoJson={areaLayer.geoJson} />
       ))}
+      {props.enableDraw && (
+        <DrawEditor onRemove={props.onDeleteArea} onSelect={props.onSelectArea} />
+      )}
     </ReactMapGL>
   );
 }
@@ -143,6 +149,7 @@ const ForwardedMap = forwardRef(Map);
   zoom: defaultZoom,
   render: () => <LocationIcon color="primary" />,
   focusLocation: null,
+  enableDraw: false,
 };
 
 export default ForwardedMap;
@@ -163,3 +170,4 @@ export function mapStyleToUrl(style: MapStyle) {
       return "mapbox://styles/mikhael1729/ckpmy16f43v7w17p81eqkytt0";
   }
 }
+

@@ -1,5 +1,6 @@
 import { yupResolver } from "@hookform/resolvers";
 import { InfoOutlined, LocationOn } from "@material-ui/icons";
+import { Card } from "@material-ui/core";
 import LocationForm from "components/LocationForm";
 import { Location } from "components/Map";
 import React, { FC } from "react";
@@ -8,12 +9,23 @@ import { WatershedForm as WatershedFormModel } from "services/watersheds/models"
 import FormField from "shared/components/FormField";
 import FormIconTitle from "shared/components/FormIconTitle";
 import * as yup from "yup";
+import Map from "shared/components/Map";
+import { Feature, Geometry } from "geojson";
 
 export interface WatershedFormProps {
   form: UseFormMethods<WatershedFormModel>;
 }
 
 const WatershedForm: FC<WatershedFormProps> = ({ form }) => {
+  const onSelectedArea = (area: Array<[number, number]>) => {
+    const points = area.map((point) => ({ longitude: point[0], latitude: point[1] }));
+    console.log({ points });
+  };
+
+  const onDeleteSelectedArea = () => {
+    console.log("Deleted");
+  };
+
   return (
     <>
       <FormIconTitle Icon={InfoOutlined} title="Datos" />
@@ -25,7 +37,9 @@ const WatershedForm: FC<WatershedFormProps> = ({ form }) => {
         inputRef={form.register}
       />
       <FormIconTitle Icon={LocationOn} title="Ubicación" />
-      <LocationForm form={form as unknown as UseFormMethods<{ location: Location }>} />
+      <Card style={{ width: "100%", height: 400 }} elevation={0} variant="outlined">
+        <Map enableDraw onSelectArea={onSelectedArea} onDeleteArea={onDeleteSelectedArea} />
+      </Card>
     </>
   );
 };
@@ -50,3 +64,4 @@ const schema: yup.SchemaOf<WatershedFormModel> = yup.object().shape({
 });
 
 export default WatershedForm;
+
