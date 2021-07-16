@@ -4,6 +4,7 @@ import React, { FC, useState } from "react";
 import Map, { defaultZoom } from "../../components/Map";
 import { appBarHeight } from "shared/helpers";
 import Module, { mockModules } from "../../models/Module";
+import Watershed, { mockWatersheds } from "../../models/Watershed";
 import ModuleMarker from "./ModuleMarker";
 import lagunaOviedo from "./laguna_oviedo";
 import yaqueDelNorte from "./yaque_del_norte";
@@ -19,7 +20,9 @@ const Monitor: FC<MonitorProps> = (props) => {
   const [watershedId, setWatershedId] = useState("Todos");
   const classes = useStyles({ mode: props.mode });
   const modules = mockModules().filter(filterModules);
+  const watersheds = mockWatersheds().filter(filterWatersheds);
   const locations = modules.map(mapToLocations);
+  const areas = watersheds.map((watershed) => watershed.area);
 
   const onWatershedChange = (id: string) => {
     setWatershedId(id);
@@ -28,6 +31,11 @@ const Monitor: FC<MonitorProps> = (props) => {
   function filterModules(module: Module) {
     const selection = watershedId === "Todos" ? module.watershedId : watershedId;
     return module.watershedId === selection;
+  }
+
+  function filterWatersheds(watershed: Watershed) {
+    const selected = watershedId === "Todos" ? watershed.id : watershedId;
+    return watershed.id === selected;
   }
 
   function mapToLocations({ wqi, id, alias: name, location }: Module) {
@@ -43,7 +51,7 @@ const Monitor: FC<MonitorProps> = (props) => {
       <Map
         zoom={props.mode === "admin" ? defaultZoom - 0.22 : undefined}
         locations={locations}
-        areas={[lagunaOviedo.points, yaqueDelNorte.points]}
+        areas={areas}
         render={({ value }) => (
           <ModuleMarker
             wqi={value.wqi}
