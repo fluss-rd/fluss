@@ -4,9 +4,12 @@ import LoginLayout from "layouts/LoginLayout";
 import Login from "pages/login";
 import { ComponentType, FC } from "react";
 import { useGetUserData } from "services/auth/hooks";
+import { useRouter } from "next/router";
+import ForgotPassword from "../pages/forgot-password";
 
 export default function withAuth(Component: ComponentType) {
   const Auth: FC = (props) => {
+    const router = useRouter();
     const query = useGetUserData();
     const loggedIn = query.isSuccess ? (query.data?.data ? true : false) : false;
 
@@ -20,7 +23,7 @@ export default function withAuth(Component: ComponentType) {
     if (!loggedIn)
       return (
         <LoginLayout>
-          <Login />
+          {router.pathname === "/forgot-password" ? <ForgotPassword /> : <Login />}
         </LoginLayout>
       );
 
@@ -32,3 +35,4 @@ export default function withAuth(Component: ComponentType) {
 
   return Auth;
 }
+
