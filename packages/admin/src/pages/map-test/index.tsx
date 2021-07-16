@@ -1,7 +1,6 @@
 import { Button } from "@material-ui/core";
 import React, { FC, useRef, useState } from "react";
 import Map, { MapRef } from "shared/components/Map";
-import GeoJsonArea from "shared/models/GeoJsonArea";
 import Location from "shared/models/Location";
 
 const MapTest: FC = (props) => {

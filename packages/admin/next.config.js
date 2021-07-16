@@ -6,6 +6,7 @@ module.exports = withPlugins([withTM], {
   env: {
     mapboxToken:
       "pk.eyJ1IjoibWlraGFlbDE3MjkiLCJhIjoiY2ttbGN2Y2M1MTl3YjJ1bjAyZmg0MmU1NCJ9.WiU0fisWQSYwcEs-Ay6ONw",
+    apiUrl: "http://ec2-3-91-104-58.compute-1.amazonaws.com:5000", // This API URL should be the same used in the shared project.
   },
   webpack(config, options) {
     const { dev, isServer } = options;
@@ -14,22 +15,6 @@ module.exports = withPlugins([withTM], {
     if (dev && isServer) {
       config.plugins.push(new ForkTsCheckerWebpackPlugin());
     }
-
-    // Add ts-loader config.
-    //config.module.rules.push({
-      //test: /\.(ts)x?$/, // Just `tsx?` file only
-      //use: [
-        //// options.defaultLoaders.babel, I don't think it's necessary to have this loader too
-        //{
-          //loader: "ts-loader",
-          //options: {
-            //transpileOnly: true,
-            //experimentalWatchApi: true,
-            //onlyCompileBundledFiles: true,
-          //},
-        //},
-      //],
-    //});
 
     return config;
   },
