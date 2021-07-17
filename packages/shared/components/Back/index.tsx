@@ -10,7 +10,7 @@ interface BackProps {
 
 const Back: FC<BackProps> = ({ children, onClick }) => {
   return (
-    <Button startIcon={<ArrowBackIcon />} onClick={onClick}>
+    <Button startIcon={<ArrowBackIcon />} onClick={onClick} color="inherit">
       {children}
     </Button>
   );

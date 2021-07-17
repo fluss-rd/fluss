@@ -10,15 +10,17 @@ import { formatDate } from "shared/helpers";
 import SelectColumnFilter from "shared/components/DataTable/filters/SelectColumnFilter";
 import CreateModule from "fragments/modules/CreateModule";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import { useRouter } from "next/router";
 
 const Modules: NextPage = () => {
   const classes = useStyles();
   const modules = mockModules();
+  const router = useRouter();
   const moduleColumns = useColumns(goToDetails);
   const modulesQuantity = 3;
 
   function goToDetails(moduleId: string) {
-    console.log({ moduleId });
+    router.push(`/modules/${moduleId}`);
   }
 
   return (
