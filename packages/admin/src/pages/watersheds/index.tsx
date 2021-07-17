@@ -1,7 +1,7 @@
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import AddWatershed from "fragments/watersheds/common/AddWatershed";
-import EditWatershed from "fragments/watersheds/common/EditWatershed";
+import AddWatershed from "fragments/watersheds/AddWatershed";
+import EditWatershed from "fragments/watersheds/EditWatershed";
 import WatershedCard from "fragments/watersheds/WatershedCard";
 import WatershedDetail from "fragments/watersheds/WatershedDetail";
 import { useLayoutContext } from "layouts/Layout/LayoutContext";

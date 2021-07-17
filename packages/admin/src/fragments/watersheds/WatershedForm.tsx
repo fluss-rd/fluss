@@ -45,7 +45,7 @@ const WatershedForm: FC<WatershedFormProps> = ({ form }) => {
 };
 
 export function useWatershedForm(
-  defaultValues: WatershedFormModel = { name: "", location: { latitude: 0, longitude: 0 } }
+  defaultValues: Partial<WatershedFormModel> = { name: "", location: { latitude: 0, longitude: 0 } }
 ) {
   const form = useForm<WatershedFormModel>({
     resolver: yupResolver(schema),
@@ -55,7 +55,8 @@ export function useWatershedForm(
   return form;
 }
 
-const schema: yup.SchemaOf<WatershedFormModel> = yup.object().shape({
+const schema: yup.SchemaOf<Partial<WatershedFormModel>> = yup.object().shape({
+  //const schema: any = yup.object().shape({
   name: yup.string().required("Por favor, introduzca el nombre del cuerpo hídrico"),
   location: yup.object().shape({
     longitude: yup.number().required("Por favor, introduzca la longitud para el río"),
@@ -64,3 +65,4 @@ const schema: yup.SchemaOf<WatershedFormModel> = yup.object().shape({
 });
 
 export default WatershedForm;
+

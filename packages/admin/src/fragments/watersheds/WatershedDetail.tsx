@@ -101,19 +101,6 @@ const WatershedDetail: FC<WatershedDetailProps> = ({ isOpen, close, riverId }) =
   );
 };
 
-const data: Array<PieChartData<WqiRating>> = [
-  {
-    id: "excellent",
-    value: 2,
-    data: "excellent",
-  },
-  {
-    id: "moderate",
-    value: 2,
-    data: "moderate",
-  },
-];
-
 const modulesTotal: Array<PieChartData<ModuleState>> = [
   {
     id: "1",
