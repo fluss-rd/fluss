@@ -1,6 +1,8 @@
 import { yupResolver } from "@hookform/resolvers";
-import { MenuItem, Grid } from "@material-ui/core";
+import { Grid, MenuItem } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import { FiberManualRecord, Grain, InfoOutlined, LocationOn } from "@material-ui/icons";
+import clsx from "clsx";
 import LocationForm from "components/LocationForm";
 import Map, { Location } from "components/Map";
 import React, { FC } from "react";
@@ -13,8 +15,6 @@ import FormSelect from "shared/components/FormSelect";
 import ModuleState, { moduleStates, moduleStateToString } from "shared/models/ModuleState";
 import { mockWatersheds } from "shared/models/Watershed";
 import * as yup from "yup";
-import { makeStyles } from "@material-ui/core/styles";
-import clsx from "clsx";
 
 interface ModuleFormProps {
   form: UseFormMethods<ModuleFormModel>;
@@ -161,4 +161,3 @@ const schema: yup.SchemaOf<ModuleFormModel> = yup.object().shape({
 });
 
 export default ModuleForm;
-

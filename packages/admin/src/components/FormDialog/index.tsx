@@ -65,4 +65,3 @@ FormDialog.defaultProps = {
 };
 
 export default FormDialog;
-

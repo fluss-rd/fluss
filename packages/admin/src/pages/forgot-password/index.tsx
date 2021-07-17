@@ -1,5 +1,5 @@
+import { Button, Link, Typography } from "@material-ui/core";
 import { NextPage } from "next";
-import { Typography, Link, Button } from "@material-ui/core";
 import { useRouter } from "next/router";
 import Back from "shared/components/Back";
 
@@ -19,5 +19,3 @@ const ForgotPassword: NextPage = () => {
 };
 
 export default ForgotPassword;
-
-

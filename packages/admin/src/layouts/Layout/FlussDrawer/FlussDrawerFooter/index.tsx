@@ -1,7 +1,7 @@
 import {
-  Link,
   Button,
   Divider,
+  Link,
   ListItem,
   ListItemText,
   Popover,
@@ -11,12 +11,12 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { AccountCircle, ArrowDropDown } from "@material-ui/icons";
+import { Skeleton } from "@material-ui/lab";
 import { useLayoutContext } from "layouts/Layout/LayoutContext";
 import { useRouter } from "next/router";
 import React, { FC } from "react";
 import { useGetUserData, useLogOut } from "services/auth/hooks";
 import theme from "shared/styles/theme";
-import { Skeleton } from "@material-ui/lab";
 
 interface FlussDrawerFooterProps {
   drawerIsOpen: boolean;
@@ -152,4 +152,3 @@ const useStyles = makeStyles<Theme, { drawerWidth: number; open: boolean }>({
 });
 
 export default FlussDrawerFooter;
-

@@ -1,5 +1,13 @@
 import { Divider, List } from "@material-ui/core";
-import { GpsFixed, Grain, Lock, Notifications, People, Settings, ViewModule } from "@material-ui/icons";
+import {
+  GpsFixed,
+  Grain,
+  Lock,
+  Notifications,
+  People,
+  Settings,
+  ViewModule,
+} from "@material-ui/icons";
 import React, { FC } from "react";
 
 import DrawerItem from "./DrawerItem";

@@ -42,4 +42,3 @@ export function useGetUserData() {
     return service.getUserData(userId, token);
   });
 }
-

@@ -1,9 +1,10 @@
 import { makeStyles } from "@material-ui/core/styles";
-import Fab from "components/Fab";
 import { Add } from "@material-ui/icons";
+import Fab from "components/Fab";
 import FormDialog from "components/FormDialog";
 import useBoolean from "hooks/useBoolean";
 import React, { FC } from "react";
+
 import ModuleForm, { useModuleForm } from "./ModuleForm";
 
 interface CreateModuleProps {}
@@ -35,4 +36,3 @@ const CreateModule: FC<CreateModuleProps> = (props) => {
 const useStyles = makeStyles({});
 
 export default CreateModule;
-

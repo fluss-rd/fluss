@@ -1,7 +1,7 @@
-import { Theme, makeStyles } from "@material-ui/core/styles";
-import Image from "next/image";
 import { CssBaseline } from "@material-ui/core";
 import { Container, Grid, Hidden } from "@material-ui/core";
+import { makeStyles, Theme } from "@material-ui/core/styles";
+import Image from "next/image";
 import React, { FC } from "react";
 
 const LoginLayout: FC = ({ children }) => {
@@ -88,4 +88,3 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export default LoginLayout;
-

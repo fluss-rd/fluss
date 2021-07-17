@@ -1,16 +1,16 @@
+import { Box, IconButton, Tooltip, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import Battery90Icon from "@material-ui/icons/Battery90";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import CreateModule from "fragments/modules/CreateModule";
 import { NextPage } from "next";
-import { Typography, Box, IconButton, Tooltip } from "@material-ui/core";
+import { useRouter } from "next/router";
+import { useMemo } from "react";
+import DataTable, { DataTableColumn } from "shared/components/DataTable";
+import SelectColumnFilter from "shared/components/DataTable/filters/SelectColumnFilter";
+import { formatDate } from "shared/helpers";
 import Module, { mockModules } from "shared/models/Module";
 import { moduleStateToColor, moduleStateToString } from "shared/models/ModuleState";
-import DataTable, { DataTableColumn } from "shared/components/DataTable";
-import { useMemo } from "react";
-import Battery90Icon from "@material-ui/icons/Battery90";
-import { formatDate } from "shared/helpers";
-import SelectColumnFilter from "shared/components/DataTable/filters/SelectColumnFilter";
-import CreateModule from "fragments/modules/CreateModule";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import { useRouter } from "next/router";
 
 const Modules: NextPage = () => {
   const classes = useStyles();
@@ -114,4 +114,3 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default Modules;
-

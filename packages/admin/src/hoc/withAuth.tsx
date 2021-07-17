@@ -1,10 +1,11 @@
 import { CircularProgress } from "@material-ui/core";
 import LoadingLayout from "layouts/LoadingLayout";
 import LoginLayout from "layouts/LoginLayout";
+import { useRouter } from "next/router";
 import Login from "pages/login";
 import { ComponentType, FC } from "react";
 import { useGetUserData } from "services/auth/hooks";
-import { useRouter } from "next/router";
+
 import ForgotPassword from "../pages/forgot-password";
 
 export default function withAuth(Component: ComponentType) {
@@ -37,4 +38,3 @@ export default function withAuth(Component: ComponentType) {
 
   return Auth;
 }
-

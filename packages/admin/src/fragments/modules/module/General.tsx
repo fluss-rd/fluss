@@ -1,7 +1,8 @@
+import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { FC } from "react";
+
 import ModuleForm, { useModuleForm } from "../ModuleForm";
-import { Button } from "@material-ui/core";
 
 interface GeneralProps {}
 
@@ -29,4 +30,3 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default General;
-

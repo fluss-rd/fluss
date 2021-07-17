@@ -1,12 +1,11 @@
+import { Card, CardContent, CardHeader, Divider, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import React, { useState, FC } from "react";
-import ModuleLast24HoursChart from "shared/components/ModuleLast24HoursChart";
+import React, { FC, useState } from "react";
+import Map from "shared/components/Map";
 import ModuleAnnualSummary from "shared/components/ModuleAnnualSummary";
+import ModuleLast24HoursChart from "shared/components/ModuleLast24HoursChart";
 import { mockDateMeasures } from "shared/models/DateMeasure";
 import ParameterName from "shared/models/ParameterName";
-
-import { Divider, Card, CardContent, CardHeader, Grid } from "@material-ui/core";
-import Map from "shared/components/Map";
 
 interface MetricsProps {}
 
@@ -64,4 +63,3 @@ const Metrics: FC<MetricsProps> = (props) => {
 const useStyles = makeStyles({});
 
 export default Metrics;
-

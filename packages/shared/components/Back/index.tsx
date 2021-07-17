@@ -1,6 +1,5 @@
 import { Button } from "@material-ui/core";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-
 import React, { FC } from "react";
 
 interface BackProps {
@@ -21,4 +20,3 @@ Back.defaultProps = {
 };
 
 export default Back;
-

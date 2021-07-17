@@ -130,4 +130,3 @@ const loginSchema: yup.SchemaOf<Credentials> = yup.object().shape({
 });
 
 export default Login;
-

@@ -15,4 +15,3 @@ export function mockLogs(): Log[] {
 }
 
 export default Log;
-

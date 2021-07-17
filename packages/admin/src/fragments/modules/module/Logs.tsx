@@ -1,18 +1,19 @@
-import { makeStyles } from "@material-ui/core/styles";
-import React, { FC } from "react";
-import DataTable, { DataTableColumn } from "shared/components/DataTable";
-import Log, { mockLogs } from "models/Log";
-import { formatDate } from "../../../../../shared/helpers";
 import {
   Accordion,
-  AccordionSummary,
   AccordionDetails,
-  Typography,
+  AccordionSummary,
   List,
   ListItem,
   ListItemText,
+  Typography,
 } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import Log, { mockLogs } from "models/Log";
+import React, { FC } from "react";
+import DataTable, { DataTableColumn } from "shared/components/DataTable";
+
+import { formatDate } from "../../../../../shared/helpers";
 
 interface LogsProps {}
 
@@ -65,4 +66,3 @@ const columns: DataTableColumn<Log>[] = [
 const useStyles = makeStyles({});
 
 export default Logs;
-
