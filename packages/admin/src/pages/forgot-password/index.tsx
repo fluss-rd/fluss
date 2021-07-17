@@ -1,15 +1,13 @@
 import { NextPage } from "next";
 import { Typography, Link, Button } from "@material-ui/core";
 import { useRouter } from "next/router";
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import Back from "shared/components/Back";
 
 const ForgotPassword: NextPage = () => {
   const router = useRouter();
   return (
     <div>
-      <Button startIcon={<ArrowBackIcon />} onClick={() => router.push("/login")}>
-        Volver a inicio de sesión
-      </Button>
+      <Back onClick={() => router.push("/login")}>Volver a inicio de sesión</Back>
       <br />
       <br />
       <Typography variant="h4">Recuperar contraseña</Typography>
@@ -21,4 +19,5 @@ const ForgotPassword: NextPage = () => {
 };
 
 export default ForgotPassword;
+
 
