@@ -36,27 +36,25 @@ const FormDialog: FC<FormDialogProps> = (props) => {
         title
       )}
 
-      <form noValidate autoComplete="off">
-        <ModalContent spacing={rest.contentSpacing} dividers {...rest.ModalContentProps}>
-          {rest.children}
-        </ModalContent>
-        <DialogActions>
-          {typeof cancelAction === "string" || !cancelAction ? (
-            <Button onClick={onClose} color="primary">
-              {cancelAction || rest.mode === "edition" ? "Cancelar" : "Cerrar"}
-            </Button>
-          ) : (
-            saveAction
-          )}
-          {typeof saveAction === "string" || !saveAction ? (
-            <Button color="primary" onClick={onSave}>
-              {saveAction || rest.mode === "edition" ? "Guardar cambios" : "Registrar"}
-            </Button>
-          ) : (
-            saveAction
-          )}
-        </DialogActions>
-      </form>
+      <ModalContent spacing={rest.contentSpacing} dividers {...rest.ModalContentProps}>
+        {rest.children}
+      </ModalContent>
+      <DialogActions>
+        {typeof cancelAction === "string" || !cancelAction ? (
+          <Button onClick={onClose} color="primary">
+            {cancelAction || rest.mode === "edition" ? "Cancelar" : "Cerrar"}
+          </Button>
+        ) : (
+          saveAction
+        )}
+        {typeof saveAction === "string" || !saveAction ? (
+          <Button color="primary" onClick={onSave}>
+            {saveAction || rest.mode === "edition" ? "Guardar cambios" : "Registrar"}
+          </Button>
+        ) : (
+          saveAction
+        )}
+      </DialogActions>
     </Dialog>
   );
 };
@@ -67,3 +65,4 @@ FormDialog.defaultProps = {
 };
 
 export default FormDialog;
+

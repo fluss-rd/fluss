@@ -4,11 +4,13 @@ import { Add } from "@material-ui/icons";
 import FormDialog from "components/FormDialog";
 import useBoolean from "hooks/useBoolean";
 import React, { FC } from "react";
+import ModuleForm, { useModuleForm } from "./ModuleForm";
 
 interface CreateModuleProps {}
 
 const CreateModule: FC<CreateModuleProps> = (props) => {
   const classes = useStyles();
+  const moduleForm = useModuleForm();
   const [isOpen, open, close] = useBoolean();
 
   return (
@@ -24,7 +26,7 @@ const CreateModule: FC<CreateModuleProps> = (props) => {
         onClose={close}
         onSave={() => console.log("hey")}
       >
-        hey
+        <ModuleForm form={moduleForm} />
       </FormDialog>
     </>
   );
