@@ -2,9 +2,8 @@ import { Card, Grid } from "@material-ui/core";
 import React, { FC } from "react";
 import { Control, UseFormMethods, useWatch } from "react-hook-form";
 import FormField from "shared/components/FormField";
+import Map from "shared/components/Map";
 import Location from "shared/models/Location";
-
-import Map from "../Map";
 
 interface LocationFormProps {
   form: UseFormMethods<{ location: Location }>;
@@ -69,12 +68,12 @@ const RenderMap: FC<RenderMapProps> = ({ control, onNewMarker, defaultValue }) =
   });
 
   // Convert to integer because of changing in the data type.
-  const mark = {
-    latitude: parseFloat(location.latitude.toString()),
-    longitude: parseFloat(location.longitude.toString()),
-  };
+  const latitude = parseFloat(location.latitude.toString());
+  const longitude = parseFloat(location.longitude.toString());
+  const mark = { latitude, longitude };
+  const locations = latitude === 0 && longitude === 0 ? [] : [mark];
 
-  return <Map locations={[mark]} onClick={onNewMarker} />;
+  return <Map locations={locations} onClick={onNewMarker} />;
 };
 
 export default LocationForm;

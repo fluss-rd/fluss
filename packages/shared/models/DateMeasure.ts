@@ -7362,4 +7362,3 @@ export function mockDateMeasures() {
 
 export default DateMeasure;
 
-1

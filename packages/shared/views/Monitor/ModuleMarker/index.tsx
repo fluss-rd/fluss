@@ -1,4 +1,4 @@
-import { Avatar, Card, CardActionArea, Popover, Typography } from "@material-ui/core";
+import { Avatar, Card, CardActionArea } from "@material-ui/core";
 import { grey } from "@material-ui/core/colors";
 import { makeStyles } from "@material-ui/core/styles";
 import { LocationOn } from "@material-ui/icons";
@@ -48,6 +48,7 @@ const ModuleMarker: FC<ModuleMarkerProps> = ({ name, wqi, moduleId, ...props }) 
       </CardActionArea>
       <ModuleMarkerPreview
         onClose={closeActions}
+        open={Boolean(anchorEl)}
         anchorEl={anchorEl}
         moduleId={moduleId}
         onModuleData={props.onModuleData}

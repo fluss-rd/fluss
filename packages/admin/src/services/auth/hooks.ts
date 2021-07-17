@@ -4,6 +4,7 @@ import * as service from "services/auth/service";
 
 export function useLogin() {
   const queryClient = useQueryClient();
+  console.log({ queryClient });
   const mutation = useMutation(service.logIn, {
     onSuccess: (data) => {
       if (data.data) {

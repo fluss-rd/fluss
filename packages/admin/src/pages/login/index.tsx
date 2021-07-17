@@ -2,9 +2,6 @@ import { yupResolver } from "@hookform/resolvers";
 import {
   Button,
   CircularProgress,
-  Container,
-  Grid,
-  Hidden,
   IconButton,
   InputAdornment,
   Link,
@@ -14,7 +11,6 @@ import { makeStyles, Theme } from "@material-ui/core/styles";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import { Alert } from "@material-ui/lab";
 import { AxiosResponse } from "axios";
-import Image from "next/image";
 import router from "next/router";
 import React, { FC, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -32,7 +28,10 @@ const Login: FC = () => {
   const onSubmit = (credentials: Credentials) => loginMutation.mutate(credentials);
 
   // Go to the specified page.
-  const goToRecoverPassword = () => router.push("/recuperar-contraseña");
+  const goToRecoverPassword = (e: any) => {
+    e.preventDefault();
+    router.push("forgot-password");
+  };
 
   // Shows login message errors.
   const showError = () => {
@@ -49,125 +48,67 @@ const Login: FC = () => {
   };
 
   return (
-    <Grid container>
-      <Hidden smDown>
-        <Grid item xs={12} md={6}>
-          <div className={classes.backgroundContainer}>
-            <div className={classes.logoSection}>
-              <Image src="/images/logo-login.png" width={250} height={270} />
-            </div>
-            <img src="/images/river-login.jpg" alt="river" style={{ opacity: 0.8 }} />
-          </div>
-        </Grid>
-      </Hidden>
-      <Grid item xs={12} md={6} className={classes.formSection}>
-        <Container maxWidth="sm" className={classes.container}>
-          <Hidden mdUp implementation="css">
-            <div className={classes.imageBox}>
-              <Image src="/images/logo-2.png" alt="Gráficos" layout="fill" objectFit="contain" />
-            </div>
-          </Hidden>
-          <Typography variant="h4" className={classes.title}>
-            Inicio de sesión
-          </Typography>
+    <>
+      <Typography variant="h4" className={classes.title}>
+        Inicio de sesión
+      </Typography>
 
-          {showError()}
+      {showError()}
 
-          <form
-            noValidate
-            autoComplete="off"
-            className={classes.form}
-            onSubmit={form.handleSubmit(onSubmit)}
-          >
-            <FormField
-              name="email"
-              label="Email"
-              placeholder="user@email.com"
-              error={!!form.errors.email}
-              helperText={form.errors.email?.message}
-              inputRef={form.register}
-            />
+      <form
+        noValidate
+        autoComplete="off"
+        className={classes.form}
+        onSubmit={form.handleSubmit(onSubmit)}
+      >
+        <FormField
+          name="email"
+          label="Email"
+          placeholder="user@email.com"
+          error={!!form.errors.email}
+          helperText={form.errors.email?.message}
+          inputRef={form.register}
+        />
 
-            <FormField
-              name="password"
-              label="Contraseña"
-              type={showPassword ? "text" : "password"}
-              placeholder="******"
-              helperText={form.errors.password?.message}
-              error={form.errors.password ? true : false}
-              inputRef={form.register}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={() => setShowPassword(!showPassword)}
-                      edge="end"
-                    >
-                      {showPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
+        <FormField
+          name="password"
+          label="Contraseña"
+          type={showPassword ? "text" : "password"}
+          placeholder="******"
+          helperText={form.errors.password?.message}
+          error={form.errors.password ? true : false}
+          inputRef={form.register}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={() => setShowPassword(!showPassword)}
+                  edge="end"
+                >
+                  {showPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+        />
 
-            <Link href="/recoverPassword" onClick={goToRecoverPassword}>
-              ¿Olvidó su contraseña?
-            </Link>
-            <br />
-            <Button variant="contained" color="primary" size="large" type="submit">
-              {!loginMutation.isLoading ? (
-                <>Iniciar sesión</>
-              ) : (
-                <CircularProgress color="secondary" />
-              )}
-            </Button>
-          </form>
-        </Container>
-      </Grid>
-    </Grid>
+        <Link onClick={goToRecoverPassword} style={{ cursor: "pointer" }}>
+          ¿Olvidó su contraseña?
+        </Link>
+        <br />
+        <Button variant="contained" color="primary" size="large" type="submit">
+          {!loginMutation.isLoading ? <>Iniciar sesión</> : <CircularProgress color="secondary" />}
+        </Button>
+      </form>
+    </>
   );
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
-  container: {
-    marginTop: theme.spacing(4),
-  },
-  background: {
-    height: "100%",
-  },
   title: {
     textAlign: "center",
     marginBottom: theme.spacing(2),
-  },
-  backgroundContainer: {
-    position: "relative",
-    display: "flex",
-    justifyContent: "center",
-    width: "100%",
-    height: "100vh",
-    overflow: "hidden",
-  },
-  logoSection: {
-    position: "absolute",
-    top: "calc(50% - 135px)",
-    left: "calc(50% - 125px)",
-    zIndex: 1,
-  },
-  imageBox: {
-    position: "relative",
-    width: "100%",
-    height: 100,
-    "& > div > div:first-child": {
-      borderRadius: 30,
-    },
-    marginBottom: theme.spacing(5),
-  },
-  formSection: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
   },
   form: {
     display: "flex",

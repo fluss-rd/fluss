@@ -36,4 +36,21 @@ export function ratingToText(category: WqiRating) {
   }
 }
 
+export function toPaperClasification(rating: string): WqiRating {
+  switch (rating) {
+    case "excellent":
+      return "excellent";
+    case "good water":
+      return "good";
+    case "poor water":
+      return "moderate";
+    case "very poor water":
+      return "bad";
+    case "unsuitable":
+      return "veryBad";
+    default:
+      return "veryBad";
+  }
+}
+
 export default WqiRating;

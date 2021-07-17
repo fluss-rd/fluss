@@ -1,6 +1,7 @@
 import {
   Button,
   Divider,
+  Link,
   ListItem,
   ListItemText,
   Popover,
@@ -10,10 +11,11 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { AccountCircle, ArrowDropDown } from "@material-ui/icons";
+import { Skeleton } from "@material-ui/lab";
 import { useLayoutContext } from "layouts/Layout/LayoutContext";
 import { useRouter } from "next/router";
 import React, { FC } from "react";
-import { useLogOut } from "services/auth/hooks";
+import { useGetUserData, useLogOut } from "services/auth/hooks";
 import theme from "shared/styles/theme";
 
 interface FlussDrawerFooterProps {
@@ -24,6 +26,7 @@ interface FlussDrawerFooterProps {
 const FlussDrawerFooter: FC<FlussDrawerFooterProps> = (props) => {
   const { drawerIsOpen: open, openAccount } = props;
   const logout = useLogOut();
+  const userQuery = useGetUserData();
   const context = useLayoutContext();
   const drawerWidth = context.values.drawerWidth;
   const classes = useStyles({ drawerWidth, open });
@@ -38,17 +41,44 @@ const FlussDrawerFooter: FC<FlussDrawerFooterProps> = (props) => {
   const openPopover = Boolean(anchorEl);
   const popoverId = openPopover ? "user-menu-popover" : undefined;
 
+  const renderName = () => {
+    if (open)
+      return userQuery.isLoading ? (
+        <div
+          style={{
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <div style={{ width: "100%" }}>
+            <Skeleton animation="wave" />
+          </div>
+        </div>
+      ) : (
+        <Link
+          color="textPrimary"
+          onClick={(e) => {
+            e.preventDefault();
+            openAccount();
+          }}
+          style={{ flex: 1, alignSelf: "center", cursor: "pointer" }}
+        >
+          {userQuery.data?.data?.name}
+        </Link>
+      );
+
+    return null;
+  };
+
   const goTo = (path: string) => {
     return () => router.push(path);
   };
 
   return (
     <div className={classes.drawerFooter}>
-      {open && (
-        <Typography variant="body1" style={{ flex: 1, alignSelf: "center" }}>
-          Mikhael Santos
-        </Typography>
-      )}
+      {renderName()}
       <Button size="small" className={classes.options} onClick={openUserMenu}>
         <AccountCircle />
         <ArrowDropDown />
