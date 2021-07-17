@@ -17,14 +17,17 @@ import PieChartLegends from "shared/components/PieChartLegends";
 import WqiLegend from "shared/components/WqiLegend";
 import ModuleState, { moduleStateToColor, moduleStateToString } from "shared/models/ModuleState";
 import WqiRating, { ratingToColor, ratingToText } from "shared/models/WqiRating";
+import { useGetWqiRatingsCount } from "shared/services/watersheds/hooks";
 
 interface WatershedDetailProps {
+  riverId?: string;
   isOpen?: boolean;
   close?: () => void;
 }
 
-const WatershedDetail: FC<WatershedDetailProps> = ({ isOpen, close }) => {
+const WatershedDetail: FC<WatershedDetailProps> = ({ isOpen, close, riverId }) => {
   const classes = useStyles();
+  const query = useGetWqiRatingsCount(riverId);
 
   return (
     <Slide direction="left" in={isOpen} mountOnEnter unmountOnExit timeout={duration.complex}>
@@ -47,14 +50,16 @@ const WatershedDetail: FC<WatershedDetailProps> = ({ isOpen, close }) => {
               </CardContent>
               <Divider />
               <CardContent>
-                <PieChart
-                  data={data}
-                  formatOutsideLabel={({ data }) => ratingToText(data)}
-                  applyColor={({ data }) => ratingToColor(data)}
-                  margin={{ left: 110, right: 110 }}
-                  width="100%"
-                  height={200}
-                />
+                {query.isSuccess && (
+                  <PieChart
+                    data={query?.data}
+                    formatOutsideLabel={({ data }) => ratingToText(data)}
+                    applyColor={({ data }) => ratingToColor(data)}
+                    margin={{ left: 110, right: 110 }}
+                    width="100%"
+                    height={200}
+                  />
+                )}
               </CardContent>
               <Divider />
               <CardContent>
@@ -138,3 +143,4 @@ const useStyles = makeStyles({
 });
 
 export default WatershedDetail;
+

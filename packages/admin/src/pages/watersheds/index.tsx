@@ -67,7 +67,11 @@ const Watersheds: NextPage = () => {
           <AddWatershed />
         </div>
 
-        <WatershedDetail isOpen={!!state.detail} close={closeWatershedDetail} />
+        <WatershedDetail
+          riverId={state.detail}
+          isOpen={!!state.detail}
+          close={closeWatershedDetail}
+        />
 
         <EditWatershed
           isOpen={!!state.edition}
