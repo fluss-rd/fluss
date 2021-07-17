@@ -72,8 +72,6 @@ const FlussDrawerFooter: FC<FlussDrawerFooterProps> = (props) => {
     return null;
   };
 
-  console.log({ userQuery });
-
   const goTo = (path: string) => {
     return () => router.push(path);
   };

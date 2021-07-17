@@ -9,11 +9,12 @@ import Layout from "layouts/Layout";
 import React, { useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import theme, { GlobalCss } from "styles/theme";
-
-// Create a client
-const queryClient = new QueryClient();
+import { Hydrate } from "react-query/hydration";
+import { useState } from "react";
 
 function MyApp({ Component, pageProps }) {
+  const [queryClient] = useState(() => new QueryClient());
+
   useEffect(removeServerSideInjectedCss, []);
 
   function removeServerSideInjectedCss() {
@@ -25,16 +26,19 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <ThemeProvider theme={theme}>
-          <GlobalCss />
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </ThemeProvider>
-      </MuiPickersUtilsProvider>
+      <Hydrate state={pageProps.dehydratedState}>
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <ThemeProvider theme={theme}>
+            <GlobalCss />
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </ThemeProvider>
+        </MuiPickersUtilsProvider>
+      </Hydrate>
     </QueryClientProvider>
   );
 }
 
 export default MyApp;
+

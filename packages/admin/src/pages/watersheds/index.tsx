@@ -7,17 +7,14 @@ import WatershedDetail from "fragments/watersheds/WatershedDetail";
 import { useLayoutContext } from "layouts/Layout/LayoutContext";
 import { NextPage } from "next";
 import { useMergeState } from "shared/hooks";
-import { mockWatersheds } from "shared/models/Watershed";
-import Watershed from "shared/models/Watershed";
+import { useGetWatersheds } from "shared/services/watersheds/hooks";
 
-interface WatershedsProps {
-  quantity: number;
-  watersheds: Watershed[];
-}
-
-const Watersheds: NextPage<WatershedsProps> = ({ quantity, watersheds }) => {
+const Watersheds: NextPage = () => {
   const classes = useStyles();
   const context = useLayoutContext();
+  const watershedsQuery = useGetWatersheds();
+  const watersheds = watershedsQuery.data || [];
+  const quantity = watersheds.length;
   const [state, setState] = useMergeState({ detail: "", edition: "" });
 
   const onEditWatershed = (watershedId: string) => {
@@ -50,19 +47,22 @@ const Watersheds: NextPage<WatershedsProps> = ({ quantity, watersheds }) => {
 
           <br />
           <div className={classes.watershedCards}>
-            {watersheds.map((watershed) => (
-              <WatershedCard
-                key={watershed.id}
-                id={watershed.id}
-                name={watershed.name}
-                wqiValue={watershed.wqi.value}
-                lastUpdate={new Date(watershed.updateDate)}
-                modulesQuantity={watershed.modulesQuantity}
-                location={watershed.location}
-                onViewMore={onViewWatershedDetail}
-                onEdit={onEditWatershed}
-              />
-            ))}
+            {watersheds.map((watershed) => {
+              console.log({ watershed });
+              return (
+                <WatershedCard
+                  key={watershed.id}
+                  id={watershed.id}
+                  name={watershed.name}
+                  wqiValue={watershed.wqi.value}
+                  lastUpdate={new Date(watershed.updateDate)}
+                  modulesQuantity={watershed.modulesQuantity}
+                  location={watershed.area}
+                  onViewMore={onViewWatershedDetail}
+                  onEdit={onEditWatershed}
+                />
+              );
+            })}
           </div>
           <AddWatershed />
         </div>
@@ -79,12 +79,6 @@ const Watersheds: NextPage<WatershedsProps> = ({ quantity, watersheds }) => {
   );
 };
 
-Watersheds.getInitialProps = async ({ req }) => {
-  const watersheds = [mockWatersheds()[0]];
-
-  return { quantity: watersheds.length, watersheds };
-};
-
 const useStyles = makeStyles((theme) => ({
   subtitle: {
     paddingLeft: theme.spacing(0.5),
@@ -97,3 +91,4 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default Watersheds;
+
