@@ -1,5 +1,5 @@
 import { yupResolver } from "@hookform/resolvers";
-import { MenuItem } from "@material-ui/core";
+import { MenuItem, Grid } from "@material-ui/core";
 import { FiberManualRecord, Grain, InfoOutlined, LocationOn } from "@material-ui/icons";
 import LocationForm from "components/LocationForm";
 import Map, { Location } from "components/Map";
@@ -13,104 +13,122 @@ import FormSelect from "shared/components/FormSelect";
 import ModuleState, { moduleStates, moduleStateToString } from "shared/models/ModuleState";
 import { mockWatersheds } from "shared/models/Watershed";
 import * as yup from "yup";
+import { makeStyles } from "@material-ui/core/styles";
+import clsx from "clsx";
 
 interface ModuleFormProps {
   form: UseFormMethods<ModuleFormModel>;
+  largeWidth?: boolean;
+  className?: string;
 }
 
-const ModuleForm: FC<ModuleFormProps> = ({ form }) => {
+const ModuleForm: FC<ModuleFormProps> = ({ form, largeWidth, className }) => {
+  const classes = useStyles();
   const watersheds = mockWatersheds();
+  const md = largeWidth ? 6 : 12;
 
   return (
     <>
-      <FormIconTitle Icon={InfoOutlined} title="Datos" />
-      <FormField
-        name="alias"
-        label="Alias"
-        placeholder="Ej: Guayubín"
-        error={!!form.errors.alias}
-        helperText={form.errors.alias?.message}
-        inputRef={form.register}
-      />
+      <Grid container spacing={3}>
+        <Grid item xs={12} md={md} className={clsx(classes.form, className)}>
+          <FormIconTitle Icon={InfoOutlined} title="Datos" />
+          <FormField
+            name="alias"
+            label="Alias"
+            placeholder="Ej: Guayubín"
+            error={!!form.errors.alias}
+            helperText={form.errors.alias?.message}
+            inputRef={form.register}
+          />
 
-      <Controller
-        name="phoneNumber"
-        control={form.control}
-        as={
-          <ReactInputMask mask="(999) 999-9999" maskChar=" ">
-            {() => (
-              <FormField
-                label="Numéro celular"
-                placeholder="Número celular"
-                error={!!form.errors.phoneNumber}
-                helperText={form.errors.phoneNumber?.message}
-              />
-            )}
-          </ReactInputMask>
-        }
-      />
+          <Controller
+            name="phoneNumber"
+            control={form.control}
+            as={
+              <ReactInputMask mask="(999) 999-9999" maskChar=" ">
+                {() => (
+                  <FormField
+                    label="Numéro celular"
+                    placeholder="Número celular"
+                    error={!!form.errors.phoneNumber}
+                    helperText={form.errors.phoneNumber?.message}
+                  />
+                )}
+              </ReactInputMask>
+            }
+          />
 
-      <FormField
-        name="serial"
-        label="Serial"
-        placeholder=""
-        error={!!form.errors.serial}
-        helperText={form.errors.serial?.message}
-        inputRef={form.register}
-      />
+          <FormField
+            name="serial"
+            label="Serial"
+            placeholder=""
+            error={!!form.errors.serial}
+            helperText={form.errors.serial?.message}
+            inputRef={form.register}
+          />
 
-      <FormIconTitle Icon={Grain} title="Elegir cuerpo hídrico" />
+          <FormIconTitle Icon={Grain} title="Elegir cuerpo hídrico" />
 
-      <Controller
-        name="watershedId"
-        control={form.control}
-        defaultValue={form.getValues()?.watershedId || ""}
-        as={
-          <FormSelect
-            noneText="Sin seleccionar"
-            label="Cuerpo hídrico"
-            helperText={form.errors.watershedId?.message}
-            error={!!form.errors.watershedId}
-          >
-            {watersheds.map(({ id, name }) => (
-              <MenuItem key={id} value={id}>
-                {name}
-              </MenuItem>
-            ))}
-          </FormSelect>
-        }
-      />
+          <Controller
+            name="watershedId"
+            control={form.control}
+            defaultValue={form.getValues()?.watershedId || ""}
+            as={
+              <FormSelect
+                noneText="Sin seleccionar"
+                label="Cuerpo hídrico"
+                helperText={form.errors.watershedId?.message}
+                error={!!form.errors.watershedId}
+              >
+                {watersheds.map(({ id, name }) => (
+                  <MenuItem key={id} value={id}>
+                    {name}
+                  </MenuItem>
+                ))}
+              </FormSelect>
+            }
+          />
 
-      <FormIconTitle Icon={FiberManualRecord} title="Elegir estado" />
-      <Controller
-        name="status"
-        control={form.control}
-        defaultValue={"active" as ModuleState}
-        as={
-          <FormSelect
-            noneText="Sin seleccionar"
-            label="Estado"
-            helperText={form.errors.status?.message}
-            error={!!form.errors.status}
-          >
-            {moduleStates.map((state) => {
-              const statusText = moduleStateToString(state);
-              return (
-                <MenuItem key={state} value={state}>
-                  {statusText}
-                </MenuItem>
-              );
-            })}
-          </FormSelect>
-        }
-      />
-      <FormIconTitle Icon={LocationOn} title="Ubicación" />
-
-      <LocationForm form={form as unknown as UseFormMethods<{ location: Location }>} />
+          <FormIconTitle Icon={FiberManualRecord} title="Elegir estado" />
+          <Controller
+            name="status"
+            control={form.control}
+            defaultValue={"active" as ModuleState}
+            as={
+              <FormSelect
+                noneText="Sin seleccionar"
+                label="Estado"
+                helperText={form.errors.status?.message}
+                error={!!form.errors.status}
+              >
+                {moduleStates.map((state) => {
+                  const statusText = moduleStateToString(state);
+                  return (
+                    <MenuItem key={state} value={state}>
+                      {statusText}
+                    </MenuItem>
+                  );
+                })}
+              </FormSelect>
+            }
+          />
+        </Grid>
+        <Grid item xs={12} md={md}>
+          <FormIconTitle Icon={LocationOn} title="Ubicación" />
+          <LocationForm form={form as unknown as UseFormMethods<{ location: Location }>} />
+        </Grid>
+      </Grid>
     </>
   );
 };
 
+const useStyles = makeStyles((theme) => ({
+  form: {
+    "& > *:not(:last-child)": {
+      marginBottom: theme.spacing(2),
+    },
+  },
+}));
 
 export function useModuleForm(
   defaultValues: Partial<ModuleFormModel> = {
