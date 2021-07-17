@@ -17,7 +17,7 @@ import PieChartLegends from "shared/components/PieChartLegends";
 import WqiLegend from "shared/components/WqiLegend";
 import ModuleState, { moduleStateToColor, moduleStateToString } from "shared/models/ModuleState";
 import WqiRating, { ratingToColor, ratingToText } from "shared/models/WqiRating";
-import { useGetWqiRatingsCount } from "shared/services/watersheds/hooks";
+import { useGetWqiRatingsCount, useGetModuleStatesCount } from "shared/services/watersheds/hooks";
 
 interface WatershedDetailProps {
   riverId?: string;
@@ -27,7 +27,8 @@ interface WatershedDetailProps {
 
 const WatershedDetail: FC<WatershedDetailProps> = ({ isOpen, close, riverId }) => {
   const classes = useStyles();
-  const query = useGetWqiRatingsCount(riverId);
+  const wqiCountQuery = useGetWqiRatingsCount(riverId);
+  const statesCountQuery = useGetModuleStatesCount(riverId);
 
   return (
     <Slide direction="left" in={isOpen} mountOnEnter unmountOnExit timeout={duration.complex}>
@@ -50,9 +51,9 @@ const WatershedDetail: FC<WatershedDetailProps> = ({ isOpen, close, riverId }) =
               </CardContent>
               <Divider />
               <CardContent>
-                {query.isSuccess && (
+                {wqiCountQuery.isSuccess && (
                   <PieChart
-                    data={query?.data}
+                    data={wqiCountQuery?.data}
                     formatOutsideLabel={({ data }) => ratingToText(data)}
                     applyColor={({ data }) => ratingToColor(data)}
                     margin={{ left: 110, right: 110 }}
@@ -73,14 +74,16 @@ const WatershedDetail: FC<WatershedDetailProps> = ({ isOpen, close, riverId }) =
               </CardContent>
               <Divider />
               <CardContent>
-                <PieChart
-                  data={modulesTotal}
-                  margin={20}
-                  width="100%"
-                  height={200}
-                  formatOutsideLabel={({ data }) => moduleStateToString(data)}
-                  applyColor={({ data }) => moduleStateToColor(data)}
-                />
+                {statesCountQuery.isSuccess && (
+                  <PieChart
+                    data={statesCountQuery?.data}
+                    margin={20}
+                    width="100%"
+                    height={200}
+                    formatOutsideLabel={({ data }) => moduleStateToString(data)}
+                    applyColor={({ data }) => moduleStateToColor(data)}
+                  />
+                )}
               </CardContent>
               <Divider />
               <CardContent>
