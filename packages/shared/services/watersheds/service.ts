@@ -3,6 +3,8 @@ import Watershed, { fromWaterbodyResponse } from "../../models/Watershed";
 import { Waterbody, WaterbodyReport } from "./models";
 import PieChart, { PieChartData } from "../../components/PieChart";
 import WqiRating, { toPaperClasification, ratings } from "../../models/WqiRating";
+import ModuleState, { moduleStates } from "../../models/ModuleState";
+import { Module } from "../modules/models";
 
 export async function getWatersheds(): Promise<Watershed[]> {
   const waterBodiesResponse = await axiosInstance.get<Waterbody[]>(`/rivers`);
@@ -37,6 +39,34 @@ export async function getWqiRatingsCount(
     for (const item of Object.keys(ratingCount)) {
       if (ratingCount[item] > 0) {
         pieData.push({ id: item, data: item as WqiRating, value: ratingCount[item] });
+      }
+    }
+  }
+
+  return pieData;
+}
+
+export async function getModuleStatesCount(
+  watershedId: string
+): Promise<Array<PieChartData<ModuleState>>> {
+  const response = await axiosInstance.get<Module[]>(`/modules`);
+
+  const pieData: PieChartData<ModuleState>[] = [];
+  if (response?.data) {
+    const filteredResponseData = response.data.filter((item) => item.riverID === watershedId);
+    const statesCount = {};
+    moduleStates.forEach((state) => (statesCount[state] = 0));
+
+    console.log({ statesCount });
+
+    for (const item of filteredResponseData) {
+      const state = item.state;
+      statesCount[state] += 1;
+    }
+
+    for (const item of Object.keys(statesCount)) {
+      if (statesCount[item] > 0) {
+        pieData.push({ id: item, data: item as ModuleState, value: statesCount[item] });
       }
     }
   }

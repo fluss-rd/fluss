@@ -15,3 +15,11 @@ export function useGetWqiRatingsCount(watershedId?: string) {
   return query;
 }
 
+export function useGetModuleStatesCount(watershedId?: string) {
+  const query = useQuery(
+    ["modules", watershedId],
+    () => service.getModuleStatesCount(watershedId),
+    { enabled: !!watershedId }
+  );
+  return query;
+}
