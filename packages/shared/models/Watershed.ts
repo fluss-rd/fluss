@@ -1,5 +1,5 @@
 import Location from "./Location";
-import { Waterbody as WaterbodyResponse } from "../services/monitor/models";
+import { Waterbody as WaterbodyResponse } from "../services/watersheds/models";
 import Wqi from "./Wqi";
 
 type Watershed = {

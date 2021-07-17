@@ -49,7 +49,7 @@ export function toPaperClasification(rating: string): WqiRating {
     case "unsuitable":
       return "veryBad";
     default:
-      break;
+      return "veryBad";
   }
 }
 

@@ -1,6 +1,7 @@
-import { Module as ModuleResponse, ModuleReport } from "../services/monitor/models";
+import { Module as ModuleResponse, ModuleReport } from "../services/modules/models";
 import Location from "./Location";
 import Wqi from "./Wqi";
+import WqiRating from "./WqiRating";
 import { toPaperClasification } from "./WqiRating";
 
 import ModuleState from "./ModuleState";
@@ -20,10 +21,17 @@ type Module = {
   batteryLevel: number;
 };
 
-export function fromModuleResponse(moduleResponse: ModuleResponse): Module {
-  return {
+export function fromModuleResponse(
+  moduleResponse: ModuleResponse,
+  moduleReport?: ModuleReport
+): Module {
+  const reportData = moduleReport?.data[0];
+  const newModule = {
     location: moduleResponse.location,
-    wqi: { rating: "moderate", value: 20 },
+    wqi: {
+      rating: toPaperClasification(reportData?.wqiClassification) || "moderate",
+      value: reportData?.wqi || 0,
+    },
     id: moduleResponse.moduleID,
     creationDate: new Date(moduleResponse.creationDate),
     updateDate: new Date(moduleResponse.updateDate),
@@ -35,6 +43,8 @@ export function fromModuleResponse(moduleResponse: ModuleResponse): Module {
     batteryLevel: 20,
     watershedName: moduleResponse.riverName,
   };
+  console.log({ newModule });
+  return newModule;
 }
 
 export function fromModuleReport(moduleReport: ModuleReport): Module {
