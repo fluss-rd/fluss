@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 import { NextPage } from "next";
-import { Typography, Box } from "@material-ui/core";
+import { Typography, Box, IconButton, Tooltip } from "@material-ui/core";
 import Module, { mockModules } from "shared/models/Module";
 import { moduleStateToColor, moduleStateToString } from "shared/models/ModuleState";
 import DataTable, { DataTableColumn } from "shared/components/DataTable";
@@ -8,12 +8,18 @@ import { useMemo } from "react";
 import Battery90Icon from "@material-ui/icons/Battery90";
 import { formatDate } from "shared/helpers";
 import SelectColumnFilter from "shared/components/DataTable/filters/SelectColumnFilter";
+import CreateModule from "fragments/modules/CreateModule";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 
 const Modules: NextPage = () => {
   const classes = useStyles();
   const modules = mockModules();
-  const moduleColumns = useColumns();
+  const moduleColumns = useColumns(goToDetails);
   const modulesQuantity = 3;
+
+  function goToDetails(moduleId: string) {
+    console.log({ moduleId });
+  }
 
   return (
     <div>
@@ -24,11 +30,12 @@ const Modules: NextPage = () => {
 
       <br />
       <DataTable showGlobalFilter showFilters columns={moduleColumns} data={modules} />
+      <CreateModule />
     </div>
   );
 };
 
-function useColumns(): DataTableColumn<Module>[] {
+function useColumns(goToDetail: (moduleId: string) => void): DataTableColumn<Module>[] {
   const classes = useStyles();
 
   const columns: DataTableColumn<Module>[] = useMemo(
@@ -72,6 +79,17 @@ function useColumns(): DataTableColumn<Module>[] {
           Header: "Última actualización",
           accessor: ({ updateDate }) => formatDate(updateDate, { type: "dateAndTime" }),
         },
+        {
+          id: "more",
+          Header: " ",
+          accessor: ({ id }) => (
+            <Tooltip title="Ver detalles">
+              <IconButton onClick={() => goToDetail(id)}>
+                <ChevronRightIcon />
+              </IconButton>
+            </Tooltip>
+          ),
+        },
       ] as DataTableColumn<Module>[],
     []
   );
@@ -80,7 +98,7 @@ function useColumns(): DataTableColumn<Module>[] {
 }
 const useStyles = makeStyles((theme) => ({
   state: {
-    padding: theme.spacing(1),
+    padding: theme.spacing(0.5),
     borderRadius: theme.shape.borderRadius,
     width: "fit-content",
   },
