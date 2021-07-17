@@ -1,5 +1,5 @@
 import { Divider, List } from "@material-ui/core";
-import { GpsFixed, Grain, Lock, Notifications, People, Settings } from "@material-ui/icons";
+import { GpsFixed, Grain, Lock, Notifications, People, Settings, ViewModule } from "@material-ui/icons";
 import React, { FC } from "react";
 
 import DrawerItem from "./DrawerItem";
@@ -14,6 +14,7 @@ const FlussDrawerBody: FC<FlussDrawerBodyProps> = ({ openSettings }) => {
       <List>
         <DrawerItem title="Monitor" icon={GpsFixed} to="/" />
         <DrawerItem title="Cuerpos hídricos" icon={Grain} to="/watersheds" />
+        <DrawerItem title="Módulos" icon={ViewModule} to="/modules" />
         <DrawerItem title="Usuarios" icon={People} to="/users" />
         <DrawerItem title="Roles y permisos" icon={Lock} to="/roles-and-permissions" />
       </List>

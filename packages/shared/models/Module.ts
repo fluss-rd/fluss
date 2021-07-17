@@ -9,6 +9,7 @@ type Module = {
   id: string;
   alias: string;
   watershedId: string;
+  watershedName: string;
   state: ModuleState;
   phoneNumber: string;
   serial: string;
@@ -32,6 +33,7 @@ export function fromModuleResponse(moduleResponse: ModuleResponse): Module {
     phoneNumber: moduleResponse.phoneNumber,
     watershedId: moduleResponse.riverID,
     batteryLevel: 20,
+    watershedName: moduleResponse.riverName,
   };
 }
 
@@ -50,6 +52,7 @@ export function fromModuleReport(moduleReport: ModuleReport): Module {
       phoneNumber: "",
       watershedId: moduleReport.riverID,
       batteryLevel: 0,
+      watershedName: "",
     };
   } catch (e) {
     return {
@@ -67,6 +70,7 @@ export function fromModuleReport(moduleReport: ModuleReport): Module {
       state: "active",
       wqi: { value: 80, rating: "good" },
       batteryLevel: 80,
+      watershedName: "",
     };
   }
 }
@@ -88,6 +92,7 @@ export function mockModules(): Module[] {
       state: "active",
       wqi: { value: 80, rating: "good" },
       batteryLevel: 80,
+      watershedName: "Laguna Oviedo",
     },
     {
       id: "MD-2",
@@ -104,6 +109,7 @@ export function mockModules(): Module[] {
       state: "active",
       wqi: { rating: "moderate", value: 23 },
       batteryLevel: 30,
+      watershedName: "Río Yaque del Norte",
     },
   ];
 }
