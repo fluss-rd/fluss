@@ -46,8 +46,6 @@ export function getDateParts(date: Date) {
   let year = new Intl.DateTimeFormat("en", { year: "numeric" }).format(date);
   let month = new Intl.DateTimeFormat("en", { month: "numeric" }).format(date);
   let day = new Intl.DateTimeFormat("en", { day: "2-digit" }).format(date);
-  let hour = new Intl.DateTimeFormat("en", { hour: "2-digit" }).format(date);
-  let minutes = new Intl.DateTimeFormat("en", { minute: "2-digit" }).format(date);
-  return { day, month, year, hours: hour, minutes };
+  return { day, month, year, hours: date.getHours(), minutes: date.getMinutes() };
 }
 
