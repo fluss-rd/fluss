@@ -46,7 +46,7 @@ const ModuleForm: FC<ModuleFormProps> = ({ form, largeWidth, className }) => {
             name="phoneNumber"
             control={form.control}
             as={
-              <ReactInputMask mask="(999) 999-9999" maskChar=" ">
+              <ReactInputMask mask="(999) 999-9999" maskChar=" " >
                 {() => (
                   <FormField
                     label="Numéro celular"

@@ -4,6 +4,7 @@ import FormDialog from "components/FormDialog";
 import useBoolean from "hooks/useBoolean";
 import React, { FC } from "react";
 import { ModuleForm as ModuleFormModel } from "services/modules/models";
+import { useRegisterModule } from "services/modules/hooks";
 
 import ModuleForm, { useModuleForm, defaultValues } from "./ModuleForm";
 
@@ -11,6 +12,7 @@ interface CreateModuleProps {}
 
 const CreateModule: FC<CreateModuleProps> = (props) => {
   const moduleForm = useModuleForm();
+  const createModuleQuery = useRegisterModule();
   const [isOpen, open, close] = useBoolean();
 
   const resetForm = () => {
@@ -19,6 +21,7 @@ const CreateModule: FC<CreateModuleProps> = (props) => {
 
   const onSubmit = (data: ModuleFormModel) => {
     console.log({ data });
+    createModuleQuery.mutate(data);
     resetForm();
     close();
   };
