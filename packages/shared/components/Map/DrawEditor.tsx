@@ -53,7 +53,9 @@ const DrawEditor: FC<DrawEditorProps> = (props) => {
   const onUpdate = ({ editType, data }: EditorGeoJson) => {
     console.log({ editType });
     if (editType === "addFeature") {
+      console.log({ data });
       setMode(new EditingMode());
+      console.log({ data });
 
       if (props.onSelect) {
         try {
@@ -74,22 +76,32 @@ const DrawEditor: FC<DrawEditorProps> = (props) => {
     setMode(updatedMode);
   }
 
+  function computeFeatures() {
+    if (!coordinates) return undefined;
+
+    if (coordinates[0]?.length) {
+      return [
+        {
+          type: "Feature",
+          properties: {},
+          geometry: {
+            type: "Polygon",
+            // These coordinates outline Maine.
+            coordinates,
+          },
+        },
+      ];
+    }
+
+    return undefined;
+  }
+
   return (
     <>
       <Editor
         ref={editorRef}
         style={{ width: "100%", height: "100%" }}
-        features={[
-          {
-            type: "Feature",
-            properties: {},
-            geometry: {
-              type: "Polygon",
-              // These coordinates outline Maine.
-              coordinates,
-            },
-          },
-        ]}
+        features={computeFeatures() as any}
         clickRadius={12}
         mode={mode}
         onSelect={onSelect}

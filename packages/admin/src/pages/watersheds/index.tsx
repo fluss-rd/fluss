@@ -48,7 +48,6 @@ const Watersheds: NextPage = () => {
           <br />
           <div className={classes.watershedCards}>
             {watersheds.map((watershed) => {
-              console.log({ watershed });
               return (
                 <WatershedCard
                   key={watershed.id}

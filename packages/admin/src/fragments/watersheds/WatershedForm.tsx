@@ -20,6 +20,8 @@ const WatershedForm: FC<WatershedFormProps> = ({ form }) => {
   const onSelectedArea = (area: Array<[number, number]>) => {
     const points = area.map((point) => ({ longitude: point[0], latitude: point[1] }));
     console.log({ points });
+    form.setValue("location", points);
+    console.log(form.getValues());
   };
 
   const onDeleteSelectedArea = () => {
@@ -95,6 +97,13 @@ const RenderMap: FC<RenderMapProps> = (props) => {
 
   const areaIsDrawn = area?.length;
 
+  const onDefinedSelectedArea = (area: Array<[number, number]>) => {
+    if (onSelectArea) {
+      onSelectArea(area);
+      control.trigger("location");
+    }
+  };
+
   return (
     <Map
       focusLocation={areaIsDrawn ? area : defaultFocus}
@@ -103,7 +112,7 @@ const RenderMap: FC<RenderMapProps> = (props) => {
       enableAreaDrawing={true}
       showAreaDrawingToolbar={true}
       areaDrawingMode="edition"
-      onSelectArea={onSelectArea}
+      onSelectArea={onDefinedSelectedArea}
       onDeleteArea={onDeleteSelectedArea}
     />
   );
@@ -125,6 +134,10 @@ export function useWatershedForm(
     });
   }, dependencies);
 
+  React.useEffect(() => {
+    form.register("location");
+  }, [form.register]);
+
   return form;
 }
 
@@ -139,6 +152,7 @@ const schema: yup.SchemaOf<WatershedFormModel> = yup.object().shape({
         longitude: yup.number(),
       })
     )
+    .min(1, "Por favor trace la región correspondiente al cuerpo hídrico")
     .required("Por favor trace la región correspondiente al cuerpo hídrico"),
 });
 
