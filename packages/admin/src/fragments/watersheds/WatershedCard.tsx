@@ -1,7 +1,7 @@
 import { Button, Card, CardActions, CardContent, Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Update, ViewModule } from "@material-ui/icons";
-import Map from "components/Map";
+import Map from "shared/components/Map";
 import { useRouter } from "next/router";
 import React, { FC } from "react";
 import IconLabel from "shared/components/IconLabel";
@@ -14,7 +14,7 @@ interface WatershedCardProps {
   modulesQuantity: number;
   wqiValue: number;
   lastUpdate: Date;
-  location: Location;
+  location: Location[];
   onViewMore?: (watershedId: string) => void;
   onEdit?: (watershedId: string) => void;
 }
@@ -55,8 +55,12 @@ const WatershedCard: FC<WatershedCardProps> = (props) => {
               alignIcon="flex-start"
               title={
                 <div>
-                  <Typography>Última actualización: {formatDate(props.lastUpdate)}</Typography>
-                  <Typography>Fecha de registro: {formatDate(props.lastUpdate)}</Typography>
+                  <Typography>
+                    Última actualización: {formatDate(props.lastUpdate, { type: "dateAndTime" })}
+                  </Typography>
+                  <Typography>
+                    Fecha de registro: {formatDate(props.lastUpdate, { type: "dateAndTime" })}
+                  </Typography>
                 </div>
               }
             />
@@ -72,7 +76,7 @@ const WatershedCard: FC<WatershedCardProps> = (props) => {
           </CardActions>
         </Grid>
         <Grid item xs={12} sm={6} className={classes.map}>
-          <Map locations={[props.location]} />
+          <Map zoom={10} focusLocation={props.location} areas={[props.location]} />
         </Grid>
       </Grid>
     </Card>
@@ -87,6 +91,7 @@ const useStyles = makeStyles({
   },
   map: {
     minHeight: 250,
+    zIndex: 0,
   },
   table: {
     "& td": {
@@ -97,3 +102,4 @@ const useStyles = makeStyles({
 });
 
 export default WatershedCard;
+

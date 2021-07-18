@@ -55,4 +55,3 @@ const mappedCoordinates = coordinates.map((element) =>
 );
 
 export default MapTest;
-

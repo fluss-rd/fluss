@@ -90,4 +90,3 @@ ModuleLast24HoursChart.defaultProps = {
   barHeight: 100
 };
 export default ModuleLast24HoursChart;
-

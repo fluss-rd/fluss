@@ -17,21 +17,28 @@ import PieChartLegends from "shared/components/PieChartLegends";
 import WqiLegend from "shared/components/WqiLegend";
 import ModuleState, { moduleStateToColor, moduleStateToString } from "shared/models/ModuleState";
 import WqiRating, { ratingToColor, ratingToText } from "shared/models/WqiRating";
+import { useGetWqiRatingsCount, useGetModuleStatesCount, useGetWatershedById } from "shared/services/watersheds/hooks";
 
 interface WatershedDetailProps {
+  riverId?: string;
   isOpen?: boolean;
   close?: () => void;
 }
 
-const WatershedDetail: FC<WatershedDetailProps> = ({ isOpen, close }) => {
+export const detailWidth = 450;
+
+const WatershedDetail: FC<WatershedDetailProps> = ({ isOpen, close, riverId }) => {
   const classes = useStyles();
+  const watershedQuery = useGetWatershedById(riverId);
+  const wqiCountQuery = useGetWqiRatingsCount(riverId);
+  const statesCountQuery = useGetModuleStatesCount(riverId);
 
   return (
     <Slide direction="left" in={isOpen} mountOnEnter unmountOnExit timeout={duration.complex}>
       <Box className={classes.root} boxShadow={10}>
         <Card elevation={0} className={classes.card}>
           <CardHeader
-            title="Río Yaque del Norte"
+            title={watershedQuery.data?.name}
             subheader="Resumen gráfico"
             action={
               <IconButton aria-label="settings" onClick={close}>
@@ -47,14 +54,16 @@ const WatershedDetail: FC<WatershedDetailProps> = ({ isOpen, close }) => {
               </CardContent>
               <Divider />
               <CardContent>
-                <PieChart
-                  data={data}
-                  formatOutsideLabel={({ data }) => ratingToText(data)}
-                  applyColor={({ data }) => ratingToColor(data)}
-                  margin={{ left: 110, right: 110 }}
-                  width="100%"
-                  height={200}
-                />
+                {wqiCountQuery.isSuccess && (
+                  <PieChart
+                    data={wqiCountQuery?.data}
+                    formatOutsideLabel={({ data }) => ratingToText(data)}
+                    applyColor={({ data }) => ratingToColor(data)}
+                    margin={{ left: 110, right: 110 }}
+                    width="100%"
+                    height={200}
+                  />
+                )}
               </CardContent>
               <Divider />
               <CardContent>
@@ -68,14 +77,16 @@ const WatershedDetail: FC<WatershedDetailProps> = ({ isOpen, close }) => {
               </CardContent>
               <Divider />
               <CardContent>
-                <PieChart
-                  data={modulesTotal}
-                  margin={20}
-                  width="100%"
-                  height={200}
-                  formatOutsideLabel={({ data }) => moduleStateToString(data)}
-                  applyColor={({ data }) => moduleStateToColor(data)}
-                />
+                {statesCountQuery.isSuccess && (
+                  <PieChart
+                    data={statesCountQuery?.data}
+                    margin={20}
+                    width="100%"
+                    height={200}
+                    formatOutsideLabel={({ data }) => moduleStateToString(data)}
+                    applyColor={({ data }) => moduleStateToColor(data)}
+                  />
+                )}
               </CardContent>
               <Divider />
               <CardContent>
@@ -92,19 +103,6 @@ const WatershedDetail: FC<WatershedDetailProps> = ({ isOpen, close }) => {
     </Slide>
   );
 };
-
-const data: Array<PieChartData<WqiRating>> = [
-  {
-    id: "excellent",
-    value: 2,
-    data: "excellent",
-  },
-  {
-    id: "moderate",
-    value: 2,
-    data: "moderate",
-  },
-];
 
 const modulesTotal: Array<PieChartData<ModuleState>> = [
   {
@@ -127,14 +125,18 @@ const modulesTotal: Array<PieChartData<ModuleState>> = [
 const useStyles = makeStyles({
   root: {
     height: "100vh",
-    overflow: "auto",
+    position: "fixed",
+    top: 0,
+    right: 0,
+    width: detailWidth,
   },
   card: {
     borderRadius: 0,
     height: "100%",
-
     overflow: "auto",
   },
 });
 
 export default WatershedDetail;
+
+

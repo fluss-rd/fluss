@@ -14,10 +14,9 @@ import ReactMapGL, { FlyToInterpolator, MapEvent, Marker, ViewportProps } from "
 import generateId from "../../helpers/generateId";
 import useMergeState, { Prev } from "../../hooks/useMergeState";
 import Location from "../../models/Location";
-import MapArea from "../MapArea";
-import DrawEditor from "./DrawEditor";
-import MapStyle, { mapStyleToUrl } from "./MapStyle";
 import computeCoordinatesCenter from "./computeCoordinatesCenter";
+import DrawEditor, { DrawEditorProps, DrawEditorMode } from "./DrawEditor";
+import MapStyle, { mapStyleToUrl } from "./MapStyle";
 
 export type LocationInfo<T> = Location & {
   value?: T;
@@ -25,28 +24,26 @@ export type LocationInfo<T> = Location & {
 
 export interface MapProps<T> {
   style?: MapStyle;
+  DrawEditorProps?: Partial<DrawEditorProps>;
   locations?: LocationInfo<T>[];
-  areas?: Array<Location>[];
   focusLocation?: Location | Array<Location>;
   render?: (info: LocationInfo<T>) => JSX.Element;
   onClick?: (location: Location) => void;
   zoom?: number;
-  enableDraw?: boolean;
+  enableAreaDrawing?: boolean;
+  showAreaDrawingToolbar?: boolean;
+  areas?: Array<Location>[];
   onSelectArea?: (area: Array<[number, number]>) => void;
   onDeleteArea?: () => void;
+  areaDrawingMode?: DrawEditorMode;
 }
 
 export interface MapRef {
   viewport: ViewportProps;
   setViewport: (newState: Partial<ViewportProps> | Prev<ViewportProps>) => void;
-  flyTo: (
-    location: Location | Array<Location>,
-    config?: Omit<ViewportProps, "latitude" | "longitude">
-  ) => void;
   mapRef: React.MutableRefObject<undefined>;
 }
 
-// Map shows a map with the provided locations.
 function Map<T>(props: MapProps<T>, ref: ForwardedRef<MapRef>) {
   const mapRef = useRef();
   const computeDefaultLocation = useCallback((): Location => {
@@ -77,39 +74,14 @@ function Map<T>(props: MapProps<T>, ref: ForwardedRef<MapRef>) {
     setViewport(viewport);
   }, []);
 
-  const flyTo = (
-    location: Location | Array<Location>,
-    config: Omit<ViewportProps, "latitude" | "longitude"> = {
-      zoom: 5,
-      transitionDuration: 5000,
-      transitionInterpolator: new FlyToInterpolator(),
-      transitionEasing: easeCubic,
-    }
-  ) => {
-    const coordinates = Array.isArray(location) ? computeCoordinatesCenter(location) : location;
-
-    setViewport({
-      ...viewport,
-      ...coordinates,
-      ...config,
-    });
-  };
-
-  const coordinates = props.areas.map((area) =>
-    area.map(({ longitude, latitude }) => [longitude, latitude])
-  );
-
   useImperativeHandle(ref, returnReferences, [viewport, setViewport]);
-
   useEffect(updateZoom, [props.zoom]);
-
   useEffect(updateFocus, [props.focusLocation]);
 
   function returnReferences(): MapRef {
     return {
       viewport,
       setViewport,
-      flyTo,
       mapRef,
     };
   }
@@ -148,23 +120,15 @@ function Map<T>(props: MapProps<T>, ref: ForwardedRef<MapRef>) {
           {props.render(info)}
         </Marker>
       ))}
-      {props.areas && (
-        <MapArea
-          key={"areas"}
-          id={"areas"}
-          geoJson={{
-            type: "Feature",
-            properties: {},
-            geometry: {
-              type: "Polygon",
-              // These coordinates outline Maine.
-              coordinates,
-            },
-          }}
+      {(props.enableAreaDrawing || props.areas) && (
+        <DrawEditor
+          areas={props.areas}
+          onRemove={props.onDeleteArea}
+          onSelect={props.onSelectArea}
+          mode={props.areaDrawingMode}
+          showPanel={props.showAreaDrawingToolbar}
+          {...props.DrawEditorProps}
         />
-      )}
-      {props.enableDraw && (
-        <DrawEditor onRemove={props.onDeleteArea} onSelect={props.onSelectArea} />
       )}
     </ReactMapGL>
   );
@@ -181,12 +145,14 @@ export const defaultFocus = {
 
 (ForwardedMap as FC<MapProps<any>>).defaultProps = {
   style: "basic-customized",
+  areaDrawingMode: "view",
   locations: [],
   areas: [],
+  showAreaDrawingToolbar: false,
   zoom: defaultZoom,
   render: () => <LocationIcon color="primary" />,
   focusLocation: null,
-  enableDraw: false,
+  enableAreaDrawing: false,
 };
 
 export default ForwardedMap;

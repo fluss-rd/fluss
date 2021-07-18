@@ -9,10 +9,10 @@ import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { ThemeProvider } from "@material-ui/styles";
 import Layout from "layouts";
 import React, { useEffect } from "react";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { ServiceProvider } from "services/service";
 import { initialState, StateContext } from "store/state";
 import theme, { GlobalCss } from "styles/theme";
-import { QueryClient, QueryClientProvider } from "react-query";
 
 const queryClient = new QueryClient();
 
@@ -32,7 +32,7 @@ function MyApp({ Component, pageProps }) {
         <ThemeProvider theme={theme}>
           <GlobalCss />
           <ServiceProvider>
-            <QueryClientProvider client={queryClient} contextSharing={true}>
+            <QueryClientProvider client={queryClient}>
               <Layout>
                 <Component {...pageProps} />
               </Layout>
@@ -45,4 +45,3 @@ function MyApp({ Component, pageProps }) {
 }
 
 export default MyApp;
-

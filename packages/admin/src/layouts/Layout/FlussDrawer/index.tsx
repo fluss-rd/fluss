@@ -121,7 +121,8 @@ const useStyles = makeStyles<Theme, { drawerWidth: number; open: boolean }>((the
     ...theme.mixins.toolbar,
   },
   paper: {
-    background: theme.palette.primary.main,
+    //background: theme.palette.primary.main,
+    background: "#060913",
     color: "white",
   },
 }));

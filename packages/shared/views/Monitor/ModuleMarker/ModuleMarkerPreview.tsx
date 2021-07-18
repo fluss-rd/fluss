@@ -11,7 +11,8 @@ import React, { FC, memo } from "react";
 import { ratingToText, ratingToColor } from "shared/models/WqiRating";
 
 import ModuleLast24HoursChart from "../../../components/ModuleLast24HoursChart";
-import { useGetModule } from "../../../services/monitor/hooks";
+import { useGetModuleInfoById, useGetModuleDetailsById } from "../../../services/modules/hooks";
+import Module, { fromModuleResponse } from "../../../models/Module";
 
 interface ModuleMarkerPreviewProps {
   moduleId: string;
@@ -22,8 +23,11 @@ interface ModuleMarkerPreviewProps {
 }
 
 const ModuleMarkerPreview: FC<ModuleMarkerPreviewProps> = (props) => {
-  const moduleQuery = useGetModule(props.moduleId);
-  const module = moduleQuery.data;
+  const infoQuery = useGetModuleInfoById(props.moduleId);
+  const detailsQuery = useGetModuleDetailsById(props.moduleId);
+  const infoData = infoQuery?.data?.data;
+  const detailsData = detailsQuery?.data?.data;
+  const module = infoData && detailsQuery && fromModuleResponse(infoData, detailsData);
 
   const color = ratingToColor(module?.wqi?.rating);
   const openPopover = props.open;
@@ -51,7 +55,7 @@ const ModuleMarkerPreview: FC<ModuleMarkerPreviewProps> = (props) => {
           horizontal: "center",
         }}
       >
-        {(props.moduleId || moduleQuery.status !== "loading") && (
+        {props.moduleId && module && (
           <Card onMouseLeave={props.onClose}>
             <CardContent>
               <Typography variant="caption" style={{ fontWeight: "bold" }}>

@@ -1,29 +1,20 @@
 import axiosInstance from "../axiosInstance";
-import ModuleModel, { fromModuleResponse, addWqiDataToModuleResponse } from "../../models/Module";
+import ModuleModel, { fromModuleResponse } from "../../models/Module";
 import {
   WatershedsMapData,
-  Waterbody,
-  Module,
   ModuleReportModel,
   ParameterType } from "./models";
-import { fromWaterbodyResponse } from "../../models/Watershed";
-import ParameterMeasures, { fromModuleReportFilterHourResponse } from "../../models/ParameterMeasures";
-import DateMeasure, { fromModuleReportFilterDayResponse } from "../../models/DateMeasure";
+import { Module } from "../modules/models";
+import { getWatersheds } from "../watersheds/service";
+import { getModules } from "../modules/service";
+import ParameterMeasures, { fromModuleReportFilterHourResponse } from '../../models/ParameterMeasures';
+import DateMeasure, { fromModuleReportFilterDayResponse } from '../../models/DateMeasure'
 
 export async function getWatershedsMapData(): Promise<WatershedsMapData> {
-  const waterBodiesResponse = await axiosInstance.get<Waterbody[]>(`/rivers`);
-  const modulesResponse = await axiosInstance.get<Module[]>(`/modules`);
-  // TODO: replace the "1y" cardinality value when we have an alternative from the api, as using "1y" is a hack to get only the last message from each module.
-  const moduleReportResponse = await axiosInstance.get<ModuleReportModel>(`/reports/modules?cardinality=1y&aggregationWindow=last`);
-
-  const data: WatershedsMapData = { modules: [], watersheds: [] };
-
-  if (waterBodiesResponse?.data)
-    waterBodiesResponse.data.forEach((w) => data.watersheds.push(fromWaterbodyResponse(w)));
-
-  if (modulesResponse?.data && moduleReportResponse?.data)
-    // TODO: modify the API to return the modules with their last WQI value
-    data.modules = fromModuleResponse(modulesResponse.data, moduleReportResponse.data)
+  const data: WatershedsMapData = {
+    modules: await getModules(),
+    watersheds: await getWatersheds(),
+  };
 
   return data;
 }

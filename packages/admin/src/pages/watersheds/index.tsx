@@ -1,23 +1,20 @@
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import AddWatershed from "fragments/watersheds/common/AddWatershed";
-import EditWatershed from "fragments/watersheds/common/EditWatershed";
+import AddWatershed from "fragments/watersheds/AddWatershed";
+import EditWatershed from "fragments/watersheds/EditWatershed";
 import WatershedCard from "fragments/watersheds/WatershedCard";
-import WatershedDetail from "fragments/watersheds/WatershedDetail";
+import WatershedDetail, { detailWidth } from "fragments/watersheds/WatershedDetail";
 import { useLayoutContext } from "layouts/Layout/LayoutContext";
 import { NextPage } from "next";
 import { useMergeState } from "shared/hooks";
-import { mockWatersheds } from "shared/models/Watershed";
-import Watershed from "shared/models/Watershed";
+import { useGetWatersheds } from "shared/services/watersheds/hooks";
 
-interface WatershedsProps {
-  quantity: number;
-  watersheds: Watershed[];
-}
-
-const Watersheds: NextPage<WatershedsProps> = ({ quantity, watersheds }) => {
+const Watersheds: NextPage = () => {
   const classes = useStyles();
   const context = useLayoutContext();
+  const watershedsQuery = useGetWatersheds();
+  const watersheds = watershedsQuery.data || [];
+  const quantity = watersheds.length;
   const [state, setState] = useMergeState({ detail: "", edition: "" });
 
   const onEditWatershed = (watershedId: string) => {
@@ -41,7 +38,7 @@ const Watersheds: NextPage<WatershedsProps> = ({ quantity, watersheds }) => {
   return (
     <>
       <div style={{ display: "flex", height: "100%" }}>
-        <div style={{ padding: context.values.pagePadding, flex: 1, position: "relative" }}>
+        <div style={{ flex: 1 }}>
           <Typography variant="h4">Cuerpos hídricos</Typography>
 
           <Typography variant="subtitle1" color="textSecondary" className={classes.subtitle}>
@@ -50,24 +47,25 @@ const Watersheds: NextPage<WatershedsProps> = ({ quantity, watersheds }) => {
 
           <br />
           <div className={classes.watershedCards}>
-            {watersheds.map((watershed) => (
-              <WatershedCard
-                key={watershed.id}
-                id={watershed.id}
-                name={watershed.name}
-                wqiValue={watershed.wqi.value}
-                lastUpdate={new Date(watershed.updateDate)}
-                modulesQuantity={watershed.modulesQuantity}
-                location={watershed.location}
-                onViewMore={onViewWatershedDetail}
-                onEdit={onEditWatershed}
-              />
-            ))}
+            {watersheds.map((watershed) => {
+              return (
+                <WatershedCard
+                  key={watershed.id}
+                  id={watershed.id}
+                  name={watershed.name}
+                  wqiValue={watershed.wqi.value}
+                  lastUpdate={new Date(watershed.updateDate)}
+                  modulesQuantity={watershed.modulesQuantity}
+                  location={watershed.area}
+                  onViewMore={onViewWatershedDetail}
+                  onEdit={onEditWatershed}
+                />
+              );
+            })}
           </div>
-          <AddWatershed />
         </div>
-
-        <WatershedDetail isOpen={!!state.detail} close={closeWatershedDetail} />
+        <div style={{ width: !!state.detail ? detailWidth : 0, height: "100vh", color: "red" }} />
+        <AddWatershed marginRight={detailWidth} detailIsOpen={!!state.detail} />
 
         <EditWatershed
           isOpen={!!state.edition}
@@ -75,14 +73,13 @@ const Watersheds: NextPage<WatershedsProps> = ({ quantity, watersheds }) => {
           close={closeWatershedEdition}
         />
       </div>
+      <WatershedDetail
+        riverId={state.detail}
+        isOpen={!!state.detail}
+        close={closeWatershedDetail}
+      />
     </>
   );
-};
-
-Watersheds.getInitialProps = async ({ req }) => {
-  const watersheds = [mockWatersheds()[0]];
-
-  return { quantity: watersheds.length, watersheds };
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -97,3 +94,4 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default Watersheds;
+
