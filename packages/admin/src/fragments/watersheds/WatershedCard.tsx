@@ -91,6 +91,7 @@ const useStyles = makeStyles({
   },
   map: {
     minHeight: 250,
+    zIndex: 0,
   },
   table: {
     "& td": {

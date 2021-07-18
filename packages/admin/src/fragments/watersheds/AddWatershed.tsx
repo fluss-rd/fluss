@@ -5,12 +5,17 @@ import useBoolean from "hooks/useBoolean";
 import React, { FC } from "react";
 import { WatershedForm as WatershedFormModel } from "services/watersheds/models";
 import { useRegisterWatershed } from "services/watersheds/hooks";
+import { useTheme } from "@material-ui/core/styles";
 
 import WatershedForm, { useWatershedForm } from "./WatershedForm";
 
-interface AddWatershedProps {}
+interface AddWatershedProps {
+  detailIsOpen?: boolean;
+  marginRight?: number;
+}
 
-const AddWatershed: FC<AddWatershedProps> = () => {
+const AddWatershed: FC<AddWatershedProps> = (props) => {
+  const theme = useTheme();
   const [isOpen, open, close] = useBoolean();
   const watershedMutation = useRegisterWatershed();
   const form = useWatershedForm();
@@ -34,9 +39,16 @@ const AddWatershed: FC<AddWatershedProps> = () => {
     resetForm();
   };
 
+  const rightSpacing = theme.spacing(4);
+
   return (
     <>
-      <Fab onClick={open} position="absolute" variant="round">
+      <Fab
+        onClick={open}
+        position="fixed"
+        variant="round"
+        style={{ right: props.detailIsOpen ? props.marginRight + rightSpacing : rightSpacing }}
+      >
         <Add />
       </Fab>
       <FormDialog

@@ -17,7 +17,7 @@ import PieChartLegends from "shared/components/PieChartLegends";
 import WqiLegend from "shared/components/WqiLegend";
 import ModuleState, { moduleStateToColor, moduleStateToString } from "shared/models/ModuleState";
 import WqiRating, { ratingToColor, ratingToText } from "shared/models/WqiRating";
-import { useGetWqiRatingsCount, useGetModuleStatesCount } from "shared/services/watersheds/hooks";
+import { useGetWqiRatingsCount, useGetModuleStatesCount, useGetWatershedById } from "shared/services/watersheds/hooks";
 
 interface WatershedDetailProps {
   riverId?: string;
@@ -25,8 +25,11 @@ interface WatershedDetailProps {
   close?: () => void;
 }
 
+export const detailWidth = 450;
+
 const WatershedDetail: FC<WatershedDetailProps> = ({ isOpen, close, riverId }) => {
   const classes = useStyles();
+  const watershedQuery = useGetWatershedById(riverId);
   const wqiCountQuery = useGetWqiRatingsCount(riverId);
   const statesCountQuery = useGetModuleStatesCount(riverId);
 
@@ -35,7 +38,7 @@ const WatershedDetail: FC<WatershedDetailProps> = ({ isOpen, close, riverId }) =
       <Box className={classes.root} boxShadow={10}>
         <Card elevation={0} className={classes.card}>
           <CardHeader
-            title="Río Yaque del Norte"
+            title={watershedQuery.data?.name}
             subheader="Resumen gráfico"
             action={
               <IconButton aria-label="settings" onClick={close}>
@@ -122,15 +125,18 @@ const modulesTotal: Array<PieChartData<ModuleState>> = [
 const useStyles = makeStyles({
   root: {
     height: "100vh",
-    overflow: "auto",
+    position: "fixed",
+    top: 0,
+    right: 0,
+    width: detailWidth,
   },
   card: {
     borderRadius: 0,
     height: "100%",
-
     overflow: "auto",
   },
 });
 
 export default WatershedDetail;
+
 
