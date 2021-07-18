@@ -40,7 +40,6 @@ function Map<T>(props: MapProps<T>) {
   });
 
   const onMapClick = (click: MapEvent) => {
-    console.log({ click });
     const [longitude, latitude] = click.lngLat;
     if (props.onClick) props.onClick({ latitude, longitude });
   };
