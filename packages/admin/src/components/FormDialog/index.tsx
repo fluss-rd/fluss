@@ -23,6 +23,7 @@ const FormDialog: FC<FormDialogProps> = (props) => {
   return (
     <Dialog
       fullWidth
+      keepMounted={false}
       disableBackdropClick
       disableEscapeKeyDown
       open={isOpen}

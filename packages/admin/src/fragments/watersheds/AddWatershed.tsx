@@ -4,6 +4,7 @@ import FormDialog from "components/FormDialog";
 import useBoolean from "hooks/useBoolean";
 import React, { FC } from "react";
 import { WatershedForm as WatershedFormModel } from "services/watersheds/models";
+import { useRegisterWatershed } from "services/watersheds/hooks";
 
 import WatershedForm, { useWatershedForm } from "./WatershedForm";
 
@@ -11,10 +12,26 @@ interface AddWatershedProps {}
 
 const AddWatershed: FC<AddWatershedProps> = () => {
   const [isOpen, open, close] = useBoolean();
+  const watershedMutation = useRegisterWatershed();
   const form = useWatershedForm();
 
+  const resetForm = () => {
+    form.reset({
+      name: "",
+      type: "",
+      location: [],
+    });
+  };
+
   const onSubmit = (data: WatershedFormModel) => {
-    console.log({ data });
+    watershedMutation.mutate(data);
+    resetForm();
+    close();
+  };
+
+  const onCancel = () => {
+    close();
+    resetForm();
   };
 
   return (
@@ -26,7 +43,7 @@ const AddWatershed: FC<AddWatershedProps> = () => {
         mode="registration"
         isOpen={isOpen}
         title="Registrar cuerpo hídrico"
-        onClose={close}
+        onClose={onCancel}
         onSave={form.handleSubmit(onSubmit)}
       >
         <WatershedForm form={form} />
@@ -36,3 +53,4 @@ const AddWatershed: FC<AddWatershedProps> = () => {
 };
 
 export default AddWatershed;
+
