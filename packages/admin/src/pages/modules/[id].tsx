@@ -9,13 +9,16 @@ import { ChangeEvent, useState } from "react";
 import Back from "shared/components/Back";
 import TabPanel, { AntTab, AntTabs } from "shared/components/TabPanel";
 import { mockModules } from "shared/models/Module";
+import { useGetModuleInfoById } from "shared/services/modules/hooks";
+import { fromModuleResponse } from "shared/models/Module";
 
 const Module: NextPage = () => {
   const classes = useStyles();
   const router = useRouter();
   const [value, setValue] = useState(0);
-  const moduleId = router.query.id;
-  const module = mockModules().find((m) => m.id === moduleId);
+  const moduleId = router.query.id as string;
+  const moduleInfoQuery = useGetModuleInfoById(moduleId);
+  const module = fromModuleResponse(moduleInfoQuery?.data?.data);
 
   const goBack = () => {
     router.back();
@@ -34,7 +37,7 @@ const Module: NextPage = () => {
 
       <Typography variant="h4">{module?.alias}</Typography>
       <Typography variant="subtitle1" color="textSecondary">
-        Perteneciente al {module?.watershedName}
+        Dentro de {module?.watershedName}
       </Typography>
 
       <br />
@@ -60,3 +63,4 @@ const Module: NextPage = () => {
 
 const useStyles = makeStyles((theme: Theme) => ({}));
 export default Module;
+
