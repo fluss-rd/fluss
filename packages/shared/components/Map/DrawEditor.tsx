@@ -37,11 +37,14 @@ const DrawEditor: FC<DrawEditorProps> = (props) => {
   useEffect(updateMode, [props.mode]);
 
   const onSelect = (options: any) => {
+    console.log({ options });
     setSelectedFeatureIndex(options && options.selectedFeatureIndex);
   };
 
   const onDelete = () => {
+    console.log({ selectedFeatureIndex });
     if (selectedFeatureIndex !== null && selectedFeatureIndex >= 0) {
+      console.log("hey");
       editorRef.current.deleteFeatures(selectedFeatureIndex);
 
       if (props.onRemove) {

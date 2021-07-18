@@ -19,13 +19,11 @@ export interface WatershedFormProps {
 const WatershedForm: FC<WatershedFormProps> = ({ form }) => {
   const onSelectedArea = (area: Array<[number, number]>) => {
     const points = area.map((point) => ({ longitude: point[0], latitude: point[1] }));
-    console.log({ points });
     form.setValue("location", points);
-    console.log(form.getValues());
   };
 
   const onDeleteSelectedArea = () => {
-    console.log("Deleted");
+    form.setValue("location", []);
   };
 
   return (
