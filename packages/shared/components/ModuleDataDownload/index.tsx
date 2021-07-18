@@ -8,15 +8,11 @@ import {
   FormControl,
   FormControlLabel,
   FormGroup,
-  FormHelperText,
   FormLabel,
-  Grid,
   MenuItem,
   Radio,
-  Typography,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { DatePicker, KeyboardDatePicker } from "@material-ui/pickers";
 import React, { ChangeEvent, FC, useState } from "react";
 
 import { mockWatersheds } from "../../models/Watershed";
@@ -108,8 +104,8 @@ const ModuleDataDownload: FC<ModuleDataDownloadProps> = ({
         <FormControl component="fieldset">
           <FormLabel component="legend">Elegir formato</FormLabel>
           <FormGroup>
-            <FormControlLabel control={<Radio name="excel" />} label="Excel" />
-            <FormControlLabel control={<Radio name="csv" />} label="CSV" />
+            <FormControlLabel disabled={true} control={<Radio name="excel" />} label="Excel" />
+            <FormControlLabel disabled={true} control={<Radio name="csv" />} label="CSV" />
             <FormControlLabel control={<Radio name="json" />} label="JSON" />
           </FormGroup>
         </FormControl>
