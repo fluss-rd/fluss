@@ -7,16 +7,17 @@ import ParameterAnnualSummary from "fragments/monitor/id/ParameterAnnualSummary"
 import PreviewToolbar from "fragments/monitor/id/PreviewToolbar";
 import { useRouter } from "next/router";
 import React, { FC } from "react";
-import { mockModules } from "shared/models/Module";
+import { useGetModuleInfoById } from "shared/services/modules/hooks";
 
 interface ModuleDataProps {}
 
 const ModuleData: FC<ModuleDataProps> = () => {
   const classes = useStyles();
   const router = useRouter();
-  const modules = mockModules();
-  const moduleId = router.query?.id;
-  const module = modules.find((module) => module.id === moduleId);
+
+  const moduleId = router.query?.id as string;
+  const moduleQuery = useGetModuleInfoById(moduleId);
+  const module = moduleQuery?.data?.data;
 
   return (
     <div className={classes.root}>
@@ -29,7 +30,7 @@ const ModuleData: FC<ModuleDataProps> = () => {
           <Grid item xs={12}>
             <Grid container spacing={3}>
               <Grid item xs={12} md={7}>
-                <Last24Hours />
+                <Last24Hours moduleId={moduleId} />
               </Grid>
               <Grid item xs={12} md={5}>
                 <ModuleLocation location={module?.location} />
@@ -38,7 +39,7 @@ const ModuleData: FC<ModuleDataProps> = () => {
           </Grid>
 
           <Grid item xs={12}>
-            <ParameterAnnualSummary />
+            <ParameterAnnualSummary moduleId={moduleId} />
           </Grid>
         </Grid>
       </Container>
