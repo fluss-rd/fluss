@@ -83,21 +83,33 @@ const DrawEditor: FC<DrawEditorProps> = (props) => {
     if (!coordinates) return undefined;
 
     if (coordinates[0]?.length) {
-      return [
-        {
-          type: "Feature",
-          properties: {},
-          geometry: {
-            type: "Polygon",
-            // These coordinates outline Maine.
-            coordinates,
-          },
+      const hmm = coordinates.map((coordinate: any) => ({
+        type: "Feature",
+        properties: {},
+        geometry: {
+          type: "Polygon",
+          // These coordinates outline Maine.
+          coordinates: [coordinate],
         },
-      ];
+      }));
+      //return [
+      //{
+      //type: "Feature",
+      //properties: {},
+      //geometry: {
+      //type: "Polygon",
+      //// These coordinates outline Maine.
+      //coordinates,
+      //},
+      //},
+      //];
+      return hmm;
     }
 
     return undefined;
   }
+
+  console.log({ featuers: computeFeatures() });
 
   return (
     <>

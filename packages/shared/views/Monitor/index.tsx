@@ -24,6 +24,7 @@ const Monitor: FC<MonitorProps> = (props) => {
   const locations = modules.map(mapToLocations);
   const areas = watersheds.map((watershed) => watershed.area);
   const classes = useStyles({ mode: props.mode });
+  console.log({ areas });
 
   const onWatershedChange = (id: string) => {
     setWatershedId(id);
