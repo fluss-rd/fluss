@@ -6,7 +6,7 @@ import React, { FC } from "react";
 import { WatershedForm as WatershedFormModel } from "services/watersheds/models";
 import FormField from "shared/components/FormField";
 import FormIconTitle from "shared/components/FormIconTitle";
-import Map, { defaultFocus, defaultZoom } from "shared/components/Map";
+import Map, { defaultFocus } from "shared/components/Map";
 import { Controller, useForm, UseFormMethods, Control, useWatch } from "react-hook-form";
 import * as yup from "yup";
 import FormSelect from "shared/components/FormSelect";
@@ -93,14 +93,18 @@ const RenderMap: FC<RenderMapProps> = (props) => {
     defaultValue: defaultValue?.length > 0 ? defaultValue : [],
   });
 
+  const areaIsDrawn = area?.length;
+
   return (
     <Map
-      enableDraw
-      focusLocation={area?.length ? area : defaultFocus}
-      zoom={!area?.length ? 7 : 10}
+      focusLocation={areaIsDrawn ? area : defaultFocus}
+      zoom={!areaIsDrawn ? 7 : 10}
+      areas={[area]}
+      enableAreaDrawing={true}
+      showAreaDrawingToolbar={true}
+      areaDrawingMode="edition"
       onSelectArea={onSelectArea}
       onDeleteArea={onDeleteSelectedArea}
-      areas={[area]}
     />
   );
 };

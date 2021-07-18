@@ -16,7 +16,7 @@ import useMergeState, { Prev } from "../../hooks/useMergeState";
 import Location from "../../models/Location";
 import MapArea from "../MapArea";
 import computeCoordinatesCenter from "./computeCoordinatesCenter";
-import DrawEditor from "./DrawEditor";
+import DrawEditor, { DrawEditorProps, DrawEditorMode } from "./DrawEditor";
 import MapStyle, { mapStyleToUrl } from "./MapStyle";
 
 export type LocationInfo<T> = Location & {
@@ -25,15 +25,18 @@ export type LocationInfo<T> = Location & {
 
 export interface MapProps<T> {
   style?: MapStyle;
+  DrawEditorProps?: Partial<DrawEditorProps>;
   locations?: LocationInfo<T>[];
-  areas?: Array<Location>[];
   focusLocation?: Location | Array<Location>;
   render?: (info: LocationInfo<T>) => JSX.Element;
   onClick?: (location: Location) => void;
   zoom?: number;
-  enableDraw?: boolean;
+  enableAreaDrawing?: boolean;
+  showAreaDrawingToolbar?: boolean;
+  areas?: Array<Location>[];
   onSelectArea?: (area: Array<[number, number]>) => void;
   onDeleteArea?: () => void;
+  areaDrawingMode?: DrawEditorMode;
 }
 
 export interface MapRef {
@@ -148,23 +151,15 @@ function Map<T>(props: MapProps<T>, ref: ForwardedRef<MapRef>) {
           {props.render(info)}
         </Marker>
       ))}
-      {props.areas && (
-        <MapArea
-          key={"areas"}
-          id={"areas"}
-          geoJson={{
-            type: "Feature",
-            properties: {},
-            geometry: {
-              type: "Polygon",
-              // These coordinates outline Maine.
-              coordinates,
-            },
-          }}
+      {(props.enableAreaDrawing || props.areas) && (
+        <DrawEditor
+          areas={props.areas}
+          onRemove={props.onDeleteArea}
+          onSelect={props.onSelectArea}
+          mode={props.areaDrawingMode}
+          showPanel={props.showAreaDrawingToolbar}
+          {...props.DrawEditorProps}
         />
-      )}
-      {props.enableDraw && (
-        <DrawEditor onRemove={props.onDeleteArea} onSelect={props.onSelectArea} />
       )}
     </ReactMapGL>
   );
@@ -181,12 +176,15 @@ export const defaultFocus = {
 
 (ForwardedMap as FC<MapProps<any>>).defaultProps = {
   style: "basic-customized",
+  areaDrawingMode: "view",
   locations: [],
   areas: [],
+  showAreaDrawingToolbar: false,
   zoom: defaultZoom,
   render: () => <LocationIcon color="primary" />,
   focusLocation: null,
-  enableDraw: false,
+  enableAreaDrawing: false,
 };
 
 export default ForwardedMap;
+
