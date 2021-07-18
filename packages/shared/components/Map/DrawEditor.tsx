@@ -83,7 +83,7 @@ const DrawEditor: FC<DrawEditorProps> = (props) => {
     if (!coordinates) return undefined;
 
     if (coordinates[0]?.length) {
-      const hmm = coordinates.map((coordinate: any) => ({
+      const features = coordinates.map((coordinate: any) => ({
         type: "Feature",
         properties: {},
         geometry: {
@@ -92,18 +92,7 @@ const DrawEditor: FC<DrawEditorProps> = (props) => {
           coordinates: [coordinate],
         },
       }));
-      //return [
-      //{
-      //type: "Feature",
-      //properties: {},
-      //geometry: {
-      //type: "Polygon",
-      //// These coordinates outline Maine.
-      //coordinates,
-      //},
-      //},
-      //];
-      return hmm;
+      return features;
     }
 
     return undefined;

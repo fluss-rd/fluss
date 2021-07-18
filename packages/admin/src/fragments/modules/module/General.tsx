@@ -1,14 +1,21 @@
 import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { FC } from "react";
+import { useRouter } from "next/router";
+import { useGetModuleInfoById } from "shared/services/modules/hooks";
+import { fromModuleResponsetoModuleForm } from "services/modules/models";
 
 import ModuleForm, { useModuleForm } from "../ModuleForm";
 
 interface GeneralProps {}
 
-const General: FC<GeneralProps> = (props) => {
+const General: FC<GeneralProps> = () => {
   const classes = useStyles();
-  const moduleForm = useModuleForm();
+  const router = useRouter();
+  const moduleId = router.query.id as string;
+  const infoQuery = useGetModuleInfoById(moduleId);
+  const infoData = fromModuleResponsetoModuleForm(infoQuery?.data?.data);
+  const moduleForm = useModuleForm(infoData, [infoQuery.data?.data]);
 
   return (
     <div>
@@ -30,3 +37,4 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default General;
+

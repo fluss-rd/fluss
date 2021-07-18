@@ -1,4 +1,5 @@
-import Module from "shared/models/Module";
+import ModuleModel from "shared/models/Module";
+import { Module } from "shared/services/modules/models";
 
 export type ModuleData = {
   moduleId: string;
@@ -25,13 +26,24 @@ export type ModuleForm = {
   location: { latitude: number; longitude: number };
 };
 
-export function toModuleForm(module: Module): ModuleForm {
+export function toModuleForm(module: ModuleModel): ModuleForm {
   return {
     alias: module?.alias || "",
     serial: module?.serial || "",
     phoneNumber: module?.phoneNumber || "",
     status: module?.state || "",
     watershedId: module?.watershedId || "",
+    location: module?.location || { latitude: 0, longitude: 0 },
+  };
+}
+
+export function fromModuleResponsetoModuleForm(module: Module): ModuleForm {
+  return {
+    alias: module?.alias || "",
+    serial: module?.serial || "",
+    phoneNumber: module?.phoneNumber || "",
+    status: module?.state || "",
+    watershedId: module?.riverID || "",
     location: module?.location || { latitude: 0, longitude: 0 },
   };
 }

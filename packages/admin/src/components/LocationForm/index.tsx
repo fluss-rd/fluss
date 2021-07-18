@@ -4,9 +4,10 @@ import { Control, UseFormMethods, useWatch } from "react-hook-form";
 import FormField from "shared/components/FormField";
 import Map from "shared/components/Map";
 import Location from "shared/models/Location";
+import { useGetWatershedById } from "shared/services/watersheds/hooks";
 
 interface LocationFormProps {
-  form: UseFormMethods<{ location: Location }>;
+  form: UseFormMethods<{ location: Location; riverID: string }>;
 }
 
 const LocationForm: FC<LocationFormProps> = ({ form }) => {
@@ -61,6 +62,14 @@ interface RenderMapProps {
 }
 
 const RenderMap: FC<RenderMapProps> = ({ control, onNewMarker, defaultValue }) => {
+  const watershedId = useWatch({
+    control,
+    name: "watershedId",
+    defaultValue: "",
+  });
+  const watershedQuery = useGetWatershedById(watershedId);
+  const watershedLocation = watershedQuery?.data?.area || [];
+
   const location = useWatch({
     control,
     name: "location",
@@ -68,12 +77,21 @@ const RenderMap: FC<RenderMapProps> = ({ control, onNewMarker, defaultValue }) =
   });
 
   // Convert to integer because of changing in the data type.
-  const latitude = parseFloat(location.latitude.toString());
-  const longitude = parseFloat(location.longitude.toString());
+  const latitude = parseFloat(location?.latitude.toString()) || 0.0;
+  const longitude = parseFloat(location?.longitude.toString()) || 0.0;
   const mark = { latitude, longitude };
   const locations = latitude === 0 && longitude === 0 ? [] : [mark];
 
-  return <Map locations={locations} onClick={onNewMarker} />;
+  return (
+    <Map
+      zoom={10}
+      locations={locations}
+      focusLocation={watershedLocation}
+      areas={[watershedLocation]}
+      onClick={onNewMarker}
+    />
+  );
 };
 
 export default LocationForm;
+

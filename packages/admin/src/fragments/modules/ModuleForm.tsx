@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { FiberManualRecord, Grain, InfoOutlined, LocationOn } from "@material-ui/icons";
 import clsx from "clsx";
 import LocationForm from "components/LocationForm";
-import Map, { Location } from "components/Map";
+import { Location } from "components/Map";
 import React, { FC } from "react";
 import { Controller, useForm, UseFormMethods } from "react-hook-form";
 import ReactInputMask from "react-input-mask";
@@ -13,7 +13,7 @@ import FormField from "shared/components/FormField";
 import FormIconTitle from "shared/components/FormIconTitle";
 import FormSelect from "shared/components/FormSelect";
 import ModuleState, { moduleStates, moduleStateToString } from "shared/models/ModuleState";
-import { mockWatersheds } from "shared/models/Watershed";
+import { useGetWatersheds } from "shared/services/watersheds/hooks";
 import * as yup from "yup";
 
 interface ModuleFormProps {
@@ -24,8 +24,10 @@ interface ModuleFormProps {
 
 const ModuleForm: FC<ModuleFormProps> = ({ form, largeWidth, className }) => {
   const classes = useStyles();
-  const watersheds = mockWatersheds();
+  const watershedsQuery = useGetWatersheds();
+  const watersheds = watershedsQuery?.data || [];
   const md = largeWidth ? 6 : 12;
+  console.log({ form: form.getValues() });
 
   return (
     <>
@@ -72,9 +74,10 @@ const ModuleForm: FC<ModuleFormProps> = ({ form, largeWidth, className }) => {
           <Controller
             name="watershedId"
             control={form.control}
-            defaultValue={form.getValues()?.watershedId || ""}
+            defaultValue={form.getValues()?.watershedId || " "}
             as={
               <FormSelect
+                noneValue=" "
                 noneText="Sin seleccionar"
                 label="Cuerpo hídrico"
                 helperText={form.errors.watershedId?.message}
@@ -115,7 +118,9 @@ const ModuleForm: FC<ModuleFormProps> = ({ form, largeWidth, className }) => {
         </Grid>
         <Grid item xs={12} md={md}>
           <FormIconTitle Icon={LocationOn} title="Ubicación" />
-          <LocationForm form={form as unknown as UseFormMethods<{ location: Location }>} />
+          <LocationForm
+            form={form as unknown as UseFormMethods<{ location: Location; riverID: string }>}
+          />
         </Grid>
       </Grid>
     </>
@@ -131,19 +136,36 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function useModuleForm(
-  defaultValues: Partial<ModuleFormModel> = {
+  values: Partial<ModuleFormModel> = {
     alias: "",
     serial: "",
     phoneNumber: "",
     status: "",
     watershedId: "",
     location: { latitude: 0, longitude: 0 },
-  }
+  },
+  dependencies: any[] = []
 ) {
   const form = useForm<ModuleFormModel>({
     resolver: yupResolver(schema),
-    defaultValues: { ...defaultValues },
+    defaultValues: { ...values },
   });
+
+  React.useEffect(() => {
+    form.reset({
+      alias: values.alias,
+      serial: values.serial,
+      phoneNumber: values.phoneNumber,
+      status: values.status,
+      watershedId: values.watershedId,
+      location: values.location,
+    });
+  }, dependencies);
+
+  React.useEffect(() => {
+    form.register("location.longitude");
+    form.register("location.latitude");
+  }, [form.register]);
 
   return form;
 }
@@ -161,3 +183,4 @@ const schema: yup.SchemaOf<ModuleFormModel> = yup.object().shape({
 });
 
 export default ModuleForm;
+
