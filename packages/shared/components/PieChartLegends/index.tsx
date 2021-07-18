@@ -18,8 +18,6 @@ function PieChartLegends<T>(props: PieChartLegendsProps<T>) {
         const itemColor: any = typeof color !== "function" ? item[color] : color(item);
         const itemLabel: any = typeof label !== "function" ? item[label] : label(item);
 
-        console.log({ itemLabel });
-
         return (
           <div className={classes.container} key={itemColor}>
             <div className={classes.avatar} style={{ background: itemColor }} />

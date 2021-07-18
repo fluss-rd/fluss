@@ -37,14 +37,11 @@ const DrawEditor: FC<DrawEditorProps> = (props) => {
   useEffect(updateMode, [props.mode]);
 
   const onSelect = (options: any) => {
-    console.log({ options });
     setSelectedFeatureIndex(options && options.selectedFeatureIndex);
   };
 
   const onDelete = () => {
-    console.log({ selectedFeatureIndex });
     if (selectedFeatureIndex !== null && selectedFeatureIndex >= 0) {
-      console.log("hey");
       editorRef.current.deleteFeatures(selectedFeatureIndex);
 
       if (props.onRemove) {
@@ -54,16 +51,14 @@ const DrawEditor: FC<DrawEditorProps> = (props) => {
   };
 
   const onUpdate = ({ editType, data }: EditorGeoJson) => {
-    console.log({ editType });
     if (editType === "addFeature") {
-      console.log({ data });
       setMode(new EditingMode());
-      console.log({ data });
 
       if (props.onSelect) {
         try {
           props.onSelect(data[0].geometry.coordinates[0]);
         } catch (e) {
+          // TODO: handle error.
           console.log(e);
         }
       }
@@ -108,8 +103,6 @@ const DrawEditor: FC<DrawEditorProps> = (props) => {
 
     return undefined;
   }
-
-  console.log({ featuers: computeFeatures() });
 
   return (
     <>

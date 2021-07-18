@@ -13,7 +13,6 @@ const MapTest: FC = (props) => {
   const mapRef = useRef<MapRef>(null);
 
   const onCoordinates = () => {
-    console.log({ location });
     setLocation([...mappedCoordinates[0]]);
   };
 

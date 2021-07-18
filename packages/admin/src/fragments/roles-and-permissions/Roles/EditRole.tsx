@@ -25,7 +25,7 @@ const EditRol: FC<EditRolProps> = ({ role }) => {
   };
 
   function onSubmit(data: RoleForm) {
-    console.log({ data });
+    // TODO: submit data.
   }
 
   return (
