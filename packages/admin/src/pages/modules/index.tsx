@@ -11,13 +11,15 @@ import SelectColumnFilter from "shared/components/DataTable/filters/SelectColumn
 import { formatDate } from "shared/helpers";
 import Module, { mockModules } from "shared/models/Module";
 import { moduleStateToColor, moduleStateToString } from "shared/models/ModuleState";
+import { useGetModules } from "shared/services/modules/hooks";
 
 const Modules: NextPage = () => {
   const classes = useStyles();
-  const modules = mockModules();
   const router = useRouter();
+  const { data, isLoading } = useGetModules();
+  const modules = data;
   const moduleColumns = useColumns(goToDetails);
-  const modulesQuantity = 3;
+  const modulesQuantity = data?.length || 0;
 
   function goToDetails(moduleId: string) {
     router.push(`/modules/${moduleId}`);
@@ -31,7 +33,13 @@ const Modules: NextPage = () => {
       </Typography>
 
       <br />
-      <DataTable showGlobalFilter showFilters columns={moduleColumns} data={modules} />
+      <DataTable
+        showGlobalFilter
+        showFilters
+        loading={isLoading}
+        columns={moduleColumns}
+        data={modules}
+      />
       <CreateModule />
     </div>
   );
@@ -114,3 +122,4 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default Modules;
+
