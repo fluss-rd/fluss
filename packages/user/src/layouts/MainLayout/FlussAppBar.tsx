@@ -1,4 +1,13 @@
-import { AppBar as Navbar, Button, Divider, Toolbar, Typography } from "@material-ui/core";
+import theme from "shared/styles/theme";
+import {
+  AppBar as Navbar,
+  Button,
+  Divider,
+  Toolbar,
+  Typography,
+  ThemeProvider,
+  createMuiTheme,
+} from "@material-ui/core";
 import { makeStyles, Theme, useTheme } from "@material-ui/core/styles";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -6,9 +15,10 @@ import React, { FC } from "react";
 import { appBarHeight, push, scroll } from "shared/helpers";
 
 const FlussAppBar: FC = () => {
-  const classes = useStyles();
   const router = useRouter();
   const theme = useTheme();
+  const isInMonitor = router.pathname === "/monitor";
+  const classes = useStyles({ isInMonitor });
   const goTo = (sectionId: string) => {
     return () => {
       if (router.pathname !== "/") router.push({ pathname: "/", query: { sectionId } });
@@ -16,7 +26,7 @@ const FlussAppBar: FC = () => {
     };
   };
 
-  return (
+  const navbar = (
     <Navbar position="fixed" color="transparent" elevation={0} className={classes.navbar}>
       <Toolbar>
         <Button className={classes.brand} onClick={push("/")}>
@@ -38,13 +48,13 @@ const FlussAppBar: FC = () => {
           </Button>
         </div>
         <div className={classes.endButtons}>
-          <Button color="inherit" onClick={goTo("welcome")}>
+          <Button onClick={goTo("welcome")}>
             Inicio
           </Button>
-          <Button color="inherit" onClick={goTo("about-us")}>
+          <Button onClick={goTo("about-us")}>
             ¿Quiénes somos?
           </Button>
-          <Button color="inherit" onClick={goTo("contact")}>
+          <Button onClick={goTo("contact")}>
             Contacto
           </Button>
         </div>
@@ -52,9 +62,22 @@ const FlussAppBar: FC = () => {
       <Divider />
     </Navbar>
   );
+
+  if (isInMonitor) return <ThemeProvider theme={drawerTheme}>{navbar}</ThemeProvider>;
+  return navbar;
 };
 
-const useStyles = makeStyles((theme: Theme) => ({
+const drawerTheme = createMuiTheme({
+  ...theme,
+  palette: {
+    type: "dark",
+    primary: {
+      main: "#FFFFFF",
+    },
+  },
+});
+
+const useStyles = makeStyles<Theme, { isInMonitor: boolean }>((theme: Theme) => ({
   brand: {
     display: "flex",
     alignItems: "center",
@@ -95,9 +118,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
   navbar: {
-    backgroundColor: `${theme.palette.background.default}CC`,
+    backgroundColor: ({ isInMonitor }) =>
+      isInMonitor ? "#060913CC" : `${theme.palette.background.default}CC`,
     backdropFilter: `blur(4px)`,
   },
 }));
 
 export default FlussAppBar;
+
