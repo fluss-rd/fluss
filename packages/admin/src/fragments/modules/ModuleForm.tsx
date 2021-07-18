@@ -27,7 +27,6 @@ const ModuleForm: FC<ModuleFormProps> = ({ form, largeWidth, className }) => {
   const watershedsQuery = useGetWatersheds();
   const watersheds = watershedsQuery?.data || [];
   const md = largeWidth ? 6 : 12;
-  console.log({ form: form.getValues() });
 
   return (
     <>
@@ -69,29 +68,6 @@ const ModuleForm: FC<ModuleFormProps> = ({ form, largeWidth, className }) => {
             inputRef={form.register}
           />
 
-          <FormIconTitle Icon={Grain} title="Elegir cuerpo hídrico" />
-
-          <Controller
-            name="watershedId"
-            control={form.control}
-            defaultValue={form.getValues()?.watershedId || " "}
-            as={
-              <FormSelect
-                noneValue=" "
-                noneText="Sin seleccionar"
-                label="Cuerpo hídrico"
-                helperText={form.errors.watershedId?.message}
-                error={!!form.errors.watershedId}
-              >
-                {watersheds.map(({ id, name }) => (
-                  <MenuItem key={id} value={id}>
-                    {name}
-                  </MenuItem>
-                ))}
-              </FormSelect>
-            }
-          />
-
           <FormIconTitle Icon={FiberManualRecord} title="Elegir estado" />
           <Controller
             name="status"
@@ -117,10 +93,39 @@ const ModuleForm: FC<ModuleFormProps> = ({ form, largeWidth, className }) => {
           />
         </Grid>
         <Grid item xs={12} md={md}>
-          <FormIconTitle Icon={LocationOn} title="Ubicación" />
-          <LocationForm
-            form={form as unknown as UseFormMethods<{ location: Location; riverID: string }>}
-          />
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <FormIconTitle Icon={LocationOn} title="Ubicación" marginBottom={0} />
+            </Grid>
+            <Grid item xs={12}>
+              <Controller
+                name="watershedId"
+                control={form.control}
+                defaultValue={form.getValues()?.watershedId || " "}
+                as={
+                  <FormSelect
+                    noneValue=" "
+                    noneText="Sin seleccionar"
+                    label="Cuerpo hídrico"
+                    helperText={form.errors.watershedId?.message}
+                    error={!!form.errors.watershedId}
+                  >
+                    {watersheds.map(({ id, name }) => (
+                      <MenuItem key={id} value={id}>
+                        {name}
+                      </MenuItem>
+                    ))}
+                  </FormSelect>
+                }
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <LocationForm
+                form={form as unknown as UseFormMethods<{ location: Location; riverID: string }>}
+              />
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     </>
@@ -136,14 +141,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function useModuleForm(
-  values: Partial<ModuleFormModel> = {
-    alias: "",
-    serial: "",
-    phoneNumber: "",
-    status: "",
-    watershedId: "",
-    location: { latitude: 0, longitude: 0 },
-  },
+  values: Partial<ModuleFormModel> = { ...defaultValues },
   dependencies: any[] = []
 ) {
   const form = useForm<ModuleFormModel>({
@@ -169,6 +167,15 @@ export function useModuleForm(
 
   return form;
 }
+
+export const defaultValues: ModuleFormModel = {
+  alias: "",
+  serial: "",
+  phoneNumber: "",
+  status: "",
+  watershedId: "",
+  location: { latitude: 0, longitude: 0 },
+};
 
 const schema: yup.SchemaOf<ModuleFormModel> = yup.object().shape({
   alias: yup.string().required("Por favor, introduzca el alias del módulo"),

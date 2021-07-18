@@ -2,7 +2,7 @@ import { Card, Grid } from "@material-ui/core";
 import React, { FC } from "react";
 import { Control, UseFormMethods, useWatch } from "react-hook-form";
 import FormField from "shared/components/FormField";
-import Map from "shared/components/Map";
+import Map, { defaultFocus } from "shared/components/Map";
 import Location from "shared/models/Location";
 import { useGetWatershedById } from "shared/services/watersheds/hooks";
 
@@ -43,7 +43,7 @@ const LocationForm: FC<LocationFormProps> = ({ form }) => {
         </Grid>
       </Grid>
       <Grid item xs={12}>
-        <Card variant="outlined" style={{ width: "100%", height: 300 }}>
+        <Card variant="outlined" style={{ width: "100%", height: 450 }}>
           <RenderMap
             control={form.control}
             onNewMarker={onNewMarker}
@@ -82,11 +82,20 @@ const RenderMap: FC<RenderMapProps> = ({ control, onNewMarker, defaultValue }) =
   const mark = { latitude, longitude };
   const locations = latitude === 0 && longitude === 0 ? [] : [mark];
 
+  const computeFocus = () => {
+    if (locations.length > 0) return { focus: locations[0], zoom: 13 };
+    else if (watershedLocation.length > 0) return { focus: watershedLocation, zoom: 10 };
+
+    return { focus: defaultFocus, zoom: 7 };
+  };
+
+  const { focus, zoom } = computeFocus();
+
   return (
     <Map
-      zoom={10}
+      zoom={zoom}
       locations={locations}
-      focusLocation={watershedLocation}
+      focusLocation={focus}
       areas={[watershedLocation]}
       onClick={onNewMarker}
     />
