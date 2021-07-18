@@ -7,7 +7,7 @@ import ParameterAnnualSummary from "fragments/monitor/id/ParameterAnnualSummary"
 import PreviewToolbar from "fragments/monitor/id/PreviewToolbar";
 import { useRouter } from "next/router";
 import React, { FC } from "react";
-import { useGetModule } from "shared/services/monitor/hooks";
+import { useGetModuleInfoById } from "shared/services/modules/hooks";
 
 interface ModuleDataProps {}
 
@@ -16,8 +16,8 @@ const ModuleData: FC<ModuleDataProps> = () => {
   const router = useRouter();
 
   const moduleId = router.query?.id as string;
-  const moduleQuery = useGetModule(moduleId);
-  const module = moduleQuery.data;
+  const moduleQuery = useGetModuleInfoById(moduleId);
+  const module = moduleQuery?.data?.data;
 
   return (
     <div className={classes.root}>

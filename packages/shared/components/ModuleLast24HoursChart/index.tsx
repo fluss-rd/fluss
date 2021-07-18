@@ -2,7 +2,8 @@ import { Typography, CircularProgress } from "@material-ui/core";
 import { ResponsiveBar } from "@nivo/bar";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { FC } from "react";
-import { useGetModule, useGetModuleReport } from "../../services/monitor/hooks";
+import { useGetModuleReport } from "../../services/monitor/hooks";
+import { useGetModuleInfoById } from "../../services/modules/hooks";
 interface ModuleLast24HoursChartProps {
   barHeight?: number;
   moduleId?: string;
@@ -13,8 +14,8 @@ const ModuleLast24HoursChart: FC<ModuleLast24HoursChartProps> = (props) => {
   const measuresQuery = useGetModuleReport(props.moduleId);
   const { isLoading, data } = useGetModuleReport(props.moduleId);
   const { days, parameterMeasure: measures } = data? data : { days: [], parameterMeasure: []}
-  const moduleQuery = useGetModule(props.moduleId);
-  const module = moduleQuery.data;
+  const moduleQuery = useGetModuleInfoById(props.moduleId);
+  const module = moduleQuery?.data?.data;
 
   if (isLoading) {
     return (
