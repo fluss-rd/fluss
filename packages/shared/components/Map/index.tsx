@@ -14,7 +14,6 @@ import ReactMapGL, { FlyToInterpolator, MapEvent, Marker, ViewportProps } from "
 import generateId from "../../helpers/generateId";
 import useMergeState, { Prev } from "../../hooks/useMergeState";
 import Location from "../../models/Location";
-import MapArea from "../MapArea";
 import computeCoordinatesCenter from "./computeCoordinatesCenter";
 import DrawEditor, { DrawEditorProps, DrawEditorMode } from "./DrawEditor";
 import MapStyle, { mapStyleToUrl } from "./MapStyle";
@@ -42,14 +41,9 @@ export interface MapProps<T> {
 export interface MapRef {
   viewport: ViewportProps;
   setViewport: (newState: Partial<ViewportProps> | Prev<ViewportProps>) => void;
-  flyTo: (
-    location: Location | Array<Location>,
-    config?: Omit<ViewportProps, "latitude" | "longitude">
-  ) => void;
   mapRef: React.MutableRefObject<undefined>;
 }
 
-// Map shows a map with the provided locations.
 function Map<T>(props: MapProps<T>, ref: ForwardedRef<MapRef>) {
   const mapRef = useRef();
   const computeDefaultLocation = useCallback((): Location => {
@@ -80,39 +74,14 @@ function Map<T>(props: MapProps<T>, ref: ForwardedRef<MapRef>) {
     setViewport(viewport);
   }, []);
 
-  const flyTo = (
-    location: Location | Array<Location>,
-    config: Omit<ViewportProps, "latitude" | "longitude"> = {
-      zoom: 5,
-      transitionDuration: 5000,
-      transitionInterpolator: new FlyToInterpolator(),
-      transitionEasing: easeCubic,
-    }
-  ) => {
-    const coordinates = Array.isArray(location) ? computeCoordinatesCenter(location) : location;
-
-    setViewport({
-      ...viewport,
-      ...coordinates,
-      ...config,
-    });
-  };
-
-  const coordinates = props.areas.map((area) =>
-    area.map(({ longitude, latitude }) => [longitude, latitude])
-  );
-
   useImperativeHandle(ref, returnReferences, [viewport, setViewport]);
-
   useEffect(updateZoom, [props.zoom]);
-
   useEffect(updateFocus, [props.focusLocation]);
 
   function returnReferences(): MapRef {
     return {
       viewport,
       setViewport,
-      flyTo,
       mapRef,
     };
   }

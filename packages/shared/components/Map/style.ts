@@ -40,7 +40,7 @@ export function getFeatureStyle({ feature, index, state }: any) {
 
     default:
       return {
-        stroke: "rgb(60, 178, 208)",
+        stroke: "rgb(60, 208, 181)",
         strokeWidth: 2,
         fill: "rgb(60, 178, 208)",
         fillOpacity: 0.1,
