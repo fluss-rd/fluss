@@ -20,9 +20,9 @@ export function fromWaterbodyResponse(waterbodyResponse: WaterbodyResponse): Wat
     location: { longitude: 0, latitude: 0 },
     name: waterbodyResponse.name,
     id: waterbodyResponse.riverID,
-    wqi: { value: 80, rating: "excellent" },
+    wqi: { value: 80, rating: "excellent" }, // TODO: replace with the waterbody wqi
     area: waterbodyResponse.location,
-    modulesQuantity: 3,
+    modulesQuantity: 3, // TODO: replace with the modules quantity.
   };
 }
 

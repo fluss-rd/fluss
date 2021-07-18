@@ -21,7 +21,7 @@ type Module = {
 export function fromModuleResponse(moduleResponse: ModuleResponse): Module {
   return {
     location: moduleResponse.location,
-    wqi: { rating: "moderate", value: 20 },
+    wqi: { rating: "moderate", value: 20 }, // TODO: replace with the last wqi reported by the module
     id: moduleResponse.moduleID,
     creationDate: new Date(moduleResponse.creationDate),
     updateDate: new Date(moduleResponse.updateDate),
@@ -30,7 +30,7 @@ export function fromModuleResponse(moduleResponse: ModuleResponse): Module {
     alias: moduleResponse.alias,
     phoneNumber: moduleResponse.phoneNumber,
     watershedId: moduleResponse.riverID,
-    batteryLevel: 20,
+    batteryLevel: 20, // TODO: replace with the last battery level reported
   };
 }
 
