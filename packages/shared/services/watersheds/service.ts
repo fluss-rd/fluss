@@ -16,6 +16,14 @@ export async function getWatersheds(): Promise<Watershed[]> {
   return watersheds;
 }
 
+export async function getWatershedById(watershedId: string): Promise<Watershed> {
+  const waterBodiesResponse = await axiosInstance.get<Waterbody>(`/rivers/${watershedId}`);
+
+  if (waterBodiesResponse?.data) return fromWaterbodyResponse(waterBodiesResponse.data);
+
+  return null;
+}
+
 export async function getWqiRatingsCount(
   watershedId: string
 ): Promise<Array<PieChartData<WqiRating>>> {

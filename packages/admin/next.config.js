@@ -2,7 +2,7 @@ const withPlugins = require("next-compose-plugins");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const withTM = require("next-transpile-modules")(["shared"]);
 
-// TODO: Investigate about using the .env file here instead of using hardcoded elements
+// TODO: Use a .env file to extract env variables to use here
 module.exports = withPlugins([withTM], {
   env: {
     mapboxToken:

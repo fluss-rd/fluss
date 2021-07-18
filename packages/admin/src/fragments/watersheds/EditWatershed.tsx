@@ -1,7 +1,7 @@
 import FormDialog from "components/FormDialog";
-import React, { FC, useRef } from "react";
-import { WatershedForm as WatershedFormModel } from "services/watersheds/models";
-import Watershed, { mockWatersheds } from "shared/models/Watershed";
+import React, { FC } from "react";
+import { watershedToWatershedForm } from "services/watersheds/models";
+import { useGetWatershedById } from "shared/services/watersheds/hooks";
 
 import WatershedForm, { useWatershedForm } from "./WatershedForm";
 
@@ -12,19 +12,13 @@ interface EditWatershedProps {
 }
 
 const EditWatershed: FC<EditWatershedProps> = ({ watershedId, isOpen, close }) => {
-  const watersheds = mockWatersheds();
-  const watershed = watersheds.find((w) => w.id === watershedId) as WatershedFormModel;
-  const form = useWatershedForm(watershed);
+  const watershedQuery = useGetWatershedById(watershedId);
+  const watershedForm = watershedToWatershedForm(watershedQuery.data);
+  const form = useWatershedForm(watershedForm, [watershedQuery.data]);
 
   return (
     <>
-      <FormDialog
-        mode="registration"
-        isOpen={isOpen}
-        title="Registrar cuenca"
-        onClose={close}
-        ModalContentProps={{ style: { overflow: "hidden" } }}
-      >
+      <FormDialog mode="registration" isOpen={isOpen} title="Registrar cuenca" onClose={close}>
         <WatershedForm form={form} />
       </FormDialog>
     </>
@@ -34,3 +28,4 @@ const EditWatershed: FC<EditWatershedProps> = ({ watershedId, isOpen, close }) =
 EditWatershed.defaultProps = {};
 
 export default EditWatershed;
+

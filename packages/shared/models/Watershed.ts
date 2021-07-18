@@ -1,10 +1,12 @@
 import Location from "./Location";
 import { Waterbody as WaterbodyResponse } from "../services/watersheds/models";
+import WatershedType from "./WatershedType";
 import Wqi from "./Wqi";
 
 type Watershed = {
   id: string;
   name: string;
+  type: WatershedType;
   location: Location;
   creationDate: Date;
   updateDate: Date;
@@ -23,6 +25,7 @@ export function fromWaterbodyResponse(waterbodyResponse: WaterbodyResponse): Wat
     wqi: { value: 80, rating: "excellent" },
     area: waterbodyResponse.location,
     modulesQuantity: 3,
+    type: waterbodyResponse.type as WatershedType,
   };
 }
 
@@ -30,12 +33,13 @@ export function mockWatersheds(): Watershed[] {
   return [
     {
       id: "WS-1",
-      name: "Laguna oviedo",
+      name: "Río Yaque del Norte",
       location: { latitude: 19.8401, longitude: -71.687 },
       modulesQuantity: 2,
       updateDate: new Date(2021, 6, 11),
       creationDate: new Date(2021, 6, 11),
       wqi: { value: 250, rating: "moderate" },
+      type: "river",
       area: [
         {
           longitude: -71.36337004740639,
@@ -347,6 +351,7 @@ export function mockWatersheds(): Watershed[] {
       updateDate: new Date(2021, 6, 11),
       creationDate: new Date(2021, 6, 11),
       wqi: { value: 250, rating: "moderate" },
+      type: "lake",
       area: [
         {
           longitude: -71.67639561904144,

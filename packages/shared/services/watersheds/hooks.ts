@@ -6,6 +6,13 @@ export function useGetWatersheds() {
   return query;
 }
 
+export function useGetWatershedById(watershedId: string) {
+  const query = useQuery(["watersheds", watershedId], () => service.getWatershedById(watershedId), {
+    enabled: !!watershedId,
+  });
+  return query;
+}
+
 export function useGetWqiRatingsCount(watershedId?: string) {
   const query = useQuery(
     ["reports-modules", watershedId],
@@ -23,3 +30,4 @@ export function useGetModuleStatesCount(watershedId?: string) {
   );
   return query;
 }
+
