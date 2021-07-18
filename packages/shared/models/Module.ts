@@ -1,4 +1,4 @@
-import { Module as ModuleResponse } from "../services/monitor/models";
+import { Module as ModuleResponse, ModuleReportModel, ModuleReportData} from "../services/monitor/models";
 import Location from "./Location";
 import Wqi from "./Wqi";
 
@@ -18,10 +18,28 @@ type Module = {
   batteryLevel: number;
 };
 
-export function fromModuleResponse(moduleResponse: ModuleResponse): Module {
+const getWqiByModuleID = (moduleReportResponse: ModuleReportModel[]) => {
+  const wqiByModuleID: Record<string, Wqi> = {}
+  moduleReportResponse.forEach((moduleReport: ModuleReportModel) => {
+    if (!moduleReport.data || moduleReport.data.length === 0) {
+      return
+    }
+
+    wqiByModuleID[moduleReport.moduleID] = {
+      value: moduleReport.data[0].wqi,
+      rating: moduleReport.data[0].wqiClassification
+    }
+  })
+
+  return wqiByModuleID
+}
+
+export function fromModuleResponse(moduleResponse: ModuleResponse, moduleReportResponse: ModuleReportModel[]): Module {
+  const wqiByModuleID: Record<string, Wqi> = getWqiByModuleID(moduleReportResponse)
+
   return {
     location: moduleResponse.location,
-    wqi: { rating: "moderate", value: 20 }, // TODO: replace with the last wqi reported by the module
+    wqi: wqiByModuleID[moduleResponse.moduleID],
     id: moduleResponse.moduleID,
     creationDate: new Date(moduleResponse.creationDate),
     updateDate: new Date(moduleResponse.updateDate),

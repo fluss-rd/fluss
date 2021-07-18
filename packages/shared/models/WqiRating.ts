@@ -1,4 +1,4 @@
-export const ratings = [ "excellent" , "good" , "moderate" , "bad" , "veryBad"] as const;
+export const ratings = [ "excellent", "good water", "poor water", "very poor water", "unsuitable"] as const;
 
 type WqiRating = typeof ratings[number];
 
@@ -6,13 +6,13 @@ export function ratingToColor(category: WqiRating) {
   switch (category) {
     case "excellent":
       return "#219653";
-    case "good":
-      return "#27AE60";
-    case "moderate":
+    case "good water":
       return "#2D9CDB";
-    case "bad":
+    case "poor water":
+      return "#fcdf03";
+    case "very poor water":
       return "#F2994A";
-    case "veryBad":
+    case "unsuitable":
       return "#EB5757";
     default:
       return "";
@@ -23,14 +23,14 @@ export function ratingToText(category: WqiRating) {
   switch (category) {
     case "excellent":
       return "Excelente";
-    case "good":
+    case "good water":
       return "Buena";
-    case "moderate":
-      return "Moderada";
-    case "bad":
+    case "poor water":
       return "Mala";
-    case "veryBad":
+    case "very poor water":
       return "Muy mala";
+    case "unsuitable":
+      return "Inadecuada";
     default:
       return "";
   }

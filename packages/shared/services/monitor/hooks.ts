@@ -13,3 +13,16 @@ export function useGetModule(moduleId?: string) {
   return query;
 }
 
+export function useGetModuleReport(moduleId?: string) {
+  const query = useQuery(["module-report", moduleId], () => service.getModuleReportFilterHour(moduleId), {
+    enabled: !!moduleId,
+  });
+  return query;
+}
+
+export function useGetModuleAnualReport(moduleId?: string) {
+  const query = useQuery(["module-anual-report", moduleId], () => service.getModuleReportFilterDay(moduleId), {
+    enabled: !!moduleId,
+  });
+  return query;
+}

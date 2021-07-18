@@ -1,14 +1,28 @@
-import { Typography } from "@material-ui/core";
+import { Typography, CircularProgress } from "@material-ui/core";
 import { ResponsiveBar } from "@nivo/bar";
+import { makeStyles } from "@material-ui/core/styles";
 import React, { FC } from "react";
-import { mockParameterMeasures } from "shared/models/ParameterMeasures";
-
+import { useGetModule, useGetModuleReport } from "../../services/monitor/hooks";
 interface ModuleLast24HoursChartProps {
   barHeight?: number;
+  moduleId?: string;
 }
 
 const ModuleLast24HoursChart: FC<ModuleLast24HoursChartProps> = (props) => {
-  const measures = mockParameterMeasures();
+  const classes = useStyles();
+  const measuresQuery = useGetModuleReport(props.moduleId);
+  const { isLoading, data } = useGetModuleReport(props.moduleId);
+  const { days, parameterMeasure: measures } = data? data : { days: [], parameterMeasure: []}
+  const moduleQuery = useGetModule(props.moduleId);
+  const module = moduleQuery.data;
+
+  if (isLoading) {
+    return (
+      <div className={classes.loader}>
+        <CircularProgress />
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -16,8 +30,9 @@ const ModuleLast24HoursChart: FC<ModuleLast24HoursChartProps> = (props) => {
         <thead>
           <tr>
             <td></td>
-            <td style={{ textAlign: "center" }}>Lunes</td>
-            <td style={{ textAlign: "center" }}>Martes</td>
+            {days.map((day) => (
+              <td key={day} style={{ textAlign: "center" }}>{day}</td>
+            ))}
             <td style={{ textAlign: "center" }}>Max</td>
             <td style={{ textAlign: "center" }}>Min</td>
           </tr>
@@ -61,8 +76,18 @@ const ModuleLast24HoursChart: FC<ModuleLast24HoursChartProps> = (props) => {
   );
 };
 
+const useStyles = makeStyles(() => ({
+  loader: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    height: "100%",
+    width: "100%"
+  },
+}));
+
 ModuleLast24HoursChart.defaultProps = {
-  barHeight: 30,
+  barHeight: 100
 };
 export default ModuleLast24HoursChart;
 

@@ -1,7 +1,29 @@
+import { ModuleReportModel, ModuleReportData, ParameterType, Parameter} from "../services/monitor/models";
+
 type DateMeasure = {
-  date: string;
+  day: string;
   value: number;
 };
+
+export function fromModuleReportFilterDayResponse (moduleReportResponse: ModuleReportModel): Record<ParameterType, DateMeasure[]> {
+  const parametersDateMeasure: Record<ParameterType, DateMeasure[]> = {
+    do: [],
+    ph: [],
+    tds: [],
+    ty: [],
+    tmp: [],
+    wqi: [],
+  };
+
+  moduleReportResponse.data.forEach((moduleReportDetailData: ModuleReportData) => {
+    moduleReportDetailData.parameters.forEach((parameter: Parameter) => {
+      const date = parameter.date.split('T')[0]
+      parametersDateMeasure[parameter.name].push({ day: date, value: parameter.value })
+    })
+  })
+
+  return parametersDateMeasure
+}
 
 export function mockDateMeasures() {
   return [
