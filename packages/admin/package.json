@@ -22,7 +22,6 @@
     "react-hook-form": "^6.15.5",
     "react-input-mask": "^2.0.4",
     "sass": "^1.32.8",
-    "shared": "file:../shared",
     "yup": "^0.32.9"
   },
   "devDependencies": {

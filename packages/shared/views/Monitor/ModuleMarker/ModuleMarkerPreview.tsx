@@ -90,7 +90,7 @@ const ModuleMarkerPreview: FC<ModuleMarkerPreviewProps> = (props) => {
               </Typography>
               <br />
 
-              <ModuleLast24HoursChart moduleId={props.moduleId} />
+              <ModuleLast24HoursChart moduleId={props.moduleId} barHeight={20} />
             </CardContent>
             <Divider />
             <CardActions style={{ flexDirection: "row-reverse" }}>
