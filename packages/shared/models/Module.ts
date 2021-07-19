@@ -30,7 +30,7 @@ export function fromModuleResponse(
     location: moduleResponse?.location,
     wqi: {
       rating: toPaperClasification(reportData?.wqiClassification) || "moderate",
-      value: Math.round(reportData?.wqi) / 100 || 0,
+      value: Math.round(reportData?.wqi * 100) / 100 || 0,
     },
     id: moduleResponse?.moduleID,
     creationDate: new Date(moduleResponse?.creationDate),

@@ -40,8 +40,13 @@ const getColor = function (parameterType: string) {
 
 const getDays = function (measuresByDateDay: Record<number, HourMeasure[]>): Day[] {
   const days: Day[] = []
+  const lastDate = Math.max(...Object.keys(measuresByDateDay) as any);
 
   for (let dateDay in measuresByDateDay) {
+    // Only return the last 48 hours data
+    if (+dateDay < lastDate - 1) {
+      return
+    }
     const day = getDayOfTheMonthName(dateDay)
     days.push(day)
   }
@@ -52,7 +57,14 @@ const getDays = function (measuresByDateDay: Record<number, HourMeasure[]>): Day
 const getMeasuresPerDay = function (measuresByDateDay: Record<number, HourMeasure[]>): DayMeasures[] {
   const measures: DayMeasures[] = []
 
+  const lastDate = Math.max(...Object.keys(measuresByDateDay) as any);
+
   for (let dateDay in measuresByDateDay) {
+    // Only return the last 48 hours data
+    if (+dateDay < lastDate - 1) {
+      return
+    }
+
     measures.push({
       day: getDayOfTheMonthName(dateDay),
       measures: measuresByDateDay[dateDay],
@@ -110,7 +122,7 @@ export function fromModuleReportFilterHourResponse(moduleReportResponse: ModuleR
         data[parameter.name][dateDay] = []
       }
 
-      data[parameter.name][dateDay].push({ hour, value: parameter.value })
+      data[parameter.name][dateDay].push({ hour, value: Math.round(parameter.value * 100)/100 })
       minPerParam[parameter.name] = Math.min(minPerParam[parameter.name], parameter.value)
       maxPerParam[parameter.name] = Math.max(maxPerParam[parameter.name], parameter.value)
     })
