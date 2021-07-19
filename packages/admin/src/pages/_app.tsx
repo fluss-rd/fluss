@@ -11,9 +11,15 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import theme, { GlobalCss } from "styles/theme";
 import { Hydrate } from "react-query/hydration";
 import { useState } from "react";
+import { createMuiTheme } from "@material-ui/core";
+import { useRouter } from "next/router";
+
 
 function MyApp({ Component, pageProps }) {
   const [queryClient] = useState(() => new QueryClient());
+  const router = useRouter();
+  const isInMonitor = router.pathname === "/";
+  const currentTheme = isInMonitor ? monitorTheme : theme;
 
   useEffect(removeServerSideInjectedCss, []);
 
@@ -28,7 +34,7 @@ function MyApp({ Component, pageProps }) {
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <ThemeProvider theme={theme}>
+          <ThemeProvider theme={currentTheme}>
             <GlobalCss />
             <Layout>
               <Component {...pageProps} />
@@ -39,6 +45,19 @@ function MyApp({ Component, pageProps }) {
     </QueryClientProvider>
   );
 }
+
+const monitorTheme = createMuiTheme({
+  ...theme,
+  palette: {
+    type: "dark",
+    primary: {
+      main: "#FFFFFF",
+    },
+    secondary: {
+      main: "#7db6d1",
+    },
+  },
+});
 
 export default MyApp;
 

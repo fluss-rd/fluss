@@ -16,6 +16,8 @@ export async function registerModule(
     }
   );
 
+  console.log({ response})
+
   return response;
 }
 
