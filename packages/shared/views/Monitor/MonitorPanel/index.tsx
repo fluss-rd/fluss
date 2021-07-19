@@ -20,7 +20,7 @@ import useBoolean from "../../../hooks/useBoolean";
 import ModuleDataDownload from "../../../components/ModuleDataDownload";
 import PieChart, { PieChartData } from "../../../components/PieChart";
 import WqiRating, { ratingToText, ratingToColor } from "../../../models/WqiRating";
-import { useGetWatersheds } from "../../../services/watersheds/hooks";
+import { useGetWatersheds, useGetWqiRatingsCount } from "../../../services/watersheds/hooks";
 
 interface WatershedsSelectCardProps {
   watershedId: string;
@@ -30,6 +30,7 @@ interface WatershedsSelectCardProps {
 const MonitorPanel: FC<WatershedsSelectCardProps> = (props) => {
   const [isExpanded, setIsExpanded] = useState(true);
   const [downloadIsOpen, openDownload, closeDownload] = useBoolean();
+  const countQuery = useGetWqiRatingsCount(props.watershedId);
   const watershedsQuery = useGetWatersheds();
   const watersheds = watershedsQuery?.data || [];
   const classes = useStyles();
@@ -79,7 +80,7 @@ const MonitorPanel: FC<WatershedsSelectCardProps> = (props) => {
               Índice de Calidad del Agua (ICA)
             </Typography>
             <PieChart
-              data={data}
+              data={countQuery?.data || []}
               height={200}
               margin={{ left: 110, right: 110 }}
               outsideLabelColor="#FFFFFF"
@@ -146,4 +147,5 @@ const data: Array<PieChartData<WqiRating>> = [
 ];
 
 export default MonitorPanel;
+
 
