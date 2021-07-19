@@ -20,6 +20,10 @@ const Monitor: FC<MonitorProps> = (props) => {
   const { data } = useWatershedsMapData();
   const modules = (data?.modules || []).filter(filterModules);
   const watersheds = (data?.watersheds || []).filter(filterWatersheds);
+  const selectedWatershed = watersheds?.find((watershed) => watershed.id === watershedId);
+
+  console.log({ watersheds });
+  console.log({ selectedWatershed });
 
   const locations = modules.map(mapToLocations);
   const areas = watersheds.map((watershed) => watershed.area);
@@ -47,12 +51,20 @@ const Monitor: FC<MonitorProps> = (props) => {
     };
   }
 
+  function computeZoom() {
+    if (selectedWatershed) {
+      return 12;
+    }
+    return props.mode === "admin" ? defaultZoom - 0.22 : undefined;
+  }
+
   return (
     <div className={classes.map}>
       <Map
-        zoom={props.mode === "admin" ? defaultZoom - 0.22 : undefined}
+        zoom={computeZoom()}
         locations={locations}
         areas={areas}
+        focusLocation={selectedWatershed?.area}
         render={({ value }) => (
           <ModuleMarker
             wqi={value.wqi}

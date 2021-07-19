@@ -25,13 +25,15 @@ export async function getWatershedById(watershedId: string): Promise<Watershed> 
 }
 
 export async function getWqiRatingsCount(
-  watershedId: string
+  watershedId?: string
 ): Promise<Array<PieChartData<WqiRating>>> {
   const response = await axiosInstance.get<WaterbodyReport[]>(`/reports/modules`);
 
   const pieData: PieChartData<WqiRating>[] = [];
   if (response?.data) {
-    const filteredResponseData = response.data.filter((item) => item.riverID === watershedId);
+    const filteredResponseData = response.data.filter((item) =>
+      item.riverID === watershedId ? watershedId : item.riverID
+    );
     const ratingCount = {};
     ratings.forEach((rating) => (ratingCount[rating] = 0));
 

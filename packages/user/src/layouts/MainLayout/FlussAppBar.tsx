@@ -1,24 +1,34 @@
 import theme from "shared/styles/theme";
 import {
   AppBar as Navbar,
+  Link,
   Button,
   Divider,
   Toolbar,
   Typography,
   ThemeProvider,
   createMuiTheme,
+  IconButton,
+  useMediaQuery,
 } from "@material-ui/core";
+import MenuIcon from "@material-ui/icons/Menu";
 import { makeStyles, Theme, useTheme } from "@material-ui/core/styles";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { FC } from "react";
-import { appBarHeight, push, scroll } from "shared/helpers";
+import { appBarHeight, scroll } from "shared/helpers";
+import useBoolean from "shared/hooks/useBoolean";
+
+import FlussDrawer from "./FlussDrawer";
 
 const FlussAppBar: FC = () => {
-  const router = useRouter();
+  const [sidebarIsOpen, openSidebar, closeSidebar] = useBoolean();
   const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up("sm"));
+  const router = useRouter();
   const isInMonitor = router.pathname === "/monitor";
   const classes = useStyles({ isInMonitor });
+  const push = (path: string) => () => router.push(path);
   const goTo = (sectionId: string) => {
     return () => {
       if (router.pathname !== "/") router.push({ pathname: "/", query: { sectionId } });
@@ -27,34 +37,65 @@ const FlussAppBar: FC = () => {
   };
 
   return (
-    <Navbar position="fixed" color="transparent" elevation={0} className={classes.navbar}>
-      <Toolbar>
-        <Button className={classes.brand} onClick={push("/")}>
-          <div className={classes.logo}>
-            <Image src="/images/logo.png" alt="Logo" width={35} height={35} />
-          </div>
-          <Typography className={classes.title} variant="h6" noWrap>
-            fluss
-          </Typography>
-        </Button>
-        <div className={classes.startButtons}>
-          <Button
-            color="primary"
-            variant="outlined"
-            className={classes.reportsButton}
-            onClick={push("/monitor")}
-          >
-            Monitor
+    <>
+      <FlussDrawer close={closeSidebar} isOpen={sidebarIsOpen} goTo={goTo} />
+      <Navbar position="fixed" color="transparent" elevation={0} className={classes.navbar}>
+        <Toolbar>
+          {!matches && (
+            <IconButton
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="menu"
+              onClick={openSidebar}
+            >
+              <MenuIcon />
+            </IconButton>
+          )}
+          <Button className={classes.brand} onClick={push("/")}>
+            <div className={classes.logo}>
+              {!isInMonitor ? (
+                <Image src="/images/logo.png" alt="Logo" width={35} height={35} />
+              ) : (
+                <Image src="/images/logo_image_dark.png" alt="Logo" width={35} height={35} />
+              )}
+            </div>
+            <Typography className={classes.title} variant="h6" noWrap>
+              fluss
+            </Typography>
           </Button>
-        </div>
-        <div className={classes.endButtons}>
-          <Button onClick={goTo("welcome")}>Inicio</Button>
-          <Button onClick={goTo("about-us")}>¿Quiénes somos?</Button>
-          <Button onClick={goTo("contact")}>Contacto</Button>
-        </div>
-      </Toolbar>
-      <Divider />
-    </Navbar>
+          {matches && (
+            <>
+              <div className={classes.startButtons}>
+                <Button
+                  color="primary"
+                  variant="outlined"
+                  className={classes.reportsButton}
+                  onClick={push("/monitor")}
+                >
+                  Monitor
+                </Button>
+              </div>
+              <div className={classes.endButtons}>
+                <Button onClick={goTo("welcome")}>Inicio</Button>
+                <Button onClick={goTo("about-us")}>¿Quiénes somos?</Button>
+                <Button onClick={goTo("contact")}>Contacto</Button>
+                <Button>
+                  <Link
+                    href="https://fluss-help.vercel.app/faq"
+                    target="_blank"
+                    color="textPrimary"
+                  >
+                    Ayuda
+                  </Link>
+                </Button>
+              </div>
+            </>
+          )}
+        </Toolbar>
+        <Divider />
+      </Navbar>
+    </>
   );
 };
 
@@ -73,14 +114,11 @@ const useStyles = makeStyles<Theme, { isInMonitor: boolean }>((theme: Theme) => 
   },
   title: {
     flexGrow: 1,
-    display: "none",
+    display: "block",
     fontSize: theme.typography.h5.fontSize,
     color: theme.palette.primary.main,
     cursor: "pointer",
     textTransform: "none",
-    [theme.breakpoints.up("sm")]: {
-      display: "block",
-    },
   },
   startButtons: {
     flexGrow: 1,
