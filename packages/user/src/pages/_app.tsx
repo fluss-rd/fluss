@@ -57,6 +57,9 @@ const monitorTheme = createMuiTheme({
     primary: {
       main: "#FFFFFF",
     },
+    secondary: {
+      main: "#7db6d1"
+    }
   },
 });
 export default MyApp;
