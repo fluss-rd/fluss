@@ -17,10 +17,10 @@ import { ExpandMore } from "@material-ui/icons";
 
 import WqiLegend from "../../../components/WqiLegend";
 import useBoolean from "../../../hooks/useBoolean";
-import { mockWatersheds } from "../../../models/Watershed";
 import ModuleDataDownload from "../../../components/ModuleDataDownload";
 import PieChart, { PieChartData } from "../../../components/PieChart";
 import WqiRating, { ratingToText, ratingToColor } from "../../../models/WqiRating";
+import { useGetWatersheds } from "../../../services/watersheds/hooks";
 
 interface WatershedsSelectCardProps {
   watershedId: string;
@@ -30,8 +30,9 @@ interface WatershedsSelectCardProps {
 const MonitorPanel: FC<WatershedsSelectCardProps> = (props) => {
   const [isExpanded, setIsExpanded] = useState(true);
   const [downloadIsOpen, openDownload, closeDownload] = useBoolean();
+  const watershedsQuery = useGetWatersheds();
+  const watersheds = watershedsQuery?.data || [];
   const classes = useStyles();
-  const watersheds = mockWatersheds();
 
   const onWatershed = (e: ChangeEvent<{ name?: string; value: string }>) => {
     const watershedId = e.target.value;
