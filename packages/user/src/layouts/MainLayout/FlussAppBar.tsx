@@ -1,6 +1,7 @@
 import theme from "shared/styles/theme";
 import {
   AppBar as Navbar,
+  Link,
   Button,
   Divider,
   Toolbar,
@@ -37,7 +38,7 @@ const FlussAppBar: FC = () => {
 
   return (
     <>
-      <FlussDrawer close={closeSidebar} isOpen={sidebarIsOpen} />
+      <FlussDrawer close={closeSidebar} isOpen={sidebarIsOpen} goTo={goTo} />
       <Navbar position="fixed" color="transparent" elevation={0} className={classes.navbar}>
         <Toolbar>
           {!matches && (
@@ -79,6 +80,15 @@ const FlussAppBar: FC = () => {
                 <Button onClick={goTo("welcome")}>Inicio</Button>
                 <Button onClick={goTo("about-us")}>¿Quiénes somos?</Button>
                 <Button onClick={goTo("contact")}>Contacto</Button>
+                <Button>
+                  <Link
+                    href="https://fluss-help.vercel.app/faq"
+                    target="_blank"
+                    color="textPrimary"
+                  >
+                    Ayuda
+                  </Link>
+                </Button>
               </div>
             </>
           )}
