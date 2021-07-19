@@ -26,7 +26,7 @@ const FlussAppBar: FC = () => {
     };
   };
 
-  const navbar = (
+  return (
     <Navbar position="fixed" color="transparent" elevation={0} className={classes.navbar}>
       <Toolbar>
         <Button className={classes.brand} onClick={push("/")}>
@@ -48,34 +48,15 @@ const FlussAppBar: FC = () => {
           </Button>
         </div>
         <div className={classes.endButtons}>
-          <Button onClick={goTo("welcome")}>
-            Inicio
-          </Button>
-          <Button onClick={goTo("about-us")}>
-            ¿Quiénes somos?
-          </Button>
-          <Button onClick={goTo("contact")}>
-            Contacto
-          </Button>
+          <Button onClick={goTo("welcome")}>Inicio</Button>
+          <Button onClick={goTo("about-us")}>¿Quiénes somos?</Button>
+          <Button onClick={goTo("contact")}>Contacto</Button>
         </div>
       </Toolbar>
       <Divider />
     </Navbar>
   );
-
-  if (isInMonitor) return <ThemeProvider theme={drawerTheme}>{navbar}</ThemeProvider>;
-  return navbar;
 };
-
-const drawerTheme = createMuiTheme({
-  ...theme,
-  palette: {
-    type: "dark",
-    primary: {
-      main: "#FFFFFF",
-    },
-  },
-});
 
 const useStyles = makeStyles<Theme, { isInMonitor: boolean }>((theme: Theme) => ({
   brand: {
@@ -118,8 +99,7 @@ const useStyles = makeStyles<Theme, { isInMonitor: boolean }>((theme: Theme) => 
     },
   },
   navbar: {
-    backgroundColor: ({ isInMonitor }) =>
-      isInMonitor ? "#060913CC" : `${theme.palette.background.default}CC`,
+    backgroundColor: `${theme.palette.background.default}CC`,
     backdropFilter: `blur(4px)`,
   },
 }));

@@ -81,6 +81,8 @@ const MonitorPanel: FC<WatershedsSelectCardProps> = (props) => {
               data={data}
               height={200}
               margin={{ left: 110, right: 110 }}
+              outsideLabelColor="#FFFFFF"
+              insideLabelColor="#FFFFFF"
               width="100%"
               formatOutsideLabel={({ data }) => ratingToText(data)}
               applyColor={({ data }) => ratingToColor(data)}
@@ -113,7 +115,7 @@ const MonitorPanel: FC<WatershedsSelectCardProps> = (props) => {
 const useStyles = makeStyles((theme) => ({
   card: {
     width: "fit-content",
-    backgroundColor: "rgba(255, 255, 255, 0.7)",
+    backgroundColor: `${theme.palette.background.default}CC`,
     backdropFilter: "blur(10px)",
     alignItems: "flex-end",
   },

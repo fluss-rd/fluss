@@ -31,9 +31,7 @@ const Welcome: FC = () => {
             color="primary"
             style={{ fontWeight: "bold" }}
             onClick={goToDataAndReports}
-          >
-            Ver datos y reportes
-          </Button>
+          >Ir al monitor</Button>
         </Grid>
         <Grid item md={6} className={classes.endSide}>
           <div className={classes.imageBox}>

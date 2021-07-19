@@ -13,10 +13,16 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { ServiceProvider } from "services/service";
 import { initialState, StateContext } from "store/state";
 import theme, { GlobalCss } from "styles/theme";
+import { useRouter } from "next/router";
+import { createMuiTheme } from "@material-ui/core";
 
 const queryClient = new QueryClient();
 
 function MyApp({ Component, pageProps }) {
+  const router = useRouter();
+  const isInMonitor = router.pathname === "/monitor";
+  const currentTheme = isInMonitor ? monitorTheme : theme;
+
   useEffect(removeServerSideInjectedCss, []);
 
   function removeServerSideInjectedCss() {
@@ -29,7 +35,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <StateContext.Provider value={initialState}>
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={currentTheme}>
           <GlobalCss />
           <ServiceProvider>
             <QueryClientProvider client={queryClient}>
@@ -44,4 +50,14 @@ function MyApp({ Component, pageProps }) {
   );
 }
 
+const monitorTheme = createMuiTheme({
+  ...theme,
+  palette: {
+    type: "dark",
+    primary: {
+      main: "#FFFFFF",
+    },
+  },
+});
 export default MyApp;
+
