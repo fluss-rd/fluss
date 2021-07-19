@@ -11,8 +11,9 @@ import {
   FormLabel,
   MenuItem,
   Radio,
+  Link,
 } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, Theme } from "@material-ui/core/styles";
 import React, { ChangeEvent, FC, useState } from "react";
 
 import { mockWatersheds } from "../../models/Watershed";
@@ -37,12 +38,10 @@ const ModuleDataDownload: FC<ModuleDataDownloadProps> = ({
   const [selectedWatershed, setSelectedWatershed] = useState(watershedId);
   const watersheds = mockWatersheds();
 
+  const allRiversReportData = {}
+
   const onCancel = () => {
     close();
-  };
-
-  const onSave = () => {
-    // TODO: implement on save actions.
   };
 
   const onWatershedChange = (e: ChangeEvent<{ name?: string; value: string }>) => {
@@ -78,7 +77,7 @@ const ModuleDataDownload: FC<ModuleDataDownloadProps> = ({
         <br />
         <br />
 
-        <FormLabel component="legend">Rango de fechas</FormLabel>
+        <FormLabel disabled={true} component="legend">Rango de fechas</FormLabel>
         <br />
         <DateTimeRange />
 
@@ -106,7 +105,7 @@ const ModuleDataDownload: FC<ModuleDataDownloadProps> = ({
           <FormGroup>
             <FormControlLabel disabled={true} control={<Radio name="excel" />} label="Excel" />
             <FormControlLabel disabled={true} control={<Radio name="csv" />} label="CSV" />
-            <FormControlLabel control={<Radio name="json" />} label="JSON" />
+            <FormControlLabel control={<Radio name="json" />} label="JSON" checked />
           </FormGroup>
         </FormControl>
       </DialogContent>
@@ -114,15 +113,33 @@ const ModuleDataDownload: FC<ModuleDataDownloadProps> = ({
         <Button onClick={onCancel} color="primary">
           Cancelar
         </Button>
-        <Button onClick={onSave} color="primary">
-          Descargar
+        <Button color="primary">
+          <Link
+            className={classes.link}
+            href={`data:text/json;charset=utf-8,${encodeURIComponent(
+              JSON.stringify(allRiversReportData)
+            )}`}
+            download="fluss-data.json"
+          >
+            Descargar
+          </Link>
         </Button>
       </DialogActions>
     </Dialog>
   );
 };
 
-const useStyles = makeStyles({});
+const useStyles = makeStyles<Theme>(
+  (theme: Theme) => ({
+    link: {
+      color: theme.palette.primary.main,
+      textDecoration: "none",
+      "&:hover": {
+        textDecoration: "none",
+      }
+    },
+  })
+);
 
 ModuleDataDownload.defaultProps = {
   watershedId: "Todos",

@@ -46,7 +46,7 @@ const ModuleLast24HoursChart: FC<ModuleLast24HoursChartProps> = (props) => {
               </td>
               {measure.measures.map((m) => (
                 <td key={m.day}>
-                  <div style={{ height: props.barHeight, minWidth: 100 }}>
+                  <div style={{ height: props.barHeight, minWidth: 100, color: "#383B35" }}>
                     <ResponsiveBar
                       colors={measure.color}
                       data={m.measures}
