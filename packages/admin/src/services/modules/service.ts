@@ -8,15 +8,17 @@ export async function registerModule(
   moduleForm: ModuleForm,
   token: string
 ): Promise<AxiosResponse> {
+  const newModule = moduleFormToModuleRegistration(moduleForm);
+  console.log({ newModule });
   const response = await axiosInstance.post<ModuleForm, AxiosResponse<Module>>(
     `/modules`,
-    moduleFormToModuleRegistration(moduleForm),
+    newModule,
     {
       headers: { Authorization: `Bearer ${token}` },
     }
   );
 
-  console.log({ response})
+  console.log({ response });
 
   return response;
 }

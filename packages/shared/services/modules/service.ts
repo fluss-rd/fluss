@@ -3,6 +3,12 @@ import { AxiosResponse } from "axios";
 import ModuleModel, { fromModuleResponse } from "../../models/Module";
 import { ModuleReport, Module } from "./models";
 
+export async function getModulesInfo(): Promise<AxiosResponse<Module[]>> {
+  const modulesResponse = await axiosInstance.get<Module[]>(`/modules`);
+
+  return modulesResponse;
+}
+
 export async function getModules(): Promise<ModuleModel[]> {
   const reportsModulesResponse = await axiosInstance.get<ModuleReport[]>(`/reports/modules`);
   const modulesResponse = await axiosInstance.get<Module[]>(`/modules`);
