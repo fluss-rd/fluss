@@ -13,7 +13,9 @@ const CreateUser: FC = () => {
   const userFormRef = useRef<UserFormRef>();
   const classes = useStyles();
 
-  const onSubmit = (data: UserFormModel) => console.log({ data });
+  const onSubmit = (data: UserFormModel) => {
+    // TODO: submit data.
+  };
 
   return (
     <>

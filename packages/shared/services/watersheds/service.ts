@@ -16,6 +16,14 @@ export async function getWatersheds(): Promise<Watershed[]> {
   return watersheds;
 }
 
+export async function getWatershedById(watershedId: string): Promise<Watershed> {
+  const waterBodiesResponse = await axiosInstance.get<Waterbody>(`/rivers/${watershedId}`);
+
+  if (waterBodiesResponse?.data) return fromWaterbodyResponse(waterBodiesResponse.data);
+
+  return null;
+}
+
 export async function getWqiRatingsCount(
   watershedId: string
 ): Promise<Array<PieChartData<WqiRating>>> {
@@ -27,13 +35,9 @@ export async function getWqiRatingsCount(
     const ratingCount = {};
     ratings.forEach((rating) => (ratingCount[rating] = 0));
 
-    console.log({ ratingCount });
-
     for (const item of filteredResponseData) {
       const classification = toPaperClasification(item.data[0].wqiClassification);
-      console.log({ classification });
       ratingCount[classification] += 1;
-      console.log({ ratingCount });
     }
 
     for (const item of Object.keys(ratingCount)) {
@@ -56,8 +60,6 @@ export async function getModuleStatesCount(
     const filteredResponseData = response.data.filter((item) => item.riverID === watershedId);
     const statesCount = {};
     moduleStates.forEach((state) => (statesCount[state] = 0));
-
-    console.log({ statesCount });
 
     for (const item of filteredResponseData) {
       const state = item.state;

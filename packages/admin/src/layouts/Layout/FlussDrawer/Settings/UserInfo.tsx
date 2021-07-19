@@ -32,7 +32,9 @@ const UserInfo: FC<UserInfoProps> = () => {
     },
   });
 
-  const onSubmit = (data: UserInfoModel) => console.log(data);
+  const onSubmit = (data: UserInfoModel) => {
+    // TODO: submit data.
+  };
 
   return (
     <div className={classes.root}>

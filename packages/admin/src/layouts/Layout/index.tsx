@@ -15,7 +15,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const theme = useTheme();
   const isDownMd = useMediaQuery(theme.breakpoints.down("md"));
   const isUpMd = useMediaQuery(theme.breakpoints.up("md"));
-  const isInWatershed = router.route === "/watersheds/[id]" || router.route === "/watersheds";
+  const isInWatershed = router.route === "/watersheds/[id]";
   const isInHome = router.route === "/";
   const classes = useStyles({ isInWatershed, isInHome });
 

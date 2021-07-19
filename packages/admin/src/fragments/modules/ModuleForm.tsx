@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { FiberManualRecord, Grain, InfoOutlined, LocationOn } from "@material-ui/icons";
 import clsx from "clsx";
 import LocationForm from "components/LocationForm";
-import Map, { Location } from "components/Map";
+import { Location } from "components/Map";
 import React, { FC } from "react";
 import { Controller, useForm, UseFormMethods } from "react-hook-form";
 import ReactInputMask from "react-input-mask";
@@ -13,7 +13,7 @@ import FormField from "shared/components/FormField";
 import FormIconTitle from "shared/components/FormIconTitle";
 import FormSelect from "shared/components/FormSelect";
 import ModuleState, { moduleStates, moduleStateToString } from "shared/models/ModuleState";
-import { mockWatersheds } from "shared/models/Watershed";
+import { useGetWatersheds } from "shared/services/watersheds/hooks";
 import * as yup from "yup";
 
 interface ModuleFormProps {
@@ -24,7 +24,8 @@ interface ModuleFormProps {
 
 const ModuleForm: FC<ModuleFormProps> = ({ form, largeWidth, className }) => {
   const classes = useStyles();
-  const watersheds = mockWatersheds();
+  const watershedsQuery = useGetWatersheds();
+  const watersheds = watershedsQuery?.data || [];
   const md = largeWidth ? 6 : 12;
 
   return (
@@ -45,7 +46,7 @@ const ModuleForm: FC<ModuleFormProps> = ({ form, largeWidth, className }) => {
             name="phoneNumber"
             control={form.control}
             as={
-              <ReactInputMask mask="(999) 999-9999" maskChar=" ">
+              <ReactInputMask mask="(999) 999-9999" maskChar=" " >
                 {() => (
                   <FormField
                     label="Numéro celular"
@@ -65,28 +66,6 @@ const ModuleForm: FC<ModuleFormProps> = ({ form, largeWidth, className }) => {
             error={!!form.errors.serial}
             helperText={form.errors.serial?.message}
             inputRef={form.register}
-          />
-
-          <FormIconTitle Icon={Grain} title="Elegir cuerpo hídrico" />
-
-          <Controller
-            name="watershedId"
-            control={form.control}
-            defaultValue={form.getValues()?.watershedId || ""}
-            as={
-              <FormSelect
-                noneText="Sin seleccionar"
-                label="Cuerpo hídrico"
-                helperText={form.errors.watershedId?.message}
-                error={!!form.errors.watershedId}
-              >
-                {watersheds.map(({ id, name }) => (
-                  <MenuItem key={id} value={id}>
-                    {name}
-                  </MenuItem>
-                ))}
-              </FormSelect>
-            }
           />
 
           <FormIconTitle Icon={FiberManualRecord} title="Elegir estado" />
@@ -114,8 +93,39 @@ const ModuleForm: FC<ModuleFormProps> = ({ form, largeWidth, className }) => {
           />
         </Grid>
         <Grid item xs={12} md={md}>
-          <FormIconTitle Icon={LocationOn} title="Ubicación" />
-          <LocationForm form={form as unknown as UseFormMethods<{ location: Location }>} />
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <FormIconTitle Icon={LocationOn} title="Ubicación" marginBottom={0} />
+            </Grid>
+            <Grid item xs={12}>
+              <Controller
+                name="watershedId"
+                control={form.control}
+                defaultValue={form.getValues()?.watershedId || " "}
+                as={
+                  <FormSelect
+                    noneValue=" "
+                    noneText="Sin seleccionar"
+                    label="Cuerpo hídrico"
+                    helperText={form.errors.watershedId?.message}
+                    error={!!form.errors.watershedId}
+                  >
+                    {watersheds.map(({ id, name }) => (
+                      <MenuItem key={id} value={id}>
+                        {name}
+                      </MenuItem>
+                    ))}
+                  </FormSelect>
+                }
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <LocationForm
+                form={form as unknown as UseFormMethods<{ location: Location; riverID: string }>}
+              />
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     </>
@@ -131,22 +141,41 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function useModuleForm(
-  defaultValues: Partial<ModuleFormModel> = {
-    alias: "",
-    serial: "",
-    phoneNumber: "",
-    status: "",
-    watershedId: "",
-    location: { latitude: 0, longitude: 0 },
-  }
+  values: Partial<ModuleFormModel> = { ...defaultValues },
+  dependencies: any[] = []
 ) {
   const form = useForm<ModuleFormModel>({
     resolver: yupResolver(schema),
-    defaultValues: { ...defaultValues },
+    defaultValues: { ...values },
   });
+
+  React.useEffect(() => {
+    form.reset({
+      alias: values.alias,
+      serial: values.serial,
+      phoneNumber: values.phoneNumber,
+      status: values.status,
+      watershedId: values.watershedId,
+      location: values.location,
+    });
+  }, dependencies);
+
+  React.useEffect(() => {
+    form.register("location.longitude");
+    form.register("location.latitude");
+  }, [form.register]);
 
   return form;
 }
+
+export const defaultValues: ModuleFormModel = {
+  alias: "",
+  serial: "",
+  phoneNumber: "",
+  status: "",
+  watershedId: "",
+  location: { latitude: 0, longitude: 0 },
+};
 
 const schema: yup.SchemaOf<ModuleFormModel> = yup.object().shape({
   alias: yup.string().required("Por favor, introduzca el alias del módulo"),
@@ -161,3 +190,4 @@ const schema: yup.SchemaOf<ModuleFormModel> = yup.object().shape({
 });
 
 export default ModuleForm;
+

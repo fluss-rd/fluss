@@ -46,7 +46,7 @@ const EditUser: FC<EditUserProps> = (props) => {
   }
 
   function onSubmit(data: UserFormModel) {
-    console.log({ data });
+    // TODO: submit data.
   }
 
   return (

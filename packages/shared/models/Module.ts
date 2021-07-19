@@ -22,28 +22,27 @@ type Module = {
 };
 
 export function fromModuleResponse(
-  moduleResponse: ModuleResponse,
+  moduleResponse?: ModuleResponse,
   moduleReport?: ModuleReport
 ): Module {
   const reportData = moduleReport?.data[0];
   const newModule = {
-    location: moduleResponse.location,
+    location: moduleResponse?.location,
     wqi: {
       rating: toPaperClasification(reportData?.wqiClassification) || "moderate",
-      value: reportData?.wqi || 0,
+      value: Math.round(reportData?.wqi) / 100 || 0,
     },
-    id: moduleResponse.moduleID,
-    creationDate: new Date(moduleResponse.creationDate),
-    updateDate: new Date(moduleResponse.updateDate),
-    serial: moduleResponse.serial,
-    state: moduleResponse.state as ModuleState,
-    alias: moduleResponse.alias,
-    phoneNumber: moduleResponse.phoneNumber,
-    watershedId: moduleResponse.riverID,
+    id: moduleResponse?.moduleID,
+    creationDate: new Date(moduleResponse?.creationDate),
+    updateDate: new Date(moduleResponse?.updateDate),
+    serial: moduleResponse?.serial,
+    state: moduleResponse?.state as ModuleState,
+    alias: moduleResponse?.alias,
+    phoneNumber: moduleResponse?.phoneNumber,
+    watershedId: moduleResponse?.riverID,
     batteryLevel: 20,
-    watershedName: moduleResponse.riverName,
+    watershedName: moduleResponse?.riverName,
   };
-  console.log({ newModule });
   return newModule;
 }
 

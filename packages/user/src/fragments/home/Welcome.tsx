@@ -10,7 +10,7 @@ const Welcome: FC = () => {
   const primary = theme.palette.primary.main;
   const classes = useStyles();
 
-  const goToDataAndReports = () => router.push("/datos-y-reportes");
+  const goToDataAndReports = () => router.push("/monitor");
 
   return (
     <Container maxWidth="lg" className={classes.container}>
@@ -31,9 +31,7 @@ const Welcome: FC = () => {
             color="primary"
             style={{ fontWeight: "bold" }}
             onClick={goToDataAndReports}
-          >
-            Ver datos y reportes
-          </Button>
+          >Ir al monitor</Button>
         </Grid>
         <Grid item md={6} className={classes.endSide}>
           <div className={classes.imageBox}>

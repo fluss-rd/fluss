@@ -6,10 +6,17 @@ export function useWatershedsMapData() {
   return query;
 }
 
-export function useGetModule(moduleId?: string) {
-  const query = useQuery(["module", moduleId], () => service.getModule(moduleId), {
+
+export function useGetModuleReport(moduleId?: string) {
+  const query = useQuery(["module-report", moduleId], () => service.getModuleReportFilterHour(moduleId), {
     enabled: !!moduleId,
   });
   return query;
 }
 
+export function useGetModuleAnualReport(moduleId?: string) {
+  const query = useQuery(["module-anual-report", moduleId], () => service.getModuleReportFilterDay(moduleId), {
+    enabled: !!moduleId,
+  });
+  return query;
+}

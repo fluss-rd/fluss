@@ -2,11 +2,12 @@ import { Card, Grid } from "@material-ui/core";
 import React, { FC } from "react";
 import { Control, UseFormMethods, useWatch } from "react-hook-form";
 import FormField from "shared/components/FormField";
-import Map from "shared/components/Map";
+import Map, { defaultFocus } from "shared/components/Map";
 import Location from "shared/models/Location";
+import { useGetWatershedById } from "shared/services/watersheds/hooks";
 
 interface LocationFormProps {
-  form: UseFormMethods<{ location: Location }>;
+  form: UseFormMethods<{ location: Location; riverID: string }>;
 }
 
 const LocationForm: FC<LocationFormProps> = ({ form }) => {
@@ -42,7 +43,7 @@ const LocationForm: FC<LocationFormProps> = ({ form }) => {
         </Grid>
       </Grid>
       <Grid item xs={12}>
-        <Card variant="outlined" style={{ width: "100%", height: 300 }}>
+        <Card variant="outlined" style={{ width: "100%", height: 450 }}>
           <RenderMap
             control={form.control}
             onNewMarker={onNewMarker}
@@ -61,6 +62,14 @@ interface RenderMapProps {
 }
 
 const RenderMap: FC<RenderMapProps> = ({ control, onNewMarker, defaultValue }) => {
+  const watershedId = useWatch({
+    control,
+    name: "watershedId",
+    defaultValue: "",
+  });
+  const watershedQuery = useGetWatershedById(watershedId);
+  const watershedLocation = watershedQuery?.data?.area || [];
+
   const location = useWatch({
     control,
     name: "location",
@@ -68,12 +77,30 @@ const RenderMap: FC<RenderMapProps> = ({ control, onNewMarker, defaultValue }) =
   });
 
   // Convert to integer because of changing in the data type.
-  const latitude = parseFloat(location.latitude.toString());
-  const longitude = parseFloat(location.longitude.toString());
+  const latitude = parseFloat(location?.latitude.toString()) || 0.0;
+  const longitude = parseFloat(location?.longitude.toString()) || 0.0;
   const mark = { latitude, longitude };
   const locations = latitude === 0 && longitude === 0 ? [] : [mark];
 
-  return <Map locations={locations} onClick={onNewMarker} />;
+  const computeFocus = () => {
+    if (locations.length > 0) return { focus: locations[0], zoom: 13 };
+    else if (watershedLocation.length > 0) return { focus: watershedLocation, zoom: 10 };
+
+    return { focus: defaultFocus, zoom: 7 };
+  };
+
+  const { focus, zoom } = computeFocus();
+
+  return (
+    <Map
+      zoom={zoom}
+      locations={locations}
+      focusLocation={focus}
+      areas={[watershedLocation]}
+      onClick={onNewMarker}
+    />
+  );
 };
 
 export default LocationForm;
+

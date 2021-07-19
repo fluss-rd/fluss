@@ -198,7 +198,7 @@ function useTableInitialization<T extends object>(props: DataTableProps<T>) {
   const table = useTable(
     {
       columns: columns as Column<object>[],
-      data,
+      data: data || [],
       initialState: {
         pageIndex: 0,
         pageSize: paginated ? pageSize : data.length || 0,
@@ -220,3 +220,4 @@ function useTableInitialization<T extends object>(props: DataTableProps<T>) {
 }
 
 export default DataTable;
+

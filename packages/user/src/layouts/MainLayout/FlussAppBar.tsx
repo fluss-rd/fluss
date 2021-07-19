@@ -1,4 +1,13 @@
-import { AppBar as Navbar, Button, Divider, Toolbar, Typography } from "@material-ui/core";
+import theme from "shared/styles/theme";
+import {
+  AppBar as Navbar,
+  Button,
+  Divider,
+  Toolbar,
+  Typography,
+  ThemeProvider,
+  createMuiTheme,
+} from "@material-ui/core";
 import { makeStyles, Theme, useTheme } from "@material-ui/core/styles";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -6,9 +15,10 @@ import React, { FC } from "react";
 import { appBarHeight, push, scroll } from "shared/helpers";
 
 const FlussAppBar: FC = () => {
-  const classes = useStyles();
   const router = useRouter();
   const theme = useTheme();
+  const isInMonitor = router.pathname === "/monitor";
+  const classes = useStyles({ isInMonitor });
   const goTo = (sectionId: string) => {
     return () => {
       if (router.pathname !== "/") router.push({ pathname: "/", query: { sectionId } });
@@ -38,15 +48,9 @@ const FlussAppBar: FC = () => {
           </Button>
         </div>
         <div className={classes.endButtons}>
-          <Button color="inherit" onClick={goTo("welcome")}>
-            Inicio
-          </Button>
-          <Button color="inherit" onClick={goTo("about-us")}>
-            ¿Quiénes somos?
-          </Button>
-          <Button color="inherit" onClick={goTo("contact")}>
-            Contacto
-          </Button>
+          <Button onClick={goTo("welcome")}>Inicio</Button>
+          <Button onClick={goTo("about-us")}>¿Quiénes somos?</Button>
+          <Button onClick={goTo("contact")}>Contacto</Button>
         </div>
       </Toolbar>
       <Divider />
@@ -54,7 +58,7 @@ const FlussAppBar: FC = () => {
   );
 };
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles<Theme, { isInMonitor: boolean }>((theme: Theme) => ({
   brand: {
     display: "flex",
     alignItems: "center",
@@ -101,3 +105,4 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export default FlussAppBar;
+

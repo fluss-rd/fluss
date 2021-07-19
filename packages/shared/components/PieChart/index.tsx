@@ -1,13 +1,15 @@
 import { makeStyles } from "@material-ui/core/styles";
 import { Margin } from "@nivo/core";
 import { ComputedDatum, ResponsivePie } from "@nivo/pie";
-import React from "react";
+import React, { FC } from "react";
 
 import ResponsivePieProps from "./ResponsivePieProps";
 
 export interface PieChartProps<T = void> {
   data: PieChartData<T>[];
   margin?: Partial<Margin> | number;
+  outsideLabelColor?: string;
+  insideLabelColor?: string;
   formatOutsideLabel?: (item: PieChartData<T>, parameters: Omit<PieChartData<T>, "data">) => string; // External label.
   formatInnerLabel?: (item: PieChartData<T>, parameters: Omit<PieChartData<T>, "data">) => string; // External label.
   applyColor?: (item: PieChartData<T>, parameters: Omit<PieChartData<T>, "data">) => string;
@@ -62,17 +64,23 @@ function PieChart<T>(props: PieChartProps<T>) {
         borderWidth={1}
         borderColor={{ from: "color", modifiers: [["darker", 0.2]] }}
         arcLinkLabelsSkipAngle={10}
-        arcLinkLabelsTextColor="#333333"
+        arcLinkLabelsTextColor={props.outsideLabelColor}
         arcLinkLabelsThickness={2}
         arcLinkLabelsColor={{ from: "color" }}
         arcLabelsSkipAngle={10}
-        arcLabelsTextColor={{ from: "color", modifiers: [["darker", 2]] }}
+        arcLabelsTextColor={props.insideLabelColor}
         {...(props.ResponsivePieProps as any)}
       />
     </div>
   );
 }
 
+(PieChart as FC<PieChartProps>).defaultProps = {
+  outsideLabelColor: "#33333",
+  insideLabelColor: "#000000",
+};
+
 const useStyles = makeStyles({});
 
 export default PieChart;
+

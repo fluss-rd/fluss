@@ -23,7 +23,7 @@ const CreateRol: FC<CreateRolProps> = () => {
   };
 
   function onSubmit(data: Role) {
-    console.log({ data });
+    // TODO: submit data.
   }
 
   return (

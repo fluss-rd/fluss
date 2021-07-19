@@ -4,29 +4,58 @@ import FormDialog from "components/FormDialog";
 import useBoolean from "hooks/useBoolean";
 import React, { FC } from "react";
 import { WatershedForm as WatershedFormModel } from "services/watersheds/models";
+import { useRegisterWatershed } from "services/watersheds/hooks";
+import { useTheme } from "@material-ui/core/styles";
 
 import WatershedForm, { useWatershedForm } from "./WatershedForm";
 
-interface AddWatershedProps {}
+interface AddWatershedProps {
+  detailIsOpen?: boolean;
+  marginRight?: number;
+}
 
-const AddWatershed: FC<AddWatershedProps> = () => {
+const AddWatershed: FC<AddWatershedProps> = (props) => {
+  const theme = useTheme();
   const [isOpen, open, close] = useBoolean();
+  const watershedMutation = useRegisterWatershed();
   const form = useWatershedForm();
 
-  const onSubmit = (data: WatershedFormModel) => {
-    console.log({ data });
+  const resetForm = () => {
+    form.reset({
+      name: "",
+      type: "",
+      location: [],
+    });
   };
+
+  const onSubmit = (data: WatershedFormModel) => {
+    watershedMutation.mutate(data);
+    resetForm();
+    close();
+  };
+
+  const onCancel = () => {
+    close();
+    resetForm();
+  };
+
+  const rightSpacing = theme.spacing(4);
 
   return (
     <>
-      <Fab onClick={open} position="absolute" variant="round">
+      <Fab
+        onClick={open}
+        position="fixed"
+        variant="round"
+        style={{ right: props.detailIsOpen ? props.marginRight + rightSpacing : rightSpacing }}
+      >
         <Add />
       </Fab>
       <FormDialog
         mode="registration"
         isOpen={isOpen}
         title="Registrar cuerpo hídrico"
-        onClose={close}
+        onClose={onCancel}
         onSave={form.handleSubmit(onSubmit)}
       >
         <WatershedForm form={form} />
@@ -36,3 +65,4 @@ const AddWatershed: FC<AddWatershedProps> = () => {
 };
 
 export default AddWatershed;
+

@@ -15,7 +15,6 @@ const BarsChartSection: FC<BarsChartSectionProps> = (props) => {
     headers: DataTableColumn<ModuleMeasure>[];
   }>;
   const columnIds = groups[0].headers ? groups[0].headers.map((group) => group.id) : [];
-  console.log(props.ignored);
   const valid = columnIds.filter((id: keyof ModuleMeasure) => props.ignored!.indexOf(id) === -1);
 
   return (
