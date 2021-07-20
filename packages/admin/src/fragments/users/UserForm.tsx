@@ -139,10 +139,7 @@ const schema = yup.object().shape({
   surname: yup.string().required("Debe ingresar un apellido para el usuario"),
   rolName: yup.string().required("Debe ingresar un nombre para el usuario"),
   status: yup.string().required("Debe indicar el estado del usuario"),
-  email: yup
-    .string()
-    .required("Debe ingresar un email para el usuario")
-    .email("Debe ingresar un correo válido. Ej: usuario@email.com"),
+  email: yup.string().required("Debe ingresar un email para el usuario"),
 });
 
 export type UserFormModel = {
