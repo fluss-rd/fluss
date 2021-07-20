@@ -11,11 +11,10 @@ interface ModuleLast24HoursChartProps {
 
 const ModuleLast24HoursChart: FC<ModuleLast24HoursChartProps> = (props) => {
   const classes = useStyles();
-  const measuresQuery = useGetModuleReport(props.moduleId);
   const { isLoading, data } = useGetModuleReport(props.moduleId);
-  const { days, parameterMeasure: measures } = data? data : { days: [], parameterMeasure: []}
-  const moduleQuery = useGetModuleInfoById(props.moduleId);
-  const module = moduleQuery?.data?.data;
+  const { days, parameterMeasure: measures } = data ? data : { days: [], parameterMeasure: [] };
+
+  console.log({ isLoading });
 
   if (isLoading) {
     return (
@@ -31,15 +30,17 @@ const ModuleLast24HoursChart: FC<ModuleLast24HoursChartProps> = (props) => {
         <thead>
           <tr>
             <td></td>
-            {days.map((day) => (
-              <td key={day} style={{ textAlign: "center" }}>{day}</td>
+            {(days || []).map((day) => (
+              <td key={day} style={{ textAlign: "center" }}>
+                {day}
+              </td>
             ))}
             <td style={{ textAlign: "center" }}>Max</td>
             <td style={{ textAlign: "center" }}>Min</td>
           </tr>
         </thead>
         <tbody>
-          {measures.map((measure) => (
+          {(measures || []).map((measure) => (
             <tr key={measure.parameterName}>
               <td>
                 <Typography variant="caption">{measure.parameterName}</Typography>
@@ -48,8 +49,8 @@ const ModuleLast24HoursChart: FC<ModuleLast24HoursChartProps> = (props) => {
                 <td key={m.day}>
                   <div style={{ height: props.barHeight, minWidth: 100, color: "#383B35" }}>
                     <ResponsiveBar
-                      colors={measure.color}
-                      data={m.measures}
+                      colors={measure?.color}
+                      data={m.measures || []}
                       keys={["value"]}
                       indexBy="hour"
                       innerPadding={0.4}
@@ -61,12 +62,12 @@ const ModuleLast24HoursChart: FC<ModuleLast24HoursChartProps> = (props) => {
               ))}
               <td style={{ textAlign: "center" }}>
                 <Typography variant="caption" color="primary">
-                  {measure.max}
+                  {measure?.max}
                 </Typography>
               </td>
               <td style={{ textAlign: "center" }}>
                 <Typography variant="caption" color="secondary">
-                  {measure.min}
+                  {measure?.min}
                 </Typography>
               </td>
             </tr>
@@ -83,11 +84,12 @@ const useStyles = makeStyles(() => ({
     alignItems: "center",
     justifyContent: "center",
     height: "100%",
-    width: "100%"
+    width: "100%",
   },
 }));
 
 ModuleLast24HoursChart.defaultProps = {
-  barHeight: 100
+  barHeight: 100,
 };
 export default ModuleLast24HoursChart;
+

@@ -1,6 +1,6 @@
 // install (please make sure versions match peerDependencies)
 // yarn add @nivo/core @nivo/bar
-import { ResponsiveBar } from "@nivo/bar";
+import { ResponsiveBar, BarDatum } from "@nivo/bar";
 // make sure parent container have a defined height when using
 // responsive component, otherwise height will be 0 and
 // no chart will be rendered.
@@ -17,7 +17,7 @@ interface BarChartProps<T> {
 function BarChart<T extends object>({ data, columns, indexBy, ...props }: BarChartProps<T>) {
   return (
     <ResponsiveBar
-      data={data}
+      data={data as BarDatum[]}
       keys={columns as string[]}
       groupMode="grouped"
       indexBy={indexBy as string}
@@ -72,8 +72,6 @@ function BarChart<T extends object>({ data, columns, indexBy, ...props }: BarCha
         },
       ]}
       animate={true}
-      motionStiffness={90}
-      motionDamping={15}
     />
   );
 }

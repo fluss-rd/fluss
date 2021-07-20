@@ -11,15 +11,18 @@ import SelectColumnFilter from "shared/components/DataTable/filters/SelectColumn
 import { formatDate } from "shared/helpers";
 import Module, { mockModules } from "shared/models/Module";
 import { moduleStateToColor, moduleStateToString } from "shared/models/ModuleState";
-import { useGetModules } from "shared/services/modules/hooks";
+import { useGetModulesInfo } from "shared/services/modules/hooks";
+import ModuleModel, { fromModuleResponse } from "shared/models/Module";
 
 const Modules: NextPage = () => {
   const classes = useStyles();
   const router = useRouter();
-  const { data, isLoading } = useGetModules();
-  const modules = data;
+  const { data, isLoading } = useGetModulesInfo();
+  const modules = data?.data ? data?.data.map((m) => fromModuleResponse(m)) : [];
   const moduleColumns = useColumns(goToDetails);
-  const modulesQuantity = data?.length || 0;
+  const modulesQuantity = modules?.length || 0;
+
+  console.log({ modules });
 
   function goToDetails(moduleId: string) {
     router.push(`/modules/${moduleId}`);
