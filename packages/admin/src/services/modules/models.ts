@@ -70,4 +70,3 @@ export function moduleFormToModuleRegistration(moduleForm: ModuleForm): ModuleRe
     serial: moduleForm.serial,
   };
 }
-

@@ -1,7 +1,8 @@
-import { ModuleForm } from "./models";
-import axiosInstance from "../axiosInstance";
 import { AxiosResponse } from "axios";
 import { Module } from "shared/services/modules/models";
+
+import axiosInstance from "../axiosInstance";
+import { ModuleForm } from "./models";
 import { moduleFormToModuleRegistration } from "./models";
 
 export async function registerModule(
@@ -22,4 +23,3 @@ export async function registerModule(
 
   return response;
 }
-

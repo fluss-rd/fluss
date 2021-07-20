@@ -1,6 +1,7 @@
+import * as models from "services/users/models";
+
 import { mockRoles } from "./Role";
 import UserStatus from "./UserStatus";
-import * as models from "services/users/models";
 
 type User = {
   id: string;
@@ -58,4 +59,3 @@ export function mockUsers(): User[] {
 }
 
 export default User;
-

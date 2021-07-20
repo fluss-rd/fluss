@@ -9,8 +9,8 @@ import { ChangeEvent, useState } from "react";
 import Back from "shared/components/Back";
 import TabPanel, { AntTab, AntTabs } from "shared/components/TabPanel";
 import { mockModules } from "shared/models/Module";
-import { useGetModuleInfoById } from "shared/services/modules/hooks";
 import { fromModuleResponse } from "shared/models/Module";
+import { useGetModuleInfoById } from "shared/services/modules/hooks";
 
 const Module: NextPage = () => {
   const classes = useStyles();
@@ -63,4 +63,3 @@ const Module: NextPage = () => {
 
 const useStyles = makeStyles((theme: Theme) => ({}));
 export default Module;
-

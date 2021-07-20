@@ -1,11 +1,11 @@
-import { Card, CardContent, Divider, Typography, CircularProgress } from "@material-ui/core";
+import { Card, CardContent, CircularProgress, Divider, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { FC, useState } from "react";
 import ModuleAnnualSummary from "shared/components/ModuleAnnualSummary";
 import { mockDateMeasures } from "shared/models/DateMeasure";
+import DateMeasure from "shared/models/DateMeasure";
 import ParameterName from "shared/models/ParameterName";
 import { useGetModuleAnualReport } from "shared/services/monitor/hooks";
-import DateMeasure from "shared/models/DateMeasure";
 
 interface ParameterAnnualSummaryProps {
   moduleId: string;
@@ -87,4 +87,3 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default ParameterAnnualSummary;
-

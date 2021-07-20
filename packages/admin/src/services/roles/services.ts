@@ -1,6 +1,7 @@
-import * as models from "./models";
-import axiosInstance from "../axiosInstance";
 import { AxiosResponse } from "axios";
+
+import axiosInstance from "../axiosInstance";
+import * as models from "./models";
 
 export async function getRoles(token: string): Promise<AxiosResponse<models.Role[]>> {
   const rolesResponse = await axiosInstance.get<models.Role[]>(`/account/roles`, {
@@ -8,4 +9,3 @@ export async function getRoles(token: string): Promise<AxiosResponse<models.Role
   });
   return rolesResponse;
 }
-

@@ -2,7 +2,7 @@ import { IconButton, Tooltip, Typography } from "@material-ui/core";
 import { Edit } from "@material-ui/icons";
 import CreateUser from "fragments/users/CreateUser";
 import EditUser from "fragments/users/EditUser";
-import User, { mockUsers, fromUserResponse } from "models/User";
+import User, { fromUserResponse, mockUsers } from "models/User";
 import { userStatusToString } from "models/UserStatus";
 import { NextPage } from "next";
 import { useState } from "react";
@@ -67,4 +67,3 @@ function generateColumns(onEdit: (userId: string) => () => void) {
 }
 
 export default Users;
-

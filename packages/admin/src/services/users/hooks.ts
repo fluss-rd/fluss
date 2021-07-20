@@ -1,5 +1,6 @@
 import { getToken } from "helpers/token";
-import { useQuery, useMutation, useQueryClient } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+
 import * as models from "./models";
 import * as service from "./services";
 
@@ -45,4 +46,3 @@ export function useRegisterUser() {
 
   return mutation;
 }
-

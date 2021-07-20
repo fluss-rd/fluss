@@ -67,4 +67,3 @@ const useStyles = makeStyles({
 });
 
 export default EditUser;
-

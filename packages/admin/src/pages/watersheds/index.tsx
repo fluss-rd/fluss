@@ -64,7 +64,7 @@ const Watersheds: NextPage = () => {
             })}
           </div>
         </div>
-        <div style={{ width: !!state.detail ? detailWidth : 0, height: "100vh", color: "red" }} />
+        <div style={{ width: state.detail ? detailWidth : 0, height: "100vh", color: "red" }} />
         <AddWatershed marginRight={detailWidth} detailIsOpen={!!state.detail} />
 
         <EditWatershed
@@ -94,4 +94,3 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default Watersheds;
-

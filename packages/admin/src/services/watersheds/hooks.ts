@@ -1,5 +1,5 @@
-import { useMutation, useQuery, useQueryClient } from "react-query";
 import { getToken } from "helpers/token";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import * as models from "services/watersheds/models";
 import * as service from "services/watersheds/sevice";
 
@@ -21,4 +21,3 @@ export function useRegisterWatershed() {
 
   return mutation;
 }
-

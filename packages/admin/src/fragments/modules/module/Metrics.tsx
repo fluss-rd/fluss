@@ -4,10 +4,11 @@ import React, { FC, useState } from "react";
 import Map from "shared/components/Map";
 import ModuleLast24HoursChart from "shared/components/ModuleLast24HoursChart";
 import { mockDateMeasures } from "shared/models/DateMeasure";
+import { fromModuleResponse } from "shared/models/Module";
 import ParameterName from "shared/models/ParameterName";
 import { useGetModuleInfoById } from "shared/services/modules/hooks";
 import { useGetWatershedById } from "shared/services/watersheds/hooks";
-import { fromModuleResponse } from "shared/models/Module";
+
 import ModuleAnnualSummary from "./ModuleAnnualSummary";
 
 interface MetricsProps {
@@ -71,4 +72,3 @@ const Metrics: FC<MetricsProps> = ({ moduleId }) => {
 const useStyles = makeStyles({});
 
 export default Metrics;
-

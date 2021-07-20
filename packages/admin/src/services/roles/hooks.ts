@@ -1,5 +1,6 @@
 import { getToken } from "helpers/token";
 import { useQuery } from "react-query";
+
 import * as service from "./services";
 
 export function useGetRoles() {
@@ -9,4 +10,3 @@ export function useGetRoles() {
   });
   return query;
 }
-

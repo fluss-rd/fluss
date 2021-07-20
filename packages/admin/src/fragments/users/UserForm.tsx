@@ -5,10 +5,10 @@ import { mockRoles } from "models/Role";
 import UserStatus, { userStatusList, userStatusToString } from "models/UserStatus";
 import React, { ForwardedRef, forwardRef, useImperativeHandle } from "react";
 import { Controller, useForm, UseFormMethods } from "react-hook-form";
+import { useGetRoles } from "services/roles/hooks";
 import FormField from "shared/components/FormField";
 import FormIconTitle from "shared/components/FormIconTitle";
 import FormSelect from "shared/components/FormSelect";
-import { useGetRoles } from "services/roles/hooks";
 import * as yup from "yup";
 
 interface UserFormProps {
@@ -149,4 +149,3 @@ export type UserFormModel = {
   status: string;
   email: string;
 };
-

@@ -103,4 +103,3 @@ const RenderMap: FC<RenderMapProps> = ({ control, onNewMarker, defaultValue }) =
 };
 
 export default LocationForm;
-

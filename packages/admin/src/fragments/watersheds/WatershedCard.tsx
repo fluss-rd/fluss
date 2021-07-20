@@ -1,10 +1,10 @@
 import { Button, Card, CardActions, CardContent, Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Update, ViewModule } from "@material-ui/icons";
-import Map from "shared/components/Map";
 import { useRouter } from "next/router";
 import React, { FC } from "react";
 import IconLabel from "shared/components/IconLabel";
+import Map from "shared/components/Map";
 import formatDate from "shared/helpers/formatDate";
 import Location from "shared/models/Location";
 
@@ -102,4 +102,3 @@ const useStyles = makeStyles({
 });
 
 export default WatershedCard;
-
