@@ -13,6 +13,7 @@ import { Battery20, KeyboardArrowRight, LocationOff, Notifications } from "@mate
 import { NotificationCategory } from "models/Notification";
 import React, { FC } from "react";
 import formatDate from "shared/helpers/formatDate";
+import { useRouter } from "next/router";
 
 interface NotificationItemProps {
   moduleId: string;
@@ -25,11 +26,18 @@ interface NotificationItemProps {
 const NotificationItem: FC<NotificationItemProps> = (props) => {
   const classes = useStyles();
   const Icon = chooseIcon(props.category);
-  const dateDescription = formatDate(props.date, { type: "descriptive" });
+  const router = useRouter();
+  const dateDescription = formatDate(props.date, { type: "date" });
+
+  const push = (moduleId: string) => {
+    return () => {
+      router.push(`/modules/${moduleId}`);
+    };
+  };
 
   return (
     <Card>
-      <CardActionArea className={classes.card}>
+      <CardActionArea className={classes.card} onClick={push(props.moduleId)}>
         <div>
           <Avatar className={classes.avatar}>
             <Icon fontSize="large" />
@@ -83,3 +91,4 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default NotificationItem;
+

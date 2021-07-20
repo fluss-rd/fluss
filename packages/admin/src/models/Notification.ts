@@ -15,17 +15,9 @@ export function mockNotifications(): Notification[] {
   return [
     {
       id: "N-01",
-      moduleId: "YN-1",
-      riverId: "RV-1",
-      message: "Porcentaje de batería al 10% en módulo YN-1, Río Yaque del Norte",
-      category: "battery",
-      date: new Date(2021, 6, 11),
-    },
-    {
-      id: "N-02",
-      moduleId: "YN-1",
-      riverId: "RV-1",
-      message: "Cambio inesperado de ubicación en módulo YN-1, Río Yaque del norte",
+      moduleId: "MDL97ac6ecc77134ecdbdb5f8efe576f415",
+      riverId: "RVRd195be9460fb42a7acf3725195a001b5",
+      message: "Cambio inesperado de ubicación en módulo Punta de Mondesí, Laguna de Oviedo",
       category: "unexpectedLocation",
       date: new Date(2021, 6, 11),
     },
