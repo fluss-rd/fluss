@@ -8,8 +8,6 @@
     "start": "next start"
   },
   "dependencies": {
-    "@nivo/bar": "0.67.0",
-    "@nivo/core": "0.67.0",
     "@types/react-slick": "0.23.4",
     "next": "10.2.3",
     "react": "17.0.2",
