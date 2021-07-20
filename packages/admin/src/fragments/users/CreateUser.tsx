@@ -21,7 +21,7 @@ const CreateUser: FC = () => {
       email: data.email,
       password: "fluss-rd",
       roleName: data.rolName,
-      phoneNumber: "+18098045201",
+      phoneNumber: "8098045201",
     });
     closeDialog();
   };

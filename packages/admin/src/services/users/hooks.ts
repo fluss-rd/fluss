@@ -36,7 +36,7 @@ export function useRegisterUser() {
     },
     {
       onSuccess: (data) => {
-        console.log({ data });
+        console.log({ response: data });
         if (data.status === 200) {
           queryClient.refetchQueries("users");
         }
@@ -46,3 +46,4 @@ export function useRegisterUser() {
 
   return mutation;
 }
+
