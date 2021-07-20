@@ -13,6 +13,7 @@ import { useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Hydrate } from "react-query/hydration";
 import theme, { GlobalCss } from "styles/theme";
+import Head from "next/head";
 
 function MyApp({ Component, pageProps }) {
   const [queryClient] = useState(() => new QueryClient());
@@ -31,6 +32,9 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <Head>
+        <title>Fluss — console</title>
+      </Head>
       <Hydrate state={pageProps.dehydratedState}>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <ThemeProvider theme={currentTheme}>
@@ -59,3 +63,4 @@ const monitorTheme = createMuiTheme({
 });
 
 export default MyApp;
+

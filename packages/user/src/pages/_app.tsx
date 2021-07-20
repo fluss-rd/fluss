@@ -15,6 +15,7 @@ import { initialState, StateContext } from "store/state";
 import theme, { GlobalCss } from "styles/theme";
 import { useRouter } from "next/router";
 import { createMuiTheme } from "@material-ui/core";
+import Head from "next/head";
 
 const queryClient = new QueryClient();
 
@@ -34,6 +35,9 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <StateContext.Provider value={initialState}>
+      <Head>
+        <title>Fluss — river monitoring</title>
+      </Head>
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <ThemeProvider theme={currentTheme}>
           <GlobalCss />
@@ -58,8 +62,8 @@ const monitorTheme = createMuiTheme({
       main: "#FFFFFF",
     },
     secondary: {
-      main: "#7db6d1"
-    }
+      main: "#7db6d1",
+    },
   },
 });
 export default MyApp;
