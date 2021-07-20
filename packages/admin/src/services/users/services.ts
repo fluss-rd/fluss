@@ -2,13 +2,20 @@ import * as models from "./models";
 import axiosInstance from "../axiosInstance";
 import { AxiosResponse } from "axios";
 
-export async function getUsers(): Promise<AxiosResponse<models.User[]>> {
-  const modulesResponse = await axiosInstance.get<models.User[]>(`/account/users`);
+export async function getUsers(token: string): Promise<AxiosResponse<models.User[]>> {
+  const modulesResponse = await axiosInstance.get<models.User[]>(`/account/users`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
   return modulesResponse;
 }
 
-export async function getUserById(userId: string): Promise<AxiosResponse<models.User>> {
-  const modulesResponse = await axiosInstance.get<models.User>(`/account/users/${userId}`);
+export async function getUserById(
+  userId: string,
+  token: string
+): Promise<AxiosResponse<models.User>> {
+  const modulesResponse = await axiosInstance.get<models.User>(`/account/users/${userId}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
   return modulesResponse;
 }
 

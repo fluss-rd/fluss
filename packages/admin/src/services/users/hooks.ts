@@ -4,14 +4,24 @@ import * as models from "./models";
 import * as service from "./services";
 
 export function useGetUsers() {
-  const query = useQuery("users", service.getUsers);
+  const query = useQuery("users", () => {
+    const token = getToken();
+    return service.getUsers(token);
+  });
   return query;
 }
 
 export function useGetUserById(userId?: string) {
-  const query = useQuery(["users", userId], () => service.getUserById(userId), {
-    enabled: !!userId,
-  });
+  const query = useQuery(
+    ["users", userId],
+    () => {
+      const token = getToken();
+      return service.getUserById(userId, token);
+    },
+    {
+      enabled: !!userId,
+    }
+  );
 
   return query;
 }

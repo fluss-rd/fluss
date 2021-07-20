@@ -3,14 +3,13 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Add } from "@material-ui/icons";
 import useBoolean from "hooks/useBoolean";
 import React, { FC } from "react";
-import { useRef } from "react";
 import ModalContent from "shared/components/ModalContent";
 
-import UserForm, { UserFormModel, UserFormRef } from "./UserForm";
+import UserForm, { UserFormModel, UserFormRef, useUserForm } from "./UserForm";
 
 const CreateUser: FC = () => {
   const [isOpen, openDialog, closeDialog] = useBoolean();
-  const userFormRef = useRef<UserFormRef>();
+  const form = useUserForm();
   const classes = useStyles();
 
   const onSubmit = (data: UserFormModel) => {
@@ -33,13 +32,13 @@ const CreateUser: FC = () => {
       >
         <DialogTitle id="form-dialog-title">Registrar usuario</DialogTitle>
         <ModalContent spacing={2} dividers>
-          <UserForm ref={userFormRef} />
+          <UserForm form={form} />
         </ModalContent>
         <DialogActions>
           <Button onClick={closeDialog} color="primary">
             Cancelar
           </Button>
-          <Button color="primary" onClick={() => userFormRef.current.form.handleSubmit(onSubmit)()}>
+          <Button color="primary" onClick={form.handleSubmit(onSubmit)}>
             Registrar
           </Button>
         </DialogActions>
@@ -57,3 +56,4 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default CreateUser;
+
