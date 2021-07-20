@@ -1,6 +1,7 @@
-import { WatershedForm } from "./models";
-import axiosInstance from "../axiosInstance";
 import { AxiosResponse } from "axios";
+
+import axiosInstance from "../axiosInstance";
+import { WatershedForm } from "./models";
 
 export async function registerWatershed(
   watershedForm: WatershedForm,
@@ -16,4 +17,3 @@ export async function registerWatershed(
 
   return response;
 }
-

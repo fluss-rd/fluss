@@ -10,9 +10,9 @@ import DataTable, { DataTableColumn } from "shared/components/DataTable";
 import SelectColumnFilter from "shared/components/DataTable/filters/SelectColumnFilter";
 import { formatDate } from "shared/helpers";
 import Module, { mockModules } from "shared/models/Module";
+import ModuleModel, { fromModuleResponse } from "shared/models/Module";
 import { moduleStateToColor, moduleStateToString } from "shared/models/ModuleState";
 import { useGetModulesInfo } from "shared/services/modules/hooks";
-import ModuleModel, { fromModuleResponse } from "shared/models/Module";
 
 const Modules: NextPage = () => {
   const classes = useStyles();
@@ -125,4 +125,3 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default Modules;
-

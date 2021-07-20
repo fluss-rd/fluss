@@ -17,7 +17,11 @@ import PieChartLegends from "shared/components/PieChartLegends";
 import WqiLegend from "shared/components/WqiLegend";
 import ModuleState, { moduleStateToColor, moduleStateToString } from "shared/models/ModuleState";
 import WqiRating, { ratingToColor, ratingToText } from "shared/models/WqiRating";
-import { useGetWqiRatingsCount, useGetModuleStatesCount, useGetWatershedById } from "shared/services/watersheds/hooks";
+import {
+  useGetModuleStatesCount,
+  useGetWatershedById,
+  useGetWqiRatingsCount,
+} from "shared/services/watersheds/hooks";
 
 interface WatershedDetailProps {
   riverId?: string;
@@ -138,5 +142,3 @@ const useStyles = makeStyles({
 });
 
 export default WatershedDetail;
-
-

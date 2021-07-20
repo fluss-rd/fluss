@@ -14,4 +14,3 @@ export function watershedToWatershedForm(watershed?: Watershed): WatershedForm {
     location: watershed?.area || [],
   };
 }
-

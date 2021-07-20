@@ -66,4 +66,3 @@ const columns: DataTableColumn<Log>[] = [
 const useStyles = makeStyles({});
 
 export default Logs;
-

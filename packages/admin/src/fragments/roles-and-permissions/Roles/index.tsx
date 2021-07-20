@@ -23,4 +23,3 @@ const columns: DataTableColumn<Role>[] = [
   { Header: "Última actualización", accessor: (rol) => formatDate(rol.lastUpdate) },
   //{ Header: " ", columnWidth: "100px", id: "info", accessor: (rol) => <EditRol role={rol} /> },
 ];
-

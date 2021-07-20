@@ -1,16 +1,16 @@
 import { yupResolver } from "@hookform/resolvers";
-import { Card, MenuItem, FormHelperText } from "@material-ui/core";
+import { Card, FormHelperText, MenuItem } from "@material-ui/core";
 import { InfoOutlined, LocationOn } from "@material-ui/icons";
 import { Location } from "components/Map";
 import React, { FC } from "react";
+import { Control, Controller, useForm, UseFormMethods, useWatch } from "react-hook-form";
 import { WatershedForm as WatershedFormModel } from "services/watersheds/models";
 import FormField from "shared/components/FormField";
 import FormIconTitle from "shared/components/FormIconTitle";
-import Map, { defaultFocus } from "shared/components/Map";
-import { Controller, useForm, UseFormMethods, Control, useWatch } from "react-hook-form";
-import * as yup from "yup";
 import FormSelect from "shared/components/FormSelect";
+import Map, { defaultFocus } from "shared/components/Map";
 import { watershedTypes, watershedTypeToString } from "shared/models/WatershedType";
+import * as yup from "yup";
 
 export interface WatershedFormProps {
   form: UseFormMethods<WatershedFormModel>;
@@ -57,10 +57,10 @@ const WatershedForm: FC<WatershedFormProps> = ({ form }) => {
       />
       <FormIconTitle Icon={LocationOn} title="Ubicación"></FormIconTitle>
       <FormHelperText error={!!form.errors.location}>
-        {!!!form.errors.location ? (
+        {!form.errors.location ? (
           <>
-            Trace el área del río a registrar. Haga click en el botón "Habilitar sección" (botón con
-            ícono de marcos) para empezar el trazo.
+            Trace el área del río a registrar. Haga click en el botón {"Habilitar sección"} (botón
+            con ícono de marcos) para empezar el trazo.
           </>
         ) : (
           (form.errors.location as any)?.message
@@ -155,4 +155,3 @@ const schema: yup.SchemaOf<WatershedFormModel> = yup.object().shape({
 });
 
 export default WatershedForm;
-

@@ -1,5 +1,5 @@
-import { useMutation, useQueryClient } from "react-query";
 import { getToken } from "helpers/token";
+import { useMutation, useQueryClient } from "react-query";
 import * as models from "services/modules/models";
 import * as service from "services/modules/service";
 
@@ -22,4 +22,3 @@ export function useRegisterModule() {
 
   return mutation;
 }
-

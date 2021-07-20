@@ -14,4 +14,3 @@ export interface UserForm {
   roleName: string;
   phoneNumber: string;
 }
-

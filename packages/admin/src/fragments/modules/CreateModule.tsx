@@ -3,10 +3,10 @@ import Fab from "components/Fab";
 import FormDialog from "components/FormDialog";
 import useBoolean from "hooks/useBoolean";
 import React, { FC } from "react";
-import { ModuleForm as ModuleFormModel } from "services/modules/models";
 import { useRegisterModule } from "services/modules/hooks";
+import { ModuleForm as ModuleFormModel } from "services/modules/models";
 
-import ModuleForm, { useModuleForm, defaultValues } from "./ModuleForm";
+import ModuleForm, { defaultValues, useModuleForm } from "./ModuleForm";
 
 interface CreateModuleProps {}
 
@@ -52,4 +52,3 @@ const CreateModule: FC<CreateModuleProps> = (props) => {
 };
 
 export default CreateModule;
-

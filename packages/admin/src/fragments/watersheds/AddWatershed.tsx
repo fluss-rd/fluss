@@ -1,11 +1,11 @@
+import { useTheme } from "@material-ui/core/styles";
 import { Add } from "@material-ui/icons";
 import Fab from "components/Fab";
 import FormDialog from "components/FormDialog";
 import useBoolean from "hooks/useBoolean";
 import React, { FC } from "react";
-import { WatershedForm as WatershedFormModel } from "services/watersheds/models";
 import { useRegisterWatershed } from "services/watersheds/hooks";
-import { useTheme } from "@material-ui/core/styles";
+import { WatershedForm as WatershedFormModel } from "services/watersheds/models";
 
 import WatershedForm, { useWatershedForm } from "./WatershedForm";
 
@@ -65,4 +65,3 @@ const AddWatershed: FC<AddWatershedProps> = (props) => {
 };
 
 export default AddWatershed;
-

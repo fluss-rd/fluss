@@ -3,17 +3,17 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import "regenerator-runtime/runtime";
 
 import DateFnsUtils from "@date-io/date-fns";
+import { createMuiTheme } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import Layout from "layouts/Layout";
-import React, { useEffect } from "react";
-import { QueryClient, QueryClientProvider } from "react-query";
-import theme, { GlobalCss } from "styles/theme";
-import { Hydrate } from "react-query/hydration";
-import { useState } from "react";
-import { createMuiTheme } from "@material-ui/core";
 import { useRouter } from "next/router";
-
+import React, { useEffect } from "react";
+import { useState } from "react";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { Hydrate } from "react-query/hydration";
+import theme, { GlobalCss } from "styles/theme";
+import Head from "next/head";
 
 function MyApp({ Component, pageProps }) {
   const [queryClient] = useState(() => new QueryClient());
@@ -32,6 +32,9 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <Head>
+        <title>Fluss — console</title>
+      </Head>
       <Hydrate state={pageProps.dehydratedState}>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <ThemeProvider theme={currentTheme}>

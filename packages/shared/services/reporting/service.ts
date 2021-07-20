@@ -1,14 +1,29 @@
 import axiosInstance from "../axiosInstance";
 import {
   ModuleReportModel} from "./models";
+import { Module } from "../modules/models";
+import { ReportModuleDetail } from "../../models/Reports";
 
-export async function getReportAllData(): Promise<> | null> {
-  const moduleReportResponse = await axiosInstance.get<ModuleReportModel>(`/reports/rivers/${riverID}`);
+export async function getReportAllModulesData(): Promise<ReportModuleDetail[] | null> {
+  const reportModulesDetailsResponse: ReportModuleDetail[] = [];
+  const modulesResponse = await axiosInstance.get<Module[]>(`/modules`);
 
-  if (moduleReportResponse?.data) {
-    return fromModuleReportFilterDayResponse(moduleReportResponse.data);
+  if (!modulesResponse?.data) {
+    return
   }
 
-  return null;
+  await modulesResponse.data.forEach(async module => {
+    const moduleID = module.moduleID
+    const reportModuleDetailResponse = await axiosInstance.get<ModuleReportModel>(`/reports/modules/${moduleID}/details`);
+
+    if (!reportModuleDetailResponse?.data) {
+      return
+    }
+
+    reportModulesDetailsResponse.push({ module, data: reportModuleDetailResponse.data })
+  });
+
+
+  return reportModulesDetailsResponse;
 }
 

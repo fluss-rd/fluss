@@ -1,6 +1,7 @@
-import * as models from "./models";
-import axiosInstance from "../axiosInstance";
 import { AxiosResponse } from "axios";
+
+import axiosInstance from "../axiosInstance";
+import * as models from "./models";
 
 export async function getUsers(token: string): Promise<AxiosResponse<models.User[]>> {
   const modulesResponse = await axiosInstance.get<models.User[]>(`/account/users`, {
@@ -35,4 +36,3 @@ export async function registerUser(
 
   return response;
 }
-

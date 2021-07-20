@@ -1,9 +1,9 @@
 import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import React, { FC } from "react";
 import { useRouter } from "next/router";
-import { useGetModuleInfoById } from "shared/services/modules/hooks";
+import React, { FC } from "react";
 import { fromModuleResponsetoModuleForm } from "services/modules/models";
+import { useGetModuleInfoById } from "shared/services/modules/hooks";
 
 import ModuleForm, { useModuleForm } from "../ModuleForm";
 
@@ -37,4 +37,3 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default General;
-
