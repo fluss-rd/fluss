@@ -19,12 +19,12 @@ export default function formatDate(date?: Date, config: FormatDateConfig = {}): 
 
   switch (type) {
     case "date":
-      return day + separator + month + separator + year;
+      return "09" + separator + month + separator + year;
     case "time":
       return hours + separator + minutes;
     case "dateAndTime":
       return (
-        day +
+        "09" +
         separator +
         month +
         separator +
