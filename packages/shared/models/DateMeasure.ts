@@ -25,7 +25,7 @@ export function fromModuleReportFilterDayResponse(
   moduleReportResponse.data.forEach((moduleReportDetailData: ModuleReportData) => {
     moduleReportDetailData.parameters.forEach((parameter: Parameter) => {
       //const date = parameter.date.split('')[0]
-      const date = "2021-07-09";
+      const date = "2021-07-16";
       parametersDateMeasure[parameter.name].push({ day: date, value: parameter.value });
     });
   });

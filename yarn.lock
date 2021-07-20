@@ -1971,11 +1971,6 @@
   resolved "https://registry.yarnpkg.com/@nivo/legends/-/legends-0.72.0.tgz#d9f05b2fb8e775e0d26a4d333b502a025e92b3fc"
   integrity sha512-QJsTyURfpxe1mk6vM8oxGWdbvH/Pf4HgxtQ3D5/VJ2KeXEcRtTJ2ptavqUOxOfOTCBXo5wbtTDI4ni2ff4RRpg==
 
-"@nivo/legends@^0.73.0":
-  version "0.73.0"
-  resolved "https://registry.yarnpkg.com/@nivo/legends/-/legends-0.73.0.tgz#ef344038c4ff03249ffffebaf14412d012004fda"
-  integrity sha512-OWyu3U6PJL2VGlAfoz6nTU4opXHlR0yp0h+0Q0rf/hMKQLiew6NmecKcR1Nx2Qw4dJHgOnZRXqQ6vQrhcNV3WQ==
-
 "@nivo/pie@0.70.1":
   version "0.70.1"
   resolved "https://registry.yarnpkg.com/@nivo/pie/-/pie-0.70.1.tgz#474cc66ec9d1834e4c80007dcdc74d18850d2f4c"
@@ -12552,42 +12547,6 @@ sha.js@^2.4.0, sha.js@^2.4.8:
   dependencies:
     inherits "^2.0.1"
     safe-buffer "^5.0.1"
-
-"shared@file:packages/shared":
-  version "0.1.0"
-  dependencies:
-    "@date-io/date-fns" "1.3.11"
-    "@material-ui/core" "^4.11.4"
-    "@material-ui/icons" "^4.11.2"
-    "@material-ui/pickers" "^3.3.10"
-    "@nivo/bar" "^0.72.0"
-    "@nivo/calendar" "^0.72.0"
-    "@nivo/core" "^0.72.0"
-    "@nivo/legends" "^0.73.0"
-    "@nivo/pie" "0.70.1"
-    "@nivo/tooltip" "^0.72.0"
-    "@testing-library/jest-dom" "^5.11.4"
-    "@testing-library/react" "^11.1.0"
-    "@testing-library/user-event" "^12.1.10"
-    "@types/jest" "^26.0.15"
-    "@types/node" "^12.0.0"
-    "@types/react" "^17.0.0"
-    "@types/react-dom" "^17.0.0"
-    axios "0.21.1"
-    clsx "^1.1.1"
-    d3-ease "2.0.0"
-    date-fns "2.20.2"
-    geojson "^0.5.0"
-    react "^17.0.2"
-    react-dom "^17.0.2"
-    react-map-gl "6.1.10"
-    react-map-gl-draw "^0.23.3"
-    react-query "3.12.0"
-    react-scripts "4.0.3"
-    react-scroll "1.8.2"
-    react-table "7.6.3"
-    typescript "^4.1.2"
-    web-vitals "^1.0.1"
 
 shebang-command@^1.2.0:
   version "1.2.0"
