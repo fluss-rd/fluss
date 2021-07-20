@@ -14,11 +14,14 @@ import {
   Link,
 } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
-import React, { ChangeEvent, FC, useState } from "react";
+import React, { ChangeEvent, FC, useEffect, useState } from "react";
 
 import { mockWatersheds } from "../../models/Watershed";
 import DateTimeRange from "../DateTimeRange";
 import FormSelect from "../FormSelect";
+import { useReportAllModulesData } from "../../services/reporting/hooks";
+
+import FlussData from './FlussData'
 
 interface ModuleDataDownloadProps {
   isOpen: boolean;
@@ -38,7 +41,8 @@ const ModuleDataDownload: FC<ModuleDataDownloadProps> = ({
   const [selectedWatershed, setSelectedWatershed] = useState(watershedId);
   const watersheds = mockWatersheds();
 
-  const allRiversReportData = {}
+  const moduleDetailsQuery = useReportAllModulesData();
+  const reportAllModulesData = moduleDetailsQuery?.data;
 
   const onCancel = () => {
     close();
@@ -48,6 +52,19 @@ const ModuleDataDownload: FC<ModuleDataDownloadProps> = ({
     const id = e.target.value;
     setSelectedWatershed(id);
   };
+
+  const download = (content, fileName, contentType) => {
+    const a = document.createElement("a");
+    const file = new Blob([content], { type: contentType });
+    a.href = URL.createObjectURL(file);
+    a.download = fileName;
+    a.click();
+  }
+
+  const onDownload = async () => {
+    // TODO: Replace with the data fetch from the service
+    download(JSON.stringify(FlussData), "fluss-data.json", "text/plain");
+  }
 
   return (
     <Dialog
@@ -77,9 +94,9 @@ const ModuleDataDownload: FC<ModuleDataDownloadProps> = ({
         <br />
         <br />
 
-        <FormLabel disabled={true} component="legend">Rango de fechas</FormLabel>
+        {/* <FormLabel disabled={true} component="legend">Rango de fechas</FormLabel>
         <br />
-        <DateTimeRange />
+        <DateTimeRange /> */}
 
         <br />
 
@@ -113,13 +130,11 @@ const ModuleDataDownload: FC<ModuleDataDownloadProps> = ({
         <Button onClick={onCancel} color="primary">
           Cancelar
         </Button>
-        <Button color="primary">
+        <Button color="primary" disabled={!moduleDetailsQuery.isSuccess}>
           <Link
+            id="download"
+            onClick={onDownload}
             className={classes.link}
-            href={`data:text/json;charset=utf-8,${encodeURIComponent(
-              JSON.stringify(allRiversReportData)
-            )}`}
-            download="fluss-data.json"
           >
             Descargar
           </Link>
