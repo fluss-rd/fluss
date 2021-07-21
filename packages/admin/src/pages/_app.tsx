@@ -19,7 +19,9 @@ function MyApp({ Component, pageProps }) {
   const [queryClient] = useState(() => new QueryClient());
   const router = useRouter();
   const isInMonitor = router.pathname === "/";
-  const currentTheme = isInMonitor ? monitorTheme : theme;
+  const isInLoginOrRecoverPassword =
+    router.pathname === "/login" || router.pathname === "/forgot-password";
+  const currentTheme = isInMonitor || isInLoginOrRecoverPassword ? monitorTheme : theme;
 
   useEffect(removeServerSideInjectedCss, []);
 
