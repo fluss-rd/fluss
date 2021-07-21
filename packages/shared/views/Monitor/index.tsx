@@ -88,17 +88,18 @@ const useStyles = makeStyles<Theme, { mode: MonitorMode }>((theme) => ({
   },
   container: {
     position: "absolute",
-    width: "100%",
-    height: 300,
+    height: "fit-content",
     display: "flex",
     flexDirection: "column",
     top: ({ mode }) =>
       mode === "user" ? appBarHeight(theme) + theme.spacing(3) : theme.spacing(3),
+    right: 0,
     alignItems: "flex-end",
 
     [theme.breakpoints.down("sm")]: {
-      marginTop: -theme.spacing(4),
+      marginTop: -theme.spacing(3),
       alignItems: "center",
+      width: "100%",
     },
   },
   card: {

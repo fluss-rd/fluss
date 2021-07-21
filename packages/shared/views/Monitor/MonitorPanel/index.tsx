@@ -68,11 +68,17 @@ const MonitorPanel: FC<WatershedsSelectCardProps> = (props) => {
 
         <Divider />
 
-        <CardContent>
+        <CardContent
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            alignContent: "center",
+          }}
+        >
           <WqiLegend />
         </CardContent>
         <Divider />
-
 
         <Collapse in={isExpanded} timeout="auto">
           <CardContent style={{ textAlign: "center" }}>
