@@ -79,16 +79,20 @@ const MonitorPanel: FC<WatershedsSelectCardProps> = (props) => {
             <Typography variant="subtitle1" color="textSecondary" style={{ fontWeight: "bold" }}>
               Índice de Calidad del Agua (ICA)
             </Typography>
-            <PieChart
-              data={countQuery?.data || []}
-              height={200}
-              margin={{ left: 110, right: 110 }}
-              outsideLabelColor="#FFFFFF"
-              insideLabelColor="#FFFFFF"
-              width="100%"
-              formatOutsideLabel={({ data }) => ratingToText(data)}
-              applyColor={({ data }) => ratingToColor(data)}
-            />
+            {countQuery.data?.length ? (
+              <PieChart
+                data={countQuery?.data || []}
+                height={200}
+                margin={{ left: 110, right: 110 }}
+                outsideLabelColor="#FFFFFF"
+                insideLabelColor="#FFFFFF"
+                width="100%"
+                formatOutsideLabel={({ data }) => ratingToText(data)}
+                applyColor={({ data }) => ratingToColor(data)}
+              />
+            ) : (
+              <Typography variant="caption">No se encuentran registros</Typography>
+            )}
           </CardContent>
         </Collapse>
 
@@ -147,5 +151,4 @@ const data: Array<PieChartData<WqiRating>> = [
 ];
 
 export default MonitorPanel;
-
 
