@@ -22,9 +22,6 @@ const Monitor: FC<MonitorProps> = (props) => {
   const watersheds = (data?.watersheds || []).filter(filterWatersheds);
   const selectedWatershed = watersheds?.find((watershed) => watershed.id === watershedId);
 
-  console.log({ watersheds });
-  console.log({ selectedWatershed });
-
   const locations = modules.map(mapToLocations);
   const areas = watersheds.map((watershed) => watershed.area);
   const classes = useStyles({ mode: props.mode });
@@ -74,8 +71,10 @@ const Monitor: FC<MonitorProps> = (props) => {
           />
         )}
       />
-      <div className={classes.card}>
-        <MonitorPanel watershedId={watershedId} onWatershedChange={onWatershedChange} />
+      <div className={classes.container}>
+        <div className={classes.card}>
+          <MonitorPanel watershedId={watershedId} onWatershedChange={onWatershedChange} />
+        </div>
       </div>
     </div>
   );
@@ -87,14 +86,30 @@ const useStyles = makeStyles<Theme, { mode: MonitorMode }>((theme) => ({
     position: ({ mode }) => (mode === "user" ? "absolute" : "relative"),
     width: "100%",
   },
+  container: {
+    position: "absolute",
+    width: "100%",
+    height: 300,
+    display: "flex",
+    flexDirection: "column",
+    top: ({ mode }) =>
+      mode === "user" ? appBarHeight(theme) + theme.spacing(3) : theme.spacing(3),
+    alignItems: "flex-end",
+
+    [theme.breakpoints.down("sm")]: {
+      marginTop: -theme.spacing(4),
+      alignItems: "center",
+    },
+  },
   card: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    position: "absolute",
-    top: ({ mode }) =>
-      mode === "user" ? appBarHeight(theme) + theme.spacing(3) : theme.spacing(3),
-    right: theme.spacing(3),
+    marginRight: theme.spacing(3),
+    [theme.breakpoints.down("sm")]: {
+      marginRight: 0,
+      width: "100%",
+    },
   },
 }));
 

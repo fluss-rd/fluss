@@ -48,7 +48,7 @@ const MonitorPanel: FC<WatershedsSelectCardProps> = (props) => {
   };
 
   return (
-    <div>
+    <div style={{ width: "100%" }}>
       <Card className={classes.card} elevation={0} variant="outlined">
         <CardContent>
           <FormSelect
@@ -71,24 +71,28 @@ const MonitorPanel: FC<WatershedsSelectCardProps> = (props) => {
         <CardContent>
           <WqiLegend />
         </CardContent>
-
         <Divider />
+
 
         <Collapse in={isExpanded} timeout="auto">
           <CardContent style={{ textAlign: "center" }}>
             <Typography variant="subtitle1" color="textSecondary" style={{ fontWeight: "bold" }}>
               Índice de Calidad del Agua (ICA)
             </Typography>
-            <PieChart
-              data={countQuery?.data || []}
-              height={200}
-              margin={{ left: 110, right: 110 }}
-              outsideLabelColor="#FFFFFF"
-              insideLabelColor="#FFFFFF"
-              width="100%"
-              formatOutsideLabel={({ data }) => ratingToText(data)}
-              applyColor={({ data }) => ratingToColor(data)}
-            />
+            {countQuery.data?.length ? (
+              <PieChart
+                data={countQuery?.data || []}
+                height={200}
+                margin={{ left: 110, right: 110 }}
+                outsideLabelColor="#FFFFFF"
+                insideLabelColor="#FFFFFF"
+                width="100%"
+                formatOutsideLabel={({ data }) => ratingToText(data)}
+                applyColor={({ data }) => ratingToColor(data)}
+              />
+            ) : (
+              <Typography variant="caption">No se encuentran registros</Typography>
+            )}
           </CardContent>
         </Collapse>
 
@@ -120,6 +124,10 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: `${theme.palette.background.default}CC`,
     backdropFilter: "blur(10px)",
     alignItems: "flex-end",
+    [theme.breakpoints.down("sm")]: {
+      borderRadius: 0,
+      width: "100%",
+    },
   },
   expand: {
     transform: "rotate(0deg)",
@@ -147,5 +155,4 @@ const data: Array<PieChartData<WqiRating>> = [
 ];
 
 export default MonitorPanel;
-
 
