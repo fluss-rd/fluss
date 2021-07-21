@@ -48,7 +48,7 @@ const MonitorPanel: FC<WatershedsSelectCardProps> = (props) => {
   };
 
   return (
-    <div>
+    <div style={{ width: "100%" }}>
       <Card className={classes.card} elevation={0} variant="outlined">
         <CardContent>
           <FormSelect
@@ -71,8 +71,8 @@ const MonitorPanel: FC<WatershedsSelectCardProps> = (props) => {
         <CardContent>
           <WqiLegend />
         </CardContent>
-
         <Divider />
+
 
         <Collapse in={isExpanded} timeout="auto">
           <CardContent style={{ textAlign: "center" }}>
@@ -124,6 +124,10 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: `${theme.palette.background.default}CC`,
     backdropFilter: "blur(10px)",
     alignItems: "flex-end",
+    [theme.breakpoints.down("sm")]: {
+      borderRadius: 0,
+      width: "100%",
+    },
   },
   expand: {
     transform: "rotate(0deg)",
