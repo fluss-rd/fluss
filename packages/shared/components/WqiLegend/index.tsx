@@ -1,4 +1,3 @@
-import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { FC } from "react";
 
@@ -6,7 +5,7 @@ import WqiLegendItem from "./WqiLegendItem";
 
 interface Leyend2Props {}
 
-const Leyend2: FC<Leyend2Props> = (props) => {
+const Leyend2: FC<Leyend2Props> = () => {
   const classes = useStyles();
 
   return (
@@ -23,7 +22,7 @@ const Leyend2: FC<Leyend2Props> = (props) => {
 const useStyles = makeStyles((theme) => ({
   content: {
     display: "flex",
-    alignItems: "center",
+    width: "fit-content",
     "& > *:not(:last-child)": {
       marginRight: theme.spacing(1),
     },
@@ -31,3 +30,4 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default Leyend2;
+
