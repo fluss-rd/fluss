@@ -1,13 +1,9 @@
-import theme from "shared/styles/theme";
 import {
   AppBar as Navbar,
   Link,
   Button,
-  Divider,
   Toolbar,
   Typography,
-  ThemeProvider,
-  createMuiTheme,
   IconButton,
   useMediaQuery,
 } from "@material-ui/core";
@@ -24,7 +20,7 @@ import FlussDrawer from "./FlussDrawer";
 const FlussAppBar: FC = () => {
   const [sidebarIsOpen, openSidebar, closeSidebar] = useBoolean();
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.up("sm"));
+  const isMediumSizeDevice = useMediaQuery(theme.breakpoints.up("sm"));
   const router = useRouter();
   const isInMonitor = router.pathname === "/monitor";
   const classes = useStyles({ isInMonitor });
@@ -39,9 +35,9 @@ const FlussAppBar: FC = () => {
   return (
     <>
       <FlussDrawer close={closeSidebar} isOpen={sidebarIsOpen} goTo={goTo} />
-      <Navbar position="fixed" color="transparent" elevation={0} className={classes.navbar}>
+      <Navbar position="fixed" color="transparent" elevation={0} className={classes.navbar} variant="outlined">
         <Toolbar>
-          {!matches && (
+          {!isMediumSizeDevice && (
             <IconButton
               edge="start"
               className={classes.menuButton}
@@ -64,7 +60,7 @@ const FlussAppBar: FC = () => {
               fluss
             </Typography>
           </Button>
-          {matches && (
+          {isMediumSizeDevice && (
             <>
               <div className={classes.startButtons}>
                 <Button
@@ -93,7 +89,6 @@ const FlussAppBar: FC = () => {
             </>
           )}
         </Toolbar>
-        <Divider />
       </Navbar>
     </>
   );
