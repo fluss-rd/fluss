@@ -23,6 +23,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY --from=deps /app/packages/shared/node_modules ./packages/shared/node_modules
 COPY --from=deps /app/packages/user/node_modules ./packages/user/node_modules
 
+ENV NODE_OPTIONS=--openssl-legacy-provider
 RUN yarn workspace user build && yarn install --production --ignore-scripts --prefer-offline
 
 # Production image, copy all the files and run next
