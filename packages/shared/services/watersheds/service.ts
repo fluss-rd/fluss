@@ -1,10 +1,10 @@
-import axiosInstance from "../axiosInstance";
-import Watershed, { fromWaterbodyResponse } from "../../models/Watershed";
-import { Waterbody, WaterbodyReport } from "./models";
 import { PieChartData } from "../../components/PieChart";
-import WqiRating, { toPaperClasification, ratings } from "../../models/WqiRating";
 import ModuleState, { moduleStates } from "../../models/ModuleState";
+import Watershed, { fromWaterbodyResponse } from "../../models/Watershed";
+import WqiRating, { ratings, toPaperClasification } from "../../models/WqiRating";
+import axiosInstance from "../axiosInstance";
 import { Module } from "../modules/models";
+import { Waterbody, WaterbodyReport } from "./models";
 
 export async function getWatersheds(): Promise<Watershed[]> {
   const waterBodiesResponse = await axiosInstance.get<Waterbody[]>(`/rivers`);
@@ -19,9 +19,8 @@ export async function getWatersheds(): Promise<Watershed[]> {
 
 export async function getWatershedById(watershedId: string): Promise<Watershed> {
   const waterBodiesResponse = await axiosInstance.get<Waterbody>(`/rivers/${watershedId}`);
-  if (waterBodiesResponse?.data) return null;
 
-  return fromWaterbodyResponse(waterBodiesResponse.data);
+  return fromWaterbodyResponse(waterBodiesResponse?.data);
 }
 
 export async function getWqiRatingsCount(
@@ -80,4 +79,3 @@ export async function getModuleStatesCount(
 
   return pieData;
 }
-

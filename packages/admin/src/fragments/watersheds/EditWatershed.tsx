@@ -17,11 +17,9 @@ const EditWatershed: FC<EditWatershedProps> = ({ watershedId, isOpen, close }) =
   const form = useWatershedForm(watershedForm, [watershedQuery.data]);
 
   return (
-    <>
-      <FormDialog mode="registration" isOpen={isOpen} title="Registrar cuenca" onClose={close}>
-        <WatershedForm form={form} />
-      </FormDialog>
-    </>
+    <FormDialog mode="edition" isOpen={isOpen} title="Editar cuerpo hídrico" onClose={close}>
+      <WatershedForm form={form} />
+    </FormDialog>
   );
 };
 

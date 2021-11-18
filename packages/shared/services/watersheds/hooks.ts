@@ -1,4 +1,5 @@
 import { useQuery } from "react-query";
+
 import * as service from "./service";
 
 export function useGetWatersheds() {
@@ -10,6 +11,7 @@ export function useGetWatershedById(watershedId: string) {
   const query = useQuery(["watersheds", watershedId], () => service.getWatershedById(watershedId), {
     enabled: !!watershedId,
   });
+
   return query;
 }
 
@@ -19,6 +21,7 @@ export function useGetWqiRatingsCount(watershedId?: string) {
     () => service.getWqiRatingsCount(watershedId),
     { enabled: !!watershedId }
   );
+
   return query;
 }
 
@@ -28,6 +31,6 @@ export function useGetModuleStatesCount(watershedId?: string) {
     () => service.getModuleStatesCount(watershedId),
     { enabled: !!watershedId }
   );
+
   return query;
 }
-

@@ -1,5 +1,5 @@
-import Location from "./Location";
 import { Waterbody as WaterbodyResponse } from "../services/watersheds/models";
+import Location from "./Location";
 import WatershedType from "./WatershedType";
 import Wqi from "./Wqi";
 
@@ -543,4 +543,3 @@ export function mockWatersheds(): Watershed[] {
 }
 
 export default Watershed;
-

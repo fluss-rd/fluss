@@ -12,7 +12,7 @@ export function useRegisterWatershed() {
     },
     {
       onSuccess: (data) => {
-        if (data.status === 200) {
+        if (data.status === 201) {
           queryClient.refetchQueries("watersheds");
         }
       },
