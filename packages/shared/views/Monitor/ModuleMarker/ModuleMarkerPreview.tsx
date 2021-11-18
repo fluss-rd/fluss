@@ -8,11 +8,11 @@ import {
   Typography,
 } from "@material-ui/core";
 import React, { FC, memo } from "react";
-import { ratingToText, ratingToColor } from "shared/models/WqiRating";
+import { ratingToColor, ratingToText } from "shared/models/WqiRating";
 
 import ModuleLast24HoursChart from "../../../components/ModuleLast24HoursChart";
-import { useGetModuleInfoById, useGetModuleDetailsById } from "../../../services/modules/hooks";
-import Module, { fromModuleResponse } from "../../../models/Module";
+import { fromModuleResponse } from "../../../models/Module";
+import { useGetModuleDetailsById, useGetModuleInfoById } from "../../../services/modules/hooks";
 
 interface ModuleMarkerPreviewProps {
   moduleId: string;
@@ -111,4 +111,3 @@ const ModuleMarkerPreview: FC<ModuleMarkerPreviewProps> = (props) => {
 };
 
 export default memo(ModuleMarkerPreview, (prev, next) => prev.open === next.open);
-

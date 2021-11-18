@@ -1,4 +1,5 @@
 import { useQuery } from "react-query";
+
 import * as service from "./service";
 
 export function useWatershedsMapData() {
@@ -27,4 +28,3 @@ export function useGetModuleAnualReport(moduleId?: string) {
   );
   return query;
 }
-

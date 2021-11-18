@@ -1,12 +1,13 @@
 import { makeStyles, Theme } from "@material-ui/core/styles";
-import MonitorPanel from "./MonitorPanel";
 import React, { FC, useState } from "react";
-import Map, { defaultZoom } from "../../components/Map";
 import { appBarHeight } from "shared/helpers";
+
+import Map, { defaultZoom } from "../../components/Map";
 import Module from "../../models/Module";
 import Watershed from "../../models/Watershed";
-import ModuleMarker from "./ModuleMarker";
 import { useWatershedsMapData } from "../../services/monitor/hooks";
+import ModuleMarker from "./ModuleMarker";
+import MonitorPanel from "./MonitorPanel";
 
 type MonitorMode = "user" | "admin";
 
@@ -20,8 +21,8 @@ const Monitor: FC<MonitorProps> = (props) => {
   const { data } = useWatershedsMapData();
   const modules = (data?.modules || []).filter(filterModules);
   const watersheds = (data?.watersheds || []).filter(filterWatersheds);
-  const selectedWatershed = watersheds?.find((watershed) => watershed.id === watershedId);
 
+  const selectedWatershed = watersheds?.find((watershed) => watershed.id === watershedId);
   const locations = modules.map(mapToLocations);
   const areas = watersheds.map((watershed) => watershed.area);
   const classes = useStyles({ mode: props.mode });
@@ -52,6 +53,7 @@ const Monitor: FC<MonitorProps> = (props) => {
     if (selectedWatershed) {
       return 12;
     }
+
     return props.mode === "admin" ? defaultZoom - 0.22 : undefined;
   }
 
@@ -119,4 +121,3 @@ Monitor.defaultProps = {
 };
 
 export default Monitor;
-

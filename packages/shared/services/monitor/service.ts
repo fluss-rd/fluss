@@ -1,14 +1,13 @@
-import axiosInstance from "../axiosInstance";
+import DateMeasure, { fromModuleReportFilterDayResponse } from "../../models/DateMeasure";
 import ModuleModel, { fromModuleResponse } from "../../models/Module";
-import {
-  WatershedsMapData,
-  ModuleReportModel,
-  ParameterType } from "./models";
+import ParameterMeasures, {
+  fromModuleReportFilterHourResponse,
+} from "../../models/ParameterMeasures";
+import axiosInstance from "../axiosInstance";
 import { Module } from "../modules/models";
-import { getWatersheds } from "../watersheds/service";
 import { getModules } from "../modules/service";
-import ParameterMeasures, { fromModuleReportFilterHourResponse } from '../../models/ParameterMeasures';
-import DateMeasure, { fromModuleReportFilterDayResponse } from '../../models/DateMeasure'
+import { getWatersheds } from "../watersheds/service";
+import { ModuleReportModel, ParameterType, WatershedsMapData } from "./models";
 
 export async function getWatershedsMapData(): Promise<WatershedsMapData> {
   const data: WatershedsMapData = {
@@ -29,8 +28,12 @@ export async function getModule(moduleId: string): Promise<ModuleModel | null> {
 }
 
 // TODO: accept different search params
-export async function getModuleReportFilterHour(moduleId: string): Promise<ParameterMeasures | null> {
-  const moduleReportResponse = await axiosInstance.get<ModuleReportModel>(`/reports/modules/${moduleId}/details?cardinality=1h`);
+export async function getModuleReportFilterHour(
+  moduleId: string
+): Promise<ParameterMeasures | null> {
+  const moduleReportResponse = await axiosInstance.get<ModuleReportModel>(
+    `/reports/modules/${moduleId}/details?cardinality=1h`
+  );
 
   if (moduleReportResponse?.data) {
     return fromModuleReportFilterHourResponse(moduleReportResponse.data);
@@ -40,8 +43,12 @@ export async function getModuleReportFilterHour(moduleId: string): Promise<Param
 }
 
 // TODO: add start and end date (I couldn't get it to work on the api)
-export async function getModuleReportFilterDay(moduleId: string): Promise<Record<ParameterType, DateMeasure[]> | null> {
-  const moduleReportResponse = await axiosInstance.get<ModuleReportModel>(`/reports/modules/${moduleId}/details?cardinality=1d`);
+export async function getModuleReportFilterDay(
+  moduleId: string
+): Promise<Record<ParameterType, DateMeasure[]> | null> {
+  const moduleReportResponse = await axiosInstance.get<ModuleReportModel>(
+    `/reports/modules/${moduleId}/details?cardinality=1d`
+  );
 
   if (moduleReportResponse?.data) {
     return fromModuleReportFilterDayResponse(moduleReportResponse.data);
@@ -49,4 +56,3 @@ export async function getModuleReportFilterDay(moduleId: string): Promise<Record
 
   return null;
 }
-

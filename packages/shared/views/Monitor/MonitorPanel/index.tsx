@@ -1,25 +1,25 @@
 import {
-  Collapse,
+  Button,
   Card,
+  CardActions,
   CardContent,
+  Collapse,
   Divider,
+  IconButton,
   MenuItem,
   Typography,
-  CardActions,
-  Button,
-  IconButton,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import React, { FC, ChangeEvent, useState } from "react";
-import FormSelect from "../../../components/FormSelect";
-import clsx from "clsx";
 import { ExpandMore } from "@material-ui/icons";
+import clsx from "clsx";
+import React, { ChangeEvent, FC, useState } from "react";
 
-import WqiLegend from "../../../components/WqiLegend";
-import useBoolean from "../../../hooks/useBoolean";
+import FormSelect from "../../../components/FormSelect";
 import ModuleDataDownload from "../../../components/ModuleDataDownload";
 import PieChart, { PieChartData } from "../../../components/PieChart";
-import WqiRating, { ratingToText, ratingToColor } from "../../../models/WqiRating";
+import WqiLegend from "../../../components/WqiLegend";
+import useBoolean from "../../../hooks/useBoolean";
+import WqiRating, { ratingToColor, ratingToText } from "../../../models/WqiRating";
 import { useGetWatersheds, useGetWqiRatingsCount } from "../../../services/watersheds/hooks";
 
 interface WatershedsSelectCardProps {
@@ -161,4 +161,3 @@ const data: Array<PieChartData<WqiRating>> = [
 ];
 
 export default MonitorPanel;
-

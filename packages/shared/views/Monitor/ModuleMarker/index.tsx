@@ -2,10 +2,10 @@ import { Avatar, Card, CardActionArea } from "@material-ui/core";
 import { grey } from "@material-ui/core/colors";
 import { makeStyles } from "@material-ui/core/styles";
 import { LocationOn } from "@material-ui/icons";
-import { ratingToColor } from "../../../models/WqiRating";
 import React, { FC, MouseEvent, useState } from "react";
 import Wqi from "shared/models/Wqi";
 
+import { ratingToColor } from "../../../models/WqiRating";
 import ModuleMarkerPreview from "./ModuleMarkerPreview";
 
 interface ModuleMarkerProps {
@@ -87,4 +87,3 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default ModuleMarker;
-
