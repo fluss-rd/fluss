@@ -1,0 +1,4 @@
+node_modules
+./packages/user/node_modules
+./packages/shared/node_modules
+.git
