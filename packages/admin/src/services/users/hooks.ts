@@ -37,7 +37,7 @@ export function useRegisterUser() {
     {
       onSuccess: (data) => {
         console.log({ response: data });
-        if (data.status === 200) {
+        if (data.status === 201) {
           queryClient.refetchQueries("users");
         }
       },

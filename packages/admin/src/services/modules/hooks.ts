@@ -13,8 +13,9 @@ export function useRegisterModule() {
     {
       onSuccess: (data) => {
         console.log({ data });
-        if (data.status === 200) {
+        if (data.status === 201) {
           queryClient.refetchQueries("modules");
+          queryClient.refetchQueries("modules-info");
         }
       },
     }
