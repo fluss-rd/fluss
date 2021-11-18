@@ -67,39 +67,36 @@ const RenderMap: FC<RenderMapProps> = ({ control, onNewMarker, defaultValue }) =
     name: "watershedId",
     defaultValue: "",
   });
-  const watershedQuery = useGetWatershedById(watershedId);
-  const watershedLocation = watershedQuery?.data?.area || [];
-
   const location = useWatch({
     control,
     name: "location",
     defaultValue,
   });
 
-  // Convert to integer because of changing in the data type.
+  const watershedQuery = useGetWatershedById(watershedId);
+  const watershedLocation = watershedQuery?.data?.area || [];
   const latitude = parseFloat(location?.latitude.toString()) || 0.0;
   const longitude = parseFloat(location?.longitude.toString()) || 0.0;
-  const mark = { latitude, longitude };
-  const locations = latitude === 0 && longitude === 0 ? [] : [mark];
-
-  const computeFocus = () => {
-    if (locations.length > 0) return { focus: locations[0], zoom: 13 };
-    else if (watershedLocation.length > 0) return { focus: watershedLocation, zoom: 10 };
-
-    return { focus: defaultFocus, zoom: 7 };
-  };
-
-  const { focus, zoom } = computeFocus();
+  const locations = latitude === 0 && longitude === 0 ? [] : [{ latitude, longitude }];
+  const { focus, zoom } = computeFocus(locations, watershedLocation);
 
   return (
     <Map
       zoom={zoom}
       locations={locations}
       focusLocation={focus}
-      areas={[watershedLocation]}
+      areas={watershedLocation && [watershedLocation]}
+      enableAreaDrawing
       onClick={onNewMarker}
     />
   );
+};
+
+const computeFocus = (locations: Location[], watershedLocation: Location[]) => {
+  if (locations.length > 0) return { focus: locations[0], zoom: 13 };
+  else if (watershedLocation.length > 0) return { focus: watershedLocation, zoom: 10 };
+
+  return { focus: defaultFocus, zoom: 7 };
 };
 
 export default LocationForm;

@@ -1,7 +1,7 @@
 import { yupResolver } from "@hookform/resolvers";
 import { Grid, MenuItem } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { FiberManualRecord, Grain, InfoOutlined, LocationOn } from "@material-ui/icons";
+import { FiberManualRecord, InfoOutlined, LocationOn } from "@material-ui/icons";
 import clsx from "clsx";
 import LocationForm from "components/LocationForm";
 import { Location } from "components/Map";

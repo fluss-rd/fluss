@@ -14,6 +14,7 @@ const General: FC<GeneralProps> = () => {
   const router = useRouter();
   const moduleId = router.query.id as string;
   const infoQuery = useGetModuleInfoById(moduleId);
+
   const infoData = fromModuleResponsetoModuleForm(infoQuery?.data?.data);
   const moduleForm = useModuleForm(infoData, [infoQuery.data?.data]);
 

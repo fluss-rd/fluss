@@ -9,13 +9,12 @@ import { useMemo } from "react";
 import DataTable, { DataTableColumn } from "shared/components/DataTable";
 import SelectColumnFilter from "shared/components/DataTable/filters/SelectColumnFilter";
 import { formatDate } from "shared/helpers";
-import Module, { mockModules } from "shared/models/Module";
-import ModuleModel, { fromModuleResponse } from "shared/models/Module";
+import Module from "shared/models/Module";
+import { fromModuleResponse } from "shared/models/Module";
 import { moduleStateToColor, moduleStateToString } from "shared/models/ModuleState";
 import { useGetModulesInfo } from "shared/services/modules/hooks";
 
 const Modules: NextPage = () => {
-  const classes = useStyles();
   const router = useRouter();
   const { data, isLoading } = useGetModulesInfo();
   const modules = data?.data ? data?.data.map((m) => fromModuleResponse(m)) : [];

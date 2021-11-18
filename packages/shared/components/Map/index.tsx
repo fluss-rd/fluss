@@ -15,7 +15,7 @@ import generateId from "../../helpers/generateId";
 import useMergeState, { Prev } from "../../hooks/useMergeState";
 import Location from "../../models/Location";
 import computeCoordinatesCenter from "./computeCoordinatesCenter";
-import DrawEditor, { DrawEditorProps, DrawEditorMode } from "./DrawEditor";
+import DrawEditor, { DrawEditorMode, DrawEditorProps } from "./DrawEditor";
 import MapStyle, { mapStyleToUrl } from "./MapStyle";
 
 export type LocationInfo<T> = Location & {
@@ -156,4 +156,3 @@ export const defaultFocus = {
 };
 
 export default ForwardedMap;
-
