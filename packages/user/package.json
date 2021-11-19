@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev -p 3002",
     "build": "next build",
-    "start": "next start"
+    "start": "next start -p 3002"
   },
   "dependencies": {
     "@types/react-slick": "0.23.4",
