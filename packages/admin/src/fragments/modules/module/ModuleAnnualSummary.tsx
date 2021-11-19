@@ -5,7 +5,7 @@ import ModuleAnnualSummary from "shared/components/ModuleAnnualSummary";
 import ParameterName from "shared/models/ParameterName";
 import { useGetModuleAnualReport } from "shared/services/monitor/hooks";
 import DateMeasure from "shared/models/DateMeasure";
-import { ParameterType } from "../../../../../shared/services/monitor/models";
+import { ParameterType } from "shared/services/monitor/models";
 
 interface ParameterAnnualSummaryProps {
   moduleId: string;

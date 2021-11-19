@@ -2,10 +2,10 @@ import { Card, CardContent, Divider, Typography, CircularProgress } from "@mater
 import { makeStyles } from "@material-ui/core/styles";
 import React, { FC, useState } from "react";
 import ModuleAnnualSummary from "shared/components/ModuleAnnualSummary";
-import { mockDateMeasures } from "shared/models/DateMeasure";
 import ParameterName from "shared/models/ParameterName";
-import { useGetModuleAnualReport } from "shared/services/monitor/hooks"
-import DateMeasure from "shared/models/DateMeasure"
+import { useGetModuleAnualReport } from "shared/services/monitor/hooks";
+import DateMeasure from "shared/models/DateMeasure";
+import { ParameterType } from "shared/services/monitor/models";
 
 interface ParameterAnnualSummaryProps {
   moduleId: string;
@@ -14,11 +14,7 @@ interface ParameterAnnualSummaryProps {
 const ParameterAnnualSummary: FC<ParameterAnnualSummaryProps> = (props) => {
   const classes = useStyles();
   const [selected, setSelected] = useState<ParameterName>("pH");
-
-  const summary = mockDateMeasures()[0];
-
-  const moduleId = props.moduleId
-
+  const moduleId = props.moduleId;
   const { isLoading, data: moduleAnualReport } = useGetModuleAnualReport(moduleId);
 
   const onParameter = (parameter: ParameterName) => {
@@ -33,27 +29,6 @@ const ParameterAnnualSummary: FC<ParameterAnnualSummaryProps> = (props) => {
     );
   }
 
-  const getSummaryByParameter = function (parameter: ParameterName): DateMeasure[] {
-    if (!moduleAnualReport) {
-      return []
-    }
-
-    switch (parameter) {
-      case "oxygen":
-        return moduleAnualReport.do;
-      case "pH":
-        return moduleAnualReport.ph;
-      case "temperature":
-        return moduleAnualReport.tmp;
-      case "dissolvedSolids":
-        return moduleAnualReport.tds;
-      case "turbidity":
-        return moduleAnualReport.ty;
-      default:
-        return moduleAnualReport.wqi;
-    }
-  }
-
   return (
     <Card variant="outlined">
       <CardContent>
@@ -66,7 +41,7 @@ const ParameterAnnualSummary: FC<ParameterAnnualSummaryProps> = (props) => {
         <ModuleAnnualSummary
           selected={selected}
           onParameter={onParameter}
-          summary={getSummaryByParameter(selected)}
+          summary={getSummaryByParameter(selected, moduleAnualReport as any)}
           height={400}
           from="2021-07-16"
           to="2021-07-18"
@@ -76,6 +51,29 @@ const ParameterAnnualSummary: FC<ParameterAnnualSummaryProps> = (props) => {
   );
 };
 
+const getSummaryByParameter = function (
+  parameter: ParameterName, 
+  moduleAnualReport: Record<ParameterType, DateMeasure[]>
+): DateMeasure[] {
+  if (!moduleAnualReport) {
+    return [];
+  }
+
+  switch (parameter) {
+    case "oxygen":
+      return moduleAnualReport.do;
+    case "pH":
+      return moduleAnualReport.ph;
+    case "temperature":
+      return moduleAnualReport.tmp;
+    case "dissolvedSolids":
+      return moduleAnualReport.tds;
+    case "turbidity":
+      return moduleAnualReport.ty;
+    default:
+      return moduleAnualReport.wqi;
+  }
+};
 
 const useStyles = makeStyles(() => ({
   loader: {
@@ -83,8 +81,9 @@ const useStyles = makeStyles(() => ({
     alignItems: "center",
     justifyContent: "center",
     height: "100%",
-    width: "100%"
+    width: "100%",
   },
 }));
 
 export default ParameterAnnualSummary;
+
