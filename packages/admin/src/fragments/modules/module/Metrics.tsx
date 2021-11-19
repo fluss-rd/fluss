@@ -1,11 +1,8 @@
 import { Card, CardContent, CardHeader, Divider, Grid } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import Map from "shared/components/Map";
 import ModuleLast24HoursChart from "shared/components/ModuleLast24HoursChart";
-import { mockDateMeasures } from "shared/models/DateMeasure";
 import { fromModuleResponse } from "shared/models/Module";
-import ParameterName from "shared/models/ParameterName";
 import { useGetModuleInfoById } from "shared/services/modules/hooks";
 import { useGetWatershedById } from "shared/services/watersheds/hooks";
 
@@ -16,18 +13,11 @@ interface MetricsProps {
 }
 
 const Metrics: FC<MetricsProps> = ({ moduleId }) => {
-  const classes = useStyles();
-  const [selected, setSelected] = useState<ParameterName>("pH");
   const moduleInfoQuery = useGetModuleInfoById(moduleId);
   const module = fromModuleResponse(moduleInfoQuery.data?.data);
   const watershedQuery = useGetWatershedById(module.watershedId);
   const watershed = watershedQuery?.data;
-  const summary = mockDateMeasures()[0];
   const watershedArea = watershed ? watershed.area : undefined;
-
-  const onParameter = (parameter: ParameterName) => {
-    setSelected(parameter);
-  };
 
   return (
     <div>
@@ -68,7 +58,5 @@ const Metrics: FC<MetricsProps> = ({ moduleId }) => {
     </div>
   );
 };
-
-const useStyles = makeStyles({});
 
 export default Metrics;

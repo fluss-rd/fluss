@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery, UseQueryOptions } from "react-query";
 
 import * as service from "./service";
 
@@ -18,12 +18,13 @@ export function useGetModuleReport(moduleId?: string) {
   return query;
 }
 
-export function useGetModuleAnualReport(moduleId?: string) {
+export function useGetModuleAnualReport(moduleId?: string, options?: Partial<UseQueryOptions>) {
   const query = useQuery(
     ["module-anual-report", moduleId],
     () => service.getModuleReportFilterDay(moduleId),
     {
       enabled: !!moduleId,
+      ...options,
     }
   );
   return query;

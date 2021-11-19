@@ -1,4 +1,4 @@
-import { Divider, Typography } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import General from "fragments/modules/module/General";
 import Logs from "fragments/modules/module/Logs";
@@ -8,12 +8,10 @@ import { useRouter } from "next/router";
 import { ChangeEvent, useState } from "react";
 import Back from "shared/components/Back";
 import TabPanel, { AntTab, AntTabs } from "shared/components/TabPanel";
-import { mockModules } from "shared/models/Module";
 import { fromModuleResponse } from "shared/models/Module";
 import { useGetModuleInfoById } from "shared/services/modules/hooks";
 
 const Module: NextPage = () => {
-  const classes = useStyles();
   const router = useRouter();
   const [value, setValue] = useState(0);
   const moduleId = router.query.id as string;
