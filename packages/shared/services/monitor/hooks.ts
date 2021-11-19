@@ -17,7 +17,6 @@ export function useGetModuleReport(moduleId?: string) {
   );
   return query;
 }
-
 export function useGetModuleAnualReport(moduleId?: string, options?: Partial<UseQueryOptions>) {
   const query = useQuery(
     ["module-anual-report", moduleId],

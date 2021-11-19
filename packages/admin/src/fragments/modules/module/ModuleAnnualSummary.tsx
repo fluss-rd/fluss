@@ -1,4 +1,4 @@
-import { Card, CardContent, CircularProgress, Divider, Typography } from "@material-ui/core";
+import { CircularProgress } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { FC, useState } from "react";
 import ModuleAnnualSummary from "shared/components/ModuleAnnualSummary";
@@ -14,7 +14,7 @@ interface ParameterAnnualSummaryProps {
 const ParameterAnnualSummary: FC<ParameterAnnualSummaryProps> = ({ moduleId }) => {
   const classes = useStyles();
   const [selected, setSelected] = useState<ParameterName>("pH");
-  const { isLoading, data: moduleAnualReport } = useGetModuleAnualReport(moduleId, {
+  const { isLoading, data } = useGetModuleAnualReport(moduleId, {
     refetchOnWindowFocus: true,
     staleTime: 10000,
   });
@@ -35,7 +35,7 @@ const ParameterAnnualSummary: FC<ParameterAnnualSummaryProps> = ({ moduleId }) =
     <ModuleAnnualSummary
       selected={selected}
       onParameter={onParameter}
-      summary={getSummaryByParameter(selected, moduleAnualReport)}
+      summary={getSummaryByParameter(selected, data as any)}
       height={400}
       from="2021-07-16"
       to="2021-07-18"
