@@ -24,7 +24,7 @@ COPY --from=deps /app/packages/shared/node_modules ./packages/shared/node_module
 COPY --from=deps /app/packages/admin/node_modules ./packages/admin/node_modules
 
 ENV NODE_OPTIONS=--openssl-legacy-provider
-RUN yarn workspace user build && yarn install --production --ignore-scripts --prefer-offline
+RUN yarn workspace admin build && yarn install --production --ignore-scripts --prefer-offline
 
 # Production image, copy all the files and run next
 FROM node:alpine AS runner
@@ -52,4 +52,4 @@ USER nextjs
 
 EXPOSE 3001
 
-CMD ["yarn", "workspace", "user", "start"]
+CMD ["yarn", "workspace", "admin", "start"]
