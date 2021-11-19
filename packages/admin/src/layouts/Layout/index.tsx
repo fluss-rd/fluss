@@ -1,9 +1,11 @@
-import { CssBaseline, useMediaQuery } from "@material-ui/core";
+import { CssBaseline, useMediaQuery, createMuiTheme } from "@material-ui/core";
+import { ThemeProvider } from "@material-ui/core/styles";
 import { makeStyles, Theme, useTheme } from "@material-ui/core/styles";
 import withAuth from "hoc/withAuth";
 import { useRouter } from "next/router";
-import React, { createContext, FC, useEffect } from "react";
-import { useMergeState, usePrevious } from "shared/hooks";
+import React, { FC, useEffect } from "react";
+import { useMergeState } from "shared/hooks";
+import theme from "styles/theme";
 
 import FlussDrawer from "./FlussDrawer";
 import LayoutContext, { initialValues, LayoutValues } from "./LayoutContext";
@@ -46,12 +48,19 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     if (isUpMd) values.expandSidebar();
   }
 
+  const isInMonitor = router.pathname === "/";
+  const isInLoginOrRecoverPassword =
+    router.pathname === "/login" || router.pathname === "/forgot-password";
+  const currentTheme = isInMonitor || isInLoginOrRecoverPassword ? monitorTheme : theme;
+
   return (
     <LayoutContext.Provider value={{ values, updateValues }}>
       <div className={classes.root}>
         <CssBaseline />
         <FlussDrawer />
-        <main className={classes.content}>{children}</main>
+        <ThemeProvider theme={currentTheme}>
+          <main className={classes.content}>{children}</main>
+        </ThemeProvider>
       </div>
     </LayoutContext.Provider>
   );
@@ -70,5 +79,17 @@ const useStyles = makeStyles<Theme, { isInWatershed: boolean; isInHome: boolean 
   })
 );
 
+const monitorTheme = createMuiTheme({
+  ...theme,
+  palette: {
+    type: "dark",
+    primary: {
+      main: "#FFFFFF",
+    },
+    secondary: {
+      main: "#7db6d1",
+    },
+  },
+});
 export default withAuth(Layout);
-// export default Layout;
+

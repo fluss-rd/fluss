@@ -28,7 +28,9 @@ const FlussDrawerBody: FC<FlussDrawerBodyProps> = ({ openSettings }) => {
       </List>
       <Divider />
       <List>
+        {/* TODO:
         <DrawerItem title="Notificaciones" icon={Notifications} to="/notifications" />
+          */}
         <DrawerItem title="Ajustes" icon={Settings} onClick={openSettings} />
       </List>
     </div>
@@ -36,3 +38,4 @@ const FlussDrawerBody: FC<FlussDrawerBodyProps> = ({ openSettings }) => {
 };
 
 export default FlussDrawerBody;
+

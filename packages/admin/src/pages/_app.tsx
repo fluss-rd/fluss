@@ -17,11 +17,6 @@ import Head from "next/head";
 
 function MyApp({ Component, pageProps }) {
   const [queryClient] = useState(() => new QueryClient());
-  const router = useRouter();
-  const isInMonitor = router.pathname === "/";
-  const isInLoginOrRecoverPassword =
-    router.pathname === "/login" || router.pathname === "/forgot-password";
-  const currentTheme = isInMonitor || isInLoginOrRecoverPassword ? monitorTheme : theme;
 
   useEffect(removeServerSideInjectedCss, []);
 
@@ -39,7 +34,7 @@ function MyApp({ Component, pageProps }) {
       </Head>
       <Hydrate state={pageProps.dehydratedState}>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <ThemeProvider theme={currentTheme}>
+          <ThemeProvider theme={theme}>
             <GlobalCss />
             <Layout>
               <Component {...pageProps} />
@@ -51,18 +46,18 @@ function MyApp({ Component, pageProps }) {
   );
 }
 
-const monitorTheme = createMuiTheme({
-  ...theme,
-  palette: {
-    type: "dark",
-    primary: {
-      main: "#FFFFFF",
-    },
-    secondary: {
-      main: "#7db6d1",
-    },
-  },
-});
+//const monitorTheme = createMuiTheme({
+  //...theme,
+  //palette: {
+    //type: "dark",
+    //primary: {
+      //main: "#FFFFFF",
+    //},
+    //secondary: {
+      //main: "#7db6d1",
+    //},
+  //},
+//});
 
 export default MyApp;
 

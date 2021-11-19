@@ -16,7 +16,8 @@ interface SettingsProps {
 
 const Settings: FC<SettingsProps> = ({ open, view, close }) => {
   const classes = useStyles();
-  const [activeTab, setActiveTab] = useState(view === "notifications" ? 1 : 2);
+  //const [activeTab, setActiveTab] = useState(view === "notifications" ? 1 : 2);
+  const [activeTab, setActiveTab] = useState(1);
 
   useEffect(selectActiveTab, [open, view]);
 
@@ -25,7 +26,8 @@ const Settings: FC<SettingsProps> = ({ open, view, close }) => {
   };
 
   function selectActiveTab() {
-    if (open) setActiveTab(view === "notifications" ? 1 : 2);
+    //if (open) setActiveTab(view === "notifications" ? 1 : 2);
+    if (open) setActiveTab(1);
   }
 
   function changeActiveTab(_: ChangeEvent<{}>, newValue: number) {
@@ -52,15 +54,19 @@ const Settings: FC<SettingsProps> = ({ open, view, close }) => {
             }
           />
 
-          <HorizontalIconTab label="Notificaciones" icon={<NotificationsIcon />} index={1} />
-          <HorizontalIconTab label="Mi cuenta" icon={<AccountCircle />} index={2} />
+                {/*TODO:
+                <HorizontalIconTab label="Notificaciones" icon={<NotificationsIcon />} index={1} />
+                  */}
+          <HorizontalIconTab label="Mi cuenta" icon={<AccountCircle />} index={1} />
         </Tabs>
 
         <div className={classes.tabPanels}>
+          {/* TODO:
           <TabPanel value={activeTab} index={1} padding={0}>
             <Notifications />
-          </TabPanel>
-          <TabPanel value={activeTab} index={2} padding={0}>
+              </TabPanel>
+            */}
+          <TabPanel value={activeTab} index={1} padding={0}>
             <UserInfo />
           </TabPanel>
         </div>
