@@ -1,4 +1,12 @@
-import { Button, Container, Grid, makeStyles, Typography } from "@material-ui/core";
+import {
+  Button,
+  Container,
+  Grid,
+  makeStyles,
+  Typography,
+  Hidden,
+  useMediaQuery,
+} from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -9,13 +17,27 @@ const Welcome: FC = () => {
   const router = useRouter();
   const primary = theme.palette.primary.main;
   const classes = useStyles();
+  const matches = useMediaQuery(theme.breakpoints.up("md"));
 
   const goToDataAndReports = () => router.push("/monitor");
 
   return (
     <Container maxWidth="lg" className={classes.container}>
       <Grid container>
-        <Grid item md={6} className={classes.startSide}>
+        {/*!matches && (
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "100%",
+              height: "100%",
+            }}
+          >
+            <img src="/images/welcome.png" height={100} />
+          </div>
+        )*/}
+        <Grid item xs={12} md={6} className={classes.startSide}>
           <Typography variant="h4" style={{ fontWeight: "bold", lineHeight: theme.spacing(0.18) }}>
             Te damos la bienvenida a la aplicación de{" "}
             <span style={{ color: primary }}>monitoreo de ríos</span> de la Republica Dominicana
@@ -31,13 +53,17 @@ const Welcome: FC = () => {
             color="primary"
             style={{ fontWeight: "bold" }}
             onClick={goToDataAndReports}
-          >Ir al monitor</Button>
+          >
+            Ir al monitor
+          </Button>
         </Grid>
-        <Grid item md={6} className={classes.endSide}>
-          <div className={classes.imageBox}>
-            <Image src="/images/welcome.png" alt="Hey" layout="fill" objectFit="contain" />
-          </div>
-        </Grid>
+        {matches && (
+          <Grid item md={6} className={classes.endSide}>
+            <div className={classes.imageBox}>
+              <Image src="/images/welcome.png" alt="Hey" layout="fill" objectFit="contain" />
+            </div>
+          </Grid>
+        )}
       </Grid>
     </Container>
   );
@@ -52,9 +78,12 @@ export const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    padding: theme.spacing(4),
     "& > *:not(:last-child)": {
       marginBottom: theme.spacing(3),
+    },
+    [theme.breakpoints.down("sm")]: {
+      paddingTop: theme.spacing(3),
+      paddingBottom: theme.spacing(3),
     },
   },
   endSide: {
@@ -69,3 +98,4 @@ export const useStyles = makeStyles((theme) => ({
 }));
 
 export default Welcome;
+

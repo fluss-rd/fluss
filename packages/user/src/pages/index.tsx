@@ -16,7 +16,7 @@ const Home: NextPage = () => {
   const sectionId = router.query.sectionId as string;
   const theme = useTheme();
 
-  // Scroll to section if you come from another page.
+  // Scroll to an specific section if you come from another page.
   useEffect(scroll(sectionId, { offset: -appBarHeight(theme) }), [sectionId, theme]);
 
   return (

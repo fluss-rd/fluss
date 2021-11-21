@@ -19,7 +19,7 @@ const AboutUs: FC = () => {
     <Container maxWidth="lg" className={classes.container}>
       <Slider {...settings}>
         <div>
-          <Grid container style={{ padding: theme.spacing(4) }}>
+          <Grid container>
             <Grid item md={5} className={classes.startSide}>
               <Typography
                 variant="h4"
@@ -41,8 +41,8 @@ const AboutUs: FC = () => {
             </Grid>
           </Grid>
         </div>
-        <div style={{ padding: theme.spacing(4) }}>
-          <Grid container style={{ padding: theme.spacing(4) }}>
+        <div style={{}}>
+          <Grid container style={{}}>
             <Grid item md={5} className={classes.startSide}>
               <Typography
                 variant="h4"
@@ -64,8 +64,8 @@ const AboutUs: FC = () => {
             </Grid>
           </Grid>
         </div>
-        <div style={{ padding: theme.spacing(4) }}>
-          <Grid container style={{ padding: theme.spacing(4) }}>
+        <div style={{}}>
+          <Grid container style={{}}>
             <Grid item md={5} className={classes.startSide}>
               <Typography
                 variant="h4"
@@ -106,10 +106,6 @@ export const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    padding: theme.spacing(4),
-    "& > *:not(:last-child)": {
-      marginBottom: theme.spacing(3),
-    },
   },
   endSide: {
     display: "flex",

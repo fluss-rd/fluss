@@ -6,7 +6,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 
 import DateFnsUtils from "@date-io/date-fns";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
-import { ThemeProvider } from "@material-ui/styles";
+import { ThemeProvider, responsiveFontSizes } from "@material-ui/core/styles";
 import Layout from "layouts";
 import React, { useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -22,7 +22,8 @@ const queryClient = new QueryClient();
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const isInMonitor = router.pathname === "/monitor";
-  const currentTheme = isInMonitor ? monitorTheme : theme;
+  let currentTheme = isInMonitor ? monitorTheme : theme;
+  currentTheme = responsiveFontSizes(currentTheme);
 
   useEffect(removeServerSideInjectedCss, []);
 
