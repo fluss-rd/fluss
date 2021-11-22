@@ -50,6 +50,6 @@ COPY --from=builder /app/packages/admin/node_modules ./packages/admin/node_modul
 
 USER nextjs
 
-EXPOSE 3001
+EXPOSE 3000
 
 CMD ["yarn", "workspace", "admin", "start"]
