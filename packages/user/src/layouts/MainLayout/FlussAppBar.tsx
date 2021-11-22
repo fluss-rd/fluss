@@ -20,6 +20,7 @@ import FlussDrawer from "./FlussDrawer";
 const FlussAppBar: FC = () => {
   const [sidebarIsOpen, openSidebar, closeSidebar] = useBoolean();
   const theme = useTheme();
+  const usesDarkTheme = theme.palette.type === "dark";
   const isMediumSizeDevice = useMediaQuery(theme.breakpoints.up("sm"));
   const router = useRouter();
   const isInMonitor = router.pathname === "/monitor";
@@ -50,7 +51,7 @@ const FlussAppBar: FC = () => {
           )}
           <Button className={classes.brand} onClick={push("/")}>
             <div className={classes.logo}>
-              {!isInMonitor ? (
+              {!usesDarkTheme ? (
                 <Image src="/images/logo.png" alt="Logo" width={35} height={35} />
               ) : (
                 <Image src="/images/logo_image_dark.png" alt="Logo" width={35} height={35} />
