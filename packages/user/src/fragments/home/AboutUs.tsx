@@ -3,11 +3,12 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Image from "next/image";
 import React, { FC } from "react";
 import Slider, { Settings } from "react-slick";
+import HomeSection from "./HomeSection";
 
 const AboutUs: FC = () => {
   const classes = useStyles();
   const theme = useTheme();
-  const isInSmallDevice = useMediaQuery(theme.breakpoints.down("xs"))
+  const isInSmallDevice = useMediaQuery(theme.breakpoints.down("xs"));
   const settings: Settings = {
     dots: true,
     infinite: true,
@@ -19,31 +20,33 @@ const AboutUs: FC = () => {
   };
 
   return (
-    <Container maxWidth="lg" className={classes.container}>
-      <Slider {...settings}>
-        <Section
-          title="Sobre nosotros"
-          imageUrl="/images/reports.png"
-          description="Somos una organización sin fines de lucro que busca proveer información de elementos fisocoquímicos de la República Dominicana y hacer accesible estos datos a todo interesado en conocer de ellos."
-        />
-        <Section
-          title="Nuestro equipo"
-          imageUrl="/images/team.png"
-          description="Hecho por un pequeño pero diverso equipo de personas que con sus especialidades particulares y gran trabajo en equipo creamos esta plataforma libre y gratuita para sus necesidades de investigacion, estudiantiles o simplemente curiosidad."
-        />
-        <Section
-          title="Nuestros patrocinadores"
-          imageUrl="/images/team.png"
-          description={
-            <>
-              Gracias a nuestros patricanodores por el apoyo a nuestor proyecto{" "}
-              <strong>INTEC</strong> (Instituto Tecnologico de Santo Domingo) <strong>ACAP</strong>{" "}
-              (Asociacion del Cibao de Ahorros y Prestamos)
-            </>
-          }
-        />
-      </Slider>
-    </Container>
+    <HomeSection name="about-us" className={classes.background}>
+      <Container maxWidth="lg" className={classes.container}>
+        <Slider {...settings}>
+          <Section
+            title="Sobre nosotros"
+            imageUrl="/images/reports.png"
+            description="Somos una organización sin fines de lucro que busca proveer información de elementos fisocoquímicos de la República Dominicana y hacer accesible estos datos a todo interesado en conocer de ellos."
+          />
+          <Section
+            title="Nuestro equipo"
+            imageUrl="/images/team.png"
+            description="Hecho por un pequeño pero diverso equipo de personas que con sus especialidades particulares y gran trabajo en equipo creamos esta plataforma libre y gratuita para sus necesidades de investigacion, estudiantiles o simplemente curiosidad."
+          />
+          <Section
+            title="Nuestros patrocinadores"
+            imageUrl="/images/team.png"
+            description={
+              <>
+                Gracias a nuestros patricanodores por el apoyo a nuestor proyecto{" "}
+                <strong>INTEC</strong> (Instituto Tecnologico de Santo Domingo){" "}
+                <strong>ACAP</strong> (Asociacion del Cibao de Ahorros y Prestamos)
+              </>
+            }
+          />
+        </Slider>
+      </Container>
+    </HomeSection>
   );
 };
 
@@ -82,6 +85,9 @@ const Section: FC<SectionProps> = ({ title, description, imageUrl }) => {
 };
 
 export const useStyles = makeStyles((theme) => ({
+  background: {
+    backgroundImage: "linear-gradient(rgba(233, 250, 254, 1), rgba(255, 255, 255, 0))",
+  },
   container: {
     textAlign: "center",
   },
