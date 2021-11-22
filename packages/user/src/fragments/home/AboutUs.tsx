@@ -68,6 +68,8 @@ const Section: FC<SectionProps> = ({ title, description, imageUrl }) => {
             {title}
           </Typography>
 
+          <br />
+
           <Typography variant="h5" style={{ lineHeight: theme.spacing(0.18) }}>
             {description}
           </Typography>
@@ -89,12 +91,10 @@ export const useStyles = makeStyles((theme) => ({
     backgroundImage: "linear-gradient(rgba(233, 250, 254, 1), rgba(255, 255, 255, 0))",
   },
   container: {
-    textAlign: "center",
   },
   startSide: {
     display: "flex",
     flexDirection: "column",
-    alignItems: "center",
     justifyContent: "center",
     [theme.breakpoints.down("sm")]: {
       paddingTop: theme.spacing(3),

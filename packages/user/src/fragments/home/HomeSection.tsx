@@ -22,6 +22,7 @@ const HomeSection: FC<HomeSectionProps> = ({ name, className, children }) => {
 const useStyles = makeStyles((theme) => ({
   section: {
     width: "100%",
+    height: "100%",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -31,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
     },
     paddingTop: theme.spacing(3),
     paddingBottom: theme.spacing(3),
+    position: 'relative',
   },
 }));
 

@@ -12,6 +12,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { FC } from "react";
 import HomeSection from "./HomeSection";
+import appBarHeight from "shared/helpers/appBarHeight";
 
 const Welcome: FC = () => {
   const theme = useTheme();
@@ -19,10 +20,11 @@ const Welcome: FC = () => {
   const primary = theme.palette.primary.main;
   const classes = useStyles();
   const goToDataAndReports = () => router.push("/monitor");
+  const isSmallDevice = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
-    <HomeSection name="welcome">
-      <Container maxWidth="lg">
+    <HomeSection name="welcome" className={classes.section}>
+      <Container maxWidth="lg" className={classes.container}>
         <Grid container>
           <Grid item xs={12} md={6} className={classes.startSide}>
             <Typography
@@ -40,7 +42,7 @@ const Welcome: FC = () => {
 
             <div>
               <Button
-                variant="contained"
+                variant={isSmallDevice ? "outlined" : "contained"}
                 color="primary"
                 style={{ fontWeight: "bold" }}
                 onClick={goToDataAndReports}
@@ -63,8 +65,31 @@ const Welcome: FC = () => {
 };
 
 export const useStyles = makeStyles((theme) => ({
+  section: {
+    [theme.breakpoints.down("sm")]: {
+      backgroundImage: `url("/images/welcome.png")`,
+      backgroundRepeat: "no-repeat",
+      backgroundSize: "auto",
+      backgroundPosition: "center",
+    },
+    [theme.breakpoints.down("xs")]: {
+      backgroundPosition: "left center",
+    },
+  },
+  container: {
+    height: "100%",
+    position: "absolute",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    [theme.breakpoints.down("sm")]: {
+      backgroundColor: "rgba(255, 255, 255, 0.8)",
+      backdropFilter: `blur(1px)`,
+    },
+  },
   startSide: {
     width: "100%",
+    height: "100%",
     display: "flex",
     flexDirection: "column",
     "& > *:not(:last-child)": {
