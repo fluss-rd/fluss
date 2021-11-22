@@ -7,10 +7,11 @@ interface FlussLogoProps {
   darkImagePath?: string;
   onClick?: () => void;
   TypographyProps?: TypographyProps;
+  grow?: boolean;
 }
 
 export default function FlussLogo(props: FlussLogoProps) {
-  const classes = useStyles();
+  const classes = useStyles({ grow: props.grow });
   const theme = useTheme();
   const usesDarkTheme = theme.palette.type === "dark";
   const imageUrl = !usesDarkTheme ? props.imagePath : props.darkImagePath;
@@ -30,16 +31,17 @@ export default function FlussLogo(props: FlussLogoProps) {
 FlussLogo.defaultProps = {
   imagePath: "/images/logo.png",
   color: "secondary",
+  grow: true,
 };
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles<Theme, { grow: boolean }>((theme: Theme) => ({
   brand: {
     display: "flex",
     alignItems: "center",
     justifyContent: "flex-start",
     cursor: "pointer",
     textTransform: "none",
-    flexGrow: 1,
+    flexGrow: ({ grow }) => (grow ? 1 : undefined),
   },
   logo: {
     display: "flex",

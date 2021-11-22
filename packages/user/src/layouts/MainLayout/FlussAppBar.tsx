@@ -60,7 +60,9 @@ const FlussAppBar: FC = () => {
             imagePath="/images/logo.png"
             darkImagePath="/images/logo_dark.png"
             onClick={push("/")}
+            grow={false}
           />
+
           {isMediumSizeDevice && (
             <>
               <div className={classes.startButtons}>
@@ -120,6 +122,7 @@ const useStyles = makeStyles<Theme, { isInMonitor: boolean }>((theme: Theme) => 
     flexGrow: 1,
     display: "flex",
     alignItems: "center",
+    marginLeft: theme.spacing(2),
   },
   reportsButton: {
     borderRadius: 10,
