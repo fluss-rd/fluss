@@ -24,19 +24,6 @@ const Welcome: FC = () => {
   return (
     <Container maxWidth="lg" className={classes.container}>
       <Grid container>
-        {/*!matches && (
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: "100%",
-              height: "100%",
-            }}
-          >
-            <img src="/images/welcome.png" height={100} />
-          </div>
-        )*/}
         <Grid item xs={12} md={6} className={classes.startSide}>
           <Typography variant="h4" style={{ fontWeight: "bold", lineHeight: theme.spacing(0.18) }}>
             Te damos la bienvenida a la aplicación de{" "}
@@ -48,22 +35,24 @@ const Welcome: FC = () => {
             datos de parámetros fisicoquímicos del agua de los ríos de la República Dominicana
           </Typography>
 
-          <Button
-            variant="contained"
-            color="primary"
-            style={{ fontWeight: "bold" }}
-            onClick={goToDataAndReports}
-          >
-            Ir al monitor
-          </Button>
+          <div>
+            <Button
+              variant="contained"
+              color="primary"
+              style={{ fontWeight: "bold" }}
+              onClick={goToDataAndReports}
+            >
+              Ir al monitor
+            </Button>
+          </div>
         </Grid>
-        {matches && (
-          <Grid item md={6} className={classes.endSide}>
+        <Hidden smDown>
+          <Grid item xs={12} md={6} className={classes.endSide}>
             <div className={classes.imageBox}>
               <Image src="/images/welcome.png" alt="Hey" layout="fill" objectFit="contain" />
             </div>
           </Grid>
-        )}
+        </Hidden>
       </Grid>
     </Container>
   );
@@ -71,13 +60,11 @@ const Welcome: FC = () => {
 
 export const useStyles = makeStyles((theme) => ({
   container: {
-    textAlign: "center",
   },
   startSide: {
+    width: "100%",
     display: "flex",
     flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
     "& > *:not(:last-child)": {
       marginBottom: theme.spacing(3),
     },

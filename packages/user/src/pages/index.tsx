@@ -34,9 +34,11 @@ const Home: NextPage = () => {
   );
 };
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   section: {
-    minHeight: "calc(100vh / 1.5)",
+    [theme.breakpoints.up("md")]: {
+      minHeight: "calc(100vh / 1.5)",
+    },
     width: "100%",
     display: "flex",
     alignItems: "center",
@@ -49,6 +51,7 @@ const useStyles = makeStyles({
   contact: {
     minHeight: "calc(100vh / 1.2)",
   },
-});
+}));
 
 export default Home;
+
