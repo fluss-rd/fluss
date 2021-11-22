@@ -20,6 +20,7 @@ interface FormSelectProps extends Omit<SelectProps, "ref"> {
   helperText?: string;
   FormControlProps?: Partial<FormControlProps>;
   selectRef?: any;
+  size?: "medium" | "small";
 }
 
 const FormSelect = forwardRef((props: FormSelectProps, ref: ForwardedRef<any>) => {
@@ -28,7 +29,7 @@ const FormSelect = forwardRef((props: FormSelectProps, ref: ForwardedRef<any>) =
   const { noneText, noneValue, FormControlProps, selectRef, helperText, ...rest } = props;
 
   return (
-    <FormControl fullWidth variant="outlined" {...FormControlProps} ref={ref}>
+    <FormControl fullWidth variant="outlined" {...FormControlProps} ref={ref} size={rest.size}>
       <InputLabel shrink id={`${selectId}-label`}>
         {props.label}
       </InputLabel>
@@ -64,3 +65,4 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default FormSelect;
+

@@ -12,9 +12,11 @@ import {
   MenuItem,
   Radio,
   Link,
+  useTheme,
+  useMediaQuery,
 } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
-import React, { ChangeEvent, FC, useEffect, useState } from "react";
+import React, { ChangeEvent, FC, useState } from "react";
 
 import { mockWatersheds } from "../../models/Watershed";
 import DateTimeRange from "../DateTimeRange";
@@ -36,10 +38,12 @@ const ModuleDataDownload: FC<ModuleDataDownloadProps> = ({
   watershedId,
   moduleId,
 }) => {
+  const theme = useTheme();
   const classes = useStyles();
   const [selectedDate, handleDateChange] = useState(new Date());
   const [selectedWatershed, setSelectedWatershed] = useState(watershedId);
   const watersheds = mockWatersheds();
+  const isInSmallDevice = useMediaQuery(theme.breakpoints.down("sm"));
 
   const moduleDetailsQuery = useReportAllModulesData();
   const reportAllModulesData = moduleDetailsQuery?.data;
@@ -74,6 +78,7 @@ const ModuleDataDownload: FC<ModuleDataDownloadProps> = ({
       onClose={close}
       open={isOpen}
       aria-labelledby="confirmation-dialog-title"
+      fullScreen={isInSmallDevice}
     >
       <DialogTitle id="confirmation-dialog-title">Descargar datos</DialogTitle>
       <DialogContent dividers>

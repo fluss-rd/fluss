@@ -14,6 +14,7 @@ import { useRouter } from "next/router";
 import React, { FC } from "react";
 import { appBarHeight, scroll } from "shared/helpers";
 import useBoolean from "shared/hooks/useBoolean";
+import FlussLogo from "shared/components/FlussLogo";
 
 import FlussDrawer from "./FlussDrawer";
 
@@ -36,7 +37,13 @@ const FlussAppBar: FC = () => {
   return (
     <>
       <FlussDrawer close={closeSidebar} isOpen={sidebarIsOpen} goTo={goTo} />
-      <Navbar position="fixed" color="transparent" elevation={0} className={classes.navbar} variant="outlined">
+      <Navbar
+        position="fixed"
+        color="transparent"
+        elevation={0}
+        className={classes.navbar}
+        variant="outlined"
+      >
         <Toolbar>
           {!isMediumSizeDevice && (
             <IconButton
@@ -49,18 +56,11 @@ const FlussAppBar: FC = () => {
               <MenuIcon />
             </IconButton>
           )}
-          <Button className={classes.brand} onClick={push("/")}>
-            <div className={classes.logo}>
-              {!usesDarkTheme ? (
-                <Image src="/images/logo.png" alt="Logo" width={35} height={35} />
-              ) : (
-                <Image src="/images/logo_image_dark.png" alt="Logo" width={35} height={35} />
-              )}
-            </div>
-            <Typography className={classes.title} variant="h6" noWrap>
-              fluss
-            </Typography>
-          </Button>
+          <FlussLogo
+            imagePath="/images/logo.png"
+            darkImagePath="/images/logo_dark.png"
+            onClick={push("/")}
+          />
           {isMediumSizeDevice && (
             <>
               <div className={classes.startButtons}>

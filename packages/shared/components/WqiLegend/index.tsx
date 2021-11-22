@@ -1,12 +1,14 @@
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, Theme } from "@material-ui/core/styles";
 import React, { FC } from "react";
 
 import WqiLegendItem from "./WqiLegendItem";
 
-interface Leyend2Props {}
+interface Leyend2Props {
+  vertical?: boolean;
+}
 
-const Leyend2: FC<Leyend2Props> = () => {
-  const classes = useStyles();
+const Leyend2: FC<Leyend2Props> = (props) => {
+  const classes = useStyles({ vertical: props.vertical });
 
   return (
     <div className={classes.content}>
@@ -19,9 +21,12 @@ const Leyend2: FC<Leyend2Props> = () => {
   );
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles<Theme, { vertical: boolean }>((theme) => ({
   content: {
+    overflow: "auto",
     display: "flex",
+    bacground: 'red',
+    flexDirection: ({ vertical }) => (vertical ? "column" : "row"),
     width: "fit-content",
     "& > *:not(:last-child)": {
       marginRight: theme.spacing(1),

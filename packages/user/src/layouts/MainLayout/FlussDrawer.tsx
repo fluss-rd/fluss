@@ -20,7 +20,7 @@ const FlussDrawer: FC<FlussDrawerProps> = (props) => {
   return (
     <Drawer anchor="left" open={props.isOpen} onClose={props.close}>
       <div className={classes.toolbar}>
-        <FlussLogo imagePath="/images/logo.png" darkImagePath="/images/logo_image_dark.png" />
+        <FlussLogo imagePath="/images/logo.png" darkImagePath="/images/logo_dark.png" onClick={push("/")} />
       </div>
       <Divider />
       <List>
