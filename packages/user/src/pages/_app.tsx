@@ -5,17 +5,17 @@ import "styles/styles.scss";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 import DateFnsUtils from "@date-io/date-fns";
+import { createMuiTheme } from "@material-ui/core";
+import { responsiveFontSizes, ThemeProvider } from "@material-ui/core/styles";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
-import { ThemeProvider, responsiveFontSizes } from "@material-ui/core/styles";
 import Layout from "layouts";
+import Head from "next/head";
+import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ServiceProvider } from "services/service";
 import { initialState, StateContext } from "store/state";
 import theme, { GlobalCss } from "styles/theme";
-import { useRouter } from "next/router";
-import { createMuiTheme } from "@material-ui/core";
-import Head from "next/head";
 
 const queryClient = new QueryClient();
 
@@ -68,4 +68,3 @@ const monitorTheme = createMuiTheme({
   },
 });
 export default MyApp;
-

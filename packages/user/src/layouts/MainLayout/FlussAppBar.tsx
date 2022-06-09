@@ -1,27 +1,24 @@
 import {
   AppBar as Navbar,
-  Link,
   Button,
-  Toolbar,
-  Typography,
   IconButton,
+  Link,
+  Toolbar,
   useMediaQuery,
 } from "@material-ui/core";
-import MenuIcon from "@material-ui/icons/Menu";
 import { makeStyles, Theme, useTheme } from "@material-ui/core/styles";
-import Image from "next/image";
+import MenuIcon from "@material-ui/icons/Menu";
 import { useRouter } from "next/router";
 import React, { FC } from "react";
+import FlussLogo from "shared/components/FlussLogo";
 import { appBarHeight, scroll } from "shared/helpers";
 import useBoolean from "shared/hooks/useBoolean";
-import FlussLogo from "shared/components/FlussLogo";
 
 import FlussDrawer from "./FlussDrawer";
 
 const FlussAppBar: FC = () => {
   const [sidebarIsOpen, openSidebar, closeSidebar] = useBoolean();
   const theme = useTheme();
-  const usesDarkTheme = theme.palette.type === "dark";
   const isMediumSizeDevice = useMediaQuery(theme.breakpoints.up("sm"));
   const router = useRouter();
   const isInMonitor = router.pathname === "/monitor";
@@ -142,4 +139,3 @@ const useStyles = makeStyles<Theme, { isInMonitor: boolean }>((theme: Theme) => 
 }));
 
 export default FlussAppBar;
-

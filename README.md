@@ -70,3 +70,8 @@ The following are is the list of custom yarn commands in the package:
 |`yarn lint-fix:user`|Fix linting warning and erorrs in the user project|
 |`yarn lint-fix:shared`|Fix linting warning and erorrs in the shared project|
 |`yarn lint-fix:all`|Fix linting warning and erorrs in all the projects|
+
+## TODO
+
+- Add a debug stage in the Dockerfiles
+- Create a docker-compose file to easily use the debugging stage of the projects

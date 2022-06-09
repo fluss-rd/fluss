@@ -16,8 +16,15 @@ interface MonitorProps {
   mode: MonitorMode;
 }
 
+const defaultWatershedId = "Todos";
+
+/**
+ *  TODO:
+ *  1. Improve the performance of the requests of the modules and watersheds.
+ *  2. Make some code cleaning.
+ */
 const Monitor: FC<MonitorProps> = (props) => {
-  const [watershedId, setWatershedId] = useState("Todos");
+  const [watershedId, setWatershedId] = useState(defaultWatershedId);
   const { data } = useWatershedsMapData();
   const modules = (data?.modules || []).filter(filterModules);
   const watersheds = (data?.watersheds || []).filter(filterWatersheds);
@@ -32,12 +39,12 @@ const Monitor: FC<MonitorProps> = (props) => {
   };
 
   function filterModules(module: Module) {
-    const selection = watershedId === "Todos" ? module.watershedId : watershedId;
+    const selection = watershedId === defaultWatershedId ? module.watershedId : watershedId;
     return module.watershedId === selection;
   }
 
   function filterWatersheds(watershed: Watershed) {
-    const selected = watershedId === "Todos" ? watershed.id : watershedId;
+    const selected = watershedId === defaultWatershedId ? watershed.id : watershedId;
     return watershed.id === selected;
   }
 
