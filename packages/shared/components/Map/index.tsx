@@ -73,6 +73,7 @@ function Map<T>(props: MapProps<T>, ref: ForwardedRef<MapRef>) {
   );
 
   const onViewPortChange = useCallback((viewport: any) => {
+    console.log("viewpor change");
     setViewport(viewport);
   }, []);
 
@@ -89,10 +90,12 @@ function Map<T>(props: MapProps<T>, ref: ForwardedRef<MapRef>) {
   }
 
   function updateZoom() {
+    console.log("Update zoom");
     setViewport({ zoom: props.zoom || 0 });
   }
 
   function updateFocus() {
+    console.log("Update focus");
     const coordinates = Array.isArray(props.focusLocation)
       ? computeCoordinatesCenter(props.focusLocation)
       : props.focusLocation || defaultFocus;
@@ -105,6 +108,8 @@ function Map<T>(props: MapProps<T>, ref: ForwardedRef<MapRef>) {
       transitionEasing: easeCubic,
     });
   }
+
+  console.log("Inside MAP");
 
   return (
     <ReactMapGL

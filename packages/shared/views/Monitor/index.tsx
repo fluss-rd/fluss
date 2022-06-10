@@ -21,6 +21,9 @@ const defaultWatershedId = "Todos";
 /**
  *  TODO:
  *  1. Improve the performance of the requests of the modules and watersheds.
+ *
+ *     The issues is related to ReactMapGL and the fact that they don't optimize markers. [The workaround
+ *     is to use GeoJSON](https://github.com/visgl/react-map-gl/issues/750#issuecomment-478654843)
  *  2. Make some code cleaning.
  */
 const Monitor: FC<MonitorProps> = (props) => {
@@ -63,6 +66,8 @@ const Monitor: FC<MonitorProps> = (props) => {
 
     return props.mode === "admin" ? defaultZoom - 0.22 : undefined;
   }
+
+  console.log("Hey");
 
   return (
     <div className={classes.map}>
