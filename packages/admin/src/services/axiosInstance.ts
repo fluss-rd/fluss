@@ -6,6 +6,7 @@ const axiosInstance = axios.create({
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json, text/plain, */*",
+    Authorization: `Bearer ${process.env.apiToken}`,
   },
 });
 

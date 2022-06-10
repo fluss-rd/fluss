@@ -44,6 +44,8 @@ export interface MapRef {
   mapRef: React.MutableRefObject<undefined>;
 }
 
+const mapboxToken: string = process.env.mapboxToken;
+
 function Map<T>(props: MapProps<T>, ref: ForwardedRef<MapRef>) {
   const mapRef = useRef();
   const computeDefaultLocation = useCallback((): Location => {
@@ -111,7 +113,7 @@ function Map<T>(props: MapProps<T>, ref: ForwardedRef<MapRef>) {
       height="100%"
       onViewportChange={onViewPortChange}
       mapStyle={mapStyleToUrl(props.style)}
-      mapboxApiAccessToken={process.env.mapboxToken}
+      mapboxApiAccessToken={mapboxToken}
       onClick={onMapClick}
       ref={mapRef}
     >

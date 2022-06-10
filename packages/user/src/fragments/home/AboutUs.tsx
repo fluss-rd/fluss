@@ -1,8 +1,9 @@
-import { Container, Grid, Typography, Hidden, useMediaQuery } from "@material-ui/core";
+import { Container, Grid, Hidden, Typography, useMediaQuery } from "@material-ui/core";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Image from "next/image";
 import React, { FC } from "react";
 import Slider, { Settings } from "react-slick";
+
 import HomeSection from "./HomeSection";
 
 const AboutUs: FC = () => {
@@ -90,8 +91,7 @@ export const useStyles = makeStyles((theme) => ({
   background: {
     backgroundImage: "linear-gradient(rgba(233, 250, 254, 1), rgba(255, 255, 255, 0))",
   },
-  container: {
-  },
+  container: {},
   startSide: {
     display: "flex",
     flexDirection: "column",
@@ -116,4 +116,3 @@ export const useStyles = makeStyles((theme) => ({
 }));
 
 export default AboutUs;
-

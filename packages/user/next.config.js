@@ -2,12 +2,11 @@ const withPlugins = require("next-compose-plugins");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const withTM = require("next-transpile-modules")(["shared"]);
 
-// TODO: Investigate about using the .env file here instead of using hardcoded elements
 module.exports = withPlugins([withTM], {
   env: {
-    mapboxToken:
-      "pk.eyJ1IjoibWlraGFlbDE3MjkiLCJhIjoiY2ttbGN2Y2M1MTl3YjJ1bjAyZmg0MmU1NCJ9.WiU0fisWQSYwcEs-Ay6ONw",
-    apiUrl: "https://backend.fluss.com.do",
+    apiUrl: process.env.API_URL,
+    apiToken: process.env.API_TOKEN,
+    mapboxToken:process.env.MAPBOX_TOKEN,
   },
   webpack(config, options) {
     const { dev, isServer } = options;

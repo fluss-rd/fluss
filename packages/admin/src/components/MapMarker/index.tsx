@@ -15,6 +15,8 @@ interface MapMarkerProps {
   markers?: Location[];
 }
 
+const mapboxToken = process.env.mapboxToken;
+
 const MapMarker: FC<MapMarkerProps> = (props) => {
   const [viewport, setViewport] = useMergeState({
     width: "100%",
@@ -39,7 +41,7 @@ const MapMarker: FC<MapMarkerProps> = (props) => {
       onClick={onMapClick}
       onViewportChange={onViewportChange}
       mapStyle={mapStyleToUrl(props.style)}
-      mapboxApiAccessToken={process.env.mapboxToken}
+      mapboxApiAccessToken={mapboxToken}
     >
       {props.markers.map(({ latitude, longitude }) => (
         <Marker latitude={latitude} longitude={longitude} key={generateId("marker")}>

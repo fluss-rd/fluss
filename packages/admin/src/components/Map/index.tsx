@@ -21,6 +21,8 @@ interface MapProps<T> {
   zoom?: number;
 }
 
+const mapboxToken = process.env.mapboxToken;
+
 // Map shows a map with the provided locations.
 function Map<T>(props: MapProps<T>) {
   const computeDefaultLocation = useCallback((): Location => {
@@ -51,7 +53,7 @@ function Map<T>(props: MapProps<T>) {
       height="100%"
       onViewportChange={(viewport) => setViewport(viewport)}
       mapStyle={mapStyleToUrl(props.style)}
-      mapboxApiAccessToken={process.env.mapboxToken}
+      mapboxApiAccessToken={mapboxToken}
       onClick={onMapClick}
     >
       {props.locations.map((info) => (
